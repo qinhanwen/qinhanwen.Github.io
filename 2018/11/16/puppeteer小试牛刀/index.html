@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="puppeteer," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Puppeteer入门1.背景需求刚好公司的app，定制包比较多，当初经常出现app里二维码页面图片丢失或者有些白屏，打出来的包比较多又不好人工验证，所以可以使用Puppeteer。跳转到二维码页面截图，识别二维码，是否与预设的地址一样。还有每次有新客户的时候，就有友盟，微信，极光7，8个key需要申请，也可以使用puppeteer来完成。缺点就是维护成本比较高，需要经常更新。 2.Puppete">
+<meta name="keywords" content="puppeteer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="puppeteer入门">
+<meta property="og:url" content="http://yoursite.com/2018/11/16/puppeteer小试牛刀/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="Puppeteer入门1.背景需求刚好公司的app，定制包比较多，当初经常出现app里二维码页面图片丢失或者有些白屏，打出来的包比较多又不好人工验证，所以可以使用Puppeteer。跳转到二维码页面截图，识别二维码，是否与预设的地址一样。还有每次有新客户的时候，就有友盟，微信，极光7，8个key需要申请，也可以使用puppeteer来完成。缺点就是维护成本比较高，需要经常更新。 2.Puppete">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181117-164728@2x.png">
+<meta property="og:updated_time" content="2018-12-17T09:56:35.625Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="puppeteer入门">
+<meta name="twitter:description" content="Puppeteer入门1.背景需求刚好公司的app，定制包比较多，当初经常出现app里二维码页面图片丢失或者有些白屏，打出来的包比较多又不好人工验证，所以可以使用Puppeteer。跳转到二维码页面截图，识别二维码，是否与预设的地址一样。还有每次有新客户的时候，就有友盟，微信，极光7，8个key需要申请，也可以使用puppeteer来完成。缺点就是维护成本比较高，需要经常更新。 2.Puppete">
+<meta name="twitter:image" content="http://39.105.62.145/assets/images/WX20181117-164728@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/16/puppeteer小试牛刀/"/>
+
+
+
+
+
+  <title>puppeteer入门 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/puppeteer小试牛刀/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">puppeteer入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-16T16:24:26+08:00">
+                2018-11-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/puppeteer/" itemprop="url" rel="index">
+                    <span itemprop="name">puppeteer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Puppeteer入门"><a href="#Puppeteer入门" class="headerlink" title="Puppeteer入门"></a>Puppeteer入门</h2><h5 id="1-背景需求"><a href="#1-背景需求" class="headerlink" title="1.背景需求"></a>1.背景需求</h5><p>刚好公司的app，定制包比较多，当初经常出现app里二维码页面图片丢失或者有些白屏，打出来的包比较多又不好人工验证，所以可以使用Puppeteer。跳转到二维码页面截图，识别二维码，是否与预设的地址一样。还有每次有新客户的时候，就有友盟，微信，极光7，8个key需要申请，也可以使用puppeteer来完成。缺点就是维护成本比较高，需要经常更新。</p>
+<h5 id="2-Puppeteer介绍"><a href="#2-Puppeteer介绍" class="headerlink" title="2.Puppeteer介绍"></a>2.Puppeteer介绍</h5><p><code>Puppeteer</code>是一个<code>Nodejs</code>的库，可以用来做爬虫，加上百度文字识别，用于识别验证码，可以过一些简单表单提交，验证码比如一些字母加数字的比较好识别，一些不好识别图片就没办法了。也可以监听网络请求，比如监听到某些请求，然后去抓取里面的数据。应用场景还是蛮多的。</p>
+<h5 id="3-Puppeteer入门"><a href="#3-Puppeteer入门" class="headerlink" title="3.Puppeteer入门"></a>3.Puppeteer入门</h5><h6 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm i puppeteer</span><br><span class="line"><span class="meta">#</span> or "yarn add puppeteer"</span><br><span class="line"><span class="meta">#</span>会同时安装一个Chromium</span><br></pre></td></tr></table></figure>
+<p>安装时报错:<code>Chromium revision is not downloaded</code></p>
+<p>手动下载的办法</p>
+<p>1）先下载<a href="https://download-chromium.appspot.com/" target="_blank" rel="noopener">https://download-chromium.appspot.com/</a></p>
+<p>2）下载后解压到项目路径</p>
+<p>3）配置路径</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> browser = <span class="keyword">await</span> puppeteer.launch(&#123;</span><br><span class="line">  executablePath: <span class="string">'这里是你放到路径'</span>,<span class="comment">//配置路径参数</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h6 id="2-目录结构："><a href="#2-目录结构：" class="headerlink" title="2.目录结构："></a>2.目录结构：</h6><p><img src="http://39.105.62.145/assets/images/WX20181117-164728@2x.png" alt=""></p>
+<h6 id="3-简单的例子"><a href="#3-简单的例子" class="headerlink" title="3.简单的例子"></a>3.简单的例子</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//一个截取百度图片的小例子</span></span><br><span class="line"><span class="keyword">const</span> puppeteer = <span class="built_in">require</span>(<span class="string">'puppeteer'</span>);</span><br><span class="line"></span><br><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> browser = <span class="keyword">await</span> puppeteer.launch(&#123;<span class="attr">headless</span>: <span class="literal">false</span>&#125;);<span class="comment">//无头模式默认是true，设置为false，还有很多其他属性就不介绍了</span></span><br><span class="line">  <span class="keyword">const</span> page = <span class="keyword">await</span> browser.newPage();</span><br><span class="line">  <span class="keyword">await</span> page.goto(<span class="string">'https://baidu.com'</span>);</span><br><span class="line">  <span class="keyword">await</span> page.screenshot(&#123;<span class="attr">path</span>: <span class="string">'images/baidu.png'</span>&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">await</span> browser.close();</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<h5 id="4-介绍几个比较实用的"><a href="#4-介绍几个比较实用的" class="headerlink" title="4.介绍几个比较实用的"></a>4.介绍几个比较实用的</h5><h6 id="1-第一个当然是截屏（可以截取想要的位置，比如想识别一张验证码，需要先截取验证码的图片，再去识别）。"><a href="#1-第一个当然是截屏（可以截取想要的位置，比如想识别一张验证码，需要先截取验证码的图片，再去识别）。" class="headerlink" title="1.第一个当然是截屏（可以截取想要的位置，比如想识别一张验证码，需要先截取验证码的图片，再去识别）。"></a>1.第一个当然是截屏（可以截取想要的位置，比如想识别一张验证码，需要先截取验证码的图片，再去识别）。</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> puppeteer = <span class="built_in">require</span>(<span class="string">'puppeteer'</span>);</span><br><span class="line"></span><br><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> browser = <span class="keyword">await</span> puppeteer.launch(&#123; <span class="attr">headless</span>: <span class="literal">true</span> &#125;);<span class="comment">//无头模式默认是true，设置为false</span></span><br><span class="line">    <span class="keyword">const</span> page = <span class="keyword">await</span> browser.newPage();</span><br><span class="line">    <span class="keyword">await</span> page.goto(<span class="string">'http://www.exexm.com/'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> page.waitForSelector(<span class="string">'.logo&gt;a&gt;img'</span>);<span class="comment">//等待元素</span></span><br><span class="line">    <span class="keyword">const</span> img = <span class="keyword">await</span> page.$(<span class="string">'.logo&gt;a&gt;img'</span>);<span class="comment">//其实就是document.querySelector</span></span><br><span class="line">    <span class="keyword">const</span> boundingBox = <span class="keyword">await</span> img.boundingBox();<span class="comment">//获取一个对象有x，y，width，height属性</span></span><br><span class="line">    <span class="keyword">await</span> page.screenshot(&#123; <span class="attr">path</span>: <span class="string">'images/exe-logo.png'</span>, <span class="attr">clip</span>: boundingBox &#125;);<span class="comment">//clip 指定页面剪切部分，对象，属性有x,y,width,height</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> browser.close();</span><br><span class="line">&#125;)();</span><br><span class="line"><span class="comment">//这里是截取官网的logo。</span></span><br></pre></td></tr></table></figure>
+<h6 id="2-iframe标签里面的内容-登陆qq邮箱的简单例子"><a href="#2-iframe标签里面的内容-登陆qq邮箱的简单例子" class="headerlink" title="2.iframe标签里面的内容(登陆qq邮箱的简单例子)"></a>2.iframe标签里面的内容(登陆qq邮箱的简单例子)</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> puppeteer = <span class="built_in">require</span>(<span class="string">'puppeteer'</span>);</span><br><span class="line"></span><br><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> browser = <span class="keyword">await</span> puppeteer.launch(&#123; <span class="attr">headless</span>: <span class="literal">false</span> &#125;);<span class="comment">//无头模式默认是true，设置为false</span></span><br><span class="line">    <span class="keyword">const</span> page = <span class="keyword">await</span> browser.newPage();</span><br><span class="line">    <span class="keyword">await</span> page.goto(<span class="string">'https://mail.qq.com/'</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//因为元素iframe标签内，所以要获取一下</span></span><br><span class="line">    <span class="keyword">const</span> frame = <span class="keyword">await</span> page.frames().find(<span class="function"><span class="params">frame</span> =&gt;</span> frame.name() === <span class="string">'login_frame'</span>);<span class="comment">//找到name=login_frame的iframe</span></span><br><span class="line">    <span class="keyword">const</span> inputs = <span class="keyword">await</span> frame.$$(<span class="string">'.inputstyle'</span>);<span class="comment">//其实就是document.querySelectorAll</span></span><br><span class="line">    <span class="keyword">await</span> inputs[<span class="number">0</span>].type(<span class="string">'你的邮箱'</span>);<span class="comment">//在输入框中输入邮箱账号</span></span><br><span class="line">    <span class="keyword">await</span> inputs[<span class="number">1</span>].type(<span class="string">'你的邮箱密码'</span>);<span class="comment">//在输入框中输入邮箱密码</span></span><br><span class="line">    <span class="keyword">await</span> frame.tap(<span class="string">'.login_button'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> browser.close();</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<h6 id="3-鼠标事件（比如有些网站验证比较简单，输入账号密码之后，只需要拖动滑块便可完成验证）"><a href="#3-鼠标事件（比如有些网站验证比较简单，输入账号密码之后，只需要拖动滑块便可完成验证）" class="headerlink" title="3.鼠标事件（比如有些网站验证比较简单，输入账号密码之后，只需要拖动滑块便可完成验证）"></a>3.鼠标事件（比如有些网站验证比较简单，输入账号密码之后，只需要拖动滑块便可完成验证）</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">await</span> page.mouse.move(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">await</span> page.mouse.down();</span><br><span class="line"><span class="keyword">await</span> page.mouse.move(<span class="number">0</span>, <span class="number">100</span>);</span><br><span class="line"><span class="keyword">await</span> page.mouse.up();</span><br><span class="line"><span class="comment">//代码片段</span></span><br><span class="line"><span class="comment">//我只需要获取滑块的x，y坐标，以及宽高，将鼠标移动过去，在按下，在继续移动，最后放开</span></span><br></pre></td></tr></table></figure>
+<h6 id="4-监听事件"><a href="#4-监听事件" class="headerlink" title="4.监听事件"></a>4.监听事件</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">page.on(<span class="string">'response'</span>, response =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response.url());</span><br><span class="line">    <span class="keyword">if</span> (response.url().indexOf(<span class="string">'https://mail.qq.com'</span>)) &#123;</span><br><span class="line">    <span class="comment">//需要做的操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//我可以在打开网页的时候，开始监听某些响应，并且可以获得响应内容</span></span><br></pre></td></tr></table></figure>
+<p>以上这些感觉是比较常用的东西。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/puppeteer/" rel="tag"># puppeteer</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/15/微信版调试方法/" rel="next" title="内嵌版调试方法">
+                <i class="fa fa-chevron-left"></i> 内嵌版调试方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/16/koa入门/" rel="prev" title="koa入门">
+                koa入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Puppeteer入门"><span class="nav-number">1.</span> <span class="nav-text">Puppeteer入门</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-背景需求"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">1.背景需求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-Puppeteer介绍"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">2.Puppeteer介绍</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-Puppeteer入门"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">3.Puppeteer入门</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-安装"><span class="nav-number">1.0.0.3.1.</span> <span class="nav-text">1.安装</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-目录结构："><span class="nav-number">1.0.0.3.2.</span> <span class="nav-text">2.目录结构：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-简单的例子"><span class="nav-number">1.0.0.3.3.</span> <span class="nav-text">3.简单的例子</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-介绍几个比较实用的"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">4.介绍几个比较实用的</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-第一个当然是截屏（可以截取想要的位置，比如想识别一张验证码，需要先截取验证码的图片，再去识别）。"><span class="nav-number">1.0.0.4.1.</span> <span class="nav-text">1.第一个当然是截屏（可以截取想要的位置，比如想识别一张验证码，需要先截取验证码的图片，再去识别）。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-iframe标签里面的内容-登陆qq邮箱的简单例子"><span class="nav-number">1.0.0.4.2.</span> <span class="nav-text">2.iframe标签里面的内容(登陆qq邮箱的简单例子)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-鼠标事件（比如有些网站验证比较简单，输入账号密码之后，只需要拖动滑块便可完成验证）"><span class="nav-number">1.0.0.4.3.</span> <span class="nav-text">3.鼠标事件（比如有些网站验证比较简单，输入账号密码之后，只需要拖动滑块便可完成验证）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-监听事件"><span class="nav-number">1.0.0.4.4.</span> <span class="nav-text">4.监听事件</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

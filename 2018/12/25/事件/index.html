@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="深入学习," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="参考资料：https://www.bitovi.com/blog/a-crash-course-in-how-dom-events-work  事件事件监听1.怎样监听一个事件DOM0123&amp;lt;button onclick=&quot;alert(&apos;hello&apos;);&quot;&amp;gt;   click me! &amp;lt;/button&amp;gt; 这种直接将事件混合在HTML中，非常的不灵活 DOM11234var">
+<meta name="keywords" content="深入学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="事件">
+<meta property="og:url" content="http://yoursite.com/2018/12/25/事件/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="参考资料：https://www.bitovi.com/blog/a-crash-course-in-how-dom-events-work  事件事件监听1.怎样监听一个事件DOM0123&amp;lt;button onclick=&quot;alert(&apos;hello&apos;);&quot;&amp;gt;   click me! &amp;lt;/button&amp;gt; 这种直接将事件混合在HTML中，非常的不灵活 DOM11234var">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20190105-000222@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20190105-000914@2x.png">
+<meta property="og:updated_time" content="2019-01-06T15:42:02.061Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="事件">
+<meta name="twitter:description" content="参考资料：https://www.bitovi.com/blog/a-crash-course-in-how-dom-events-work  事件事件监听1.怎样监听一个事件DOM0123&amp;lt;button onclick=&quot;alert(&apos;hello&apos;);&quot;&amp;gt;   click me! &amp;lt;/button&amp;gt; 这种直接将事件混合在HTML中，非常的不灵活 DOM11234var">
+<meta name="twitter:image" content="http://39.105.62.145/assets/images/WX20190105-000222@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/25/事件/"/>
+
+
+
+
+
+  <title>事件 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/25/事件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">事件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-25T23:04:14+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深入学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深入学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>参考资料：<a href="https://www.bitovi.com/blog/a-crash-course-in-how-dom-events-work" target="_blank" rel="noopener">https://www.bitovi.com/blog/a-crash-course-in-how-dom-events-work</a></p>
+</blockquote>
+<h1 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h1><h4 id="事件监听"><a href="#事件监听" class="headerlink" title="事件监听"></a>事件监听</h4><h5 id="1-怎样监听一个事件"><a href="#1-怎样监听一个事件" class="headerlink" title="1.怎样监听一个事件"></a>1.怎样监听一个事件</h5><h6 id="DOM0"><a href="#DOM0" class="headerlink" title="DOM0"></a>DOM0</h6><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"alert('hello');"</span>&gt;</span></span><br><span class="line">   click me! </span><br><span class="line"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这种直接将事件混合在HTML中，非常的不灵活</p>
+<h6 id="DOM1"><a href="#DOM1" class="headerlink" title="DOM1"></a>DOM1</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> button = <span class="built_in">document</span>.getElementById(<span class="string">'button'</span>);</span><br><span class="line">button.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">'click me!'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方式相对于前一种，分离了HTML和JavaScript，但是只能为一个元素绑定事件</p>
+<h6 id="DOM2"><a href="#DOM2" class="headerlink" title="DOM2"></a>DOM2</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> button = <span class="built_in">document</span>.getElementById(<span class="string">'button'</span>);</span><br><span class="line">button.addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	alert(<span class="string">'click me!'</span>)</span><br><span class="line">&#125;,<span class="literal">false</span>)</span><br></pre></td></tr></table></figure>
+<p>通过<code>addEventListener</code>可以让我们对事件写更多的处理程序，下面会说<code>addEventListener</code>的第三个参数（可以控制事件在冒泡阶段还是捕获阶段触发）。</p>
+<h5 id="2-事件在文档中怎么穿梭"><a href="#2-事件在文档中怎么穿梭" class="headerlink" title="2.事件在文档中怎么穿梭"></a>2.事件在文档中怎么穿梭</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"myDiv"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">"myAnchor"</span> <span class="attr">href</span>=<span class="string">"https://qinhanwen.github.io/"</span>&gt;</span>qinhanwen!</span><br><span class="line">        <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> html = <span class="built_in">document</span>.documentElement;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> body = <span class="built_in">document</span>.body;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">'myDiv'</span>);</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> a = <span class="built_in">document</span>.getElementById(<span class="string">'myAnchor'</span>);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">handles</span>(<span class="params">e</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(e.currentTarget);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="javascript">    html.addEventListener(<span class="string">'click'</span>, handles, <span class="literal">true</span>);</span></span><br><span class="line"><span class="javascript">    body.addEventListener(<span class="string">'click'</span>, handles, <span class="literal">true</span>);</span></span><br><span class="line"><span class="javascript">    div.addEventListener(<span class="string">'click'</span>, handles, <span class="literal">true</span>);</span></span><br><span class="line"><span class="javascript">    a.addEventListener(<span class="string">'click'</span>, handles, <span class="literal">true</span>);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们为根元素，body，div，a添加监听事件，并且<code>addEventListener</code>第三个参数值为false（默认为false），handler在冒泡阶段调用。</p>
+<p>点击a之后看到打印出<code>a =&gt; div =&gt;  body =&gt; html</code></p>
+<p><img src="http://39.105.62.145/assets/images/WX20190105-000222@2x.png" alt="WX20190105-000222@2x"></p>
+<p>修改一下<code>addEventListener</code>第三个参数值为true，handler在捕获阶段执行</p>
+<p><img src="http://39.105.62.145/assets/images/WX20190105-000914@2x.png" alt="WX20190105-000914@2x"></p>
+<p>点击a之后看到打印出<code>html =&gt; body =&gt; div =&gt; a</code></p>
+<h5 id="3-浏览器做了什么（用代码来表现事件在浏览器中的行为）"><a href="#3-浏览器做了什么（用代码来表现事件在浏览器中的行为）" class="headerlink" title="3.浏览器做了什么（用代码来表现事件在浏览器中的行为）"></a>3.浏览器做了什么（用代码来表现事件在浏览器中的行为）</h5><h6 id="1）element-addEventListener"><a href="#1）element-addEventListener" class="headerlink" title="1）element.addEventListener"></a>1）<code>element.addEventListener</code></h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">HTMLNode.prototype.addEventListener = </span><br><span class="line">  <span class="function"><span class="keyword">function</span>(<span class="params">eventName, handler, phase</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// Make a __handlers object on </span></span><br><span class="line">    <span class="comment">// this element if there is none already</span></span><br><span class="line">    <span class="keyword">if</span>(!<span class="keyword">this</span>.__handlers)&#123;</span><br><span class="line">      <span class="keyword">this</span>.__handlers = &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// If there are no event handler lists for </span></span><br><span class="line">    <span class="comment">//  this event, add them</span></span><br><span class="line">    <span class="keyword">if</span>(!<span class="keyword">this</span>.__handlers[eventName])&#123;</span><br><span class="line">      <span class="keyword">this</span>.__handlers[eventName] = </span><br><span class="line">        &#123;<span class="attr">capture</span> : [], <span class="attr">bubble</span>: []&#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Add the new handler function </span></span><br><span class="line">    <span class="comment">//  to the specified phase list</span></span><br><span class="line">    <span class="keyword">this</span>.__handlers[eventName]</span><br><span class="line">        [phase ? <span class="string">'capture'</span> : <span class="string">'bubble'</span>].push(handler);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>addEventListener接受3个参数，事件名，回调，阶段，如果this.handlers不存在，就创建一个对象。如果这个对象没有对应事件的value，设置这个对应事件的value为{capture : [], bubble: []}，然后判断phase，将handler压进对应的数组。</p>
+<h6 id="2）事件是怎样被调用的"><a href="#2）事件是怎样被调用的" class="headerlink" title="2）事件是怎样被调用的"></a>2）事件是怎样被调用的</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line">Handle = <span class="function"><span class="keyword">function</span>(<span class="params">ev</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 第一步</span></span><br><span class="line">    </span><br><span class="line">  <span class="keyword">var</span> elements = [],<span class="comment">//声明一个elements数组</span></span><br><span class="line">    target = ev.target,<span class="comment">//ev.target就是触发的目标元素</span></span><br><span class="line">    isPropagationStopped = <span class="literal">false</span>,<span class="comment">//设置isPropagationStopped是否阻止行为为false</span></span><br><span class="line">    isDefaultPrevented = <span class="literal">false</span>;<span class="comment">//isDefaultPrevented是否阻止默认行为为false</span></span><br><span class="line"></span><br><span class="line">  ev.eventPhase = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  ev.stopPropagation = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="comment">//设置阻止行为的方法，去修改isPropagationStopped的值为true(这个事件会阻止冒泡或捕获，下面举例子)</span></span><br><span class="line">    isPropagationStopped = <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ev.preventDefault = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="comment">//设置阻止默认事件的方法，去修改isDefaultPrevented的值为true</span></span><br><span class="line">    isDefaultPrevented = <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//第二步</span></span><br><span class="line">    </span><br><span class="line">  <span class="keyword">do</span>&#123;</span><br><span class="line">    elements.push(target);<span class="comment">//向elements里压进target</span></span><br><span class="line">  &#125;<span class="keyword">while</span>((target = target.parentNode)); <span class="comment">//把target的父节点赋值给target，直到target父节点为空的时候，循环终止</span></span><br><span class="line"></span><br><span class="line">  elements.reverse();<span class="comment">//获取的elements数组，排序是从里到外，而捕获是从外到里，所以数组反转一下</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">  <span class="comment">//第三步</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">//遍历elements数组</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span> ; i &lt; elements.length; i++)&#123;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">    <span class="keyword">if</span>(isPropagationStopped)&#123;<span class="comment">//如果阻止行为，就跳出循环</span></span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> currentElement = elements[i],<span class="comment">//currentElement变量保存遍历的当前元素</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">//如果这个元素有绑定handler，type和phase，把数组赋值给handlers，否则设置它为一个空数组</span></span><br><span class="line">        handlers = currentElement.__handlers</span><br><span class="line">          &amp;&amp; currentElement.__handlers[ev.type]</span><br><span class="line">          &amp;&amp; currentElement.__handlers[ev.type].capture </span><br><span class="line">          || [];</span><br><span class="line"></span><br><span class="line">    ev.currentTarget = currentElement;<span class="comment">//设置currentTarget为当前的这个元素</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//循环调用handlers里的回调(如果有多个监听事件的话，handlers数组的元素会有多个)</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> h = <span class="number">0</span>; i &lt; handlers.length; h++)&#123;</span><br><span class="line">      handlers[h].call(currentElement, ev);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//第四步</span></span><br><span class="line">  <span class="keyword">if</span>(!isPropagationStopped)&#123;</span><br><span class="line">    ev.target[<span class="string">"on"</span> + ev.type].call(ev.target, ev);<span class="comment">//触发DOM1事件</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  elements.reverse();<span class="comment">//冒泡阶段从里到外，所以再次反转数组</span></span><br><span class="line">  ev.eventPhase = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">//第五步</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span> ; i &lt; elements.length; i++)&#123;<span class="comment">//遍历elements</span></span><br><span class="line">    <span class="keyword">if</span>(isPropagationStopped)&#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//跟上面的捕获相反，这里是冒泡</span></span><br><span class="line">    <span class="keyword">var</span> currentElement =  elements[i],</span><br><span class="line">      handlers = currentElement.__handlers </span><br><span class="line">        &amp;&amp; currentElement.__handlers[ev.type]</span><br><span class="line">        &amp;&amp; currentElement.__handlers[ev.type].bubble </span><br><span class="line">        || [];</span><br><span class="line"></span><br><span class="line">    ev.currentTarget = currentElement;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//循环调用handlers里的回调(如果有多个监听事件的话，handlers数组的元素会有多个)</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> h = <span class="number">0</span> ; i &lt; handlers.length; h++)&#123;</span><br><span class="line">      handlers[h].call(currentElement,ev);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//第六步</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 元素的默认行为</span></span><br><span class="line">  <span class="keyword">if</span>(!isDefaultPrevented)&#123;<span class="comment">//如果没有阻止默认行为(这里是a元素的)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(ev.type == <span class="string">"click"</span> </span><br><span class="line">      &amp;&amp; ev.target.nodeName.toLowerCase() == <span class="string">"a"</span>)&#123;</span><br><span class="line">      <span class="built_in">window</span>.location = ev.target.href;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过上面代码伪实现可以看到<strong>stopPropagation</strong>在捕获和冒泡阶段都有起作用。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><h6 id="1-element-addEventListener方法，会判断第三个参数phase（默认是false），如果是true就声明（或者向已声明的）capture数组里push进函数。如果是false就向bubble数组内push进函数"><a href="#1-element-addEventListener方法，会判断第三个参数phase（默认是false），如果是true就声明（或者向已声明的）capture数组里push进函数。如果是false就向bubble数组内push进函数" class="headerlink" title="1.element.addEventListener方法，会判断第三个参数phase（默认是false），如果是true就声明（或者向已声明的）capture数组里push进函数。如果是false就向bubble数组内push进函数"></a>1.element.addEventListener方法，会判断第三个参数phase（默认是false），如果是true就声明（或者向已声明的）capture数组里push进函数。如果是false就向bubble数组内push进函数</h6><h6 id="2-假设监听的是click事件，在点击目标元素的时候，计算路径，由内到外的获取节点并且push到elements数组里，反转elements数组（变成从外到内），然后遍历elements数组（如果有调用stopPropagation就跳出循环），遍历elements中每个节点的capture数组，并且调用。"><a href="#2-假设监听的是click事件，在点击目标元素的时候，计算路径，由内到外的获取节点并且push到elements数组里，反转elements数组（变成从外到内），然后遍历elements数组（如果有调用stopPropagation就跳出循环），遍历elements中每个节点的capture数组，并且调用。" class="headerlink" title="2.假设监听的是click事件，在点击目标元素的时候，计算路径，由内到外的获取节点并且push到elements数组里，反转elements数组（变成从外到内），然后遍历elements数组（如果有调用stopPropagation就跳出循环），遍历elements中每个节点的capture数组，并且调用。"></a>2.假设监听的是click事件，在点击目标元素的时候，计算路径，由内到外的获取节点并且push到elements数组里，反转elements数组（变成从外到内），然后遍历elements数组（如果有调用stopPropagation就跳出循环），遍历elements中每个节点的capture数组，并且调用。</h6><h6 id="3-调用被点击元素的DOM1事件，再次反转elements数组，变成从内到外。"><a href="#3-调用被点击元素的DOM1事件，再次反转elements数组，变成从内到外。" class="headerlink" title="3.调用被点击元素的DOM1事件，再次反转elements数组，变成从内到外。"></a>3.调用被点击元素的DOM1事件，再次反转elements数组，变成从内到外。</h6><h6 id="4-遍历elements数组的，遍历每个节点的bubble数组，并且调用。"><a href="#4-遍历elements数组的，遍历每个节点的bubble数组，并且调用。" class="headerlink" title="4.遍历elements数组的，遍历每个节点的bubble数组，并且调用。"></a>4.遍历elements数组的，遍历每个节点的bubble数组，并且调用。</h6><h6 id="5-如果没有调用preventDefault方法，就是调用标签的默认行为（比如a标签的跳转）。"><a href="#5-如果没有调用preventDefault方法，就是调用标签的默认行为（比如a标签的跳转）。" class="headerlink" title="5.如果没有调用preventDefault方法，就是调用标签的默认行为（比如a标签的跳转）。"></a>5.如果没有调用preventDefault方法，就是调用标签的默认行为（比如a标签的跳转）。</h6><p>##### </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深入学习/" rel="tag"># 深入学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/20/初识macrotask和microtask/" rel="next" title="事件循环">
+                <i class="fa fa-chevron-left"></i> 事件循环
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/26/图片懒加载/" rel="prev" title="图片懒加载">
+                图片懒加载 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#事件"><span class="nav-number">1.</span> <span class="nav-text">事件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#事件监听"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">事件监听</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-怎样监听一个事件"><span class="nav-number">1.0.0.1.1.</span> <span class="nav-text">1.怎样监听一个事件</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#DOM0"><span class="nav-number">1.0.0.1.1.1.</span> <span class="nav-text">DOM0</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#DOM1"><span class="nav-number">1.0.0.1.1.2.</span> <span class="nav-text">DOM1</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#DOM2"><span class="nav-number">1.0.0.1.1.3.</span> <span class="nav-text">DOM2</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-事件在文档中怎么穿梭"><span class="nav-number">1.0.0.1.2.</span> <span class="nav-text">2.事件在文档中怎么穿梭</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-浏览器做了什么（用代码来表现事件在浏览器中的行为）"><span class="nav-number">1.0.0.1.3.</span> <span class="nav-text">3.浏览器做了什么（用代码来表现事件在浏览器中的行为）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1）element-addEventListener"><span class="nav-number">1.0.0.1.3.1.</span> <span class="nav-text">1）element.addEventListener</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2）事件是怎样被调用的"><span class="nav-number">1.0.0.1.3.2.</span> <span class="nav-text">2）事件是怎样被调用的</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-element-addEventListener方法，会判断第三个参数phase（默认是false），如果是true就声明（或者向已声明的）capture数组里push进函数。如果是false就向bubble数组内push进函数"><span class="nav-number">1.0.0.2.0.1.</span> <span class="nav-text">1.element.addEventListener方法，会判断第三个参数phase（默认是false），如果是true就声明（或者向已声明的）capture数组里push进函数。如果是false就向bubble数组内push进函数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-假设监听的是click事件，在点击目标元素的时候，计算路径，由内到外的获取节点并且push到elements数组里，反转elements数组（变成从外到内），然后遍历elements数组（如果有调用stopPropagation就跳出循环），遍历elements中每个节点的capture数组，并且调用。"><span class="nav-number">1.0.0.2.0.2.</span> <span class="nav-text">2.假设监听的是click事件，在点击目标元素的时候，计算路径，由内到外的获取节点并且push到elements数组里，反转elements数组（变成从外到内），然后遍历elements数组（如果有调用stopPropagation就跳出循环），遍历elements中每个节点的capture数组，并且调用。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-调用被点击元素的DOM1事件，再次反转elements数组，变成从内到外。"><span class="nav-number">1.0.0.2.0.3.</span> <span class="nav-text">3.调用被点击元素的DOM1事件，再次反转elements数组，变成从内到外。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-遍历elements数组的，遍历每个节点的bubble数组，并且调用。"><span class="nav-number">1.0.0.2.0.4.</span> <span class="nav-text">4.遍历elements数组的，遍历每个节点的bubble数组，并且调用。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5-如果没有调用preventDefault方法，就是调用标签的默认行为（比如a标签的跳转）。"><span class="nav-number">1.0.0.2.0.5.</span> <span class="nav-text">5.如果没有调用preventDefault方法，就是调用标签的默认行为（比如a标签的跳转）。</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="深入学习," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="参考资料：http://web.jobbole.com/93684/  1.异常1）常见错误类型 RangeError，一是数组长度为负数，二是Number对象的方法参数超出范围，以及函数堆栈超过最大值 ReferenceError，当引用未声明的变量时发生 SyntaxError，解析时发生语法错误 TypeError，当值不是所期待的类型时，null.f()也报这个错 URIError，当传">
+<meta name="keywords" content="深入学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端报错监控和常见报错">
+<meta property="og:url" content="http://yoursite.com/2018/11/20/前端报错监控和常见报错/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="参考资料：http://web.jobbole.com/93684/  1.异常1）常见错误类型 RangeError，一是数组长度为负数，二是Number对象的方法参数超出范围，以及函数堆栈超过最大值 ReferenceError，当引用未声明的变量时发生 SyntaxError，解析时发生语法错误 TypeError，当值不是所期待的类型时，null.f()也报这个错 URIError，当传">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181204-130322@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181204-130550@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181204-130755@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181204-130911@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181204-131506@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181203-233206@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181203-235223@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181203-235613@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181203-235905@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181204-221037@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181204-221222@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/5FDE0C5CA450E9B5F91FE54B589565EB.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181204-100616@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181204-102544@2x.png">
+<meta property="og:updated_time" content="2018-12-25T03:35:48.730Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端报错监控和常见报错">
+<meta name="twitter:description" content="参考资料：http://web.jobbole.com/93684/  1.异常1）常见错误类型 RangeError，一是数组长度为负数，二是Number对象的方法参数超出范围，以及函数堆栈超过最大值 ReferenceError，当引用未声明的变量时发生 SyntaxError，解析时发生语法错误 TypeError，当值不是所期待的类型时，null.f()也报这个错 URIError，当传">
+<meta name="twitter:image" content="http://39.105.62.145/assets/images/WX20181204-130322@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/20/前端报错监控和常见报错/"/>
+
+
+
+
+
+  <title>前端报错监控和常见报错 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/20/前端报错监控和常见报错/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端报错监控和常见报错</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-20T09:41:09+08:00">
+                2018-11-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深入学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深入学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>参考资料：<a href="http://web.jobbole.com/93684/" target="_blank" rel="noopener">http://web.jobbole.com/93684/</a></p>
+</blockquote>
+<h4 id="1-异常"><a href="#1-异常" class="headerlink" title="1.异常"></a>1.异常</h4><h5 id="1）常见错误类型"><a href="#1）常见错误类型" class="headerlink" title="1）常见错误类型"></a>1）常见错误类型</h5><ol>
+<li><strong>RangeError</strong>，一是数组长度为负数，二是Number对象的方法参数超出范围，以及函数堆栈超过最大值</li>
+<li><strong>ReferenceError</strong>，当引用未声明的变量时发生</li>
+<li><strong>SyntaxError</strong>，解析时发生语法错误</li>
+<li><strong>TypeError</strong>，当值不是所期待的类型时，<code>null.f()</code>也报这个错</li>
+<li><strong>URIError</strong>，当传递一个非法的URI给全局URI处理函数时发生，如<code>decodeURIComponent(&#39;%&#39;)</code>，即<code>decodeURIComponent</code>，<code>decodeURI</code>,<code>encodeURIComponent</code>，<code>encodeURI</code></li>
+</ol>
+<p>举几个🌰,并没有按循序举🌰。(部分情况)</p>
+<p>1.TypeError</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181204-130322@2x.png" alt="TypeError"></p>
+<p>2.ReferenceError</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181204-130550@2x.png" alt=""></p>
+<p>3.URIError</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181204-130755@2x.png" alt=""></p>
+<p>4.SyntaxError(这里因为大写的符号)</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181204-130911@2x.png" alt=""></p>
+<p>5.RangeError</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181204-131506@2x.png" alt=""></p>
+<h5 id="2）异常出现的特点"><a href="#2）异常出现的特点" class="headerlink" title="2）异常出现的特点"></a>2）异常出现的特点</h5><p>异常的出现不会直接导致 JS 引擎崩溃，最多只会使当前执行的任务终止。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'报错'</span>);</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(<span class="string">'报错拉'</span>);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(<span class="string">'加载'</span>)</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>当前代码块将作为一个任务压入任务队列中，JS 线程会不断地从任务队列中提取任务执行。</p>
+</li>
+<li><p>当任务执行过程中出现异常，且异常没有捕获处理，则会一直沿着调用栈一层层向外抛出，最终终止当前任务的执行。</p>
+</li>
+<li><p>JS 线程会继续从任务队列中提取下一个任务继续执行。</p>
+</li>
+</ol>
+<p>可以看到，第一个<code>script</code>标签下没有打印出来</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181203-233206@2x.png" alt=""></p>
+<h4 id="2-三种监听报错的方式"><a href="#2-三种监听报错的方式" class="headerlink" title="2.三种监听报错的方式"></a>2.三种监听报错的方式</h4><p>脚本错误一般分为两种：语法错误，运行时错误。</p>
+<h5 id="1）try-…-catch…"><a href="#1）try-…-catch…" class="headerlink" title="1）try … catch…"></a>1）try … catch…</h5><h6 id="即时运行错误一般使用try-…-catch…"><a href="#即时运行错误一般使用try-…-catch…" class="headerlink" title="即时运行错误一般使用try … catch…"></a>即时运行错误一般使用try … catch…</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">"223"</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(Name);</span><br><span class="line">&#125;<span class="keyword">catch</span>(err)&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(err);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ReferenceError: Name is not defined</span></span><br><span class="line"><span class="comment">//还有一般序列化和反序列化的时候都需要使用try ... catch...。</span></span><br></pre></td></tr></table></figure>
+<h6 id="try-…-catch…几种无法捕获的情况"><a href="#try-…-catch…几种无法捕获的情况" class="headerlink" title="try … catch…几种无法捕获的情况"></a>try … catch…几种无法捕获的情况</h6><p>​    一般语法错误，就被编译器发现了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="keyword">var</span> error = <span class="string">'error'</span>；   <span class="comment">// 大写分号！！！！！！！！！！！！！！！！！！</span></span><br><span class="line">&#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'我感知不到错误'</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​    异步错误</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    error        <span class="comment">// 异步错误</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'我感知不到错误'</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2）window-onerror-function-msg-url-line-col-error"><a href="#2）window-onerror-function-msg-url-line-col-error" class="headerlink" title="2）window.onerror = function(msg, url, line, col, error){}"></a>2）window.onerror = function(msg, url, line, col, error){}</h5><p>​    它有5个参数，分别是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* @param &#123;<span class="built_in">String</span>&#125; errorMessage  错误信息 </span><br><span class="line">* @param &#123;<span class="built_in">String</span>&#125; scriptURI   出错的文件 </span><br><span class="line">* @param &#123;Long&#125;  lineNumber   出错代码的行号 </span><br><span class="line">* @param &#123;Long&#125;  columnNumber  出错代码的列号 </span><br><span class="line">* @param &#123;<span class="built_in">Object</span>&#125; errorObj    错误的详细信息，Anything</span><br></pre></td></tr></table></figure>
+<p>​    它可以监听异步报错</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="built_in">window</span>.onerror = <span class="function"><span class="keyword">function</span>(<span class="params">msg, url, line, col, error</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(msg);</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(url);</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(line);</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(col);</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(error);</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="undefined">        error</span></span><br><span class="line"><span class="undefined">    &#125;,0)</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>​    可以看到</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181203-235223@2x.png" alt=""></p>
+<h6 id="当然它也有它的问题"><a href="#当然它也有它的问题" class="headerlink" title="当然它也有它的问题"></a>当然它也有它的问题</h6><p>​    如果我监听的事件，写在同步事件报错之后，就无法被监听到</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">   error</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="built_in">window</span>.onerror = <span class="function"><span class="keyword">function</span>(<span class="params">msg, url, line, col, error</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(msg);</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(url);</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(line);</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(col);</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(error);</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181203-235613@2x.png" alt=""></p>
+<p>​    图片404请求的时候    </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.onerror = <span class="function"><span class="keyword">function</span> (<span class="params">msg, url, line, col, error</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(msg);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(url);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(line);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(col);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(error);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"test.png"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>​    可以看到</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181203-235905@2x.png" alt=""></p>
+<h5 id="3）window-addEventListener-‘error’-function-err"><a href="#3）window-addEventListener-‘error’-function-err" class="headerlink" title="3）window.addEventListener(‘error’,function(err){})"></a>3）window.addEventListener(‘error’,function(err){})</h5><p>效果与上面一个相同，不过上面那个比较好用。</p>
+<h4 id="3-错误上传"><a href="#3-错误上传" class="headerlink" title="3.错误上传"></a>3.错误上传</h4><p>写个简单的🌰（省略了很多判断）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">postError</span>(<span class="params">&#123; msg, url, line, col, error &#125;</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> xml = <span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line"><span class="javascript">        xml.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (xml.readyState == <span class="number">4</span>) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span> (xml.status == <span class="number">200</span>) &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="built_in">console</span>.log(xml.response);</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="javascript">        xml.open(<span class="string">'POST'</span>, <span class="string">'http://localhost:8001/error'</span>, <span class="literal">true</span>);</span></span><br><span class="line"><span class="javascript">        xml.setRequestHeader(<span class="string">"Content-Type"</span>, <span class="string">"application/x-www-form-urlencoded"</span>);</span></span><br><span class="line"><span class="javascript">        xml.send(<span class="string">`msg=<span class="subst">$&#123;msg&#125;</span>, url=<span class="subst">$&#123;url&#125;</span>, line=<span class="subst">$&#123;line&#125;</span>, col=<span class="subst">$&#123;col&#125;</span>, error=<span class="subst">$&#123;error&#125;</span> `</span>);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.onerror = <span class="function"><span class="keyword">function</span> (<span class="params">msg, url, line, col, error</span>) </span>&#123;</span></span><br><span class="line"><span class="undefined">        postError(&#123; msg, url, line, col, error &#125;);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://localhost:8001/error.js"</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">crossOrigin</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Koa:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> cors = <span class="built_in">require</span>(<span class="string">'koa-cors'</span>);</span><br><span class="line"><span class="keyword">const</span> Router = <span class="built_in">require</span>(<span class="string">'koa-router'</span>);</span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> Router();</span><br><span class="line"><span class="keyword">const</span> koaBody = <span class="built_in">require</span>(<span class="string">'koa-body'</span>);</span><br><span class="line"></span><br><span class="line">router.post(<span class="string">'/error'</span>, <span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> body = ctx.request.body;</span><br><span class="line">  <span class="built_in">console</span>.log(body);</span><br><span class="line">  ctx.body = &#123;</span><br><span class="line">      success: <span class="literal">true</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)</span><br><span class="line">app.use(cors());</span><br><span class="line">app.use(<span class="built_in">require</span>(<span class="string">'koa-static'</span>)(path.resolve(__dirname, <span class="string">'./public'</span>)));</span><br><span class="line">app.use(koaBody());</span><br><span class="line">app.use(router.routes());</span><br><span class="line">app.listen(<span class="number">8001</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'koa app listening at 8001'</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>可以看到请求</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181204-221037@2x.png" alt=""></p>
+<p>还可以看到后台打印出的结果</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181204-221222@2x.png" alt=""></p>
+<h4 id="4-补充一下遇到过的问题"><a href="#4-补充一下遇到过的问题" class="headerlink" title="4.补充一下遇到过的问题"></a>4.补充一下遇到过的问题</h4><h5 id="1）localStorage存满了的报错"><a href="#1）localStorage存满了的报错" class="headerlink" title="1）localStorage存满了的报错"></a>1）localStorage存满了的报错</h5><p>公司app在登陆页的时候白屏，最后猜测可能是localStorage存满了，导致报错。</p>
+<p>写个一直往缓存里存数据，致使报错的🌰。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.onerror = <span class="function"><span class="keyword">function</span>(<span class="params">msg,url,col,line,e</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">     <span class="built_in">console</span>.log(msg,url,col,line,e);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; localStorage.setItem((<span class="keyword">new</span>         <span class="built_in">Date</span>()).getTime(),<span class="string">'ssssssssssssssssssssssssssss'</span>) &#125;, <span class="number">0</span>);<span class="comment">//这个字符串要存很久才会看到报错。。</span></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在浏览器上调试会抓到报错</p>
+<p><img src="http://39.105.62.145/assets/images/5FDE0C5CA450E9B5F91FE54B589565EB.png" alt=""></p>
+<p>然鹅我们的错误上传却没有这个错误。最后我尝试着使用<code>window.addEventListener(&#39;error&#39;,function(err){})</code>抓取这个报错，判断code为22，并且name为QuotaExceededError的时候，把缓存里必须的数据保存下来，删除其他无用的缓存。在浏览器调试正常，在真机调试的时候确抓不到这个报错。</p>
+<h5 id="2）script-error"><a href="#2）script-error" class="headerlink" title="2）script error"></a>2）script error</h5><p>经常引入外部的脚本报错，确看不到具体的报错信息。</p>
+<p>写个简单的🌰，页面<code>error.html</code>启在8000端口，后端使用<a href="https://qinhanwen.github.io/2018/11/16/koa%E5%85%A5%E9%97%A8/" target="_blank" rel="noopener">koa</a>,启在8001端口，<code>error.html</code>加载8001端口的脚本。<a href="https://qinhanwen.github.io/2018/11/27/%E8%B7%A8%E5%9F%9F%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/" target="_blank" rel="noopener">关于跨域</a></p>
+<p>error.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.onerror = <span class="function"><span class="keyword">function</span> (<span class="params">msg, url, line, col, error</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(msg);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(url);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(line);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(col);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(error);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://localhost:8001/error.js"</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> &gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Index.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> cors = <span class="built_in">require</span>(<span class="string">'koa-cors'</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"> </span><br><span class="line">app.use(cors());</span><br><span class="line">app.use(<span class="built_in">require</span>(<span class="string">'koa-static'</span>)(path.resolve(__dirname, <span class="string">'./public'</span>)));</span><br><span class="line"> </span><br><span class="line">app.listen(<span class="number">8001</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'koa app listening at 8001'</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>error.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">console</span>.log(A);<span class="comment">//大写的a</span></span><br></pre></td></tr></table></figure>
+<p>于是可以看到报错信息</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181204-100616@2x.png" alt=""></p>
+<p><code>script error</code>： 是浏览器在同源策略限制下产生的，浏览器处于对安全性上的考虑，当页面引用非同域名外部脚本文件时中抛出异常的话，此时本页面是没有权利知道这个报错信息的，取而代之的是输出 <code>script error</code>这样的信息。</p>
+<p><strong>解决方案</strong>：<code>script</code>标签内添加<code>crossOrigin</code></p>
+<p>error.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.onerror = <span class="function"><span class="keyword">function</span> (<span class="params">msg, url, line, col, error</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(msg);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(url);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(line);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(col);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(error);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"> <span class="comment">&lt;!--新增crossOrigin--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://localhost:8001/error.js"</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">crossOrigin</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>于是可以看到具体的报错信息</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181204-102544@2x.png" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深入学习/" rel="tag"># 深入学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/19/flexible移动端自适应方案学习/" rel="next" title="flexible移动端自适应方案学习">
+                <i class="fa fa-chevron-left"></i> flexible移动端自适应方案学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/23/Sass入门/" rel="prev" title="Sass入门">
+                Sass入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-异常"><span class="nav-number">1.</span> <span class="nav-text">1.异常</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1）常见错误类型"><span class="nav-number">1.1.</span> <span class="nav-text">1）常见错误类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2）异常出现的特点"><span class="nav-number">1.2.</span> <span class="nav-text">2）异常出现的特点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-三种监听报错的方式"><span class="nav-number">2.</span> <span class="nav-text">2.三种监听报错的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1）try-…-catch…"><span class="nav-number">2.1.</span> <span class="nav-text">1）try … catch…</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#即时运行错误一般使用try-…-catch…"><span class="nav-number">2.1.1.</span> <span class="nav-text">即时运行错误一般使用try … catch…</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#try-…-catch…几种无法捕获的情况"><span class="nav-number">2.1.2.</span> <span class="nav-text">try … catch…几种无法捕获的情况</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2）window-onerror-function-msg-url-line-col-error"><span class="nav-number">2.2.</span> <span class="nav-text">2）window.onerror = function(msg, url, line, col, error){}</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#当然它也有它的问题"><span class="nav-number">2.2.1.</span> <span class="nav-text">当然它也有它的问题</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3）window-addEventListener-‘error’-function-err"><span class="nav-number">2.3.</span> <span class="nav-text">3）window.addEventListener(‘error’,function(err){})</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-错误上传"><span class="nav-number">3.</span> <span class="nav-text">3.错误上传</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-补充一下遇到过的问题"><span class="nav-number">4.</span> <span class="nav-text">4.补充一下遇到过的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1）localStorage存满了的报错"><span class="nav-number">4.1.</span> <span class="nav-text">1）localStorage存满了的报错</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2）script-error"><span class="nav-number">4.2.</span> <span class="nav-text">2）script error</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

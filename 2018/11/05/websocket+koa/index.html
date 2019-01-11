@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="websocket+koa," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="WebSocket+Koa1.TCP和HTTP的简单理解​    Http协议建立在TCP协议基础之上，当浏览器需要从服务器获取网页数据的时候，会发一次Http请求。Http会通过TCP建立一个到服务器的连接通道，当本次请求需要的数据完毕后，Http会立即将TCP连接断开，所以Http是一种短链接。 ​    当html变的复杂，嵌入了很多图片，每次访问图片都需要建立一次TCP链接就显得很低效，因">
+<meta name="keywords" content="websocket+koa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="websocket+koa">
+<meta property="og:url" content="http://yoursite.com/2018/11/05/websocket+koa/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="WebSocket+Koa1.TCP和HTTP的简单理解​    Http协议建立在TCP协议基础之上，当浏览器需要从服务器获取网页数据的时候，会发一次Http请求。Http会通过TCP建立一个到服务器的连接通道，当本次请求需要的数据完毕后，Http会立即将TCP连接断开，所以Http是一种短链接。 ​    当html变的复杂，嵌入了很多图片，每次访问图片都需要建立一次TCP链接就显得很低效，因">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-28T05:02:29.289Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="websocket+koa">
+<meta name="twitter:description" content="WebSocket+Koa1.TCP和HTTP的简单理解​    Http协议建立在TCP协议基础之上，当浏览器需要从服务器获取网页数据的时候，会发一次Http请求。Http会通过TCP建立一个到服务器的连接通道，当本次请求需要的数据完毕后，Http会立即将TCP连接断开，所以Http是一种短链接。 ​    当html变的复杂，嵌入了很多图片，每次访问图片都需要建立一次TCP链接就显得很低效，因">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/05/websocket+koa/"/>
+
+
+
+
+
+  <title>websocket+koa | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/websocket+koa/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">websocket+koa</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-05T17:54:27+08:00">
+                2018-11-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/websocket-koa/" itemprop="url" rel="index">
+                    <span itemprop="name">websocket+koa</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="WebSocket-Koa"><a href="#WebSocket-Koa" class="headerlink" title="WebSocket+Koa"></a>WebSocket+Koa</h1><h5 id="1-TCP和HTTP的简单理解"><a href="#1-TCP和HTTP的简单理解" class="headerlink" title="1.TCP和HTTP的简单理解"></a>1.TCP和HTTP的简单理解</h5><p>​    Http协议建立在TCP协议基础之上，当浏览器需要从服务器获取网页数据的时候，会发一次Http请求。Http会通过TCP建立一个到服务器的连接通道，当本次请求需要的数据完毕后，Http会立即将TCP连接断开，所以Http是一种短链接。</p>
+<p>​    当html变的复杂，嵌入了很多图片，每次访问图片都需要建立一次TCP链接就显得很低效，因此Keep-Alive被提出解决低效的问题，从HTTP1.1开始默认开启Keep-Alive，保持连接特性。总的说就是网页打开之后，客户端与服务器之间传输Http数据的TCP连接不会关闭，客户端再次访问服务器上的网页，会继续使用这条。时间是有限制范围的，在不同服务器也可以设置超时时间。</p>
+<h5 id="2-HTTPS与HTTP的一些区别"><a href="#2-HTTPS与HTTP的一些区别" class="headerlink" title="2.HTTPS与HTTP的一些区别"></a>2.<strong>HTTPS与HTTP的一些区别</strong></h5><p>​    HTTPS协议需要到CA申请证书，一般免费证书很少，需要交费。</p>
+<p>​    HTTP协议运行在TCP之上，所有传输的内容都是明文，HTTPS运行在SSL/TLS之上，SSL/TLS运行在TCP之上，所有传输的内容都经过加密的。</p>
+<p>​    HTTP和HTTPS使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。</p>
+<p>​    HTTPS可以有效的防止运营商劫持，解决了防劫持的一个大问题。</p>
+<h5 id="3-Http1-0，Http1-1和Http2-0的区别"><a href="#3-Http1-0，Http1-1和Http2-0的区别" class="headerlink" title="3.Http1.0，Http1.1和Http2.0的区别"></a>3.Http1.0，Http1.1和Http2.0的区别</h5><p>​    HTTP/1.0 一次请求-响应，建立一个连接，用完关闭；每一个请求都要建立一个连接；</p>
+<p>​    HTTP/1.1 解决方式为，若干个请求排队串行化单线程处理，后面的请求等待前面请求的返回才能获得执行机会，一旦有某请求超时等，后续请求只能被阻塞，毫无办法，也就是人们常说的线头阻塞；</p>
+<p>​    HTTP/2多个请求可同时在一个连接上并行执行。某个请求任务耗时严重，不会影响到其它连接的正常执行。headers压缩。</p>
+<h5 id="4-什么是WebSocket"><a href="#4-什么是WebSocket" class="headerlink" title="4.什么是WebSocket"></a>4.什么是WebSocket</h5><p>​    WebSocket是HTML5的。使客户端与服务器之间数据交换变的更简单，允许服务端主动向客户端推送数据，在WebSocket API中，浏览器和服务器只需要完成一次握手，两者之间就直接可以创建持久性的连接，并进行双向数据传输。</p>
+<p>​    浏览器通过JavaScript向服务器发起建立WebSocket连接的请求，连接建立以后，客户端和服务端可以通过TCP连接直接交换数据。当你获取WebSocket连接后，可以通过send()方法向服务端发送数据，并通过onmessage事件接收服务器返回的数据。</p>
+<h5 id="5-具体实现"><a href="#5-具体实现" class="headerlink" title="5.具体实现"></a>5.具体实现</h5><h6 id="前端部分"><a href="#前端部分" class="headerlink" title="前端部分"></a>前端部分</h6><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>websocket<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"pl"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"发送"</span> <span class="attr">id</span>=<span class="string">"submit"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"关闭"</span> <span class="attr">id</span>=<span class="string">"close"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="comment">// 很重要 必须写，判断浏览器是否支持websocket</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> CreateWebSocket = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">urlValue</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (<span class="built_in">window</span>.WebSocket) <span class="keyword">return</span> <span class="keyword">new</span> WebSocket(urlValue);</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (<span class="built_in">window</span>.MozWebSocket) <span class="keyword">return</span> <span class="keyword">new</span> MozWebSocket(urlValue);</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="literal">false</span>;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;)()</span></span><br><span class="line"><span class="javascript">   <span class="comment">// 实例化websoscket websocket有两种协议ws(不加密)和wss(加密)</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> webSocket = CreateWebSocket(<span class="string">"ws://127.0.0.1:3000"</span>);</span></span><br><span class="line"><span class="javascript">    webSocket.onopen = <span class="function"><span class="keyword">function</span> (<span class="params">evt</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 一旦连接成功，就发送第一条数据</span></span></span><br><span class="line"><span class="javascript">         webSocket.send(<span class="string">"第一条数据"</span>)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="javascript">    webSocket.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">evt</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 这是服务端返回的数据</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">"服务端说"</span> + evt.data)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 关闭连接</span></span></span><br><span class="line"><span class="javascript">    webSocket.onclose = <span class="function"><span class="keyword">function</span> (<span class="params">evt</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">"Connection closed."</span>)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// input事件发送数据</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.getElementById(<span class="string">"submit"</span>).onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> str = <span class="built_in">document</span>.getElementById(<span class="string">"pl"</span>).value</span></span><br><span class="line"><span class="undefined">        webSocket.send(str)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h6 id="koa部分"><a href="#koa部分" class="headerlink" title="koa部分"></a>koa部分</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="comment">// 路由</span></span><br><span class="line"><span class="keyword">const</span> route = <span class="built_in">require</span>(<span class="string">'koa-route'</span>)</span><br><span class="line"><span class="comment">// koa封装的websocket这是官网（很简单有时间去看一下https://www.npmjs.com/package/koa-websocket）</span></span><br><span class="line"><span class="keyword">const</span> websockify = <span class="built_in">require</span>(<span class="string">'koa-websocket'</span>)</span><br><span class="line"><span class="keyword">const</span> app = websockify(<span class="keyword">new</span> Koa());</span><br><span class="line">app.ws.use(<span class="function"><span class="keyword">function</span> (<span class="params">ctx, next</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> next(ctx)</span><br><span class="line">&#125;)</span><br><span class="line">app.ws.use(route.all(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">ctx</span>) </span>&#123;</span><br><span class="line">    ctx.websocket.on(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">message</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 返回给前端的数据</span></span><br><span class="line">        ctx.websocket.send(message)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;))</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+<p>一般都有兼容性问题，可以使用socket.io的库</p>
+<p>具体参考<a href="http://www.ruanyifeng.com/blog/2017/05/websocket.html" target="_blank" rel="noopener">阮大师的文章</a></p>
+<p>q</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/websocket-koa/" rel="tag"># websocket+koa</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/03/angular拦截器/" rel="next" title="angular拦截器">
+                <i class="fa fa-chevron-left"></i> angular拦截器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/06/Git/" rel="prev" title="Git">
+                Git <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#WebSocket-Koa"><span class="nav-number">1.</span> <span class="nav-text">WebSocket+Koa</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-TCP和HTTP的简单理解"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">1.TCP和HTTP的简单理解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-HTTPS与HTTP的一些区别"><span class="nav-number">1.0.0.0.2.</span> <span class="nav-text">2.HTTPS与HTTP的一些区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-Http1-0，Http1-1和Http2-0的区别"><span class="nav-number">1.0.0.0.3.</span> <span class="nav-text">3.Http1.0，Http1.1和Http2.0的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-什么是WebSocket"><span class="nav-number">1.0.0.0.4.</span> <span class="nav-text">4.什么是WebSocket</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-具体实现"><span class="nav-number">1.0.0.0.5.</span> <span class="nav-text">5.具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#前端部分"><span class="nav-number">1.0.0.0.5.1.</span> <span class="nav-text">前端部分</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#koa部分"><span class="nav-number">1.0.0.0.5.2.</span> <span class="nav-text">koa部分</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

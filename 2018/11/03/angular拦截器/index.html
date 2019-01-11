@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="angular," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="angular拦截器需求是在请求401的时候跳转到登陆页1.angular中http请求，依赖@angular/common/http模块，将HttpInterceptor，HttpRequest，HttpEvent，HttpHandler等对象引入123456789101112131415import &amp;#123; Injectable &amp;#125; from &apos;@angular/core&apos;;i">
+<meta name="keywords" content="angular">
+<meta property="og:type" content="article">
+<meta property="og:title" content="angular拦截器">
+<meta property="og:url" content="http://yoursite.com/2018/11/03/angular拦截器/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="angular拦截器需求是在请求401的时候跳转到登陆页1.angular中http请求，依赖@angular/common/http模块，将HttpInterceptor，HttpRequest，HttpEvent，HttpHandler等对象引入123456789101112131415import &amp;#123; Injectable &amp;#125; from &apos;@angular/core&apos;;i">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-25T14:13:02.202Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="angular拦截器">
+<meta name="twitter:description" content="angular拦截器需求是在请求401的时候跳转到登陆页1.angular中http请求，依赖@angular/common/http模块，将HttpInterceptor，HttpRequest，HttpEvent，HttpHandler等对象引入123456789101112131415import &amp;#123; Injectable &amp;#125; from &apos;@angular/core&apos;;i">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/03/angular拦截器/"/>
+
+
+
+
+
+  <title>angular拦截器 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/03/angular拦截器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">angular拦截器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-03T21:33:04+08:00">
+                2018-11-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/angular/" itemprop="url" rel="index">
+                    <span itemprop="name">angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="angular拦截器"><a href="#angular拦截器" class="headerlink" title="angular拦截器"></a>angular拦截器</h1><h5 id="需求是在请求401的时候跳转到登陆页"><a href="#需求是在请求401的时候跳转到登陆页" class="headerlink" title="需求是在请求401的时候跳转到登陆页"></a>需求是在请求401的时候跳转到登陆页</h5><h5 id="1-angular中http请求，依赖-angular-common-http模块，将HttpInterceptor，HttpRequest，HttpEvent，HttpHandler等对象引入"><a href="#1-angular中http请求，依赖-angular-common-http模块，将HttpInterceptor，HttpRequest，HttpEvent，HttpHandler等对象引入" class="headerlink" title="1.angular中http请求，依赖@angular/common/http模块，将HttpInterceptor，HttpRequest，HttpEvent，HttpHandler等对象引入"></a>1.angular中http请求，依赖@angular/common/http模块，将HttpInterceptor，HttpRequest，HttpEvent，HttpHandler等对象引入</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Injectable &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  HttpEvent, HttpInterceptor, HttpHandler, HttpRequest</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'@angular/common/http'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; Observable &#125; <span class="keyword">from</span> <span class="string">'rxjs'</span>;</span><br><span class="line"></span><br><span class="line">@Injectable()</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">NoopInterceptor</span> <span class="title">implements</span> <span class="title">HttpInterceptor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  intercept(req: HttpRequest&lt;any&gt;, <span class="attr">next</span>: HttpHandler):</span><br><span class="line">    Observable&lt;HttpEvent&lt;any&gt;&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> next.handle(req);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2-了解一下HttpInterceptor，HttpRequest，HttpEvent，HttpHandler"><a href="#2-了解一下HttpInterceptor，HttpRequest，HttpEvent，HttpHandler" class="headerlink" title="2.了解一下HttpInterceptor，HttpRequest，HttpEvent，HttpHandler"></a>2.了解一下HttpInterceptor，HttpRequest，HttpEvent，HttpHandler</h5><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> HttpInterceptor &#123;</span><br><span class="line">  intercept(req: HttpRequest&lt;<span class="built_in">any</span>&gt;, next: HttpHandler): Observable&lt;HttpEvent&lt;<span class="built_in">any</span>&gt;&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Parameters</span></span><br><span class="line"><span class="comment">// req	HttpRequest	</span></span><br><span class="line"><span class="comment">//next	HttpHandler</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Returns</span></span><br><span class="line"><span class="comment">//Observable&lt;HttpEvent&lt;any&gt;&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//通常拦截器将在返回next.handle()之前，发出请求，拦截器也可以通过在next.handle()返回到流，使用RXJS的其他操作符。</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> HttpRequest&lt;T&gt; &#123;</span><br><span class="line">  constructor(method: string, url: string, third?: T | &#123; headers?: HttpHeaders; reportProgress?: boolean; params?: HttpParams; responseType?: "array..., fourth?: &#123; headers?: HttpHeaders; reportProgress?: boolean; params?: HttpParams; responseType?: "arraybuff...)</span><br><span class="line">  body: T | <span class="literal">null</span></span><br><span class="line">  headers: HttpHeaders</span><br><span class="line">  reportProgress: <span class="built_in">boolean</span></span><br><span class="line">  withCredentials: <span class="built_in">boolean</span></span><br><span class="line">  responseType: <span class="string">'arraybuffer'</span> | <span class="string">'blob'</span> | <span class="string">'json'</span> | <span class="string">'text'</span></span><br><span class="line">  method: <span class="built_in">string</span></span><br><span class="line">  params: HttpParams</span><br><span class="line">  urlWithParams: <span class="built_in">string</span></span><br><span class="line">  url: <span class="built_in">string</span></span><br><span class="line">  serializeBody(): <span class="built_in">ArrayBuffer</span> | Blob | FormData | <span class="built_in">string</span> | <span class="literal">null</span></span><br><span class="line">  detectContentTypeHeader(): <span class="built_in">string</span> | <span class="literal">null</span></span><br><span class="line">  clone(update: &#123; headers?: HttpHeaders; reportProgress?: <span class="built_in">boolean</span>; params?: HttpParams; responseType?: <span class="string">"arraybuff... = &#123;&#125;): HttpRequest&lt;any&gt;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">//HttpRequest代表一个发送出去的请求，包括url，method，headers，body等等。</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> HttpEvent&lt;T&gt; = HttpSentEvent | HttpHeaderResponse | HttpResponse&lt;T&gt; | HttpProgressEvent | HttpUserEvent&lt;T&gt;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> HttpHandler &#123;</span><br><span class="line">  <span class="keyword">abstract</span> handle(req: HttpRequest&lt;<span class="built_in">any</span>&gt;): Observable&lt;HttpEvent&lt;<span class="built_in">any</span>&gt;&gt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Rarameters</span></span><br><span class="line"><span class="comment">// req	HttpRequest	</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Returns</span></span><br><span class="line"><span class="comment">//Observable&lt;HttpEvent&lt;any&gt;&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//将http请求转成http对象流。</span></span><br></pre></td></tr></table></figure>
+<h5 id="3-实现在401的时候跳转至登陆页"><a href="#3-实现在401的时候跳转至登陆页" class="headerlink" title="3.实现在401的时候跳转至登陆页"></a>3.实现在401的时候跳转至登陆页</h5><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Injectable &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  HttpEvent, HttpInterceptor, HttpHandler, HttpRequest</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'@angular/common/http'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; Observable, throwError &#125; <span class="keyword">from</span> <span class="string">'rxjs'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;  catchError &#125; <span class="keyword">from</span> <span class="string">'rxjs/operators'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; ErrorObservable &#125; <span class="keyword">from</span> <span class="string">'rxjs/observable/ErrorObservable'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> AuthInterceptor <span class="keyword">implements</span> HttpInterceptor &#123;</span><br><span class="line">  intercept(req: HttpRequest&lt;<span class="built_in">any</span>&gt;, next: HttpHandler):</span><br><span class="line">    Observable&lt;HttpEvent&lt;<span class="built_in">any</span>&gt;&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> clonedRequest = req.clone(&#123;</span><br><span class="line">      setHeaders: &#123;</span><br><span class="line">        authorization: <span class="string">`这里放token`</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> next.handle(clonedRequest).pipe(</span><br><span class="line">      catchError(<span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(error.status === <span class="number">401</span>)&#123;</span><br><span class="line">            <span class="comment">//跳转登陆页</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ErrorObservable.create(error);</span><br><span class="line">      &#125;)</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/angular/" rel="tag"># angular</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/04/github-io-hexo/" rel="next" title="github.io+hexo">
+                <i class="fa fa-chevron-left"></i> github.io+hexo
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/05/websocket+koa/" rel="prev" title="websocket+koa">
+                websocket+koa <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#angular拦截器"><span class="nav-number">1.</span> <span class="nav-text">angular拦截器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#需求是在请求401的时候跳转到登陆页"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">需求是在请求401的时候跳转到登陆页</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-angular中http请求，依赖-angular-common-http模块，将HttpInterceptor，HttpRequest，HttpEvent，HttpHandler等对象引入"><span class="nav-number">1.0.0.0.2.</span> <span class="nav-text">1.angular中http请求，依赖@angular/common/http模块，将HttpInterceptor，HttpRequest，HttpEvent，HttpHandler等对象引入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-了解一下HttpInterceptor，HttpRequest，HttpEvent，HttpHandler"><span class="nav-number">1.0.0.0.3.</span> <span class="nav-text">2.了解一下HttpInterceptor，HttpRequest，HttpEvent，HttpHandler</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-实现在401的时候跳转至登陆页"><span class="nav-number">1.0.0.0.4.</span> <span class="nav-text">3.实现在401的时候跳转至登陆页</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

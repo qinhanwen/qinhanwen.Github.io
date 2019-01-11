@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="深入学习," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="简单了解浏览器渲染过程 参考链接：https://juejin.im/post/5c24d736f265da614b120d4a ​           https://blog.csdn.net/u013510838/article/details/55271887     ​           视频教程    先说结论 处理HTML标记数据并生成DOM树。 处理CSS标记数据并生成CSSOM">
+<meta name="keywords" content="深入学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单了解浏览器渲染过程">
+<meta property="og:url" content="http://yoursite.com/2018/12/26/了解浏览器渲染过程/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="简单了解浏览器渲染过程 参考链接：https://juejin.im/post/5c24d736f265da614b120d4a ​           https://blog.csdn.net/u013510838/article/details/55271887     ​           视频教程    先说结论 处理HTML标记数据并生成DOM树。 处理CSS标记数据并生成CSSOM">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20190107-171231@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20190107-171903@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20190107-174533@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20190109-130606@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20190107-175749@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20190109-145317@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20190109-150842@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20190109-150730@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20190109-221825@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20190109-222515@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20190109-223219@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20190109-225049@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20190109-235625@2x.png">
+<meta property="og:updated_time" content="2019-01-10T02:16:44.889Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="简单了解浏览器渲染过程">
+<meta name="twitter:description" content="简单了解浏览器渲染过程 参考链接：https://juejin.im/post/5c24d736f265da614b120d4a ​           https://blog.csdn.net/u013510838/article/details/55271887     ​           视频教程    先说结论 处理HTML标记数据并生成DOM树。 处理CSS标记数据并生成CSSOM">
+<meta name="twitter:image" content="http://39.105.62.145/assets/images/WX20190107-171231@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/26/了解浏览器渲染过程/"/>
+
+
+
+
+
+  <title>简单了解浏览器渲染过程 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/26/了解浏览器渲染过程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">简单了解浏览器渲染过程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-26T17:21:08+08:00">
+                2018-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深入学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深入学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="简单了解浏览器渲染过程"><a href="#简单了解浏览器渲染过程" class="headerlink" title="简单了解浏览器渲染过程"></a>简单了解浏览器渲染过程</h1><blockquote>
+<p>参考链接：<a href="https://juejin.im/post/5c24d736f265da614b120d4a" target="_blank" rel="noopener">https://juejin.im/post/5c24d736f265da614b120d4a</a></p>
+<p>​           <a href="https://blog.csdn.net/u013510838/article/details/55271887" target="_blank" rel="noopener">https://blog.csdn.net/u013510838/article/details/55271887</a>    </p>
+<p>​           <a href="https://developers.google.com/web/fundamentals/performance/critical-rendering-path/?hl=zh-cn" target="_blank" rel="noopener">视频教程</a>  </p>
+</blockquote>
+<h4 id="先说结论"><a href="#先说结论" class="headerlink" title="先说结论"></a>先说结论</h4><ul>
+<li>处理<code>HTML</code>标记数据并生成<code>DOM</code>树。</li>
+<li>处理<code>CSS</code>标记数据并生成<code>CSSOM</code>树。</li>
+<li>将<code>DOM</code>树与<code>CSSOM</code>树合并在一起生成渲染树。</li>
+<li>遍历渲染树开始布局，计算每个节点的位置信息。</li>
+<li>将每个节点绘制到屏幕。</li>
+</ul>
+<h4 id="详细的过程"><a href="#详细的过程" class="headerlink" title="详细的过程"></a>详细的过程</h4><h5 id="1-构建DOM（Document-Object-Model）树"><a href="#1-构建DOM（Document-Object-Model）树" class="headerlink" title="1.构建DOM（Document Object Model）树"></a>1.构建DOM（Document Object Model）树</h5><p><img src="http://39.105.62.145/assets/images/WX20190107-171231@2x.png" alt="WX20190107-171231@2x"></p>
+<p>##### </p>
+<h6 id="1）浏览器从磁盘或者网络读取HTML的字节数据（网络中传输的内容就是0和1），根据指定编码格式-UTF-8-转成字符串（代码）。"><a href="#1）浏览器从磁盘或者网络读取HTML的字节数据（网络中传输的内容就是0和1），根据指定编码格式-UTF-8-转成字符串（代码）。" class="headerlink" title="1）浏览器从磁盘或者网络读取HTML的字节数据（网络中传输的内容就是0和1），根据指定编码格式(UTF- 8)转成字符串（代码）。"></a>1）浏览器从磁盘或者网络读取HTML的<code>字节数据（网络中传输的内容就是0和1）</code>，根据指定编码格式(UTF- 8)转成<code>字符串（代码）</code>。</h6><h6 id="2）字符串转成Token（这一步做的是取得尖括号中的标识，标识出谁是开始标签，谁是结束标签，谁是内容，谁是谁的子节点，这一步由令牌生成器完成）"><a href="#2）字符串转成Token（这一步做的是取得尖括号中的标识，标识出谁是开始标签，谁是结束标签，谁是内容，谁是谁的子节点，这一步由令牌生成器完成）" class="headerlink" title="2）字符串转成Token（这一步做的是取得尖括号中的标识，标识出谁是开始标签，谁是结束标签，谁是内容，谁是谁的子节点，这一步由令牌生成器完成）"></a>2）<code>字符串</code>转成<code>Token</code>（这一步做的是取得尖括号中的标识，标识出谁是开始标签，谁是结束标签，谁是内容，谁是谁的子节点，这一步由令牌生成器完成）</h6><p><img src="http://39.105.62.145/assets/images/WX20190107-171903@2x.png" alt="WX20190107-171903@2x"></p>
+<h6 id="3）在转换Token的过程中，同时也在消耗Token，会生出节点对象，构建DOM树（当所有Token消耗完，DOM树也构建完成）"><a href="#3）在转换Token的过程中，同时也在消耗Token，会生出节点对象，构建DOM树（当所有Token消耗完，DOM树也构建完成）" class="headerlink" title="3）在转换Token的过程中，同时也在消耗Token，会生出节点对象，构建DOM树（当所有Token消耗完，DOM树也构建完成）"></a>3）在转换<code>Token</code>的过程中，同时也在消耗<code>Token</code>，会生出<code>节点</code>对象，构建<code>DOM</code>树（当所有Token消耗完，DOM树也构建完成）</h6><h5 id="2-构建CSSOM（Cascading-Style-Sheets-Object-Model）树"><a href="#2-构建CSSOM（Cascading-Style-Sheets-Object-Model）树" class="headerlink" title="2.构建CSSOM（Cascading Style Sheets Object Model）树"></a>2.构建CSSOM（Cascading Style Sheets Object Model）树</h5><h6 id=""><a href="#" class="headerlink" title=""></a><img src="http://39.105.62.145/assets/images/WX20190107-174533@2x.png" alt="WX20190107-174533@2x"></h6><h6 id="过程与构建DOM树类似，只是最后是构建CSSOM树"><a href="#过程与构建DOM树类似，只是最后是构建CSSOM树" class="headerlink" title="过程与构建DOM树类似，只是最后是构建CSSOM树"></a>过程与构建DOM树类似，只是最后是构建<code>CSSOM</code>树</h6><p>还有就是css在下载完成并且构建完成CSSOM树之前，浏览器不会进行渲染。因为css支持重新定义和优化样式（其实就是后面重写之前的属性和新增属性），要得到最终的CSSOM树之后，才会渲染。</p>
+<p>这里有个需要注意的就是，比如我在写<a href="https://qinhanwen.github.io/2018/11/23/Sass%E5%85%A5%E9%97%A8/" target="_blank" rel="noopener">sass</a>的时候，它是支持嵌套的，一层层的写的很爽，然后写了层级非常的深，编译之后的css层级也会变的很深。但是浏览器递归 CSSOM 树，然后确定具体的元素到底是什么样式是很耗费性能的，所以还是不要写太深。多使用<code>class</code>和<code>id</code>。</p>
+<h6 id="举个🌰，哪个渲染的比较快，单选"><a href="#举个🌰，哪个渲染的比较快，单选" class="headerlink" title="举个🌰，哪个渲染的比较快，单选"></a>举个🌰，哪个渲染的比较快，单选</h6><p><img src="http://39.105.62.145/assets/images/WX20190109-130606@2x.png" alt="WX20190109-130606@2x"></p>
+<p>答案： <code>h1</code></p>
+<p><code>h1</code>，当找到这个节点的时候就设置<code>font-size:16px</code>，而第二个，需要先找到<code>p</code>节点，再向上遍历DOM树，父节点有div的时候，才应用<code>font-size:12px</code>。所以，更加具体的描述（比如div下面的p标签这种），需要浏览器做更多的工作。</p>
+<h5 id="3-构建渲染树"><a href="#3-构建渲染树" class="headerlink" title="3.构建渲染树"></a>3.构建渲染树</h5><p><img src="http://39.105.62.145/assets/images/WX20190107-175749@2x.png" alt="WX20190107-175749@2x"></p>
+<p>在构建<code>DOM</code>树,和<code>CSSOM</code>树之后，<strong>渲染树只会包括需要显示的节点和这些节点的样式信息</strong>，如果节点<code>display:none</code>，就不会在<code>渲染树</code>中显示。</p>
+<p>一个小问题：<code>display:none;</code>和<code>visibility: hidden;</code>的区别（简单的理解）</p>
+<p><code>display:none;</code>：从文档流中移除，浏览器不解析（元素需要显示的话会引起回流和重绘）。</p>
+<p><code>visibility: hidden;</code>：理解为透明（元素需要显示的话不会引起回流）。</p>
+<h5 id="4-布局（回流）"><a href="#4-布局（回流）" class="headerlink" title="4.布局（回流）"></a>4.布局（回流）</h5><p>布局是一个递归过程，从根开始，计算每个节点的位置信息和宽高信息。</p>
+<h5 id="5-绘制"><a href="#5-绘制" class="headerlink" title="5.绘制"></a>5.绘制</h5><p>将渲染树转换成屏幕上的像素。</p>
+<h6 id="有个🌰，哪个节点绘制的比较快"><a href="#有个🌰，哪个节点绘制的比较快" class="headerlink" title="有个🌰，哪个节点绘制的比较快"></a>有个🌰，哪个节点绘制的比较快</h6><p><img src="http://39.105.62.145/assets/images/WX20190109-145317@2x.png" alt="WX20190109-145317@2x"></p>
+<p>答案：第二个绘制的成本比较低</p>
+<h5 id="6-练习题"><a href="#6-练习题" class="headerlink" title="6.练习题"></a>6.练习题</h5><p><img src="http://39.105.62.145/assets/images/WX20190109-150842@2x.png" alt="WX20190109-150842@2x"></p>
+<p>答案：<img src="http://39.105.62.145/assets/images/WX20190109-150730@2x.png" alt="WX20190109-150730@2x"></p>
+<h5 id="7-JavaScript与渲染过程（对渲染过程的影响）"><a href="#7-JavaScript与渲染过程（对渲染过程的影响）" class="headerlink" title="7.JavaScript与渲染过程（对渲染过程的影响）"></a>7.JavaScript与渲染过程（对渲染过程的影响）</h5><p>记得宝哥第一次宝哥问我为什么脚本需要放在尾部，那时候我说：浏览器渲染时候，会被脚本阻塞，如果脚本执行的时间比较久，因为停止渲染就可能会出现白屏一会的情况。宝哥说算是说对了一部分吧。。</p>
+<h6 id="1）script标签在文档中的表现，举个🌰"><a href="#1）script标签在文档中的表现，举个🌰" class="headerlink" title="1）script标签在文档中的表现，举个🌰"></a>1）<code>script</code>标签在文档中的表现，举个🌰</h6><p><img src="http://39.105.62.145/assets/images/WX20190109-221825@2x.png" alt="WX20190109-221825@2x"></p>
+<p>这一段代码，在构建DOM树的时候，遇到了<code>script</code>标签，于是DOM树停止构建，等待JavaScript引擎执行完之后，并加上<code>with JavaScript</code>文本，再恢复DOM树构建。</p>
+<h6 id="2）第二个🌰，假如外部引入JavaScript"><a href="#2）第二个🌰，假如外部引入JavaScript" class="headerlink" title="2）第二个🌰，假如外部引入JavaScript"></a>2）第二个🌰，假如<code>外部</code>引入JavaScript</h6><p><img src="http://39.105.62.145/assets/images/WX20190109-222515@2x.png" alt="WX20190109-222515@2x"></p>
+<p>这一段代码，在构建DOM树的时候，遇到了<code>script</code>标签，于是DOM树停止构建，获取<code>write.js</code>文件（我们都知道获取文件是需要时间的），等待JavaScript引擎执行完之后，并加上<code>with JavaScript</code>文本，再恢复DOM树构建。</p>
+<h6 id="3）第三个🌰，p标签会显示什么颜色"><a href="#3）第三个🌰，p标签会显示什么颜色" class="headerlink" title="3）第三个🌰，p标签会显示什么颜色"></a>3）第三个🌰，p标签会显示什么颜色</h6><p><img src="http://39.105.62.145/assets/images/WX20190109-223219@2x.png" alt="WX20190109-223219@2x"></p>
+<p>这一段代码发生了什么：发送请求，获取响应之后开始构建DOM树，发现了CSS并发送请求，解析器继续执行，发现了script标签，这时候会阻止脚本的执行（不知道脚本执行了什么，可能操作DOM，可能访问或修改CSS），直到CSSOM树构建完毕，才执行JavaScript，最后继续构建DOM树。</p>
+<p><img src="http://39.105.62.145/assets/images/WX20190109-225049@2x.png" alt="WX20190109-225049@2x"></p>
+<h5 id="8-那么重要的就是优化方案了"><a href="#8-那么重要的就是优化方案了" class="headerlink" title="8.那么重要的就是优化方案了"></a>8.那么重要的就是优化方案了</h5><p>那么是优化什么呢，当然是提高网页呈现的速度</p>
+<h6 id="1）资源缩小（删除注释，消除不必要的数据）"><a href="#1）资源缩小（删除注释，消除不必要的数据）" class="headerlink" title="1）资源缩小（删除注释，消除不必要的数据）"></a>1）资源缩小（删除注释，消除不必要的数据）</h6><h6 id="2）压缩"><a href="#2）压缩" class="headerlink" title="2）压缩"></a>2）压缩</h6><h6 id="3）HTTP缓存"><a href="#3）HTTP缓存" class="headerlink" title="3）HTTP缓存"></a>3）<a href="https://qinhanwen.github.io/2018/11/26/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/" target="_blank" rel="noopener">HTTP缓存</a></h6><h6 id="4）等待页面加载完毕，浏览器会发出onload事件，之后再执行脚本"><a href="#4）等待页面加载完毕，浏览器会发出onload事件，之后再执行脚本" class="headerlink" title="4）等待页面加载完毕，浏览器会发出onload事件，之后再执行脚本"></a>4）等待页面加载完毕，浏览器会发出onload事件，之后再执行脚本</h6><p>​    onload与DOMContentLoaded的区别</p>
+<p>​    onload：等待页面所有DOM，CSS，图片，脚本等的资源加载完毕</p>
+<p>​    DOMContentLoaded：仅仅等待DOM加载完毕</p>
+<h6 id="5）引入外部的JavaScript，可以在script标签内加上async（内联的不能加），当浏览器发现有async就不会阻止构建DOM树，同时JavaScript也不会因为需要等待CSSOM构建完毕而停止执行，脚本就会立即执行。"><a href="#5）引入外部的JavaScript，可以在script标签内加上async（内联的不能加），当浏览器发现有async就不会阻止构建DOM树，同时JavaScript也不会因为需要等待CSSOM构建完毕而停止执行，脚本就会立即执行。" class="headerlink" title="5）引入外部的JavaScript，可以在script标签内加上async（内联的不能加），当浏览器发现有async就不会阻止构建DOM树，同时JavaScript也不会因为需要等待CSSOM构建完毕而停止执行，脚本就会立即执行。"></a>5）引入外部的JavaScript，可以在<code>script</code>标签内加上<code>async</code>（内联的不能加），当浏览器发现有<code>async</code>就不会阻止构建DOM树，同时JavaScript也不会因为需要等待CSSOM构建完毕而停止执行，脚本就会立即执行。</h6><h6 id="6）script标签添加defer属性，会在页面加载完毕之后执行。"><a href="#6）script标签添加defer属性，会在页面加载完毕之后执行。" class="headerlink" title="6）script标签添加defer属性，会在页面加载完毕之后执行。"></a>6）<code>script</code>标签添加defer属性，会在页面加载完毕之后执行。</h6><h5 id="其实看到这里我有一个问题没有懂，就是有人说css有可能阻止JavaScript执行，那肯定有不阻止的时候（这里忽略上面这种引入外部JavaScript添加async的情况）。"><a href="#其实看到这里我有一个问题没有懂，就是有人说css有可能阻止JavaScript执行，那肯定有不阻止的时候（这里忽略上面这种引入外部JavaScript添加async的情况）。" class="headerlink" title="其实看到这里我有一个问题没有懂，就是有人说css有可能阻止JavaScript执行，那肯定有不阻止的时候（这里忽略上面这种引入外部JavaScript添加async的情况）。"></a>其实看到这里我有一个问题没有懂，就是有人说css有可能阻止JavaScript执行，那肯定有不阻止的时候（这里忽略上面这种引入外部JavaScript添加<code>async</code>的情况）。</h5><p>将JavaScript放在css上方。（我认为是因为解析到script就阻止DOM构建，导致还没解析到引入css的标签，先执行JavaScript，之后才继续构建的原因，还要再查下资料）。</p>
+<h5 id="关于对内联，异步和阻止的分辨"><a href="#关于对内联，异步和阻止的分辨" class="headerlink" title="关于对内联，异步和阻止的分辨"></a>关于对内联，异步和阻止的分辨</h5><ul>
+<li><strong>阻止（Blocking）</strong>: <code>&lt;script src=&quot;anExteralScript.js&quot;&gt;&lt;/script&gt;</code></li>
+<li><strong>内联（Inline）</strong>: <code>&lt;script&gt;document.write(&quot;this is an inline script&quot;)&lt;/script&gt;</code></li>
+<li><strong>异步（Async）</strong>: <code>&lt;script async src=&quot;anExternalScript.js&quot;&gt;&lt;/script&gt;</code></li>
+</ul>
+<p><img src="http://39.105.62.145/assets/images/WX20190109-235625@2x.png" alt="WX20190109-235625@2x"></p>
+<p>分别是：        异步                            内联                                阻止                                                          </p>
+<h5 id="我的理解"><a href="#我的理解" class="headerlink" title="我的理解"></a>我的理解</h5><p>同步的情况：</p>
+<p>​    当没有引入JavaScript的时候：CSSOM树构建与DOM树构建互不影响。</p>
+<p>​    当引入CSS在引入JavaScript上方的时候：CSSOM树构建会阻止JavaScript执行，JavaScript会阻止DOM树构        建，当CSSOM树构建完毕，执行JavaScript，执行完之后再继续构建DOM树。</p>
+<p>​    当引入JavaScript在引入CSS上方的时候：则JavaScript执行不会被CSS阻止。JavaScript执行仍然会阻止DOM树构建。</p>
+<p>异步的情况（引入了外部的脚本）：</p>
+<p>​       script标签添加了async属性：不会影响DOM树构建，JavaScript也不会等待CSSOM树构建完毕才执行。</p>
+<p>​       script标签添加defer属性：等待页面加载完毕再执行，不会影响到其他的（不过似乎只有 Internet Explorer 支持）</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深入学习/" rel="tag"># 深入学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/26/图片懒加载/" rel="next" title="图片懒加载">
+                <i class="fa fa-chevron-left"></i> 图片懒加载
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/07/宝哥问过的问题/" rel="prev" title="宝哥问过的问题">
+                宝哥问过的问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简单了解浏览器渲染过程"><span class="nav-number">1.</span> <span class="nav-text">简单了解浏览器渲染过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#先说结论"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">先说结论</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#详细的过程"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">详细的过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-构建DOM（Document-Object-Model）树"><span class="nav-number">1.0.0.2.1.</span> <span class="nav-text">1.构建DOM（Document Object Model）树</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1）浏览器从磁盘或者网络读取HTML的字节数据（网络中传输的内容就是0和1），根据指定编码格式-UTF-8-转成字符串（代码）。"><span class="nav-number">1.0.0.2.1.1.</span> <span class="nav-text">1）浏览器从磁盘或者网络读取HTML的字节数据（网络中传输的内容就是0和1），根据指定编码格式(UTF- 8)转成字符串（代码）。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2）字符串转成Token（这一步做的是取得尖括号中的标识，标识出谁是开始标签，谁是结束标签，谁是内容，谁是谁的子节点，这一步由令牌生成器完成）"><span class="nav-number">1.0.0.2.1.2.</span> <span class="nav-text">2）字符串转成Token（这一步做的是取得尖括号中的标识，标识出谁是开始标签，谁是结束标签，谁是内容，谁是谁的子节点，这一步由令牌生成器完成）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3）在转换Token的过程中，同时也在消耗Token，会生出节点对象，构建DOM树（当所有Token消耗完，DOM树也构建完成）"><span class="nav-number">1.0.0.2.1.3.</span> <span class="nav-text">3）在转换Token的过程中，同时也在消耗Token，会生出节点对象，构建DOM树（当所有Token消耗完，DOM树也构建完成）</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-构建CSSOM（Cascading-Style-Sheets-Object-Model）树"><span class="nav-number">1.0.0.2.2.</span> <span class="nav-text">2.构建CSSOM（Cascading Style Sheets Object Model）树</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#"><span class="nav-number">1.0.0.2.2.1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#过程与构建DOM树类似，只是最后是构建CSSOM树"><span class="nav-number">1.0.0.2.2.2.</span> <span class="nav-text">过程与构建DOM树类似，只是最后是构建CSSOM树</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#举个🌰，哪个渲染的比较快，单选"><span class="nav-number">1.0.0.2.2.3.</span> <span class="nav-text">举个🌰，哪个渲染的比较快，单选</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-构建渲染树"><span class="nav-number">1.0.0.2.3.</span> <span class="nav-text">3.构建渲染树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-布局（回流）"><span class="nav-number">1.0.0.2.4.</span> <span class="nav-text">4.布局（回流）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-绘制"><span class="nav-number">1.0.0.2.5.</span> <span class="nav-text">5.绘制</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#有个🌰，哪个节点绘制的比较快"><span class="nav-number">1.0.0.2.5.1.</span> <span class="nav-text">有个🌰，哪个节点绘制的比较快</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-练习题"><span class="nav-number">1.0.0.2.6.</span> <span class="nav-text">6.练习题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-JavaScript与渲染过程（对渲染过程的影响）"><span class="nav-number">1.0.0.2.7.</span> <span class="nav-text">7.JavaScript与渲染过程（对渲染过程的影响）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1）script标签在文档中的表现，举个🌰"><span class="nav-number">1.0.0.2.7.1.</span> <span class="nav-text">1）script标签在文档中的表现，举个🌰</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2）第二个🌰，假如外部引入JavaScript"><span class="nav-number">1.0.0.2.7.2.</span> <span class="nav-text">2）第二个🌰，假如外部引入JavaScript</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3）第三个🌰，p标签会显示什么颜色"><span class="nav-number">1.0.0.2.7.3.</span> <span class="nav-text">3）第三个🌰，p标签会显示什么颜色</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-那么重要的就是优化方案了"><span class="nav-number">1.0.0.2.8.</span> <span class="nav-text">8.那么重要的就是优化方案了</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1）资源缩小（删除注释，消除不必要的数据）"><span class="nav-number">1.0.0.2.8.1.</span> <span class="nav-text">1）资源缩小（删除注释，消除不必要的数据）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2）压缩"><span class="nav-number">1.0.0.2.8.2.</span> <span class="nav-text">2）压缩</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3）HTTP缓存"><span class="nav-number">1.0.0.2.8.3.</span> <span class="nav-text">3）HTTP缓存</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4）等待页面加载完毕，浏览器会发出onload事件，之后再执行脚本"><span class="nav-number">1.0.0.2.8.4.</span> <span class="nav-text">4）等待页面加载完毕，浏览器会发出onload事件，之后再执行脚本</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5）引入外部的JavaScript，可以在script标签内加上async（内联的不能加），当浏览器发现有async就不会阻止构建DOM树，同时JavaScript也不会因为需要等待CSSOM构建完毕而停止执行，脚本就会立即执行。"><span class="nav-number">1.0.0.2.8.5.</span> <span class="nav-text">5）引入外部的JavaScript，可以在script标签内加上async（内联的不能加），当浏览器发现有async就不会阻止构建DOM树，同时JavaScript也不会因为需要等待CSSOM构建完毕而停止执行，脚本就会立即执行。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#6）script标签添加defer属性，会在页面加载完毕之后执行。"><span class="nav-number">1.0.0.2.8.6.</span> <span class="nav-text">6）script标签添加defer属性，会在页面加载完毕之后执行。</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其实看到这里我有一个问题没有懂，就是有人说css有可能阻止JavaScript执行，那肯定有不阻止的时候（这里忽略上面这种引入外部JavaScript添加async的情况）。"><span class="nav-number">1.0.0.2.9.</span> <span class="nav-text">其实看到这里我有一个问题没有懂，就是有人说css有可能阻止JavaScript执行，那肯定有不阻止的时候（这里忽略上面这种引入外部JavaScript添加async的情况）。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#关于对内联，异步和阻止的分辨"><span class="nav-number">1.0.0.2.10.</span> <span class="nav-text">关于对内联，异步和阻止的分辨</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#我的理解"><span class="nav-number">1.0.0.2.11.</span> <span class="nav-text">我的理解</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

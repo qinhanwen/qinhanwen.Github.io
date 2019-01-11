@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="深入学习," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="初识浏览器缓存机制 参考资料：https://www.cnblogs.com/chenqf/p/6386163.html ​                   https://juejin.im/post/5a6c87c46fb9a01ca560b4d7 ​                   http://www.cnblogs.com/skynet/archive/2012/11/28/27">
+<meta name="keywords" content="深入学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初识浏览器缓存机制">
+<meta property="og:url" content="http://yoursite.com/2018/11/26/浏览器缓存机制/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="初识浏览器缓存机制 参考资料：https://www.cnblogs.com/chenqf/p/6386163.html ​                   https://juejin.im/post/5a6c87c46fb9a01ca560b4d7 ​                   http://www.cnblogs.com/skynet/archive/2012/11/28/27">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181218-183328@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181218-182944@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181218-185000@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181218-232303@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181219-124753@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181219-125147@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181219-123144@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181219-130035@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181219-131254@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181219-132540@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181219-144651@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181219-144816@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181220-000245@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181220-001800@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181220-124508@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181220-000245@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181224-171812@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181220-231223@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181220-232128@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20181222-154146@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20190111-155110@2x.png">
+<meta property="og:image" content="http://39.105.62.145/assets/images/WX20190110-155326@2x.png">
+<meta property="og:updated_time" content="2018-12-25T03:35:48.730Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初识浏览器缓存机制">
+<meta name="twitter:description" content="初识浏览器缓存机制 参考资料：https://www.cnblogs.com/chenqf/p/6386163.html ​                   https://juejin.im/post/5a6c87c46fb9a01ca560b4d7 ​                   http://www.cnblogs.com/skynet/archive/2012/11/28/27">
+<meta name="twitter:image" content="http://39.105.62.145/assets/images/WX20181218-183328@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/26/浏览器缓存机制/"/>
+
+
+
+
+
+  <title>初识浏览器缓存机制 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/浏览器缓存机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">初识浏览器缓存机制</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-26T22:17:57+08:00">
+                2018-11-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深入学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深入学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="初识浏览器缓存机制"><a href="#初识浏览器缓存机制" class="headerlink" title="初识浏览器缓存机制"></a>初识浏览器缓存机制</h1><blockquote>
+<p>参考资料：<a href="https://www.cnblogs.com/chenqf/p/6386163.html" target="_blank" rel="noopener">https://www.cnblogs.com/chenqf/p/6386163.html</a></p>
+<p>​                   <a href="https://juejin.im/post/5a6c87c46fb9a01ca560b4d7" target="_blank" rel="noopener">https://juejin.im/post/5a6c87c46fb9a01ca560b4d7</a></p>
+<p>​                   <a href="http://www.cnblogs.com/skynet/archive/2012/11/28/2792503.html" target="_blank" rel="noopener">http://www.cnblogs.com/skynet/archive/2012/11/28/2792503.html</a></p>
+<p>​           <a href="https://my.oschina.net/leejun2005/blog/369148" target="_blank" rel="noopener">https://my.oschina.net/leejun2005/blog/369148</a></p>
+<p>感觉写的真的很清楚，图片资源也是来自这里</p>
+</blockquote>
+<p>假设浏览器存储缓存信息的的地方是<code>缓存数据库</code>。</p>
+<p>🌰都是在chrome下的调试。</p>
+<h4 id="1-缓存规则"><a href="#1-缓存规则" class="headerlink" title="1.缓存规则"></a>1.缓存规则</h4><p>第一次请求数据，缓存数据库中不存在，于是请求服务器，将服务器返回数据和缓存规则，再存入缓存数据库中</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181218-183328@2x.png" alt=""></p>
+<h4 id="2-分类"><a href="#2-分类" class="headerlink" title="2.分类"></a>2.分类</h4><h4 id="强制缓存"><a href="#强制缓存" class="headerlink" title="强制缓存"></a>强制缓存</h4><h6 id="1）缓存命中（客户端发起请求，缓存数据库中存在并且缓存数据未失效，返回数据）"><a href="#1）缓存命中（客户端发起请求，缓存数据库中存在并且缓存数据未失效，返回数据）" class="headerlink" title="1）缓存命中（客户端发起请求，缓存数据库中存在并且缓存数据未失效，返回数据）"></a>1）缓存命中（客户端发起请求，缓存数据库中存在并且缓存数据未失效，返回数据）</h6><p><img src="http://39.105.62.145/assets/images/WX20181218-182944@2x.png" alt=""></p>
+<h6 id="2）缓存未命中（客户端发起请求，缓存数据库中失效，向服务器发请求，将服务器返回的数据和缓存规则再存入缓存数据库中）"><a href="#2）缓存未命中（客户端发起请求，缓存数据库中失效，向服务器发请求，将服务器返回的数据和缓存规则再存入缓存数据库中）" class="headerlink" title="2）缓存未命中（客户端发起请求，缓存数据库中失效，向服务器发请求，将服务器返回的数据和缓存规则再存入缓存数据库中）"></a>2）缓存未命中（客户端发起请求，缓存数据库中失效，向服务器发请求，将服务器返回的数据和缓存规则再存入缓存数据库中）</h6><p><img src="http://39.105.62.145/assets/images/WX20181218-185000@2x.png" alt=""></p>
+<h5 id="那怎么知道缓存的数据是否失效"><a href="#那怎么知道缓存的数据是否失效" class="headerlink" title="那怎么知道缓存的数据是否失效"></a>那怎么知道缓存的数据是否失效</h5><p>上面一直提到的<code>缓存规则</code>是包含在<code>响应header</code>中。</p>
+<p>对于强制缓存来说，<code>响应header</code>中会有两个字段来标明失效规则（Expires/Cache-Control）。</p>
+<p><strong>Expires</strong>：这个是服务器返回的到期时间，请求时间如果小于这个时间，就直接取缓存数据。（这个是http1.0的字段，现在浏览器基本使用http1.1）。</p>
+<p><strong>Cache-Control</strong>：http1.1版本使用的，作为前端我觉得需要知道的属性：</p>
+<h6 id="1-private：客户端可以缓存（默认）。"><a href="#1-private：客户端可以缓存（默认）。" class="headerlink" title="1.private：客户端可以缓存（默认）。"></a>1.private：客户端可以缓存（默认）。</h6><h6 id="2-max-age-xxx-缓存内容将在xxx秒后失效（大于0时直接从缓存里取数据，小于等于0时发送请求验证数据是否被修改）。"><a href="#2-max-age-xxx-缓存内容将在xxx秒后失效（大于0时直接从缓存里取数据，小于等于0时发送请求验证数据是否被修改）。" class="headerlink" title="2.max-age = xxx :缓存内容将在xxx秒后失效（大于0时直接从缓存里取数据，小于等于0时发送请求验证数据是否被修改）。"></a>2.max-age = xxx :缓存内容将在xxx秒后失效（大于0时直接从缓存里取数据，小于等于0时发送请求验证数据是否被修改）。</h6><h6 id="3-no-cache：需要使用协商缓存来验证缓存数据（就是强制每次请求直接发送给服务器，而不取本地缓存，并不是不缓存的意思）。"><a href="#3-no-cache：需要使用协商缓存来验证缓存数据（就是强制每次请求直接发送给服务器，而不取本地缓存，并不是不缓存的意思）。" class="headerlink" title="3.no-cache：需要使用协商缓存来验证缓存数据（就是强制每次请求直接发送给服务器，而不取本地缓存，并不是不缓存的意思）。"></a>3.no-cache：需要使用<code>协商缓存</code>来验证缓存数据（就是强制每次请求直接发送给服务器，而不取本地缓存，并不是不缓存的意思）。</h6><h6 id="4-no-store：所有内容都不缓存。"><a href="#4-no-store：所有内容都不缓存。" class="headerlink" title="4.no-store：所有内容都不缓存。"></a>4.no-store：所有内容都不缓存。</h6><h4 id="协商缓存-对比缓存"><a href="#协商缓存-对比缓存" class="headerlink" title="协商缓存(对比缓存)"></a>协商缓存(对比缓存)</h4><h6 id="1-缓存命中（客户端获取缓存数据标识，请求服务器验证数据是否失效，未失效的话只返回header部分，不再需要将报文主体部分返回给客户端，通过状态码通知客户端使用缓存，客户端收到后再存入缓存数据）"><a href="#1-缓存命中（客户端获取缓存数据标识，请求服务器验证数据是否失效，未失效的话只返回header部分，不再需要将报文主体部分返回给客户端，通过状态码通知客户端使用缓存，客户端收到后再存入缓存数据）" class="headerlink" title="1.缓存命中（客户端获取缓存数据标识，请求服务器验证数据是否失效，未失效的话只返回header部分，不再需要将报文主体部分返回给客户端，通过状态码通知客户端使用缓存，客户端收到后再存入缓存数据）"></a>1.缓存命中（客户端获取缓存数据标识，请求服务器验证数据是否失效，未失效的话只返回header部分，不再需要将报文主体部分返回给客户端，通过状态码通知客户端使用缓存，客户端收到后再存入缓存数据）</h6><p><img src="http://39.105.62.145/assets/images/WX20181218-232303@2x.png" alt=""></p>
+<p>举个🌰</p>
+<p>第一次打开页面，状态码200，Size是1.4kb，Time是56ms</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181219-124753@2x.png" alt=""></p>
+<p>刷新一下</p>
+<p>看到状态码变为304，Size是158b，Time是62ms</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181219-125147@2x.png" alt=""></p>
+<h6 id="2）缓存未命中（客户端获取缓存数据标识，请求服务器验证数据是否失效，失效的话，返回新的数据和缓存规则，客户端收到后再存入缓存数据库）"><a href="#2）缓存未命中（客户端获取缓存数据标识，请求服务器验证数据是否失效，失效的话，返回新的数据和缓存规则，客户端收到后再存入缓存数据库）" class="headerlink" title="2）缓存未命中（客户端获取缓存数据标识，请求服务器验证数据是否失效，失效的话，返回新的数据和缓存规则，客户端收到后再存入缓存数据库）"></a>2）缓存未命中（客户端获取缓存数据标识，请求服务器验证数据是否失效，失效的话，返回新的数据和缓存规则，客户端收到后再存入缓存数据库）</h6><p><img src="http://39.105.62.145/assets/images/WX20181219-123144@2x.png" alt=""></p>
+<h5 id="那么是怎么判断协商缓存是否失效"><a href="#那么是怎么判断协商缓存是否失效" class="headerlink" title="那么是怎么判断协商缓存是否失效"></a>那么是怎么判断协商缓存是否失效</h5><p>有两种标识：</p>
+<h5 id="第一种：Last-Modified-If-Modified-Since"><a href="#第一种：Last-Modified-If-Modified-Since" class="headerlink" title="第一种：Last-Modified  /  If-Modified-Since"></a>第一种：<strong>Last-Modified  /  If-Modified-Since</strong></h5><p><strong>Last-Modified：</strong>服务器响应的时候，在响应头，返回资源最后的修改时间</p>
+<p>举个🌰</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181219-130035@2x.png" alt=""></p>
+<p><strong>If-Modified-Since：</strong></p>
+<p>刷新一下,<code>If-Modified-Since</code>在请求头中，带着上次服务器返回的资源最后修改时间，服务器发现有这个字段，就会与资源的最后修改时间比较，有改动的话状态码返回200，无改动的话状态码返回304并且使用缓存的数据。</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181219-131254@2x.png" alt=""></p>
+<p>举个🌰，修改一下服务器上的资源，在刷新一下页面试试：</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181219-132540@2x.png" alt=""></p>
+<p>可以看到状态码为200，<code>Last-Modified</code>时间被更新，<code>If-Modified-Since</code>的时间是上一次请求资源的最后修改时间。</p>
+<h5 id="第二种：Etag-If-None-Match（优先级高于Last-Modified-If-Modified-Since）"><a href="#第二种：Etag-If-None-Match（优先级高于Last-Modified-If-Modified-Since）" class="headerlink" title="第二种：Etag  /  If-None-Match（优先级高于Last-Modified  /  If-Modified-Since）"></a>第二种：<strong>Etag  /  If-None-Match</strong>（优先级高于Last-Modified  /  If-Modified-Since）</h5><p><strong>Etag：</strong>服务器响应时，告诉浏览器当前资源在服务器的唯一标识。</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181219-144651@2x.png" alt=""></p>
+<p><strong>If-None-Match:</strong> </p>
+<p>刷新一下，请求头中带着这个字段，服务器接收到之后，会与被请求资源比对，不同的话返回状态码200，相同的话返回304并且使用缓存数据。</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181219-144816@2x.png" alt=""></p>
+<h5 id="为什么有了Last-Modified还要有Etag"><a href="#为什么有了Last-Modified还要有Etag" class="headerlink" title="为什么有了Last-Modified还要有Etag"></a>为什么有了<code>Last-Modified</code>还要有<code>Etag</code></h5><p>原因之一：<code>Last-Modified</code>只精确到秒，一秒内可能多次文件改变。（我觉得这个比较重要）</p>
+<h4 id="3-这里有三个问题我不明白"><a href="#3-这里有三个问题我不明白" class="headerlink" title="3.这里有三个问题我不明白"></a>3.这里有三个问题我不明白</h4><h5 id="1-url-enter、刷新、强制刷新打开网页的区别。"><a href="#1-url-enter、刷新、强制刷新打开网页的区别。" class="headerlink" title="1. url+enter、刷新、强制刷新打开网页的区别。"></a>1. url+enter、刷新、强制刷新打开网页的区别。</h5><h6 id="1）url-enter打开：-状态码为200，并且可以看到from-disk-cache，从磁盘中取出缓存，没有发请求给服务器，而是直接取缓存数据。"><a href="#1）url-enter打开：-状态码为200，并且可以看到from-disk-cache，从磁盘中取出缓存，没有发请求给服务器，而是直接取缓存数据。" class="headerlink" title="1）url+enter打开： 状态码为200，并且可以看到from disk cache，从磁盘中取出缓存，没有发请求给服务器，而是直接取缓存数据。"></a>1）url+enter打开： 状态码为200，并且可以看到<code>from disk cache</code>，从磁盘中取出缓存，没有发请求给服务器，而是直接取缓存数据。</h6><p><img src="http://39.105.62.145/assets/images/WX20181220-000245@2x.png" alt=""></p>
+<h6 id="2）强制刷新：不管浏览器是否缓存，都要重新去服务器请求资源，成功返回200。"><a href="#2）强制刷新：不管浏览器是否缓存，都要重新去服务器请求资源，成功返回200。" class="headerlink" title="2）强制刷新：不管浏览器是否缓存，都要重新去服务器请求资源，成功返回200。"></a>2）强制刷新：不管浏览器是否缓存，都要重新去服务器请求资源，成功返回200。</h6><p><img src="http://39.105.62.145/assets/images/WX20181220-001800@2x.png" alt=""></p>
+<p><code>Cache-Control:no-cache</code>在<code>请求头</code>中表示不使用缓存。</p>
+<p><code>Cache-Control:no-cache</code>在<code>响应头</code>中表示客户端不缓存。</p>
+<h6 id="3）刷新：带上If-Modified-Since和If-None-Match发送给服务器并且带上Cache-Control-max-age-0，验证是否可以使用缓存数据。"><a href="#3）刷新：带上If-Modified-Since和If-None-Match发送给服务器并且带上Cache-Control-max-age-0，验证是否可以使用缓存数据。" class="headerlink" title="3）刷新：带上If-Modified-Since和If-None-Match发送给服务器并且带上Cache-Control:max-age=0，验证是否可以使用缓存数据。"></a>3）刷新：带上<code>If-Modified-Since</code>和<code>If-None-Match</code>发送给服务器并且带上<code>Cache-Control:max-age=0</code>，验证是否可以使用缓存数据。</h6><p><img src="http://39.105.62.145/assets/images/WX20181220-124508@2x.png" alt=""></p>
+<h5 id="2-为什么刷新的时候，不直接取未失效的本地缓存，而是发送请求到服务器，验证缓存是否失效。"><a href="#2-为什么刷新的时候，不直接取未失效的本地缓存，而是发送请求到服务器，验证缓存是否失效。" class="headerlink" title="2.为什么刷新的时候，不直接取未失效的本地缓存，而是发送请求到服务器，验证缓存是否失效。"></a>2.为什么刷新的时候，不直接取未失效的本地缓存，而是发送请求到服务器，验证缓存是否失效。</h5><p>这与用户行为有关</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">用户操作</th>
+<th style="text-align:center">Expires/Cache-Control</th>
+<th style="text-align:center">Last-Modified/Etag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">url+enter</td>
+<td style="text-align:center">生效</td>
+<td style="text-align:center">生效</td>
+</tr>
+<tr>
+<td style="text-align:center">刷新</td>
+<td style="text-align:center"><del>失效</del></td>
+<td style="text-align:center">生效</td>
+</tr>
+<tr>
+<td style="text-align:center">强制刷新</td>
+<td style="text-align:center"><del>失效</del></td>
+<td style="text-align:center"><del>失效</del></td>
+</tr>
+</tbody>
+</table>
+<p>可以看到，刷新的时候跳过强缓存，但是会检查协商缓存，请求头会带上<code>Cache-Control:max-age=0</code>。</p>
+<p>强制刷新的时候，都跳过，直接向服务器请求，请求头<code>Cache-Control:no-cache</code>，并且请求头没有<code>If-None-Match</code>和<code>If-Modified-Since</code>。</p>
+<h5 id="3-不同浏览器下，这些用户操作的差异"><a href="#3-不同浏览器下，这些用户操作的差异" class="headerlink" title="3.不同浏览器下，这些用户操作的差异"></a>3.不同浏览器下，这些用户操作的差异</h5><p><a href="http://blog.51cto.com/colinzhouyj/1408842" target="_blank" rel="noopener">传送门</a></p>
+<p>我们这里就先不比较浏览器之间的区别（其实还是因为我很懒，不爱记。。。）</p>
+<h5 id="4-看完这三个问题之后又有一个小小的问题，from-disk-cache和from-memory-cache的区别？"><a href="#4-看完这三个问题之后又有一个小小的问题，from-disk-cache和from-memory-cache的区别？" class="headerlink" title="4.看完这三个问题之后又有一个小小的问题，from disk cache和from memory cache的区别？"></a>4.看完这三个问题之后又有一个小小的问题，<code>from disk cache</code>和<code>from memory cache</code>的区别？</h5><h6 id="首先，获取缓存数据，会先从内存中找，没有的话再到磁盘中找，再没有才发送请求。"><a href="#首先，获取缓存数据，会先从内存中找，没有的话再到磁盘中找，再没有才发送请求。" class="headerlink" title="首先，获取缓存数据，会先从内存中找，没有的话再到磁盘中找，再没有才发送请求。"></a>首先，获取缓存数据，会先从内存中找，没有的话再到磁盘中找，再没有才发送请求。</h6><h6 id="from-disk-cache：不请求网络资源，在磁盘当中，一般非脚本会存在内存当中，如css等，目测html一般也是。"><a href="#from-disk-cache：不请求网络资源，在磁盘当中，一般非脚本会存在内存当中，如css等，目测html一般也是。" class="headerlink" title="from disk cache：不请求网络资源，在磁盘当中，一般非脚本会存在内存当中，如css等，目测html一般也是。"></a><code>from disk cache</code>：不请求网络资源，在磁盘当中，一般非脚本会存在内存当中，如css等，目测html一般也是。</h6><p><img src="http://39.105.62.145/assets/images/WX20181220-000245@2x.png" alt=""></p>
+<h6 id="from-memory-cache：不请求网络资源，资源在内存当中，一般脚本、字体、图片会存在内存当中（当浏览器关闭，数据就清空了）。"><a href="#from-memory-cache：不请求网络资源，资源在内存当中，一般脚本、字体、图片会存在内存当中（当浏览器关闭，数据就清空了）。" class="headerlink" title="from memory cache：不请求网络资源，资源在内存当中，一般脚本、字体、图片会存在内存当中（当浏览器关闭，数据就清空了）。"></a><code>from memory cache</code>：不请求网络资源，资源在内存当中，一般脚本、字体、图片会存在内存当中（当浏览器关闭，数据就清空了）。</h6><p><img src="http://39.105.62.145/assets/images/WX20181224-171812@2x.png" alt="WX20181224-171812@2x"></p>
+<p><strong>所以浏览器打开网页，在有缓存请求的时候</strong></p>
+<p><img src="http://39.105.62.145/assets/images/WX20181220-231223@2x.png" alt=""></p>
+<h4 id="4-启发式缓存阶段"><a href="#4-启发式缓存阶段" class="headerlink" title="4.启发式缓存阶段"></a>4.<strong>启发式缓存阶段</strong></h4><p>如果响应头中没有失效的字段</p>
+<p><img src="http://39.105.62.145/assets/images/WX20181220-232128@2x.png" alt=""></p>
+<p>启发式缓存阶段会从<code>Date（创建报文的日期时间）</code>和<code>Last-Modified</code>字段所差的时间，取10%的时间作为<strong>缓存周期</strong>。</p>
+<h5 id="看到这点时候我还是不明白这个时间是怎么算的，所以我决定自己试试"><a href="#看到这点时候我还是不明白这个时间是怎么算的，所以我决定自己试试" class="headerlink" title="看到这点时候我还是不明白这个时间是怎么算的，所以我决定自己试试"></a>看到这点时候我还是不明白这个时间是怎么算的，所以我决定自己试试</h5><h6 id="1-先打开网页，记录Date和Last-Modified的值。"><a href="#1-先打开网页，记录Date和Last-Modified的值。" class="headerlink" title="1) 先打开网页，记录Date和Last-Modified的值。"></a>1) 先打开网页，记录<code>Date</code>和<code>Last-Modified</code>的值。</h6><p><img src="http://39.105.62.145/assets/images/WX20181222-154146@2x.png" alt=""></p>
+<h6 id="2）如何算一下过期时间"><a href="#2）如何算一下过期时间" class="headerlink" title="2）如何算一下过期时间"></a>2）如何算一下过期时间</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'Sat, 22 Dec 2018 07:41:29 GMT'</span>).getTime();<span class="comment">//Date字段的时间</span></span><br><span class="line"><span class="keyword">const</span> modified = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'Wed, 13 Jun 2018 02:41:14 GMT'</span>).getTime();<span class="comment">//Last-Modified字段的时间</span></span><br><span class="line"><span class="keyword">const</span> nowDate = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();<span class="comment">//现在的时间</span></span><br><span class="line"><span class="keyword">const</span> cacheTime = (date - modified)/<span class="number">10</span>;<span class="comment">//缓存的时间</span></span><br><span class="line"><span class="keyword">const</span> expiresTime = <span class="keyword">new</span> <span class="built_in">Date</span>(cacheTime + nowDate);<span class="comment">//现在的时间加上缓存的时间</span></span><br><span class="line"><span class="built_in">console</span>.log(expiresTime);<span class="comment">//2019-01-10T13:05:50.128Z</span></span><br></pre></td></tr></table></figure>
+<p>可以看到大概19年的1月10号，</p>
+<h6 id="3）于是我把本地时间调整到（2019-01-11），超出了启发式缓存的过期时间。"><a href="#3）于是我把本地时间调整到（2019-01-11），超出了启发式缓存的过期时间。" class="headerlink" title="3）于是我把本地时间调整到（2019-01-11），超出了启发式缓存的过期时间。"></a>3）于是我把本地时间调整到（2019-01-11），超出了启发式缓存的过期时间。</h6><p><img src="http://39.105.62.145/assets/images/WX20190111-155110@2x.png" alt=""></p>
+<p>可以看到变成了协商缓存，<strong>状态码304</strong>，并且响应头中更新了字段。</p>
+<h6 id="4）接着，我又把本地时间设置为（2019-01-10），就是未超出启发式缓存的过期时间。"><a href="#4）接着，我又把本地时间设置为（2019-01-10），就是未超出启发式缓存的过期时间。" class="headerlink" title="4）接着，我又把本地时间设置为（2019-01-10），就是未超出启发式缓存的过期时间。"></a>4）接着，我又把本地时间设置为（2019-01-10），就是未超出<strong>启发式缓存</strong>的过期时间。</h6><p><img src="http://39.105.62.145/assets/images/WX20190110-155326@2x.png" alt=""></p>
+<p>可以看到，<strong>状态码200</strong>。没有向服务器发送请求。</p>
+<h4 id="5-使用缓存的好处"><a href="#5-使用缓存的好处" class="headerlink" title="5.使用缓存的好处"></a>5.使用缓存的好处</h4><h6 id="1-用户体验，加载数据比较快速。"><a href="#1-用户体验，加载数据比较快速。" class="headerlink" title="1.用户体验，加载数据比较快速。"></a>1.用户体验，加载数据比较快速。</h6><h6 id="2-节省带宽"><a href="#2-节省带宽" class="headerlink" title="2.节省带宽"></a>2.节省带宽</h6><h6 id="3-减轻服务器压力"><a href="#3-减轻服务器压力" class="headerlink" title="3.减轻服务器压力"></a>3.减轻服务器压力</h6><h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>头部的字段和属性只了解了部分，之后还有了解会继续补上。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深入学习/" rel="tag"># 深入学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/26/float/" rel="next" title="float">
+                <i class="fa fa-chevron-left"></i> float
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/27/跨域的几种方式/" rel="prev" title="跨域的几种方式">
+                跨域的几种方式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#初识浏览器缓存机制"><span class="nav-number">1.</span> <span class="nav-text">初识浏览器缓存机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-缓存规则"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">1.缓存规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-分类"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">2.分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#强制缓存"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">强制缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1）缓存命中（客户端发起请求，缓存数据库中存在并且缓存数据未失效，返回数据）"><span class="nav-number">1.0.0.3.0.1.</span> <span class="nav-text">1）缓存命中（客户端发起请求，缓存数据库中存在并且缓存数据未失效，返回数据）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2）缓存未命中（客户端发起请求，缓存数据库中失效，向服务器发请求，将服务器返回的数据和缓存规则再存入缓存数据库中）"><span class="nav-number">1.0.0.3.0.2.</span> <span class="nav-text">2）缓存未命中（客户端发起请求，缓存数据库中失效，向服务器发请求，将服务器返回的数据和缓存规则再存入缓存数据库中）</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#那怎么知道缓存的数据是否失效"><span class="nav-number">1.0.0.3.1.</span> <span class="nav-text">那怎么知道缓存的数据是否失效</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-private：客户端可以缓存（默认）。"><span class="nav-number">1.0.0.3.1.1.</span> <span class="nav-text">1.private：客户端可以缓存（默认）。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-max-age-xxx-缓存内容将在xxx秒后失效（大于0时直接从缓存里取数据，小于等于0时发送请求验证数据是否被修改）。"><span class="nav-number">1.0.0.3.1.2.</span> <span class="nav-text">2.max-age = xxx :缓存内容将在xxx秒后失效（大于0时直接从缓存里取数据，小于等于0时发送请求验证数据是否被修改）。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-no-cache：需要使用协商缓存来验证缓存数据（就是强制每次请求直接发送给服务器，而不取本地缓存，并不是不缓存的意思）。"><span class="nav-number">1.0.0.3.1.3.</span> <span class="nav-text">3.no-cache：需要使用协商缓存来验证缓存数据（就是强制每次请求直接发送给服务器，而不取本地缓存，并不是不缓存的意思）。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-no-store：所有内容都不缓存。"><span class="nav-number">1.0.0.3.1.4.</span> <span class="nav-text">4.no-store：所有内容都不缓存。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#协商缓存-对比缓存"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">协商缓存(对比缓存)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-缓存命中（客户端获取缓存数据标识，请求服务器验证数据是否失效，未失效的话只返回header部分，不再需要将报文主体部分返回给客户端，通过状态码通知客户端使用缓存，客户端收到后再存入缓存数据）"><span class="nav-number">1.0.0.4.0.1.</span> <span class="nav-text">1.缓存命中（客户端获取缓存数据标识，请求服务器验证数据是否失效，未失效的话只返回header部分，不再需要将报文主体部分返回给客户端，通过状态码通知客户端使用缓存，客户端收到后再存入缓存数据）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2）缓存未命中（客户端获取缓存数据标识，请求服务器验证数据是否失效，失效的话，返回新的数据和缓存规则，客户端收到后再存入缓存数据库）"><span class="nav-number">1.0.0.4.0.2.</span> <span class="nav-text">2）缓存未命中（客户端获取缓存数据标识，请求服务器验证数据是否失效，失效的话，返回新的数据和缓存规则，客户端收到后再存入缓存数据库）</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#那么是怎么判断协商缓存是否失效"><span class="nav-number">1.0.0.4.1.</span> <span class="nav-text">那么是怎么判断协商缓存是否失效</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第一种：Last-Modified-If-Modified-Since"><span class="nav-number">1.0.0.4.2.</span> <span class="nav-text">第一种：Last-Modified  /  If-Modified-Since</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二种：Etag-If-None-Match（优先级高于Last-Modified-If-Modified-Since）"><span class="nav-number">1.0.0.4.3.</span> <span class="nav-text">第二种：Etag  /  If-None-Match（优先级高于Last-Modified  /  If-Modified-Since）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么有了Last-Modified还要有Etag"><span class="nav-number">1.0.0.4.4.</span> <span class="nav-text">为什么有了Last-Modified还要有Etag</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-这里有三个问题我不明白"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">3.这里有三个问题我不明白</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-url-enter、刷新、强制刷新打开网页的区别。"><span class="nav-number">1.0.0.5.1.</span> <span class="nav-text">1. url+enter、刷新、强制刷新打开网页的区别。</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1）url-enter打开：-状态码为200，并且可以看到from-disk-cache，从磁盘中取出缓存，没有发请求给服务器，而是直接取缓存数据。"><span class="nav-number">1.0.0.5.1.1.</span> <span class="nav-text">1）url+enter打开： 状态码为200，并且可以看到from disk cache，从磁盘中取出缓存，没有发请求给服务器，而是直接取缓存数据。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2）强制刷新：不管浏览器是否缓存，都要重新去服务器请求资源，成功返回200。"><span class="nav-number">1.0.0.5.1.2.</span> <span class="nav-text">2）强制刷新：不管浏览器是否缓存，都要重新去服务器请求资源，成功返回200。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3）刷新：带上If-Modified-Since和If-None-Match发送给服务器并且带上Cache-Control-max-age-0，验证是否可以使用缓存数据。"><span class="nav-number">1.0.0.5.1.3.</span> <span class="nav-text">3）刷新：带上If-Modified-Since和If-None-Match发送给服务器并且带上Cache-Control:max-age=0，验证是否可以使用缓存数据。</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-为什么刷新的时候，不直接取未失效的本地缓存，而是发送请求到服务器，验证缓存是否失效。"><span class="nav-number">1.0.0.5.2.</span> <span class="nav-text">2.为什么刷新的时候，不直接取未失效的本地缓存，而是发送请求到服务器，验证缓存是否失效。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-不同浏览器下，这些用户操作的差异"><span class="nav-number">1.0.0.5.3.</span> <span class="nav-text">3.不同浏览器下，这些用户操作的差异</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-看完这三个问题之后又有一个小小的问题，from-disk-cache和from-memory-cache的区别？"><span class="nav-number">1.0.0.5.4.</span> <span class="nav-text">4.看完这三个问题之后又有一个小小的问题，from disk cache和from memory cache的区别？</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#首先，获取缓存数据，会先从内存中找，没有的话再到磁盘中找，再没有才发送请求。"><span class="nav-number">1.0.0.5.4.1.</span> <span class="nav-text">首先，获取缓存数据，会先从内存中找，没有的话再到磁盘中找，再没有才发送请求。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#from-disk-cache：不请求网络资源，在磁盘当中，一般非脚本会存在内存当中，如css等，目测html一般也是。"><span class="nav-number">1.0.0.5.4.2.</span> <span class="nav-text">from disk cache：不请求网络资源，在磁盘当中，一般非脚本会存在内存当中，如css等，目测html一般也是。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#from-memory-cache：不请求网络资源，资源在内存当中，一般脚本、字体、图片会存在内存当中（当浏览器关闭，数据就清空了）。"><span class="nav-number">1.0.0.5.4.3.</span> <span class="nav-text">from memory cache：不请求网络资源，资源在内存当中，一般脚本、字体、图片会存在内存当中（当浏览器关闭，数据就清空了）。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-启发式缓存阶段"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">4.启发式缓存阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#看到这点时候我还是不明白这个时间是怎么算的，所以我决定自己试试"><span class="nav-number">1.0.0.6.1.</span> <span class="nav-text">看到这点时候我还是不明白这个时间是怎么算的，所以我决定自己试试</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-先打开网页，记录Date和Last-Modified的值。"><span class="nav-number">1.0.0.6.1.1.</span> <span class="nav-text">1) 先打开网页，记录Date和Last-Modified的值。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2）如何算一下过期时间"><span class="nav-number">1.0.0.6.1.2.</span> <span class="nav-text">2）如何算一下过期时间</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3）于是我把本地时间调整到（2019-01-11），超出了启发式缓存的过期时间。"><span class="nav-number">1.0.0.6.1.3.</span> <span class="nav-text">3）于是我把本地时间调整到（2019-01-11），超出了启发式缓存的过期时间。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4）接着，我又把本地时间设置为（2019-01-10），就是未超出启发式缓存的过期时间。"><span class="nav-number">1.0.0.6.1.4.</span> <span class="nav-text">4）接着，我又把本地时间设置为（2019-01-10），就是未超出启发式缓存的过期时间。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-使用缓存的好处"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">5.使用缓存的好处</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-用户体验，加载数据比较快速。"><span class="nav-number">1.0.0.7.0.1.</span> <span class="nav-text">1.用户体验，加载数据比较快速。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-节省带宽"><span class="nav-number">1.0.0.7.0.2.</span> <span class="nav-text">2.节省带宽</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-减轻服务器压力"><span class="nav-number">1.0.0.7.0.3.</span> <span class="nav-text">3.减轻服务器压力</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最后"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">最后</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
