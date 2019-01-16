@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="深入学习," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="HTTP（HyperText Transfer Protocol） 参考资料        图解HTTP  网络基础TCP/IP简单了解1）协议：计算机与网络设备之间的通信，双方要基于相同的方法，比如谁发起，用哪种语言，如何结束通信（协议中内容很多不止这些）。而TCP/IP是各种协议的总称。2）TCP/IP分层应用层，传输层，网络层，链路层  我对发送端的理解： 应用层生成请求报文。 传输层分割请">
+<meta name="keywords" content="深入学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="http">
+<meta property="og:url" content="http://yoursite.com/2018/12/27/http/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="HTTP（HyperText Transfer Protocol） 参考资料        图解HTTP  网络基础TCP/IP简单了解1）协议：计算机与网络设备之间的通信，双方要基于相同的方法，比如谁发起，用哪种语言，如何结束通信（协议中内容很多不止这些）。而TCP/IP是各种协议的总称。2）TCP/IP分层应用层，传输层，网络层，链路层  我对发送端的理解： 应用层生成请求报文。 传输层分割请">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.exexm.com/images/new-images/WX20190113-233417@2x.png">
+<meta property="og:image" content="http://www.exexm.com/images/new-images/WX20190113-234540@2x.png">
+<meta property="og:image" content="http://www.exexm.com/images/new-images/WX20190114-000520@2x.png">
+<meta property="og:image" content="http://www.exexm.com/images/new-images/WX20190114-004038@2x.png">
+<meta property="og:image" content="http://39.108.238.15:97/static/images/images/WX20181227-191704@2x.png">
+<meta property="og:image" content="http://39.108.238.15:97/static/images/images/8BB78A283B1A235F90EA35F889E20097.png">
+<meta property="og:image" content="http://www.exexm.com/images/new-images/WX20190114-011840@2x.png">
+<meta property="og:image" content="http://39.108.238.15:97/static/images/images/5B4009A4A14D20AF74997DEDE2F1A0EA.png">
+<meta property="og:image" content="http://www.exexm.com/images/new-images/WX20190114-012302@2x.png">
+<meta property="og:updated_time" content="2019-01-16T14:34:11.038Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="http">
+<meta name="twitter:description" content="HTTP（HyperText Transfer Protocol） 参考资料        图解HTTP  网络基础TCP/IP简单了解1）协议：计算机与网络设备之间的通信，双方要基于相同的方法，比如谁发起，用哪种语言，如何结束通信（协议中内容很多不止这些）。而TCP/IP是各种协议的总称。2）TCP/IP分层应用层，传输层，网络层，链路层  我对发送端的理解： 应用层生成请求报文。 传输层分割请">
+<meta name="twitter:image" content="http://www.exexm.com/images/new-images/WX20190113-233417@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/27/http/"/>
+
+
+
+
+
+  <title>http | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/http/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">http</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-27T17:48:31+08:00">
+                2018-12-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深入学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深入学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="HTTP（HyperText-Transfer-Protocol）"><a href="#HTTP（HyperText-Transfer-Protocol）" class="headerlink" title="HTTP（HyperText Transfer Protocol）"></a>HTTP（HyperText Transfer Protocol）</h1><blockquote>
+<p>参考资料        图解HTTP</p>
+</blockquote>
+<h4 id="网络基础TCP-IP简单了解"><a href="#网络基础TCP-IP简单了解" class="headerlink" title="网络基础TCP/IP简单了解"></a>网络基础TCP/IP简单了解</h4><h5 id="1）协议：计算机与网络设备之间的通信，双方要基于相同的方法，比如谁发起，用哪种语言，如何结束通信（协议中内容很多不止这些）。而TCP-IP是各种协议的总称。"><a href="#1）协议：计算机与网络设备之间的通信，双方要基于相同的方法，比如谁发起，用哪种语言，如何结束通信（协议中内容很多不止这些）。而TCP-IP是各种协议的总称。" class="headerlink" title="1）协议：计算机与网络设备之间的通信，双方要基于相同的方法，比如谁发起，用哪种语言，如何结束通信（协议中内容很多不止这些）。而TCP/IP是各种协议的总称。"></a>1）协议：计算机与网络设备之间的通信，双方要基于相同的方法，比如谁发起，用哪种语言，如何结束通信（协议中内容很多不止这些）。而TCP/IP是各种协议的总称。</h5><h5 id="2）TCP-IP分层"><a href="#2）TCP-IP分层" class="headerlink" title="2）TCP/IP分层"></a>2）TCP/IP分层</h5><p>应用层，传输层，网络层，链路层</p>
+<p><img src="http://www.exexm.com/images/new-images/WX20190113-233417@2x.png" alt="WX20190113-233417@2x"></p>
+<p>我对发送端的理解：</p>
+<p><code>应用层</code>生成请求报文。</p>
+<p><code>传输层</code>分割请求报文，传递数据。</p>
+<p><code>网络层</code>做数据的转发，寻址。</p>
+<p><code>链路层</code>真正传输数据</p>
+<h5 id="3）与HTTP相关的协议：IP、TCP、DNS"><a href="#3）与HTTP相关的协议：IP、TCP、DNS" class="headerlink" title="3）与HTTP相关的协议：IP、TCP、DNS"></a>3）与HTTP相关的协议：IP、TCP、DNS</h5><h6 id="1-IP协议：位于网络层作用是将数据包传给对方，一般会经过多台设备中转，才连接到对方。"><a href="#1-IP协议：位于网络层作用是将数据包传给对方，一般会经过多台设备中转，才连接到对方。" class="headerlink" title="1. IP协议：位于网络层作用是将数据包传给对方，一般会经过多台设备中转，才连接到对方。"></a>1. IP协议：位于<code>网络层</code>作用是将数据包传给对方，一般会经过多台设备中转，才连接到对方。</h6><p><img src="http://www.exexm.com/images/new-images/WX20190113-234540@2x.png" alt="WX20190113-234540@2x"></p>
+<h6 id="2-TCP协议：位于传输层TCP可以把数据分割，方便传输，并且能准确判断对方是否收到。"><a href="#2-TCP协议：位于传输层TCP可以把数据分割，方便传输，并且能准确判断对方是否收到。" class="headerlink" title="2. TCP协议：位于传输层TCP可以把数据分割，方便传输，并且能准确判断对方是否收到。"></a>2. TCP协议：位于<code>传输层</code>TCP可以把数据分割，方便传输，并且能准确判断对方是否收到。</h6><p>三次握手：为了保证数据准确的送达</p>
+<p><img src="http://www.exexm.com/images/new-images/WX20190114-000520@2x.png" alt="WX20190114-000520@2x"></p>
+<p>当然还要四次挥手，后面再说。</p>
+<h6 id="3-DNS协议：位于应用层，主要做域名解析成IP地址或者IP地址查域名。"><a href="#3-DNS协议：位于应用层，主要做域名解析成IP地址或者IP地址查域名。" class="headerlink" title="3.DNS协议：位于应用层，主要做域名解析成IP地址或者IP地址查域名。"></a>3.DNS协议：位于<code>应用层</code>，主要做域名解析成IP地址或者IP地址查域名。</h6><p><img src="http://www.exexm.com/images/new-images/WX20190114-004038@2x.png" alt="WX20190114-004038@2x"></p>
+<h4 id="HTTP基于请求与响应"><a href="#HTTP基于请求与响应" class="headerlink" title="HTTP基于请求与响应"></a>HTTP基于请求与响应</h4><p><img src="http://39.108.238.15:97/static/images/images/WX20181227-191704@2x.png" alt=""></p>
+<h4 id="HTTP请求报文"><a href="#HTTP请求报文" class="headerlink" title="HTTP请求报文"></a>HTTP请求报文</h4><p><img src="http://39.108.238.15:97/static/images/images/8BB78A283B1A235F90EA35F889E20097.png" alt=""></p>
+<h5 id="1）请求行"><a href="#1）请求行" class="headerlink" title="1）请求行"></a>1）请求行</h5><p><img src="http://www.exexm.com/images/new-images/WX20190114-011840@2x.png" alt="WX20190114-011840@2x"></p>
+<h5 id="2）请求头"><a href="#2）请求头" class="headerlink" title="2）请求头"></a>2）请求头</h5><p>key—value的形式，换行隔开每一个key—value</p>
+<h5 id="3）空行"><a href="#3）空行" class="headerlink" title="3）空行"></a>3）空行</h5><p>标识请求头的结束</p>
+<h5 id="4）请求体"><a href="#4）请求体" class="headerlink" title="4）请求体"></a>4）请求体</h5><h4 id="HTTP响应报文"><a href="#HTTP响应报文" class="headerlink" title="HTTP响应报文"></a>HTTP响应报文</h4><p><img src="http://39.108.238.15:97/static/images/images/5B4009A4A14D20AF74997DEDE2F1A0EA.png" alt=""></p>
+<h5 id="1）响应行"><a href="#1）响应行" class="headerlink" title="1）响应行"></a>1）响应行</h5><p><img src="http://www.exexm.com/images/new-images/WX20190114-012302@2x.png" alt="WX20190114-012302@2x"></p>
+<h5 id="2）响应头"><a href="#2）响应头" class="headerlink" title="2）响应头"></a>2）响应头</h5><p>key—value的形式，换行隔开每一个key—value</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Type:text/html;charset=UTF-8</span><br></pre></td></tr></table></figure>
+<p>服务器告诉浏览器响应内容是什么类型，以及采用的是什么字符编码</p>
+<h5 id="3）空行-1"><a href="#3）空行-1" class="headerlink" title="3）空行"></a>3）空行</h5><p>标识响应头结束</p>
+<h5 id="4）响应体"><a href="#4）响应体" class="headerlink" title="4）响应体"></a>4）响应体</h5><p>这里的响应体是一个html，浏览器可以直接识别</p>
+<h4 id="3-请求方法（HTTP1-1支持）"><a href="#3-请求方法（HTTP1-1支持）" class="headerlink" title="3.请求方法（HTTP1.1支持）"></a>3.请求方法（HTTP1.1支持）</h4><p>1）常见请求方法</p>
+<p>GET，POST，OPTIONS，HEAD，PUT，DELETE</p>
+<p>OPTIONS方法有关于CORS，<a href="https://qinhanwen.github.io/2018/11/27/%E8%B7%A8%E5%9F%9F%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/" target="_blank" rel="noopener">跨域的几种方法</a></p>
+<p>2）不常见（我不常见哈哈哈哈）</p>
+<p>TRACE，CONNECT</p>
+<h4 id="常见状态码（我常见的😂）"><a href="#常见状态码（我常见的😂）" class="headerlink" title="常见状态码（我常见的😂）"></a>常见状态码（我常见的😂）</h4><p>200：成功</p>
+<p>304：文档内容没有修改，<a href="https://qinhanwen.github.io/2018/11/26/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/" target="_blank" rel="noopener">了解更多</a></p>
+<p>401：没有令牌不允许访问</p>
+<p>403：禁止访问</p>
+<p>404：找不到</p>
+<p>405：方法不被允许</p>
+<p>500：服务器内部错误</p>
+<p><a href="https://blog.csdn.net/qq_31796711/article/details/78924366" target="_blank" rel="noopener">其他的状态码</a></p>
+<h4 id="HTTP1-0-、HTTP-1-1、-HTTP-2-0主要区别"><a href="#HTTP1-0-、HTTP-1-1、-HTTP-2-0主要区别" class="headerlink" title="HTTP1.0 、HTTP 1.1、 HTTP 2.0主要区别"></a>HTTP1.0 、HTTP 1.1、 HTTP 2.0主要区别</h4><h6 id="1）长链接"><a href="#1）长链接" class="headerlink" title="1）长链接"></a>1）长链接</h6><p>初始版本每次链接之后就会断开</p>
+<p>HTTP1.0需要带上keep-alive标识告诉服务器建立长链接，而HTTP1.1默认支持，链接的时候可以发送多次请求，收到多次响应。</p>
+<p>HTTP基于TCP/IP，需要经历三次握手，四次挥手，长链接可以节省开销，和开销的时间。这样子数据可以更快返回，页面也可以更快的展示。</p>
+<h6 id="2）多路复用"><a href="#2）多路复用" class="headerlink" title="2）多路复用"></a>2）多路复用</h6><p>HTTP1.0：一次连接，一个request，一个response，连接断开。</p>
+<p>HTTP1.1：一次连接，多个request，多个response（后面的请求等待前面请求的返回才能获得执行机会，一旦有某请求超时等，后续请求只能被阻塞），连接超时时间可以在服务器设置。</p>
+<p>HTTP2.0：一次连接，多个request，多个response，并不会被阻塞（一个请求耗时很多，不会影响其他请求）。</p>
+<h6 id="3）数据压缩"><a href="#3）数据压缩" class="headerlink" title="3）数据压缩"></a>3）数据压缩</h6><p>HTTP2.0支持header压缩，头部大多数时候，并不是都是有用的字段，压缩可以节省开销，也让传输变的更快。</p>
+<h6 id="4）还有一些请求头与响应头，在不同版本也不再有效。"><a href="#4）还有一些请求头与响应头，在不同版本也不再有效。" class="headerlink" title="4）还有一些请求头与响应头，在不同版本也不再有效。"></a>4）还有一些请求头与响应头，在不同版本也不再有效。</h6>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深入学习/" rel="tag"># 深入学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/26/了解浏览器渲染过程/" rel="next" title="了解浏览器渲染过程">
+                <i class="fa fa-chevron-left"></i> 了解浏览器渲染过程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/07/宝哥问过的问题/" rel="prev" title="宝哥问过的问题">
+                宝哥问过的问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP（HyperText-Transfer-Protocol）"><span class="nav-number">1.</span> <span class="nav-text">HTTP（HyperText Transfer Protocol）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#网络基础TCP-IP简单了解"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">网络基础TCP/IP简单了解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1）协议：计算机与网络设备之间的通信，双方要基于相同的方法，比如谁发起，用哪种语言，如何结束通信（协议中内容很多不止这些）。而TCP-IP是各种协议的总称。"><span class="nav-number">1.0.0.1.1.</span> <span class="nav-text">1）协议：计算机与网络设备之间的通信，双方要基于相同的方法，比如谁发起，用哪种语言，如何结束通信（协议中内容很多不止这些）。而TCP/IP是各种协议的总称。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2）TCP-IP分层"><span class="nav-number">1.0.0.1.2.</span> <span class="nav-text">2）TCP/IP分层</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3）与HTTP相关的协议：IP、TCP、DNS"><span class="nav-number">1.0.0.1.3.</span> <span class="nav-text">3）与HTTP相关的协议：IP、TCP、DNS</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-IP协议：位于网络层作用是将数据包传给对方，一般会经过多台设备中转，才连接到对方。"><span class="nav-number">1.0.0.1.3.1.</span> <span class="nav-text">1. IP协议：位于网络层作用是将数据包传给对方，一般会经过多台设备中转，才连接到对方。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-TCP协议：位于传输层TCP可以把数据分割，方便传输，并且能准确判断对方是否收到。"><span class="nav-number">1.0.0.1.3.2.</span> <span class="nav-text">2. TCP协议：位于传输层TCP可以把数据分割，方便传输，并且能准确判断对方是否收到。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-DNS协议：位于应用层，主要做域名解析成IP地址或者IP地址查域名。"><span class="nav-number">1.0.0.1.3.3.</span> <span class="nav-text">3.DNS协议：位于应用层，主要做域名解析成IP地址或者IP地址查域名。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP基于请求与响应"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">HTTP基于请求与响应</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP请求报文"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">HTTP请求报文</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1）请求行"><span class="nav-number">1.0.0.3.1.</span> <span class="nav-text">1）请求行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2）请求头"><span class="nav-number">1.0.0.3.2.</span> <span class="nav-text">2）请求头</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3）空行"><span class="nav-number">1.0.0.3.3.</span> <span class="nav-text">3）空行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4）请求体"><span class="nav-number">1.0.0.3.4.</span> <span class="nav-text">4）请求体</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP响应报文"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">HTTP响应报文</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1）响应行"><span class="nav-number">1.0.0.4.1.</span> <span class="nav-text">1）响应行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2）响应头"><span class="nav-number">1.0.0.4.2.</span> <span class="nav-text">2）响应头</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3）空行-1"><span class="nav-number">1.0.0.4.3.</span> <span class="nav-text">3）空行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4）响应体"><span class="nav-number">1.0.0.4.4.</span> <span class="nav-text">4）响应体</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-请求方法（HTTP1-1支持）"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">3.请求方法（HTTP1.1支持）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见状态码（我常见的😂）"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">常见状态码（我常见的😂）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP1-0-、HTTP-1-1、-HTTP-2-0主要区别"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">HTTP1.0 、HTTP 1.1、 HTTP 2.0主要区别</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1）长链接"><span class="nav-number">1.0.0.7.0.1.</span> <span class="nav-text">1）长链接</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2）多路复用"><span class="nav-number">1.0.0.7.0.2.</span> <span class="nav-text">2）多路复用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3）数据压缩"><span class="nav-number">1.0.0.7.0.3.</span> <span class="nav-text">3）数据压缩</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4）还有一些请求头与响应头，在不同版本也不再有效。"><span class="nav-number">1.0.0.7.0.4.</span> <span class="nav-text">4）还有一些请求头与响应头，在不同版本也不再有效。</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
