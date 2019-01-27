@@ -102,13 +102,13 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="参考资料         https://juejin.im/post/5c15f797f265da61141c7f86  接上浏览器渲染过程 经过对浏览器渲染过程的了解，最后两步就是渲染，也就是在这个阶段出现了重排与重绘，也同时是最耗时的阶段。(意思就是说在第一次加载页面的时候，就会出现重排与重绘)。 重排（回流）当DOM的变化影响到了元素的几何信息，浏览器需要重新计算元素的宽高信息和位置信息">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://www.exexm.com/images/new-images/WX20190111-234924@2x.png">
-<meta property="og:image" content="http://www.exexm.com/images/new-images/WX20190112-135121@2x.png">
-<meta property="og:updated_time" content="2019-01-12T07:17:16.427Z">
+<meta property="og:image" content="http://www.qinhanwen.xyz/images/WX20190111-234924@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/images/WX20190112-135121@2x.png">
+<meta property="og:updated_time" content="2019-01-27T12:53:40.940Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="重排和重绘">
 <meta name="twitter:description" content="参考资料         https://juejin.im/post/5c15f797f265da61141c7f86  接上浏览器渲染过程 经过对浏览器渲染过程的了解，最后两步就是渲染，也就是在这个阶段出现了重排与重绘，也同时是最耗时的阶段。(意思就是说在第一次加载页面的时候，就会出现重排与重绘)。 重排（回流）当DOM的变化影响到了元素的几何信息，浏览器需要重新计算元素的宽高信息和位置信息">
-<meta name="twitter:image" content="http://www.exexm.com/images/new-images/WX20190111-234924@2x.png">
+<meta name="twitter:image" content="http://www.qinhanwen.xyz/images/WX20190111-234924@2x.png">
 
 
 
@@ -387,10 +387,10 @@
 <p>4.浏览器窗口尺寸改变——resize事件发生时</p>
 <p>5.计算 offsetWidth 和 offsetHeight 属性</p>
 <p>6.设置 style 属性的值</p>
-<p><img src="http://www.exexm.com/images/new-images/WX20190111-234924@2x.png" alt="WX20190111-234924@2x"></p>
+<p><img src="http://www.qinhanwen.xyz/images/WX20190111-234924@2x.png" alt="WX20190111-234924@2x"></p>
 <h4 id="重绘"><a href="#重绘" class="headerlink" title="重绘"></a>重绘</h4><p>当一个元素的外观发生改变，但没有改变布局，重新把元素外观绘制出来的过程，叫做重绘。</p>
 <p><strong>常见的引起重绘的属性</strong>:</p>
-<p><img src="http://www.exexm.com/images/new-images/WX20190112-135121@2x.png" alt="WX20190112-135121@2x"></p>
+<p><img src="http://www.qinhanwen.xyz/images/WX20190112-135121@2x.png" alt="WX20190112-135121@2x"></p>
 <h4 id="浏览器的渲染队列"><a href="#浏览器的渲染队列" class="headerlink" title="浏览器的渲染队列"></a>浏览器的渲染队列</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">div.style.left = <span class="string">'10px'</span>;</span><br><span class="line">div.style.top = <span class="string">'10px'</span>;</span><br><span class="line">div.style.width = <span class="string">'20px'</span>;</span><br><span class="line">div.style.height = <span class="string">'20px'</span>;</span><br></pre></td></tr></table></figure>
 <p><strong>按照之上的来说，这段代码应该重排+重绘4次，但是浏览器的渲染队列会把所有会引起重排、重绘的操作放入渲染队列队列，直到达到一定数量，或者一定时间，才进行一次重排和重绘。让多次的重排和重绘合并为一次。</strong></p>
 <p>那么怎样会阻止多次的重排和重绘合并成一次呢？</p>
