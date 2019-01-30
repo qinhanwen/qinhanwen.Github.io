@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="深入学习," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="JSBridge-分离插件js宝哥总是说做Hybird应用开发的，这个要了解一下，那就了解一下哈哈哈哈。刚好有机会写个接入的文档，总结一下流程。 1.JSBridge其实就是Native和Web之间通信的桥梁。 2.需求1）引入lauch.js，根据ua判断，引入不同平台的cordova.js。 2）引入的cordova.js会根据配置文件cordova.plugin.js里的配置数据（数组），然">
+<meta name="keywords" content="深入学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSBridge-分离插件js">
+<meta property="og:url" content="http://yoursite.com/2018/12/11/JSBridge-分离插件js/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="JSBridge-分离插件js宝哥总是说做Hybird应用开发的，这个要了解一下，那就了解一下哈哈哈哈。刚好有机会写个接入的文档，总结一下流程。 1.JSBridge其实就是Native和Web之间通信的桥梁。 2.需求1）引入lauch.js，根据ua判断，引入不同平台的cordova.js。 2）引入的cordova.js会根据配置文件cordova.plugin.js里的配置数据（数组），然">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.qinhanwen.xyz/images/WX20190128-183902@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/images/WX20190128-184112@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/images/WX20190129-124901@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/images/WX20190129-125233@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/images/WX20190129-172110@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/images/WX20190129-172759@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/images/WX20190129-173610@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/images/WX20190129-173750@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/images/WechatIMG174.png">
+<meta property="og:updated_time" content="2019-01-30T04:49:45.036Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JSBridge-分离插件js">
+<meta name="twitter:description" content="JSBridge-分离插件js宝哥总是说做Hybird应用开发的，这个要了解一下，那就了解一下哈哈哈哈。刚好有机会写个接入的文档，总结一下流程。 1.JSBridge其实就是Native和Web之间通信的桥梁。 2.需求1）引入lauch.js，根据ua判断，引入不同平台的cordova.js。 2）引入的cordova.js会根据配置文件cordova.plugin.js里的配置数据（数组），然">
+<meta name="twitter:image" content="http://www.qinhanwen.xyz/images/WX20190128-183902@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/11/JSBridge-分离插件js/"/>
+
+
+
+
+
+  <title>JSBridge-分离插件js | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/11/JSBridge-分离插件js/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JSBridge-分离插件js</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-11T23:04:36+08:00">
+                2018-12-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深入学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深入学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="JSBridge-分离插件js"><a href="#JSBridge-分离插件js" class="headerlink" title="JSBridge-分离插件js"></a>JSBridge-分离插件js</h1><p>宝哥总是说做Hybird应用开发的，这个要了解一下，那就了解一下哈哈哈哈。刚好有机会写个接入的文档，总结一下流程。</p>
+<h4 id="1-JSBridge"><a href="#1-JSBridge" class="headerlink" title="1.JSBridge"></a>1.JSBridge</h4><p>其实就是Native和Web之间通信的桥梁。</p>
+<h4 id="2-需求"><a href="#2-需求" class="headerlink" title="2.需求"></a>2.需求</h4><p>1）引入lauch.js，根据ua判断，引入不同平台的cordova.js。</p>
+<p>2）引入的cordova.js会根据配置文件cordova.plugin.js里的配置数据（数组），然后再动态创建script标签，引入不同的插件js。（cordova.js、cordova.plugin.js以及插件js全都会放在cdn上，根据用户配置信息载入不同的文件，变成可配置的）。</p>
+<p>3）调用插件，文档需要标明有哪些输入与输出属性。</p>
+<p>4）了解不同平台之间的通信方式(IOS与Android)。</p>
+<p>####3.准备工作（这里不怎么重要。。）</p>
+<h5 id="1）首先，新建一个ionic1的项目"><a href="#1）首先，新建一个ionic1的项目" class="headerlink" title="1）首先，新建一个ionic1的项目"></a>1）首先，新建一个ionic1的项目</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo npm install -g cordova ionic</span><br><span class="line"><span class="meta">$</span> ionic start myApp tabs --type ionic1</span><br></pre></td></tr></table></figure>
+<h5 id="2）ngCordova安装配置"><a href="#2）ngCordova安装配置" class="headerlink" title="2）ngCordova安装配置"></a>2）ngCordova安装配置</h5><p>其实就是多封装了一层</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>#首先安装bower，用于安装和卸载如JavaScript、HTML、CSS之类的网络资源。</span><br><span class="line"><span class="meta">$</span> npm install -g bower</span><br><span class="line"><span class="meta">#</span>#安装ngCordova</span><br><span class="line"><span class="meta">$</span> bower install ngCordova</span><br></pre></td></tr></table></figure>
+<p>在www/index.html引入</p>
+<p><img src="http://www.qinhanwen.xyz/images/WX20190128-183902@2x.png" alt="WX20190128-183902@2x"></p>
+<p>并在www/js/app.js注入</p>
+<p><img src="http://www.qinhanwen.xyz/images/WX20190128-184112@2x.png" alt="WX20190128-184112@2x"></p>
+<h5 id="3）装个相机插件"><a href="#3）装个相机插件" class="headerlink" title="3）装个相机插件"></a>3）装个相机插件</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>#添加平台</span><br><span class="line"><span class="meta">$</span> ionic cordova platform add ios</span><br><span class="line"><span class="meta">#</span>#安装插件</span><br><span class="line"><span class="meta">$</span> cordova plugin add cordova-plugin-camera</span><br></pre></td></tr></table></figure>
+<h5 id="4）真机调试"><a href="#4）真机调试" class="headerlink" title="4）真机调试"></a>4）真机调试</h5><p>使用xcode安装到手机上，接着碰到一个问题导致调用插件的时候app直接闪退</p>
+<p><img src="http://www.qinhanwen.xyz/images/WX20190129-124901@2x.png" alt="WX20190129-124901@2x"></p>
+<p>解决方案，增加权限，在下面的文件以<code>Source Code</code>方式打开并加这一段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;key&gt;NSCameraUsageDescription&lt;/key&gt;</span><br><span class="line">&lt;string&gt;The camera is used to scan QR codes.&lt;/string&gt;</span><br><span class="line">&lt;key&gt;NSLocationWhenInUseUsageDescription&lt;/key&gt;</span><br><span class="line">&lt;string/&gt;</span><br><span class="line">&lt;key&gt;NSMainNibFile&lt;/key&gt;</span><br><span class="line">&lt;string/&gt;</span><br><span class="line">&lt;key&gt;NSMainNibFile~ipad&lt;/key&gt;</span><br><span class="line">&lt;string/&gt;</span><br><span class="line">&lt;key&gt;NSPhotoLibraryUsageDescription&lt;/key&gt;</span><br><span class="line">&lt;string/&gt;</span><br></pre></td></tr></table></figure>
+<p>如图：</p>
+<p><img src="http://www.qinhanwen.xyz/images/WX20190129-125233@2x.png" alt="WX20190129-125233@2x"></p>
+<p>到这里准备工作就完成了。</p>
+<h4 id="4-实现流程（因为cdn上传文件夹不大方便，于是我放到了自己的服务器上，直接放在了之前放图片的images目录下，忽略这个尴尬的路径名称）"><a href="#4-实现流程（因为cdn上传文件夹不大方便，于是我放到了自己的服务器上，直接放在了之前放图片的images目录下，忽略这个尴尬的路径名称）" class="headerlink" title="4.实现流程（因为cdn上传文件夹不大方便，于是我放到了自己的服务器上，直接放在了之前放图片的images目录下，忽略这个尴尬的路径名称）"></a>4.实现流程（因为cdn上传文件夹不大方便，于是我放到了自己的服务器上，直接放在了之前放图片的images目录下，忽略这个尴尬的路径名称）</h4><h5 id="1-单页应用只需要在index-html引入lauch-js，这个js做的事情，就是根据不同平台，引入不同的cordova-js"><a href="#1-单页应用只需要在index-html引入lauch-js，这个js做的事情，就是根据不同平台，引入不同的cordova-js" class="headerlink" title="1.单页应用只需要在index.html引入lauch.js，这个js做的事情，就是根据不同平台，引入不同的cordova.js"></a>1.单页应用只需要在<code>index.html</code>引入<code>lauch.js</code>，这个js做的事情，就是根据不同平台，引入不同的<code>cordova.js</code></h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">$window</span>)</span>&#123; <span class="string">'use strict'</span>;</span><br><span class="line">    <span class="keyword">var</span> ua = $<span class="built_in">window</span>.navigator.userAgent;</span><br><span class="line">    <span class="keyword">var</span> isIOS = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> isAndroid = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> platform = <span class="string">'web'</span>;</span><br><span class="line">    <span class="keyword">var</span> filePath = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'\\biPhone.*Mobile|\\biPod|\\biPad|AppleCoreMedia'</span>, <span class="string">'i'</span>).test(ua)) &#123;</span><br><span class="line">        isIOS = <span class="literal">true</span>;</span><br><span class="line">        platform = <span class="string">'ios'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'Android'</span>, <span class="string">'i'</span>).test(ua)) &#123;</span><br><span class="line">        isAndroid = <span class="literal">true</span>;</span><br><span class="line">        platform = <span class="string">'android'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(isIOS || isAndroid) &#123;</span><br><span class="line">        filePath = <span class="string">'http://www.qinhanwen.xyz/images/'</span>;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            createAndAddScript(filePath + platform + <span class="string">'/cordova.js'</span>);</span><br><span class="line">        &#125;, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">createAndAddScript</span>(<span class="params">url, onload, onerror</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">        <span class="comment">// onload fires even when script fails loads with an error.</span></span><br><span class="line">        script.onload = onload;</span><br><span class="line">        <span class="comment">// onerror fires for malformed URLs.</span></span><br><span class="line">        script.onerror = onerror;</span><br><span class="line">        script.src = url;</span><br><span class="line">        <span class="built_in">document</span>.head.appendChild(script);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)(<span class="keyword">this</span>);</span><br></pre></td></tr></table></figure>
+<p>之后上传一份IOS平台引用的<code>cordova.js</code>文件，地址为<code>http://www.qinhanwen.xyz/images/ios/cordova.js</code></p>
+<p>更改<code>index.html</code>，引入<code>lauch.js</code>，如图：</p>
+<p><img src="http://www.qinhanwen.xyz/images/WX20190129-172110@2x.png" alt="WX20190129-172110@2x"></p>
+<p>打到真机上调试，当<code>lauch.js</code>加载成功后，加载了ios平台的<code>cordova.js</code>文件之后，加载<code>cordova_plugins.js</code>文件的时候加载失败</p>
+<p><img src="http://www.qinhanwen.xyz/images/WX20190129-172759@2x.png" alt="WX20190129-172759@2x"></p>
+<h6 id="那么这个cordova-plugins-js文件是干嘛的，它是在什么时候加载？"><a href="#那么这个cordova-plugins-js文件是干嘛的，它是在什么时候加载？" class="headerlink" title="那么这个cordova_plugins.js文件是干嘛的，它是在什么时候加载？"></a>那么这个<code>cordova_plugins.js</code>文件是干嘛的，它是在什么时候加载？</h6><p>1）首先cordova.js执行过程中，会获取了页面中所有<code>script</code>标签的<code>src</code>，并且找出了<code>cordova.js</code>的前缀，保存前缀为<code>pathPrefix</code>字段，拼接<code>pathPrefix</code>+<code>cordova_plugins.js</code>得到一个<code>url</code>，这个<code>url</code>也就是<code>cordova_plugins.js</code>文件的地址</p>
+<p>2）接着动态创建<code>script</code>标签，<code>src</code>设置为<code>url</code>，之后把<code>script</code>标签加入<code>head</code>内</p>
+<h5 id="2-所以我又在服务器上的ios目录下上传了cordova-plugins-js文件"><a href="#2-所以我又在服务器上的ios目录下上传了cordova-plugins-js文件" class="headerlink" title="2.所以我又在服务器上的ios目录下上传了cordova_plugins.js文件"></a>2.所以我又在服务器上的<code>ios</code>目录下上传了<code>cordova_plugins.js</code>文件</h5><p>之后<code>cordova_plugins.js</code>是加载成功了，但是又出现一大堆的404。</p>
+<p><img src="http://www.qinhanwen.xyz/images/WX20190129-173610@2x.png" alt="WX20190129-173610@2x"></p>
+<p>其实<code>cordova_plugin.js</code>里有一个数组，里面有插件的信息，解析数组之后，会动态创建script标签，引入这些插件js，如图：</p>
+<p><img src="http://www.qinhanwen.xyz/images/WX20190129-173750@2x.png" alt="WX20190129-173750@2x"></p>
+<h5 id="3-接着我把整个插件文件夹都放到了服务器ios目录下"><a href="#3-接着我把整个插件文件夹都放到了服务器ios目录下" class="headerlink" title="3.接着我把整个插件文件夹都放到了服务器ios目录下"></a>3.接着我把整个插件文件夹都放到了服务器ios目录下</h5><p>重新加载应用，可以看到<code>index.html</code>审查元素变成了如图：</p>
+<p><img src="http://www.qinhanwen.xyz/images/WechatIMG174.png" alt="WechatIMG174"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深入学习/" rel="tag"># 深入学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/05/this/" rel="next" title="this">
+                <i class="fa fa-chevron-left"></i> this
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/15/七牛云测试域名过期/" rel="prev" title="七牛云测试域名过期">
+                七牛云测试域名过期 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JSBridge-分离插件js"><span class="nav-number">1.</span> <span class="nav-text">JSBridge-分离插件js</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-JSBridge"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">1.JSBridge</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-需求"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">2.需求</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1）首先，新建一个ionic1的项目"><span class="nav-number">1.0.0.2.1.</span> <span class="nav-text">1）首先，新建一个ionic1的项目</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2）ngCordova安装配置"><span class="nav-number">1.0.0.2.2.</span> <span class="nav-text">2）ngCordova安装配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3）装个相机插件"><span class="nav-number">1.0.0.2.3.</span> <span class="nav-text">3）装个相机插件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4）真机调试"><span class="nav-number">1.0.0.2.4.</span> <span class="nav-text">4）真机调试</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-实现流程（因为cdn上传文件夹不大方便，于是我放到了自己的服务器上，直接放在了之前放图片的images目录下，忽略这个尴尬的路径名称）"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">4.实现流程（因为cdn上传文件夹不大方便，于是我放到了自己的服务器上，直接放在了之前放图片的images目录下，忽略这个尴尬的路径名称）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-单页应用只需要在index-html引入lauch-js，这个js做的事情，就是根据不同平台，引入不同的cordova-js"><span class="nav-number">1.0.0.3.1.</span> <span class="nav-text">1.单页应用只需要在index.html引入lauch.js，这个js做的事情，就是根据不同平台，引入不同的cordova.js</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#那么这个cordova-plugins-js文件是干嘛的，它是在什么时候加载？"><span class="nav-number">1.0.0.3.1.1.</span> <span class="nav-text">那么这个cordova_plugins.js文件是干嘛的，它是在什么时候加载？</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-所以我又在服务器上的ios目录下上传了cordova-plugins-js文件"><span class="nav-number">1.0.0.3.2.</span> <span class="nav-text">2.所以我又在服务器上的ios目录下上传了cordova_plugins.js文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-接着我把整个插件文件夹都放到了服务器ios目录下"><span class="nav-number">1.0.0.3.3.</span> <span class="nav-text">3.接着我把整个插件文件夹都放到了服务器ios目录下</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
