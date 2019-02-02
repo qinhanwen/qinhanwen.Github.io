@@ -115,7 +115,7 @@
 <meta property="og:image" content="http://www.qinhanwen.xyz/images/WX20190130-213640@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/images/WX20190130-212710@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/images/WX20190130-232029@2x.png">
-<meta property="og:updated_time" content="2019-01-31T15:42:28.796Z">
+<meta property="og:updated_time" content="2019-02-02T08:04:47.248Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JSBridge-分离插件js">
 <meta name="twitter:description" content="JSBridge-分离插件js宝哥总是说做Hybird应用开发的，这个要了解一下，那就了解一下哈哈哈哈。刚好有机会写个接入的文档，总结一下流程。 1.JSBridge其实就是Native和Web之间通信的桥梁。 2.需求1）引入lauch.js，根据ua判断，引入不同平台的cordova.js。 2）引入的cordova.js会根据配置文件cordova.plugin.js里的配置数据（数组），然">
@@ -426,11 +426,12 @@
 <p><img src="http://www.qinhanwen.xyz/images/WX20190130-185249@2x.png" alt="WX20190130-185249@2x"></p>
 <h5 id="IOS端："><a href="#IOS端：" class="headerlink" title="IOS端："></a>IOS端：</h5><p>首先在调用过程中，传递参数的时候发现会把传入的成功与失败的回调，存在一个对象内，key是一个callbackId</p>
 <p><img src="http://www.qinhanwen.xyz/images/WX20190130-213640@2x.png" alt="WX20190130-213640@2x"></p>
-<h6 id="1）UIWebView的通信方式："><a href="#1）UIWebView的通信方式：" class="headerlink" title="1）UIWebView的通信方式："></a>1）UIWebView的通信方式：</h6><p>在从controller开始调用的地方进行断点，一步一步往内层调用走，发现了一个pokeNative函数</p>
+<h6 id="1）UIWebView的通信方式："><a href="#1）UIWebView的通信方式：" class="headerlink" title="1）UIWebView的通信方式："></a>1）UIWebView的通信方式：</h6><p>在从controller开始调用的地方进行断点，一步一步往内层调用走，发现了一个pokeNative函数，这个是轮训。从上面一张图可以看到一个commandQueue，压入了一个command数组，其实就是调用的一些信息，还有标识callbackId，原生接收到消息，就可以取得这些数据。然后通过callbackId找到对应的回调。</p>
 <p><img src="http://www.qinhanwen.xyz/images/WX20190130-212710@2x.png" alt="WX20190130-212710@2x"></p>
-<p>如果execIframe存在，它的contentWindow其实就是它的window对象，就设置location为<code>gap://ready</code></p>
 <h6 id="2）WKWebView的通信方式"><a href="#2）WKWebView的通信方式" class="headerlink" title="2）WKWebView的通信方式"></a>2）WKWebView的通信方式</h6><p><img src="http://www.qinhanwen.xyz/images/WX20190130-232029@2x.png" alt="WX20190130-232029@2x"></p>
+<p>command直接通过postMessage方法传入。</p>
 <h5 id="Android端："><a href="#Android端：" class="headerlink" title="Android端："></a>Android端：</h5><p>重写了prompt方法</p>
+<p>至于Android端和IOS端的处理方式，等同事上完课再补。</p>
 
       
     </div>
