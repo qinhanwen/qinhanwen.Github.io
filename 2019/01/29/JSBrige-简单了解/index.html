@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JSBridge," />
 
 
 
@@ -94,14 +94,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta name="description" content="参考资料：cordova.js源码分析  通过整理JSBridge分离插件js稍微了解了cordova.js文件，还有不同平台间js通知原生层的方式。 JSBridge在Hybrid App开发中，H5应用是内嵌到原生的WebView组件中，纯H5在很多功能使用都收到限制，而且功能的使用存在很多的兼容性问题，所以使用一些受限的功能时候需要依赖原生，而JSbridge就是JS与原生之间通信的桥梁。">
+<meta name="keywords" content="JSBridge">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSBrige-简单了解">
+<meta property="og:url" content="http://yoursite.com/2019/01/29/JSBrige-简单了解/index.html">
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="参考资料：cordova.js源码分析  通过整理JSBridge分离插件js稍微了解了cordova.js文件，还有不同平台间js通知原生层的方式。 JSBridge在Hybrid App开发中，H5应用是内嵌到原生的WebView组件中，纯H5在很多功能使用都收到限制，而且功能的使用存在很多的兼容性问题，所以使用一些受限的功能时候需要依赖原生，而JSbridge就是JS与原生之间通信的桥梁。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-25T14:09:34.638Z">
+<meta property="og:updated_time" content="2019-02-02T08:30:16.080Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="JSBrige-简单了解">
+<meta name="twitter:description" content="参考资料：cordova.js源码分析  通过整理JSBridge分离插件js稍微了解了cordova.js文件，还有不同平台间js通知原生层的方式。 JSBridge在Hybrid App开发中，H5应用是内嵌到原生的WebView组件中，纯H5在很多功能使用都收到限制，而且功能的使用存在很多的兼容性问题，所以使用一些受限的功能时候需要依赖原生，而JSbridge就是JS与原生之间通信的桥梁。">
 
 
 
@@ -130,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/01/29/JSBrige-简单了解/"/>
 
 
 
 
 
-  <title>tags | 渣渣大星星的学习笔记</title>
+  <title>JSBrige-简单了解 | 渣渣大星星的学习笔记</title>
   
 
 
@@ -267,40 +271,173 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/29/JSBrige-简单了解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                14 tags in total
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/HTML/" style="font-size: 12px; color: #ccc">HTML</a> <a href="/tags/JSBridge/" style="font-size: 16.5px; color: #9d9d9d">JSBridge</a> <a href="/tags/JavaScript/" style="font-size: 16.5px; color: #9d9d9d">JavaScript</a> <a href="/tags/XML/" style="font-size: 12px; color: #ccc">XML</a> <a href="/tags/angular/" style="font-size: 12px; color: #ccc">angular</a> <a href="/tags/css/" style="font-size: 25.5px; color: #404040">css</a> <a href="/tags/es6/" style="font-size: 16.5px; color: #9d9d9d">es6</a> <a href="/tags/hexo/" style="font-size: 12px; color: #ccc">hexo</a> <a href="/tags/koa/" style="font-size: 12px; color: #ccc">koa</a> <a href="/tags/puppeteer/" style="font-size: 21px; color: #6f6f6f">puppeteer</a> <a href="/tags/websocket-koa/" style="font-size: 12px; color: #ccc">websocket+koa</a> <a href="/tags/提问/" style="font-size: 12px; color: #ccc">提问</a> <a href="/tags/深入学习/" style="font-size: 30px; color: #111">深入学习</a> <a href="/tags/调试方法/" style="font-size: 12px; color: #ccc">调试方法</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">JSBrige-简单了解</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-29T22:55:47+08:00">
+                2019-01-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JSBridge/" itemprop="url" rel="index">
+                    <span itemprop="name">JSBridge</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <blockquote>
+<p>参考资料：<a href="https://www.jianshu.com/p/866a32ac69ea" target="_blank" rel="noopener">cordova.js源码分析</a></p>
+</blockquote>
+<p>通过整理<a href="https://qinhanwen.github.io/2018/12/11/JSBridge%E6%8E%A5%E5%85%A5%E6%96%87%E6%A1%A3/" target="_blank" rel="noopener">JSBridge分离插件js</a>稍微了解了cordova.js文件，还有不同平台间js通知原生层的方式。</p>
+<h4 id="JSBridge"><a href="#JSBridge" class="headerlink" title="JSBridge"></a>JSBridge</h4><p>在Hybrid App开发中，H5应用是内嵌到原生的WebView组件中，纯H5在很多功能使用都收到限制，而且功能的使用存在很多的兼容性问题，所以使用一些受限的功能时候需要依赖原生，而JSbridge就是JS与原生之间通信的桥梁。</p>
+<h4 id="JS调用Native"><a href="#JS调用Native" class="headerlink" title="JS调用Native"></a>JS调用Native</h4><h5 id="1）注入-API"><a href="#1）注入-API" class="headerlink" title="1）注入 API"></a>1）<strong>注入 API</strong></h5><p>其实就是向JavaScript的Context（window）注入方法或对象，在JavaScript调用的时候，执行相关的Native方法。</p>
+<h5 id="2）拦截-URL-SCHEME"><a href="#2）拦截-URL-SCHEME" class="headerlink" title="2）拦截 URL SCHEME"></a>2）<strong>拦截 URL SCHEME</strong></h5><p>比如：设置iframe的src，Native拦截到，再进行相对的操作。</p>
+<h4 id="Native调用JS"><a href="#Native调用JS" class="headerlink" title="Native调用JS"></a>Native调用JS</h4><p>在Cordova.js里看到了将成功与失败的回调都保存在了一个对象里，并且有一个单独标识callbackId，Native可以通过callbackId获取对应的成功与失败回调，回传值给JavaScript。</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JSBridge/" rel="tag"># JSBridge</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/23/循环/" rel="next" title="循环">
+                <i class="fa fa-chevron-left"></i> 循环
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -333,8 +470,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -396,6 +542,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#JSBridge"><span class="nav-number">1.</span> <span class="nav-text">JSBridge</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JS调用Native"><span class="nav-number">2.</span> <span class="nav-text">JS调用Native</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1）注入-API"><span class="nav-number">2.1.</span> <span class="nav-text">1）注入 API</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2）拦截-URL-SCHEME"><span class="nav-number">2.2.</span> <span class="nav-text">2）拦截 URL SCHEME</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Native调用JS"><span class="nav-number">3.</span> <span class="nav-text">Native调用JS</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -509,10 +671,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 
