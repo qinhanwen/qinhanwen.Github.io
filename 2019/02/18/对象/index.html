@@ -108,7 +108,7 @@
 <meta property="og:image" content="http://www.qinhanwen.xyz/images/WX20190218-092532@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/images/WX20190218-130550@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/images/WX20190218-132239@2x.png">
-<meta property="og:updated_time" content="2019-02-18T15:17:18.887Z">
+<meta property="og:updated_time" content="2019-02-20T02:05:11.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对象和Object构造函数">
 <meta name="twitter:description" content="对象和Object构造函数没有单独区分出es6新增的一些属性方法 1.对象创建一个对象12345678910var obj = &amp;#123;&amp;#125;;var obj1 = Object();//参数接受任何值,如果是null或者undefined，则返回一个空对象，否则返回给定的值的对应类型的对象var obj2 = new Object();//同上var obj3 = Object.cre">
@@ -392,6 +392,8 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line"><span class="built_in">console</span>.log(obj);</span><br></pre></td></tr></table></figure>
 <p>输出如图：</p>
 <p><img src="http://www.qinhanwen.xyz/images/WX20190216-144352@2x.png" alt="WX20190216-144352@2x"></p>
+<p>实现一个简单create方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.create =  <span class="function"><span class="keyword">function</span> (<span class="params">o</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> F = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">    F.prototype = o;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> F();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h5 id="3）Object-defineProperty-obj-prop-descriptor"><a href="#3）Object-defineProperty-obj-prop-descriptor" class="headerlink" title="3）Object.defineProperty(obj, prop, descriptor)"></a>3）Object.defineProperty(obj, prop, descriptor)</h5><p>在一个对象上定义新的属性，或者修改已有的属性</p>
 <p>obj：要在其上定义属性的对象。</p>
 <p>prop：要定义或修改的属性的名称。</p>
