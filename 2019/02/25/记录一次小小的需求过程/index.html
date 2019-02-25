@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="小记," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="需求背景：在我们应用嵌入客户的native容器，客户想要通过它们的app扫一扫二维码登录pc版。类似微信扫一扫二维码登录pc版本，弹出确认登录页面，点击确认后登录。 实现思路：1.客户使用手机app扫一扫PC端的登录二维码之后，打开一个新的webview，地址是这个登录页的地址，并且将二维码里的信息，以及token当做查询参数拼接在地址上。 2.打开后页面从url里获取对应的数据，在用户点击登录按">
+<meta name="keywords" content="小记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记录一次小小的需求过程">
+<meta property="og:url" content="http://yoursite.com/2019/02/25/记录一次小小的需求过程/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="需求背景：在我们应用嵌入客户的native容器，客户想要通过它们的app扫一扫二维码登录pc版。类似微信扫一扫二维码登录pc版本，弹出确认登录页面，点击确认后登录。 实现思路：1.客户使用手机app扫一扫PC端的登录二维码之后，打开一个新的webview，地址是这个登录页的地址，并且将二维码里的信息，以及token当做查询参数拼接在地址上。 2.打开后页面从url里获取对应的数据，在用户点击登录按">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.qinhanwen.xyz/images//WechatIMG234.png">
+<meta property="og:updated_time" content="2019-02-25T06:02:40.544Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记录一次小小的需求过程">
+<meta name="twitter:description" content="需求背景：在我们应用嵌入客户的native容器，客户想要通过它们的app扫一扫二维码登录pc版。类似微信扫一扫二维码登录pc版本，弹出确认登录页面，点击确认后登录。 实现思路：1.客户使用手机app扫一扫PC端的登录二维码之后，打开一个新的webview，地址是这个登录页的地址，并且将二维码里的信息，以及token当做查询参数拼接在地址上。 2.打开后页面从url里获取对应的数据，在用户点击登录按">
+<meta name="twitter:image" content="http://www.qinhanwen.xyz/images//WechatIMG234.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/25/记录一次小小的需求过程/"/>
+
+
+
+
+
+  <title>记录一次小小的需求过程 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/25/记录一次小小的需求过程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">记录一次小小的需求过程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-25T12:51:23+08:00">
+                2019-02-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/小记/" itemprop="url" rel="index">
+                    <span itemprop="name">小记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="需求背景："><a href="#需求背景：" class="headerlink" title="需求背景："></a>需求背景：</h4><p>在我们应用嵌入客户的native容器，客户想要通过它们的app扫一扫二维码登录pc版。类似微信扫一扫二维码登录pc版本，弹出确认登录页面，点击确认后登录。</p>
+<h4 id="实现思路："><a href="#实现思路：" class="headerlink" title="实现思路："></a>实现思路：</h4><p>1.客户使用手机app扫一扫PC端的登录二维码之后，打开一个新的webview，地址是这个登录页的地址，并且将二维码里的信息，以及token当做查询参数拼接在地址上。</p>
+<p>2.打开后页面从url里获取对应的数据，在用户点击登录按钮的时候，发送一个POST请求给服务端，验证是否登录成功。</p>
+<p>3.PC端轮训发送请求，询问服务端是否该用户登录成功。</p>
+<h4 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h4><p>页面尽可能的小，需要考虑兼容性，加载速度，以及性能优化。</p>
+<h4 id="第一版实现"><a href="#第一版实现" class="headerlink" title="第一版实现"></a>第一版实现</h4><p>第一版的实现，没有考虑太多，只是测试一下，是否能登陆成功。没有引入库，而是直接使用XMLHttpRequest对象。另外引入了一张很小很小的图片。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">    &lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>head&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    * &#123;</span><br><span class="line">        margin: <span class="number">0</span>;</span><br><span class="line">        padding: <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    img &#123;</span><br><span class="line">        margin: <span class="number">70</span>px auto <span class="number">0</span> auto;</span><br><span class="line">        width: <span class="number">127</span>px;</span><br><span class="line">        height: <span class="number">127</span>px;</span><br><span class="line">        display: block;</span><br><span class="line">        background-size: <span class="number">127</span>px <span class="number">127</span>px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .login &#123;</span><br><span class="line">        width: <span class="number">140</span>px;</span><br><span class="line">        height: <span class="number">36</span>px;</span><br><span class="line">        margin: <span class="number">160</span>px auto <span class="number">20</span>px auto;</span><br><span class="line">        background: white;</span><br><span class="line">        color: #01A0FF;</span><br><span class="line">        border: 1px solid #01A0FF;</span><br><span class="line">        border-radius: <span class="number">4</span>px;</span><br><span class="line">        font-size: <span class="number">8</span>px;</span><br><span class="line">        display: block;</span><br><span class="line">        text-align: center;</span><br><span class="line">        line-height: <span class="number">36</span>px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .cancel-login &#123;</span><br><span class="line">        font-size: <span class="number">14</span>px;</span><br><span class="line">        color: #b2b2b2;</span><br><span class="line">        text-align: center;</span><br><span class="line">    &#125;</span><br><span class="line">    .has-error&#123;</span><br><span class="line">        width: <span class="number">80</span>%;</span><br><span class="line">        margin: <span class="number">24</span>px auto <span class="number">0</span>;</span><br><span class="line">        font-size:<span class="number">17</span>px;</span><br><span class="line">        color: #ed4622;</span><br><span class="line">        text-align: center;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/style&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;body&gt;</span></span><br><span class="line"><span class="regexp">    &lt;img src="./im</span>ages/ico_login_confirmation_PC@<span class="number">2</span>x.png<span class="string">" /&gt;</span></span><br><span class="line"><span class="string">    &lt;h3 class="</span>has-error<span class="string">" id="</span>error<span class="string">"&gt;&lt;/h3&gt;</span></span><br><span class="line"><span class="string">    &lt;a class="</span>login<span class="string">" onclick="</span>login()<span class="string">"&gt;</span></span><br><span class="line"><span class="string">        登录</span></span><br><span class="line"><span class="string">    &lt;/a&gt;</span></span><br><span class="line"><span class="string">    &lt;p class="</span>cancel-login<span class="string">"&gt;取消登录&lt;/p&gt;</span></span><br><span class="line"><span class="string">&lt;/body&gt;</span></span><br><span class="line"><span class="string">&lt;script type="</span>text/javascript<span class="string">"&gt;</span></span><br><span class="line"><span class="string">    var xml = new XMLHttpRequest();</span></span><br><span class="line"><span class="string">    var errorTag = document.getElementById('error');</span></span><br><span class="line"><span class="string">    var qrApplyId = '0bbabf59-25c2-401e-ac0a-f0855660a534';//二维码标识</span></span><br><span class="line"><span class="string">    var ticket = 'GZeij22ndc3E8wDzghnCCpViwMGQ1mlMx7yP5Hm2u%2f0%3d';//token</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    function login() &#123;</span></span><br><span class="line"><span class="string">        if (xml) &#123;</span></span><br><span class="line"><span class="string">            xml.onreadystatechange = function () &#123;</span></span><br><span class="line"><span class="string">                if (xml.readyState == 4) &#123;</span></span><br><span class="line"><span class="string">                    if ((xml.status &gt;= 200 &amp;&amp; xml.status &lt;= 300) || xml.status == 304) &#123;</span></span><br><span class="line"><span class="string">                        successCB(JSON.parse(xml.response));</span></span><br><span class="line"><span class="string">                    &#125; else &#123;</span></span><br><span class="line"><span class="string">                        errorCB(JSON.parse(xml.response));</span></span><br><span class="line"><span class="string">                    &#125;</span></span><br><span class="line"><span class="string">                &#125;</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">            xml.open('POST', 'https://t-sso.exexm.com/qrlogin.ashx?t=auth', true);</span></span><br><span class="line"><span class="string">            xml.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');</span></span><br><span class="line"><span class="string">            xml.send('qrApplyId=' + qrApplyId + '&amp;ticket=' + ticket);</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    var successCB = function (res) &#123;</span></span><br><span class="line"><span class="string">        if (res &amp;&amp; res.success) &#123;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        &#125; else &#123;</span></span><br><span class="line"><span class="string">            errorTag.innerHTML = res.msg;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    var errorCB = function (res) &#123;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;/html&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="宝哥的修改建议"><a href="#宝哥的修改建议" class="headerlink" title="宝哥的修改建议"></a>宝哥的修改建议</h4><p><img src="http://www.qinhanwen.xyz/images//WechatIMG234.png" alt="WechatIMG234"></p>
+<h4 id="第二版实现"><a href="#第二版实现" class="headerlink" title="第二版实现"></a>第二版实现</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">    &lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1"</span>&gt;</span><br><span class="line">    &lt;meta http-equiv=<span class="string">"Pragma"</span> content=<span class="string">"no-cache"</span>&gt;</span><br><span class="line">    &lt;title&gt;登录&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>head&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    * &#123;</span><br><span class="line">        margin: <span class="number">0</span>;</span><br><span class="line">        padding: <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    img &#123;</span><br><span class="line">        margin: <span class="number">70</span>px auto <span class="number">0</span> auto;</span><br><span class="line">        width: <span class="number">127</span>px;</span><br><span class="line">        height: <span class="number">127</span>px;</span><br><span class="line">        display: block;</span><br><span class="line">        background-size: <span class="number">127</span>px <span class="number">127</span>px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .login &#123;</span><br><span class="line">        width: <span class="number">140</span>px;</span><br><span class="line">        height: <span class="number">36</span>px;</span><br><span class="line">        margin: <span class="number">160</span>px auto <span class="number">20</span>px auto;</span><br><span class="line">        background: white;</span><br><span class="line">        color: #01A0FF;</span><br><span class="line">        border: 1px solid #01A0FF;</span><br><span class="line">        border-radius: <span class="number">4</span>px;</span><br><span class="line">        font-size: <span class="number">8</span>px;</span><br><span class="line">        display: block;</span><br><span class="line">        text-align: center;</span><br><span class="line">        line-height: <span class="number">36</span>px;</span><br><span class="line">    &#125;</span><br><span class="line">    h2&#123;</span><br><span class="line">         text-align: center;</span><br><span class="line">         font-size: <span class="number">16</span>px;</span><br><span class="line">         font-weight: normal;</span><br><span class="line">         margin-top: <span class="number">10</span>px;</span><br><span class="line">    &#125;</span><br><span class="line">    .cancel-login &#123;</span><br><span class="line">        font-size: <span class="number">14</span>px;</span><br><span class="line">        color: #b2b2b2;</span><br><span class="line">        text-align: center;</span><br><span class="line">    &#125;</span><br><span class="line">    .has-error&#123;</span><br><span class="line">        width: <span class="number">80</span>%;</span><br><span class="line">        margin: <span class="number">24</span>px auto <span class="number">0</span>;</span><br><span class="line">        font-size:<span class="number">17</span>px;</span><br><span class="line">        color: #ed4622;</span><br><span class="line">        text-align: center;</span><br><span class="line">    &#125;</span><br><span class="line">    .loading&#123;</span><br><span class="line">            width: <span class="number">80</span>px;</span><br><span class="line">            height: <span class="number">20</span>px;</span><br><span class="line">            margin: <span class="number">0</span> auto;</span><br><span class="line">            margin-top:<span class="number">100</span>px;</span><br><span class="line">            text-align: center;</span><br><span class="line">            position: fixed;</span><br><span class="line">            top: <span class="number">150</span>px;</span><br><span class="line">            left: <span class="number">50</span>%;</span><br><span class="line">            margin-left: <span class="number">-40</span>px;</span><br><span class="line">            visibility: hidden;</span><br><span class="line">        &#125;</span><br><span class="line">        .loading span&#123;</span><br><span class="line">            display: inline-block;</span><br><span class="line">            width: <span class="number">4</span>px;</span><br><span class="line">            height: <span class="number">50</span>%;</span><br><span class="line">            border-radius: <span class="number">4</span>px;</span><br><span class="line">            background: lightgreen;</span><br><span class="line">            animation: load <span class="number">1</span>s ease infinite;</span><br><span class="line">            -webkit-animation: load <span class="number">1</span>s ease infinite;</span><br><span class="line">        &#125;</span><br><span class="line">        @-webkit-keyframes load&#123;</span><br><span class="line">            <span class="number">0</span>%,<span class="number">100</span>%&#123;</span><br><span class="line">                height: <span class="number">20</span>px;</span><br><span class="line">                background: lightgreen;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="number">50</span>%&#123;</span><br><span class="line">                height: <span class="number">40</span>px;</span><br><span class="line">                margin: <span class="number">-15</span>px <span class="number">0</span>;</span><br><span class="line">                background: lightblue;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        .loading span:nth-child(<span class="number">2</span>)&#123;</span><br><span class="line">            animation-delay:<span class="number">0.2</span>s;</span><br><span class="line">            -webkit-animation-delay:<span class="number">0.2</span>s;</span><br><span class="line">        &#125;</span><br><span class="line">        .loading span:nth-child(<span class="number">3</span>)&#123;</span><br><span class="line">            animation-delay:<span class="number">0.4</span>s;</span><br><span class="line">            -webkit-animation-delay:<span class="number">0.4</span>s;</span><br><span class="line">        &#125;</span><br><span class="line">        .loading span:nth-child(<span class="number">4</span>)&#123;</span><br><span class="line">            animation-delay:<span class="number">0.6</span>s;</span><br><span class="line">            -webkit-animation-delay:<span class="number">0.6</span>s;</span><br><span class="line">        &#125;</span><br><span class="line">        .loading span:nth-child(<span class="number">5</span>)&#123;</span><br><span class="line">            animation-delay:<span class="number">0.8</span>s;</span><br><span class="line">            -webkit-animation-delay:<span class="number">0.8</span>s;</span><br><span class="line">        &#125;</span><br><span class="line">&lt;<span class="regexp">/style&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;body&gt;</span></span><br><span class="line"><span class="regexp">    &lt;img src="data:image/</span>png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAMAAABrrFhUAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAclBMVEUAAACZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZkAAAD40WwsAAAAJHRSTlMAKo7X+NYGlP2YCbv5kTgMvZXkMCv8L4+SB/PUkCwuNAvY+vQbCt0PAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAALEgAACxIB0t1+<span class="regexp">/AAAAd5JREFUeNrt2MtOwlAUhtGj1IJayh28FEHd7/</span>+MEsIQJg66NV3fBIb/WW3CCaVIkiRJkiRJkiRJkiRpAN3dj6oYWNXD/d3l+PV4kr0mp8nj0/n8z9FM21n2W9h3s3baxLw+fVvEcpW9JqfVMsalrDfNQM9fyrbarMsuXrJ35PUSuzKKNntGXm2MShN19oy8XqMpEdkrMjudHgCA7BF/CCD7btpXtwGyH0hPjx0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgOxpAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwBWAgXQTYHgBAACgiTp7RV6zeCujaLNn5NXGe9nFNHtGXtPoyn5TbbN3ZPVRbfalLGK5yl6S03YZi9NH/RxNdzhmr+m746FrYn7+AajHk+y7aU6Tx6eLxrr7/Mpe03ff790+<span class="number">7</span>/<span class="number">27</span>fvsa0J0MAAAAAAAAAAAAAIDBAlwvexcASZKk39Xnv9rZZwUgSZIkSZIkSZIkSZKk/<span class="number">9</span>IPRdh5HZXYXfEAAAAASUVORK5CYII=<span class="string">" /&gt;</span></span><br><span class="line"><span class="string">    &lt;h2&gt;登录确认&lt;/h2&gt;</span></span><br><span class="line"><span class="string">    &lt;h3 class="</span>has-error<span class="string">" id="</span>error<span class="string">"&gt;&lt;/h3&gt;</span></span><br><span class="line"><span class="string">    &lt;a class="</span>login<span class="string">" id="</span>login<span class="string">"&gt;</span></span><br><span class="line"><span class="string">        登录</span></span><br><span class="line"><span class="string">    &lt;/a&gt;</span></span><br><span class="line"><span class="string">    &lt;p class="</span>cancel-login<span class="string">"&gt;取消登录&lt;/p&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &lt;div class="</span>loading<span class="string">" id="</span>loading<span class="string">"&gt;</span></span><br><span class="line"><span class="string">        &lt;span&gt;&lt;/span&gt;</span></span><br><span class="line"><span class="string">        &lt;span&gt;&lt;/span&gt;</span></span><br><span class="line"><span class="string">        &lt;span&gt;&lt;/span&gt;</span></span><br><span class="line"><span class="string">        &lt;span&gt;&lt;/span&gt;</span></span><br><span class="line"><span class="string">        &lt;span&gt;&lt;/span&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">&lt;/body&gt;</span></span><br><span class="line"><span class="string">&lt;script type="</span>text/javascript<span class="string">"&gt;</span></span><br><span class="line"><span class="string">    window.onload = function () &#123;</span></span><br><span class="line"><span class="string">        var xml;</span></span><br><span class="line"><span class="string">        if (window.XMLHttpRequest) &#123;</span></span><br><span class="line"><span class="string">            xml = new XMLHttpRequest();</span></span><br><span class="line"><span class="string">        &#125; else if (window.ActiveXObject) &#123;</span></span><br><span class="line"><span class="string">            xml = new ActiveXObject("</span>Microsoft.XMLHTTP<span class="string">");</span></span><br><span class="line"><span class="string">        &#125;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        if (!xml) throw new ReferenceError('xml is not define');</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        var errorTag = document.getElementById('error');//错误提示标签</span></span><br><span class="line"><span class="string">        var loginTag = document.getElementById('login');//登录按钮</span></span><br><span class="line"><span class="string">        var loadingTag = document.getElementById('loading');//loading标签</span></span><br><span class="line"><span class="string">        var paramsStr = getParams();//获得参数</span></span><br><span class="line"><span class="string">        var showLoading = false;//是否显示loading</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        loginTag.addEventListener('click', function () &#123;</span></span><br><span class="line"><span class="string">            if (!showLoading) login();</span></span><br><span class="line"><span class="string">        &#125;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        function getParams() &#123;//获取参数</span></span><br><span class="line"><span class="string">            var paramsStr = location.href.split('?');</span></span><br><span class="line"><span class="string">            if (paramsStr &amp;&amp; paramsStr.length &amp;&amp; paramsStr.length &gt; 1) &#123;</span></span><br><span class="line"><span class="string">                return paramsStr[1];</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">            throw new ReferenceError('params is not defined');</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        function successCB(res) &#123;//成功回调</span></span><br><span class="line"><span class="string">            if (res &amp;&amp; res.success) &#123;</span></span><br><span class="line"><span class="string">                //关闭webview并且完成登录</span></span><br><span class="line"><span class="string">            &#125; else &#123;</span></span><br><span class="line"><span class="string">                errorTag.innerHTML = (res &amp;&amp; res.msg) ? res.msg : '登录失败';</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">            ShowLoadingTag(false);</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        function errorCB(res) &#123;//失败回调</span></span><br><span class="line"><span class="string">            ShowLoadingTag(false);</span></span><br><span class="line"><span class="string">            errorTag.innerHTML = (res &amp;&amp; res.msg) ? res.msg : '登录失败';</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        function login() &#123;</span></span><br><span class="line"><span class="string">            post('https://t-sso.exexm.com/qrlogin.ashx?t=auth', paramsStr, successCB, errorCB);</span></span><br><span class="line"><span class="string">            ShowLoadingTag(true);</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        function ShowLoadingTag(showOrHide) &#123;//显示或隐藏loading</span></span><br><span class="line"><span class="string">            showLoading = showOrHide;</span></span><br><span class="line"><span class="string">            loadingTag.style.visibility = showOrHide ? 'initial' : 'hidden';</span></span><br><span class="line"><span class="string">            showOrHide &amp;&amp; (errorTag.innerHTML = '');</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        function post(url, paramsStr, success, error) &#123;</span></span><br><span class="line"><span class="string">            xml.onreadystatechange = function () &#123;</span></span><br><span class="line"><span class="string">                if (xml.readyState == 4) &#123;</span></span><br><span class="line"><span class="string">                    if ((xml.status &gt;= 200 &amp;&amp; xml.status &lt;= 300) || xml.status == 304) &#123;</span></span><br><span class="line"><span class="string">                        success(JSON.parse(xml.response));</span></span><br><span class="line"><span class="string">                    &#125; else &#123;</span></span><br><span class="line"><span class="string">                        error(JSON.parse(xml.response));</span></span><br><span class="line"><span class="string">                    &#125;</span></span><br><span class="line"><span class="string">                &#125;</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">            xml.open('POST', url, true);</span></span><br><span class="line"><span class="string">            xml.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');</span></span><br><span class="line"><span class="string">            xml.send(paramsStr);</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;/html&gt;</span></span><br></pre></td></tr></table></figure>
+<p>优化的地方（我的想法）：</p>
+<ol>
+<li>meta标签的viewport属性，禁止页面缩放，不过在ios10以上失效。</li>
+<li>低版本的ie浏览器使用的是ActiveXObject对象。</li>
+<li>loading样式没有使用<code>display:none;</code>，而是使用<code>visibility:hidden;</code>，减少浏览器重排。</li>
+<li>增加了url查询参数的为空判断。</li>
+<li>button禁止了重复点击多次触发函数。</li>
+<li>图片转成了Base64，直接内嵌。</li>
+<li>登录失败如果服务端未返回msg字段，则使用默认字段。</li>
+</ol>
+<p>待续。。</p>
+<h4 id="几个问题"><a href="#几个问题" class="headerlink" title="几个问题"></a>几个问题</h4><h5 id="1-图片转成Base64位的好处以及缺点，以及使用场景。"><a href="#1-图片转成Base64位的好处以及缺点，以及使用场景。" class="headerlink" title="1.图片转成Base64位的好处以及缺点，以及使用场景。"></a>1.图片转成Base64位的好处以及缺点，以及使用场景。</h5><p>首先图片的 base64 编码就是可以将一副图片数据编码成一串字符串，使用该字符串代替图像地址，</p>
+<p><strong>使用场景</strong>：如果图片非常非常小（这点最重要），或者不适合做成雪碧图，以及复用性低。</p>
+<p><strong>优点</strong>：减少http请求，无需考虑缓存问题</p>
+<p><strong>缺点</strong>：Base64编码之后的文本，要比原文大约三分之一</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/小记/" rel="tag"># 小记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/21/继承/" rel="next" title="继承">
+                <i class="fa fa-chevron-left"></i> 继承
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#需求背景："><span class="nav-number">1.</span> <span class="nav-text">需求背景：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现思路："><span class="nav-number">2.</span> <span class="nav-text">实现思路：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#要求"><span class="nav-number">3.</span> <span class="nav-text">要求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第一版实现"><span class="nav-number">4.</span> <span class="nav-text">第一版实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#宝哥的修改建议"><span class="nav-number">5.</span> <span class="nav-text">宝哥的修改建议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二版实现"><span class="nav-number">6.</span> <span class="nav-text">第二版实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#几个问题"><span class="nav-number">7.</span> <span class="nav-text">几个问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-图片转成Base64位的好处以及缺点，以及使用场景。"><span class="nav-number">7.1.</span> <span class="nav-text">1.图片转成Base64位的好处以及缺点，以及使用场景。</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
