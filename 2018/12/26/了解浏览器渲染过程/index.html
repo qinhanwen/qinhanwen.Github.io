@@ -115,7 +115,7 @@
 <meta property="og:image" content="http://www.qinhanwen.xyz/images/WX20190109-223219@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/images/WX20190109-225049@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/images/WX20190109-235625@2x.png">
-<meta property="og:updated_time" content="2019-01-27T12:54:27.050Z">
+<meta property="og:updated_time" content="2019-02-25T15:36:12.181Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="了解浏览器渲染过程">
 <meta name="twitter:description" content="了解浏览器渲染过程 参考链接：https://juejin.im/post/5c24d736f265da614b120d4a ​           https://blog.csdn.net/u013510838/article/details/55271887     ​           视频教程    先说结论 处理HTML标记数据并生成DOM树。 处理CSS标记数据并生成CSSOM树。">
@@ -423,6 +423,7 @@
 <h6 id="2）第二个🌰，假如外部引入JavaScript"><a href="#2）第二个🌰，假如外部引入JavaScript" class="headerlink" title="2）第二个🌰，假如外部引入JavaScript"></a>2）第二个🌰，假如<code>外部</code>引入JavaScript</h6><p><img src="http://www.qinhanwen.xyz/images/WX20190109-222515@2x.png" alt="WX20190109-222515@2x"></p>
 <p>这一段代码，在构建DOM树的时候，遇到了<code>script</code>标签，于是DOM树停止构建，获取<code>write.js</code>文件（我们都知道获取文件是需要时间的），等待JavaScript引擎执行完之后，并加上<code>with JavaScript</code>文本，再恢复DOM树构建。</p>
 <h6 id="3）第三个🌰，p标签会显示什么颜色"><a href="#3）第三个🌰，p标签会显示什么颜色" class="headerlink" title="3）第三个🌰，p标签会显示什么颜色"></a>3）第三个🌰，p标签会显示什么颜色</h6><p><img src="http://www.qinhanwen.xyz/images/WX20190109-223219@2x.png" alt="WX20190109-223219@2x"></p>
+<p>先说结果：文字变成了红色。</p>
 <p>这一段代码发生了什么：发送请求，获取响应之后开始构建DOM树，发现了CSS并发送请求，解析器继续执行，发现了script标签，这时候会阻止脚本的执行（不知道脚本执行了什么，可能操作DOM，可能访问或修改CSS），直到CSSOM树构建完毕，才执行JavaScript，最后继续构建DOM树。</p>
 <p><img src="http://www.qinhanwen.xyz/images/WX20190109-225049@2x.png" alt="WX20190109-225049@2x"></p>
 <h5 id="8-那么重要的就是优化方案了"><a href="#8-那么重要的就是优化方案了" class="headerlink" title="8.那么重要的就是优化方案了"></a>8.那么重要的就是优化方案了</h5><p>那么是优化什么呢，当然是提高网页呈现的速度</p>
@@ -438,8 +439,10 @@
 <p><img src="http://www.qinhanwen.xyz/images/WX20190109-235625@2x.png" alt="WX20190109-235625@2x"></p>
 <p>分别是：        异步                            内联                                阻止                                                          </p>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><h6 id="同步的情况："><a href="#同步的情况：" class="headerlink" title="同步的情况："></a>同步的情况：</h6><p>​    当没有引入JavaScript的时候：CSSOM树构建与DOM树构建互不影响。</p>
+<p>​        当DOM树构建的时候碰到script标签，会让出优先权交给JavaScript引擎，执行完之后，再继续构建DOM。</p>
 <p>​    当引入CSS在引入JavaScript上方的时候：CSSOM树构建会阻止JavaScript执行，JavaScript会阻止DOM树构        建，当CSSOM树构建完毕，执行JavaScript，执行完之后再继续构建DOM树。</p>
 <p>​    当引入JavaScript在引入CSS上方的时候：则JavaScript执行不会被CSS阻止。JavaScript执行仍然会阻止DOM树构建。</p>
+<p>​    </p>
 <h6 id="异步的情况（引入了外部的脚本）："><a href="#异步的情况（引入了外部的脚本）：" class="headerlink" title="异步的情况（引入了外部的脚本）："></a>异步的情况（引入了外部的脚本）：</h6><p>​       script标签添加了async属性：不会影响DOM树构建，JavaScript也不会等待CSSOM树构建完毕才执行。</p>
 <p>​       script标签添加defer属性：等待页面加载完毕再执行，不会影响到其他的（不过似乎只有 Internet Explorer 支持）</p>
 
