@@ -280,6 +280,167 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/Promise学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/12/Promise学习笔记/" itemprop="url">Promise学习笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-12T22:19:12+08:00">
+                2018-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/es6/" itemprop="url" rel="index">
+                    <span itemprop="name">es6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Promise学习笔记1.Promise适用场景通常调用某些异步，都是传入回调函数，等待异步执行完之后再调用回调函数。可是当回调过多的时候就不方便阅读与维护
+Promise链式调用的风格，书写方式都让程序变得更好维护
+2.Promise1.它有三种状态
+pending：进行中
+fulfilled :已经成功
+rejected 已经失败
+
+2.状态改变
+从pending变为fulfilled
+从pending变为rejected。
+ 状态被改变之后就不能再改变，无法逆向转变
+
+
+3.then方法t
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/12/Promise学习笔记/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/06/Git/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -376,8 +537,12 @@
           忽略已经在版本控制里的文件
 先对其 git update-index --assume-unchanged 文件路径，这样 Git 会忽略文件的修改。
 
-需要提交的时候需要重置改标识：git update-index --no-assume-unchanged 文件路径，于是 Git 只需要做一次更
-          ...
+需要提交的时候需要重置改标识：git update-index --no-assume-unchanged 文件路径，于是 Git 只需要做一次更新。
+(.gitignore无法忽略在添加到版本中的文件)
+
+
+
+          
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/11/06/Git/#more" rel="contents">
@@ -525,6 +690,7 @@
         
           
           WebSocket+Koa1.TCP和HTTP的简单理解​    Http协议建立在TCP协议基础之上，当浏览器需要从服务器获取网页数据的时候，会发一次Http请求。Http会通过TCP建立一个到服务器的连接通道，当本次请求需要的数据完毕后，Http会立即将TCP连接断开，所以Http是一种短链接。
+​    当html变的复杂，嵌入了很多图片，每次访问图片都需要建立一次TCP链接就显得很低效，因此Keep-Alive被提出解决低效的问题，从HTTP1.1开始默认开启Keep-Alive，保持连
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -672,7 +838,7 @@
       
         
           
-          angular拦截器需求是在请求401的时候跳转到登陆页1.angular中http请求，依赖@angular/common/http模块，将HttpInterceptor，HttpRequest，HttpEvent，HttpHandler等对象引入123456789101112131415impo
+          angular拦截器需求是在请求401的时候跳转到登陆页1.angular中http请求，依赖@angular/common/http模块，将HttpInterceptor，HttpRequest，HttpEvent，HttpHandler等对象引入123456789101112131415import &#123; Injectable &#125; from '@angular/core';import &#123;  HttpEvent, HttpInterceptor, HttpHand
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -827,7 +993,10 @@
 
 可以通过访问xxx.github.io，访问你的页面了。
 
-我们只需要把这个项目克隆到本地，在上传本地的代码就可以
+我们只需要把这个项目克隆到本地，在上传本地的代码就可以了。可以添加个页面试试
+
+
+123456&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;body&gt;  &lt;h1&gt;Hello World&lt;/h1&gt;&
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -919,7 +1088,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

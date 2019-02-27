@@ -280,6 +280,160 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/原型和原型链/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/06/原型和原型链/" itemprop="url">原型和原型链</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-06T00:03:52+08:00">
+                2018-12-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          原型和原型链
+ https://juejin.im/post/5835853f570c35005e413b19
+ https://juejin.im/post/5c218e4c5188254caf18bb1a
+
+引用类型都是对象原型与原型链对象都有原型，原型也是对象，也有自己的原型，就组成了一条原型链。在对象上找某个属性没找到就会往原型链上找。
+第一个🌰
+1234567891011121314var obj = &#123;&#125;;console.log(obj.__proto__ ==
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/06/原型和原型链/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/this/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -375,7 +529,7 @@
           
           this在手写Promise的时候被this折腾的不清，网上this又一堆资料看了也还是不会，于是决定认真的看一下你不知道的JavaScript。用的例子基本都是原文偷的。
 首先this只与调用时候的上下文环境有关，与声明的上下文环境无关。1.了解调用位置就是函数被调用的位置
-12345678910
+12345678910111213141516function baz() &#123;    // 当前调用栈是:baz    // 因此，当前调用位置是全局作用域    console.log("baz");    b
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -528,6 +682,8 @@
 
 1.弹性布局（flexible box）任何一个容器都可以变成Flex布局
 1）块级元素123.box&#123;    display:flex;&#125;
+2）行内元素也可以123.box&#123;    display:inline-flex;&#125;
+强大的东西一般都有兼容性问题，Webkit 内核的浏览器，需要加上-webkit。之前碰到i
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -678,7 +834,11 @@
           new到底做了什么
 参考资料：https://juejin.im/post/584e1ac50ce463005c618ca2
 ​                   https://juejin.im/entry/59196a3ea0bb9f005ff7bee5
-​           https:
+​           https://xiaogliu.github.io/2018/06/28/what-happened-when-using-new/
+
+1）new做了什么
+1.创建了一个临时对象
+2.临时对象的__proto_
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -831,7 +991,8 @@
 ​            阮一峰promise
 ​           this的指向问题
 
-1.先看个Promise例子1234new Promise(function (resolve, reject) &#123;    console.
+1.先看个Promise例子1234new Promise(function (resolve, reject) &#123;    console.log(1);    resolve('resolve');&#125;)
+1） 看到Promise接收一个参数，并且有三种状态 pending，fulfilled，rejected调用resolve
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -986,7 +1147,8 @@
 2.不允许重复声明（同个代码块内）
 3.块级作用域(只在声明的代码块内有效)
 4.暂时性死区
-1）说个问题123456for (var i = 0; i &lt; 5; i++) &#123;    se
+1）说个问题123456for (var i = 0; i &lt; 5; i++) &#123;    setTimeout(() =&gt; &#123;        console.log(i);    &#125;, i * 1000)&#125;// 每隔1秒打印一个5
+其实是想每隔一秒打印出0到
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1136,7 +1298,11 @@
           
           跨域的几种方式
 参考资料：https://www.bilibili.com/video/av31173487?from=search&amp;seid=17845079103401026420
-​                   http://www.ruanyifeng.com/blog/20
+​                   http://www.ruanyifeng.com/blog/2016/04/cors.html
+
+这里后端全部使用koa,写的只是为了方便理解，很多实际中不应该这样写。例子重复代码太多，但是直接粘贴就可以测试。
+1.JSONP1) 举个🌰，打开百度搜索
+可以看见
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1287,7 +1453,8 @@
           浏览器缓存机制
 参考资料：https://www.cnblogs.com/chenqf/p/6386163.html
 ​                   https://juejin.im/post/5a6c87c46fb9a01ca560b4d7
-​                   htt
+​                   http://www.cnblogs.com/skynet/archive/2012/11/28/2792503.html
+​           https://my.oschina.net/leejun
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1436,7 +1603,7 @@
         
           
           float属性学习笔记1.float语法1234float:none 不使用浮动float:left 靠左浮动float:right 靠右浮动float:inherit 继承
-2.清除浮动的几种方法1）clear:both清除浮动12345&lt;div class="divcss5"&gt;   
+2.清除浮动的几种方法1）clear:both清除浮动12345&lt;div class="divcss5"&gt;       &lt;div class="divcss5_left"&gt;布局靠左浮动&lt;/div&gt;       &lt;div class="divcss5_right"&gt;布局靠右浮动
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1587,137 +1754,13 @@
           meta标签学习笔记1.meta标签定义和用法META标签用来描述一个HTML网页文档的属性，例如作者、日期和时间、网页描述、关键词、页面刷新等。它提供的信息虽然用户不可见，但却是文档的最基本的元数据。
 标签位于文档的头部，永远位于 head 元素内部，不包含任何内容，并且没有结束标签。
 
-云数据：
+云数据：用来概括描述数据的一些基本数据。也就是描述数据的数据
+
+2.name属性name属性主要用于描述网页，比如网页的关键词，叙述等。与之对应的属性值为content，content中的内容是对name填入
           ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/11/24/meta标签/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/VDOM-和-render/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="秦瀚文">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="渣渣大星星的学习笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/23/VDOM-和-render/" itemprop="url">VDOM 和 Render方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-23T22:47:56+08:00">
-                2018-11-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          VDOM和Render方法1.用普通的JS对象去描述我们需要渲染的内容。1234567891011121314151617181920212223const element = &#123;  type: "div",  props: &#123;    id: "container",    ch
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/23/VDOM-和-render/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1805,7 +1848,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

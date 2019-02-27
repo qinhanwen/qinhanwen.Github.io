@@ -280,6 +280,135 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/腾讯云安装学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/10/腾讯云安装学习/" itemprop="url">腾讯云服务器安装学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-10T11:41:03+08:00">
+                2019-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          其实一开始我的内心是拒绝的，直到线上图片没有地方布了，然后cdn又不想花钱。。刚好打折时候买了一个入门的服务器，那就只好尝试一下了。完全是一脸懵逼毫无头绪的在搞，顺便记录一下过程。1核1g，linux。
+先了解一下最终目的，我想把学习笔记放在服务器上，还有图片资源。反正不懂装什么，瞎鸡儿装吧。
+首先，登录腾讯云，进入控制台，选择云服务器，点击登录。
+1.先装nvm1$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/10/腾讯云安装学习/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/07/宝哥问过的问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -457,7 +586,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/27/http/" itemprop="url">http</a></h1>
+                <a class="post-title-link" href="/2018/12/27/http/" itemprop="url">HTTP</a></h1>
         
 
         <div class="post-meta">
@@ -492,8 +621,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/http/" itemprop="url" rel="index">
-                    <span itemprop="name">http</span>
+                  <a href="/categories/HTTP/" itemprop="url" rel="index">
+                    <span itemprop="name">HTTP</span>
                   </a>
                 </span>
 
@@ -534,7 +663,14 @@
           HTTP（HyperText Transfer Protocol）
 参考资料        图解HTTP
 
-网络基础TCP/IP简单了解1）协议：计算机与网络设备之间的通信，双方要基于相同的方法，比如谁发起，用哪种语言，如何结束通信（协议中内容很多不止这些）。而TCP/IP是各种协议的总称。2）TC
+网络基础TCP/IP简单了解1）协议：计算机与网络设备之间的通信，双方要基于相同的方法，比如谁发起，用哪种语言，如何结束通信（协议中内容很多不止这些）。而TCP/IP是各种协议的总称。2）TCP/IP分层应用层，传输层，网络层，链路层
+
+我对发送端的理解：
+应用层生成请求报文。
+传输层分割请求报文，传递数据。
+网络层做数据的转发，寻址。
+链路层真正传输数据
+3）与HTTP相关的协议：IP、
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -685,7 +821,14 @@
           了解浏览器渲染过程
 参考链接：https://juejin.im/post/5c24d736f265da614b120d4a
 ​           https://blog.csdn.net/u013510838/article/details/55271887    
-​           视
+​           视频教程  
+
+先说结论
+处理HTML标记数据并生成DOM树。
+处理CSS标记数据并生成CSSOM树。
+将DOM树与CSSOM树合并在一起生成渲染树。
+遍历渲染树开始布局，计算每个节点的位置信息。
+将每
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -839,7 +982,8 @@
 3）使用字体图标
 4）图片懒加载
 只有上面这四种方法吗，当然不是，我只了解这四种哈哈哈哈哈🤣
-图片懒加载1）为什么需要懒加载有的页面会有非常非常多的图片，一进入页面，就去加载全部的图片，会让加载过程变的漫长。而且一次发送那么
+图片懒加载1）为什么需要懒加载有的页面会有非常非常多的图片，一进入页面，就去加载全部的图片，会让加载过程变的漫长。而且一次发送那么多请求也会增加服务器压力，并且我打开一个页面，可能我只会浏览部分内容，有些没浏览到的地方，其实我是不需要加载出来的，我们只需要加载需要的资源，显然这样子是不合理的。
+2）实现思路1.我们给图片的src
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -990,7 +1134,9 @@
           
 参考资料：https://www.bitovi.com/blog/a-crash-course-in-how-dom-events-work
 
-事件事件监听1.怎样监听一个事件DOM0123&lt;button onclick="alert('hello');"&gt;   click me! &
+事件事件监听1.怎样监听一个事件DOM0123&lt;button onclick="alert('hello');"&gt;   click me! &lt;/button&gt;
+这种直接将事件混合在HTML中，非常的不灵活
+DOM11234var button = document.getElementById('button');button.
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1142,7 +1288,10 @@
 参考资料         https://juejin.im/post/5c15f797f265da61141c7f86
 
 接上浏览器渲染过程
-经过对浏览器渲染过程的了解，最后两步就是渲染，也就是在这个阶段出现了重排与重绘，也同时是最耗时的阶段。(意思就是说在第一次加载页面的时候，就会出现重排与重
+经过对浏览器渲染过程的了解，最后两步就是渲染，也就是在这个阶段出现了重排与重绘，也同时是最耗时的阶段。(意思就是说在第一次加载页面的时候，就会出现重排与重绘)。
+重排（回流）当DOM的变化影响到了元素的几何信息，浏览器需要重新计算元素的宽高信息和位置信息。这个过程叫重排。
+触发的条件1.添加或者删除可见的DOM元素；
+2.元素尺寸改变——边距、填充、边
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1293,7 +1442,9 @@
           事件循环（Event Loop）入门这里只说浏览器环境下,在不同浏览器下表现不同，这里是在chrome!!!!
 参考资料         https://www.codercto.com/a/18956.html
 https://github.com/aooy/blog/issues/5
-​    
+​             这个地址，可以看到具体的执行过程，还有详细的教程，中文字幕哈哈哈哈
+
+1.单线程的JavaScript负责解析和执行JavaScript的线程只有一个，同一时间只能执行一段JavaS
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1441,7 +1592,7 @@ https://github.com/aooy/blog/issues/5
       
         
           
-          背景：有一天突然发现七牛云测试域名被回收了，有些图片显示不出来了，图片也不能直接下载，本地还没有备份。于是乎想到的办法就是打开一张张图片链接，手动保存到本地。作为一只程序🐒，这种事情自然是做不出来的，查了一堆资料都觉得麻烦，所以用自己的方式解决问题，当然也有解决方案。想法：其实想法就是1.登陆七牛
+          背景：有一天突然发现七牛云测试域名被回收了，有些图片显示不出来了，图片也不能直接下载，本地还没有备份。于是乎想到的办法就是打开一张张图片链接，手动保存到本地。作为一只程序🐒，这种事情自然是做不出来的，查了一堆资料都觉得麻烦，所以用自己的方式解决问题，当然也有解决方案。想法：其实想法就是1.登陆七牛云2.跳转到对应的页面3.加载完成的图片列表，并且获取全部图片的名字（因为我只有80张，所以只需要点击一次加载更多，就可以获取全部列表）4.打开图片完整路径，下载图片到本地使用puppeteer来解决
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1592,163 +1743,11 @@ https://github.com/aooy/blog/issues/5
           JSBridge-分离插件js宝哥总是说做Hybird应用开发的，这个要了解一下，那就了解一下哈哈哈哈。刚好有机会写个接入的文档，总结一下流程。
 1.JSBridge其实就是Native和Web之间通信的桥梁。
 2.需求1）引入lauch.js，根据ua判断，引入不同平台的cordova.js。
-2
+2）引入的cordova.js会根据配置文件cordova.plugin.js里的配置数据（数组），然后再动态创建script标签，引入不同的插件js。（cordova.js、cordova.plugi
           ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/12/11/JSBridge-分离插件js/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/原型和原型链/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="秦瀚文">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="渣渣大星星的学习笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/06/原型和原型链/" itemprop="url">原型和原型链</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-06T00:03:52+08:00">
-                2018-12-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          原型和原型链
- https://juejin.im/post/5835853f570c35005e413b19
- https://juejin.im/post/5c218e4c5188254caf18bb1a
-
-引用类型都是对象原型与原型链对象都有原型，原型也是对象，也有自己的原型，就组成了一条原型
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/06/原型和原型链/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1836,7 +1835,7 @@ https://github.com/aooy/blog/issues/5
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
