@@ -1438,10 +1438,11 @@ Symbol.iterator属性与for…of首先看个🌰，已知对象是没有Iterator
       
         
           
-          1.字符串反转  abc -&gt; cba方法一：
+          实现方法各种各样，只写了部分。
+1.字符串反转  abc -&gt; cba方法一：
 1234var str = 'abc';var newStr = str.split('').reverse().join('');console.log(newStr);
 方法二：
-12345var str = 'abc';var newStr1 = str.split('').reduce(function (total, value) &#123;    return value + total;&#125;)console.log(n
+12345var str = 'abc';var newStr1 = str.split('').reduce(function (total, value) &#123;    return value + total;&#12
           ...
           <!--noindex-->
           <div class="post-button text-center">
