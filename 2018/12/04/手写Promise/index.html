@@ -102,12 +102,12 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="手写Promise 参考资料：掘金，手写Promise ​            阮一峰promise ​           this的指向问题  1.先看个Promise例子1234new Promise(function (resolve, reject) &amp;#123;    console.log(1);    resolve(&apos;resolve&apos;);&amp;#125;) 1） 看到Promise">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://www.qinhanwen.xyz/images/59EF3428467C4B9F81D0CA9C20DBE35C.png">
-<meta property="og:updated_time" content="2019-03-20T16:17:27.498Z">
+<meta property="og:image" content="http://www.qinhanwen.xyz/59EF3428467C4B9F81D0CA9C20DBE35C.png">
+<meta property="og:updated_time" content="2019-04-17T08:03:10.578Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="手写Promise">
 <meta name="twitter:description" content="手写Promise 参考资料：掘金，手写Promise ​            阮一峰promise ​           this的指向问题  1.先看个Promise例子1234new Promise(function (resolve, reject) &amp;#123;    console.log(1);    resolve(&apos;resolve&apos;);&amp;#125;) 1） 看到Promise">
-<meta name="twitter:image" content="http://www.qinhanwen.xyz/images/59EF3428467C4B9F81D0CA9C20DBE35C.png">
+<meta name="twitter:image" content="http://www.qinhanwen.xyz/59EF3428467C4B9F81D0CA9C20DBE35C.png">
 
 
 
@@ -404,7 +404,7 @@
 <p>第三个🌰,<code>.then</code>方法是个函数，并且有返回值</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        resolve(<span class="string">'resolve'</span>);</span><br><span class="line">    &#125;, <span class="number">2000</span>);</span><br><span class="line">&#125;)</span><br><span class="line">.then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123; <span class="built_in">console</span>.log(data);<span class="keyword">return</span> <span class="string">'有返回值'</span>;&#125;)</span><br><span class="line">.then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123; <span class="built_in">console</span>.log(data);&#125;);</span><br><span class="line"><span class="comment">//打印出</span></span><br><span class="line"><span class="comment">//1</span></span><br><span class="line"><span class="comment">//resolve</span></span><br><span class="line"><span class="comment">//有返回值</span></span><br></pre></td></tr></table></figure>
 <p>emm…其实这个的调用过程真的很绕，因为有一堆的<code>self</code>，于是我决定画个图，就拿上面第一个🌰的调用过程来画吧</p>
-<p><img src="http://www.qinhanwen.xyz/images/59EF3428467C4B9F81D0CA9C20DBE35C.png" alt="59EF3428467C4B9F81D0CA9C20DBE35C"></p>
+<p><img src="http://www.qinhanwen.xyz/59EF3428467C4B9F81D0CA9C20DBE35C.png" alt="59EF3428467C4B9F81D0CA9C20DBE35C"></p>
 <p>如果<code>.then</code>里是函数并且有返回值，也就是黄色箭头的那个数组变成</p>
 <p><code>[function(){resolve(onFulfilled(self.value))}]</code>，就会让第二个promise对象的value变成onFulfilled(self.value)的返回值。</p>
 
