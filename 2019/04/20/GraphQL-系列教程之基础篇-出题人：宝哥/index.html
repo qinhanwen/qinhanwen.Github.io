@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="GraphQL 系列教程之基础篇-出题人：宝哥," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="出题人：宝哥 GraphQL 系列教程之基础篇  https://segmentfault.com/a/1190000011263214 一、GraphQL 是什么，它有哪些特点？GraphQL 的定义GraphQL 是一种新的 API 标准，是一个用于 API 的查询语言，是一个使用基于类型系统来执行查询的服务端运行时（类型系统由你的数据定义）。GraphQL 并没有和任何特定数据库或者存储引">
+<meta name="keywords" content="GraphQL 系列教程之基础篇-出题人：宝哥">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GraphQL 系列教程之基础篇-出题人：宝哥">
+<meta property="og:url" content="http://yoursite.com/2019/04/20/GraphQL-系列教程之基础篇-出题人：宝哥/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="出题人：宝哥 GraphQL 系列教程之基础篇  https://segmentfault.com/a/1190000011263214 一、GraphQL 是什么，它有哪些特点？GraphQL 的定义GraphQL 是一种新的 API 标准，是一个用于 API 的查询语言，是一个使用基于类型系统来执行查询的服务端运行时（类型系统由你的数据定义）。GraphQL 并没有和任何特定数据库或者存储引">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-24T05:57:24.289Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GraphQL 系列教程之基础篇-出题人：宝哥">
+<meta name="twitter:description" content="出题人：宝哥 GraphQL 系列教程之基础篇  https://segmentfault.com/a/1190000011263214 一、GraphQL 是什么，它有哪些特点？GraphQL 的定义GraphQL 是一种新的 API 标准，是一个用于 API 的查询语言，是一个使用基于类型系统来执行查询的服务端运行时（类型系统由你的数据定义）。GraphQL 并没有和任何特定数据库或者存储引">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/20/GraphQL-系列教程之基础篇-出题人：宝哥/"/>
+
+
+
+
+
+  <title>GraphQL 系列教程之基础篇-出题人：宝哥 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/20/GraphQL-系列教程之基础篇-出题人：宝哥/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">GraphQL 系列教程之基础篇-出题人：宝哥</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-20T23:14:52+08:00">
+                2019-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GraphQL-系列教程之基础篇-出题人：宝哥/" itemprop="url" rel="index">
+                    <span itemprop="name">GraphQL 系列教程之基础篇-出题人：宝哥</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>出题人：<a href="http://www.semlinker.com/" target="_blank" rel="noopener">宝哥</a></p>
+<p>GraphQL 系列教程之基础篇</p>
+</blockquote>
+<p><a href="https://segmentfault.com/a/1190000011263214" target="_blank" rel="noopener">https://segmentfault.com/a/1190000011263214</a></p>
+<h3 id="一、GraphQL-是什么，它有哪些特点？"><a href="#一、GraphQL-是什么，它有哪些特点？" class="headerlink" title="一、GraphQL 是什么，它有哪些特点？"></a>一、GraphQL 是什么，它有哪些特点？</h3><h4 id="GraphQL-的定义"><a href="#GraphQL-的定义" class="headerlink" title="GraphQL 的定义"></a>GraphQL 的定义</h4><p>GraphQL 是一种新的 API 标准，是一个用于 API 的查询语言，是一个使用基于类型系统来执行查询的服务端运行时（类型系统由你的数据定义）。GraphQL 并没有和任何特定数据库或者存储引擎绑定，而是依靠你现有的代码和数据支撑。</p>
+<h4 id="GraphQL-的特点"><a href="#GraphQL-的特点" class="headerlink" title="GraphQL 的特点"></a>GraphQL 的特点</h4><ol>
+<li><p>没有和任何特定数据库或者存储引擎绑定              </p>
+</li>
+<li><p>可以精确的获取需要的数据，合并多次请求</p>
+</li>
+</ol>
+<h3 id="二、GraphQL-vs-REST-API"><a href="#二、GraphQL-vs-REST-API" class="headerlink" title="二、GraphQL vs REST API"></a>二、GraphQL vs REST API</h3><h4 id="REST-API"><a href="#REST-API" class="headerlink" title="REST API"></a>REST API</h4><p>1）通过不同的方法，请求不同路径，后端使用不同的方式对路径下的资源处理(比如：GET 查询，POST 新增，PUT 修改，DELETE 删除)。</p>
+<p>2）比如说要得人员的 id，和人员的详细信息，可能就要发送 2 次的请求（先获取id，再拿着id去获取详细信息）。</p>
+<h4 id="GraphQL"><a href="#GraphQL" class="headerlink" title="GraphQL"></a>GraphQL</h4><p>1）只会返回你需要的数据</p>
+<p>2）可以合并多次请求</p>
+<p>比如查询：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  user(id:&quot;100&quot;)&#123;</span><br><span class="line">    name,</span><br><span class="line">    email</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>只需一次查询，只返回你需要的</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"user"</span>: &#123;</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"qinhanwen"</span>,</span><br><span class="line">    <span class="attr">"email"</span>: <span class="string">"xxx@qq.com"</span> </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="三、在-GraphQL-中-Schema-有什么作用？"><a href="#三、在-GraphQL-中-Schema-有什么作用？" class="headerlink" title="三、在 GraphQL 中 Schema 有什么作用？"></a>三、在 GraphQL 中 Schema 有什么作用？</h3><p>1）Schema 是关于数据的描述，能选择什么字段，服务器会返回哪种对象，这些对象下有哪些字段可用，都描述在 Schema 里。</p>
+<p>2）每次查询的时候，服务器都会根据 Schema 验证并且执行查询。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Character &#123;</span><br><span class="line">  name: <span class="built_in">String</span>!</span><br><span class="line">  appearsIn: [Episode!]!</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Character是GraphQL对象类型</span></span><br><span class="line"><span class="comment">//String! 表示非空字符串</span></span><br><span class="line"><span class="comment">//[Episode!]! 非空的，每一项都是Episode类型的数组</span></span><br></pre></td></tr></table></figure>
+<h3 id="四、在-GraphQL-中-Resolver-有什么作用？"><a href="#四、在-GraphQL-中-Resolver-有什么作用？" class="headerlink" title="四、在 GraphQL 中 Resolver 有什么作用？"></a>四、在 GraphQL 中 Resolver 有什么作用？</h3><h4 id="Resolver-的作用"><a href="#Resolver-的作用" class="headerlink" title="Resolver 的作用"></a>Resolver 的作用</h4><p>1）Resolver 是决定 Schemas 中的 field 该如何执行的函数；</p>
+<p>2）Query（包括query、mutation、subscription）和与之对应的 Resolver 是同名的。</p>
+<h3 id="五、请利用-graphql-yoga-搭建-GraphQL-服务器，完成用户列表的查询，用户信息至少包含-id-和-name-字段"><a href="#五、请利用-graphql-yoga-搭建-GraphQL-服务器，完成用户列表的查询，用户信息至少包含-id-和-name-字段" class="headerlink" title="五、请利用 graphql-yoga 搭建 GraphQL 服务器，完成用户列表的查询，用户信息至少包含 id 和 name 字段"></a>五、请利用 graphql-yoga 搭建 GraphQL 服务器，完成用户列表的查询，用户信息至少包含 id 和 name 字段</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; GraphQLServer &#125; = <span class="built_in">require</span>(<span class="string">'graphql-yoga'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> userList = [</span><br><span class="line">    &#123; <span class="attr">id</span>: <span class="number">1</span>, <span class="attr">name</span>: <span class="string">'qinhanwen'</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">id</span>: <span class="number">2</span>, <span class="attr">name</span>: <span class="string">'zengheiren'</span> &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> typeDefs = <span class="string">`</span></span><br><span class="line"><span class="string">    type User&#123;</span></span><br><span class="line"><span class="string">       id: ID!</span></span><br><span class="line"><span class="string">       name: String!</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    type Query &#123;</span></span><br><span class="line"><span class="string">        users: [User!]!</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    `</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> resolvers = &#123;</span><br><span class="line">    Query: &#123;</span><br><span class="line">        users: <span class="function"><span class="params">()</span> =&gt;</span> userList</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> server = <span class="keyword">new</span> GraphQLServer(&#123; typeDefs, resolvers &#125;)</span><br><span class="line">server.start(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'Server is running on localhost:4000'</span>))</span><br></pre></td></tr></table></figure>
+<p>提示：为了方便开发与测试，建议安装 nodemon 这个工具，然后通过配置 npm scripts 快速启动服务器。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/GraphQL-系列教程之基础篇-出题人：宝哥/" rel="tag"># GraphQL 系列教程之基础篇-出题人：宝哥</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/18/项目计划书/" rel="next" title="渣渣大星星的拓展">
+                <i class="fa fa-chevron-left"></i> 渣渣大星星的拓展
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">66</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、GraphQL-是什么，它有哪些特点？"><span class="nav-number">1.</span> <span class="nav-text">一、GraphQL 是什么，它有哪些特点？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GraphQL-的定义"><span class="nav-number">1.1.</span> <span class="nav-text">GraphQL 的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GraphQL-的特点"><span class="nav-number">1.2.</span> <span class="nav-text">GraphQL 的特点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、GraphQL-vs-REST-API"><span class="nav-number">2.</span> <span class="nav-text">二、GraphQL vs REST API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#REST-API"><span class="nav-number">2.1.</span> <span class="nav-text">REST API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GraphQL"><span class="nav-number">2.2.</span> <span class="nav-text">GraphQL</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、在-GraphQL-中-Schema-有什么作用？"><span class="nav-number">3.</span> <span class="nav-text">三、在 GraphQL 中 Schema 有什么作用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、在-GraphQL-中-Resolver-有什么作用？"><span class="nav-number">4.</span> <span class="nav-text">四、在 GraphQL 中 Resolver 有什么作用？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Resolver-的作用"><span class="nav-number">4.1.</span> <span class="nav-text">Resolver 的作用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、请利用-graphql-yoga-搭建-GraphQL-服务器，完成用户列表的查询，用户信息至少包含-id-和-name-字段"><span class="nav-number">5.</span> <span class="nav-text">五、请利用 graphql-yoga 搭建 GraphQL 服务器，完成用户列表的查询，用户信息至少包含 id 和 name 字段</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
