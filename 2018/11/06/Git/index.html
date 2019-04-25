@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="忽略已经在版本控制里的文件 先对其 git update-index --assume-unchanged 文件路径，这样 Git 会忽略文件的修改。  需要提交的时候需要重置改标识：git update-index --no-assume-unchanged 文件路径，于是 Git 只需要做一次更新。 (.gitignore无法忽略在添加到版本中的文件)">
+<meta name="description" content="Git常用命令1.忽略已经在版本控制里的文件12$ git update-index --assume-unchanged 文件路径#这样 Git 会忽略文件的修改。 12$ git update-index --no-assume-unchanged 文件路径# 需要提交的时候需要重置改标识，.gitignore无法忽略在添加到版本中的文件 2.更改签名12$ git config user.n">
 <meta name="keywords" content="深入学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git">
 <meta property="og:url" content="http://yoursite.com/2018/11/06/Git/index.html">
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
-<meta property="og:description" content="忽略已经在版本控制里的文件 先对其 git update-index --assume-unchanged 文件路径，这样 Git 会忽略文件的修改。  需要提交的时候需要重置改标识：git update-index --no-assume-unchanged 文件路径，于是 Git 只需要做一次更新。 (.gitignore无法忽略在添加到版本中的文件)">
+<meta property="og:description" content="Git常用命令1.忽略已经在版本控制里的文件12$ git update-index --assume-unchanged 文件路径#这样 Git 会忽略文件的修改。 12$ git update-index --no-assume-unchanged 文件路径# 需要提交的时候需要重置改标识，.gitignore无法忽略在添加到版本中的文件 2.更改签名12$ git config user.n">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-25T03:35:48.744Z">
+<meta property="og:updated_time" content="2019-04-25T11:24:04.161Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git">
-<meta name="twitter:description" content="忽略已经在版本控制里的文件 先对其 git update-index --assume-unchanged 文件路径，这样 Git 会忽略文件的修改。  需要提交的时候需要重置改标识：git update-index --no-assume-unchanged 文件路径，于是 Git 只需要做一次更新。 (.gitignore无法忽略在添加到版本中的文件)">
+<meta name="twitter:description" content="Git常用命令1.忽略已经在版本控制里的文件12$ git update-index --assume-unchanged 文件路径#这样 Git 会忽略文件的修改。 12$ git update-index --no-assume-unchanged 文件路径# 需要提交的时候需要重置改标识，.gitignore无法忽略在添加到版本中的文件 2.更改签名12$ git config user.n">
 
 
 
@@ -372,13 +372,18 @@
       
 
       
-        <h5 id="忽略已经在版本控制里的文件"><a href="#忽略已经在版本控制里的文件" class="headerlink" title="忽略已经在版本控制里的文件"></a>忽略已经在版本控制里的文件</h5><ol>
-<li><p>先对其 <code>git update-index --assume-unchanged 文件路径</code>，这样 Git 会忽略文件的修改。</p>
-</li>
-<li><p>需要提交的时候需要重置改标识：<code>git update-index --no-assume-unchanged 文件路径</code>，于是 Git 只需要做一次更新。</p>
-<p>(.gitignore无法忽略在添加到版本中的文件)</p>
-</li>
-</ol>
+        <h4 id="Git常用命令"><a href="#Git常用命令" class="headerlink" title="Git常用命令"></a>Git常用命令</h4><h5 id="1-忽略已经在版本控制里的文件"><a href="#1-忽略已经在版本控制里的文件" class="headerlink" title="1.忽略已经在版本控制里的文件"></a>1.忽略已经在版本控制里的文件</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git update-index --assume-unchanged 文件路径</span><br><span class="line"><span class="meta">#</span>这样 Git 会忽略文件的修改。</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git update-index --no-assume-unchanged 文件路径</span><br><span class="line"><span class="meta">#</span> 需要提交的时候需要重置改标识，.gitignore无法忽略在添加到版本中的文件</span><br></pre></td></tr></table></figure>
+<h5 id="2-更改签名"><a href="#2-更改签名" class="headerlink" title="2.更改签名"></a>2.更改签名</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git config user.name [AAA]</span><br><span class="line"><span class="meta">$</span> git config user.email [邮箱地址]</span><br></pre></td></tr></table></figure>
+<h5 id="3-提交操作"><a href="#3-提交操作" class="headerlink" title="3.提交操作"></a>3.提交操作</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git add 文件名</span><br><span class="line"><span class="meta">#</span>将工作区新建/修改的内容添加到暂存区</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span>git commit -m “commit message” </span><br><span class="line"><span class="meta">#</span>将暂存区的内容提交到本地库</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span>git push</span><br><span class="line"><span class="meta">#</span>上传到远程分支</span><br></pre></td></tr></table></figure>
+<h5 id="4-撤回操作"><a href="#4-撤回操作" class="headerlink" title="4.撤回操作"></a>4.撤回操作</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git reset --hard 哈希索引值</span><br></pre></td></tr></table></figure>
+<h5 id="5-切换分支"><a href="#5-切换分支" class="headerlink" title="5.切换分支"></a>5.切换分支</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git checkout 分支名</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> git checkout -b [name]</span><br><span class="line"><span class="meta">#</span>创建新分支，并且切换到新分支</span><br></pre></td></tr></table></figure>
+<h5 id="6-检出仓库"><a href="#6-检出仓库" class="headerlink" title="6.检出仓库"></a>6.检出仓库</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git clone xxxxxxxx</span><br></pre></td></tr></table></figure>
+<h5 id="7-历史"><a href="#7-历史" class="headerlink" title="7.历史"></a>7.历史</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git log</span><br></pre></td></tr></table></figure>
+<h5 id="8-暂存"><a href="#8-暂存" class="headerlink" title="8.暂存"></a>8.暂存</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git stash</span><br><span class="line"><span class="meta">#</span>将当前未提交的工作存入Git工作栈中，时机成熟的时候再应用回来，</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> git stash list</span><br><span class="line"><span class="meta">#</span>会显示这个栈的list.</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span>git stash pop</span><br><span class="line"><span class="meta">#</span>将工作栈中，最后一笔弹出</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> git stash clear</span><br><span class="line"><span class="meta">#</span>清空栈</span><br></pre></td></tr></table></figure>
+<h5 id="9-合并"><a href="#9-合并" class="headerlink" title="9.合并"></a>9.合并</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git merge [brance]</span><br><span class="line"><span class="meta">#</span>合并进当前分支</span><br></pre></td></tr></table></figure>
+<h5 id="10-更新"><a href="#10-更新" class="headerlink" title="10.更新"></a>10.更新</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git fetch</span><br><span class="line"><span class="meta">#</span>会取到本地没有的数据</span><br></pre></td></tr></table></figure>
+<h5 id="11-git引起的变化"><a href="#11-git引起的变化" class="headerlink" title="11.git引起的变化"></a>11.git引起的变化</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git reflog</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -555,7 +560,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#忽略已经在版本控制里的文件"><span class="nav-number">1.</span> <span class="nav-text">忽略已经在版本控制里的文件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git常用命令"><span class="nav-number">1.</span> <span class="nav-text">Git常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-忽略已经在版本控制里的文件"><span class="nav-number">1.1.</span> <span class="nav-text">1.忽略已经在版本控制里的文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-更改签名"><span class="nav-number">1.2.</span> <span class="nav-text">2.更改签名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-提交操作"><span class="nav-number">1.3.</span> <span class="nav-text">3.提交操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-撤回操作"><span class="nav-number">1.4.</span> <span class="nav-text">4.撤回操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-切换分支"><span class="nav-number">1.5.</span> <span class="nav-text">5.切换分支</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-检出仓库"><span class="nav-number">1.6.</span> <span class="nav-text">6.检出仓库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-历史"><span class="nav-number">1.7.</span> <span class="nav-text">7.历史</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-暂存"><span class="nav-number">1.8.</span> <span class="nav-text">8.暂存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-合并"><span class="nav-number">1.9.</span> <span class="nav-text">9.合并</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-更新"><span class="nav-number">1.10.</span> <span class="nav-text">10.更新</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-git引起的变化"><span class="nav-number">1.11.</span> <span class="nav-text">11.git引起的变化</span></a></li></ol></li></ol></div>
             
 
           </div>
