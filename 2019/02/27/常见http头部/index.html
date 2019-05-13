@@ -108,7 +108,7 @@
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190227-235752@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190227-235514@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190301-105530@2x.png">
-<meta property="og:updated_time" content="2019-04-17T08:03:10.503Z">
+<meta property="og:updated_time" content="2019-05-09T12:35:29.771Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见HTTP头部">
 <meta name="twitter:description" content="参考资料    图解HTTP  只写了一些常见的（我常见），没有区分HTTP不同版本的头部 为什么需要头部http头部字段主要是给客户端还有服务器端提供报文主体大小，所用语言，以及认证信息等。 头部字段结构1头部字段名 : 字段值 头部字段类型1）通用头部字段：请求报文和响应报文都会使用的字段2）请求头部字段：客户端向服务端发送请求报文时使用的字段3）响应头部字段：服务端向客户端返回响应报文时使">
@@ -436,7 +436,10 @@
 <h4 id="Content-Type"><a href="#Content-Type" class="headerlink" title="Content-Type"></a>Content-Type</h4><p>主体内传输的媒体类型</p>
 <p>属性值：</p>
 <p><strong>application/x-www-form-urlencoded</strong> </p>
+<p> x-www-form-urlencoded：只能上传键值对，并且键值对都是间隔分开的，只是最后会转化为一条信息。<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POST  HTTP/1.1</span><br><span class="line">Host: test.app.com</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Postman-Token: e00dbaf5-15e8-3667-6fc5-48ee3cc89758</span><br><span class="line"></span><br><span class="line">key1=value1&amp;key2=value2</span><br></pre></td></tr></table></figure></p>
 <p><strong>multipart/form-data</strong> </p>
+<p>multipart/form-data：既可以上传文件等二进制数据，也可以上传表单键值对。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">POST  HTTP/1.1</span><br><span class="line">Host: test.app.com</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Postman-Token: 59227787-c438-361d-fbe1-75feeb78047e</span><br><span class="line">Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW</span><br><span class="line"></span><br><span class="line">------WebKitFormBoundary7MA4YWxkTrZu0gW</span><br><span class="line">Content-Disposition: form-data; name=&quot;filekey&quot;; filename=&quot;&quot;</span><br><span class="line">Content-Type: </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------WebKitFormBoundary7MA4YWxkTrZu0gW</span><br><span class="line">Content-Disposition: form-data; name=&quot;textkey&quot;</span><br><span class="line"></span><br><span class="line">tttttt</span><br><span class="line">------WebKitFormBoundary7MA4YWxkTrZu0gW--</span><br></pre></td></tr></table></figure>
 <p><strong>application/json</strong> </p>
 <p>比如在数据提交或者表单提交的时候，Content-Type字段会说明提交的数据的类型，上面这几种对应的数据类型格式也不一样。之后学习<a href="">表单提交与AJAX提交的区别</a>的时候，会再深入了解。</p>
 <h4 id="Expires"><a href="#Expires" class="headerlink" title="Expires"></a>Expires</h4><p>缓存资源失效时间，优先级比<code>Cache-Control</code>的<code>max-age</code>低，HTTP1.1之前的字段。</p>
