@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="Git常用命令1.忽略已经在版本控制里的文件12$ git update-index --assume-unchanged 文件路径#这样 Git 会忽略文件的修改。 12$ git update-index --no-assume-unchanged 文件路径# 需要提交的时候需要重置改标识，.gitignore无法忽略在添加到版本中的文件 2.更改签名12$ git config user.n">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-13T09:45:36.529Z">
+<meta property="og:updated_time" content="2019-06-04T07:28:46.428Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git">
 <meta name="twitter:description" content="Git常用命令1.忽略已经在版本控制里的文件12$ git update-index --assume-unchanged 文件路径#这样 Git 会忽略文件的修改。 12$ git update-index --no-assume-unchanged 文件路径# 需要提交的时候需要重置改标识，.gitignore无法忽略在添加到版本中的文件 2.更改签名12$ git config user.n">
@@ -384,6 +384,9 @@
 <h5 id="9-合并"><a href="#9-合并" class="headerlink" title="9.合并"></a>9.合并</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git merge [brance]</span><br><span class="line"><span class="meta">#</span>合并进当前分支</span><br></pre></td></tr></table></figure>
 <h5 id="10-更新"><a href="#10-更新" class="headerlink" title="10.更新"></a>10.更新</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git fetch</span><br><span class="line"><span class="meta">#</span>会取到本地没有的数据</span><br></pre></td></tr></table></figure>
 <h5 id="11-git引起的变化"><a href="#11-git引起的变化" class="headerlink" title="11.git引起的变化"></a>11.git引起的变化</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git reflog</span><br></pre></td></tr></table></figure>
+<h5 id="12-回滚远程"><a href="#12-回滚远程" class="headerlink" title="12.回滚远程"></a>12.回滚远程</h5><p>假设3笔提交</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">commit 3</span><br><span class="line">commit 2</span><br><span class="line">commit 1</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git reset --hard HEAD~1</span><br><span class="line"><span class="meta">$</span> git push --force</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -503,7 +506,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-count">68</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -560,7 +563,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git常用命令"><span class="nav-number">1.</span> <span class="nav-text">Git常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-忽略已经在版本控制里的文件"><span class="nav-number">1.1.</span> <span class="nav-text">1.忽略已经在版本控制里的文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-更改签名"><span class="nav-number">1.2.</span> <span class="nav-text">2.更改签名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-提交操作"><span class="nav-number">1.3.</span> <span class="nav-text">3.提交操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-撤回操作"><span class="nav-number">1.4.</span> <span class="nav-text">4.撤回操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-切换分支"><span class="nav-number">1.5.</span> <span class="nav-text">5.切换分支</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-检出仓库"><span class="nav-number">1.6.</span> <span class="nav-text">6.检出仓库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-历史"><span class="nav-number">1.7.</span> <span class="nav-text">7.历史</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-暂存"><span class="nav-number">1.8.</span> <span class="nav-text">8.暂存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-合并"><span class="nav-number">1.9.</span> <span class="nav-text">9.合并</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-更新"><span class="nav-number">1.10.</span> <span class="nav-text">10.更新</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-git引起的变化"><span class="nav-number">1.11.</span> <span class="nav-text">11.git引起的变化</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git常用命令"><span class="nav-number">1.</span> <span class="nav-text">Git常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-忽略已经在版本控制里的文件"><span class="nav-number">1.1.</span> <span class="nav-text">1.忽略已经在版本控制里的文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-更改签名"><span class="nav-number">1.2.</span> <span class="nav-text">2.更改签名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-提交操作"><span class="nav-number">1.3.</span> <span class="nav-text">3.提交操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-撤回操作"><span class="nav-number">1.4.</span> <span class="nav-text">4.撤回操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-切换分支"><span class="nav-number">1.5.</span> <span class="nav-text">5.切换分支</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-检出仓库"><span class="nav-number">1.6.</span> <span class="nav-text">6.检出仓库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-历史"><span class="nav-number">1.7.</span> <span class="nav-text">7.历史</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-暂存"><span class="nav-number">1.8.</span> <span class="nav-text">8.暂存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-合并"><span class="nav-number">1.9.</span> <span class="nav-text">9.合并</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-更新"><span class="nav-number">1.10.</span> <span class="nav-text">10.更新</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-git引起的变化"><span class="nav-number">1.11.</span> <span class="nav-text">11.git引起的变化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#12-回滚远程"><span class="nav-number">1.12.</span> <span class="nav-text">12.回滚远程</span></a></li></ol></li></ol></div>
             
 
           </div>
