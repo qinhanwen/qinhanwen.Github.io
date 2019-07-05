@@ -105,7 +105,7 @@
 <meta property="og:image" content="http://www.qinhanwen.xyz/reflected-xss.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190323-230946@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/persistent-xss.png">
-<meta property="og:updated_time" content="2019-06-11T14:28:08.879Z">
+<meta property="og:updated_time" content="2019-06-30T13:26:29.548Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XSS简单了解">
 <meta name="twitter:description" content="参考资料     https://juejin.im/post/5bad9140e51d450e935c6d64 ​            https://juejin.im/post/5b97ba596fb9a05cda774ba4 ​                练习 ​            https://excess-xss.com/ ​            中文 ​">
@@ -399,7 +399,7 @@
 <p>2）受害者被攻击者欺骗打开了这个URL，发送了这个带有恶意代码的请求。</p>
 <p>3）请求得到响应，网站服务端将恶意代码从 URL 中取出，未对请求参数进行处理，拼接在 HTML 中返回给浏览器。</p>
 <p>4）受害者遭到攻击，发送出了Cookie。</p>
-<p>补充：使用innerHtml或outerHTML插入脚本，只是当作普通的html执行，js解析器不会执行js脚本。</p>
+<p>补充：使用innerHtml或outerHTML插入脚本，只是当作普通的html执行，js解析器不会执行js脚本，标签不会被转义。<br>比如<div></div>，页面上不会显示这个</p>
 <h5 id="举个🌰"><a href="#举个🌰" class="headerlink" title="举个🌰"></a>举个🌰</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://localhost:3000/index?&lt;img src='' onerror='alert(1)' /&gt;"</span>&gt;</span></span><br><span class="line">        a标签</span><br><span class="line">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>页面中有个构造特殊的URL，点击url跳转新页面，后端将请求参数拼接在HTML里返回。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> koa();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Router = <span class="built_in">require</span>(<span class="string">'koa-router'</span>);</span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> Router();</span><br><span class="line"><span class="keyword">const</span> ejs = <span class="built_in">require</span>(<span class="string">'ejs'</span>);</span><br><span class="line"><span class="keyword">const</span> views = <span class="built_in">require</span>(<span class="string">'koa-views'</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">router.get(<span class="string">'/index'</span>,<span class="keyword">async</span> (ctx) =&gt; &#123;</span><br><span class="line">    <span class="keyword">var</span> url = <span class="built_in">decodeURIComponent</span>(ctx.request.url);</span><br><span class="line">    <span class="keyword">var</span> str = url.substr(url.indexOf(<span class="string">'?'</span>)+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">await</span> ctx.render(<span class="string">'index'</span>,&#123;<span class="attr">content</span>: str&#125;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(views(path.join(__dirname, <span class="string">'./views'</span>), &#123;</span><br><span class="line">    extension: <span class="string">'ejs'</span></span><br><span class="line">&#125;))</span><br><span class="line">app.use(router.routes());</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'koa server is listening port 3000'</span>);</span><br></pre></td></tr></table></figure>
@@ -550,7 +550,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">71</span>
+                <span class="site-state-item-count">70</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -561,7 +561,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -572,7 +572,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
