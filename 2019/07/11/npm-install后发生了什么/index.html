@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="npm," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="npm install 之后发生了什么？ 记一次排错经历——npm缓存浅析 npm 模块安装机制简介  npm install是干嘛的npm install命令用来安装模块到node_modules目录。 安装之前，npm install会先检查node_modules目录之中是否已经存在指定模块。如果存在，就不再重新安装了，即使远程仓库已经有了一个新版本，也不会安装。 如果希望一个模块不管是否">
+<meta name="keywords" content="npm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="npm install后发生了什么">
+<meta property="og:url" content="http://yoursite.com/2019/07/11/npm-install后发生了什么/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="npm install 之后发生了什么？ 记一次排错经历——npm缓存浅析 npm 模块安装机制简介  npm install是干嘛的npm install命令用来安装模块到node_modules目录。 安装之前，npm install会先检查node_modules目录之中是否已经存在指定模块。如果存在，就不再重新安装了，即使远程仓库已经有了一个新版本，也不会安装。 如果希望一个模块不管是否">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190711-212928@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190709-102920@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190711-192302@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190711-212439@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190711-213336@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190712-093343@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190712-094454@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190712-105741@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190712-140123@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190712-163503@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190712-164143@2x.png">
+<meta property="og:updated_time" content="2019-07-12T16:11:58.351Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="npm install后发生了什么">
+<meta name="twitter:description" content="npm install 之后发生了什么？ 记一次排错经历——npm缓存浅析 npm 模块安装机制简介  npm install是干嘛的npm install命令用来安装模块到node_modules目录。 安装之前，npm install会先检查node_modules目录之中是否已经存在指定模块。如果存在，就不再重新安装了，即使远程仓库已经有了一个新版本，也不会安装。 如果希望一个模块不管是否">
+<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20190711-212928@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/11/npm-install后发生了什么/"/>
+
+
+
+
+
+  <title>npm install后发生了什么 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/11/npm-install后发生了什么/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">npm install后发生了什么</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-11T18:54:12+08:00">
+                2019-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/npm/" itemprop="url" rel="index">
+                    <span itemprop="name">npm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="https://zhuanlan.zhihu.com/p/37285173" target="_blank" rel="noopener">npm install 之后发生了什么？</a></p>
+<p><a href="https://juejin.im/post/5c77e05e518825407a32b94b" target="_blank" rel="noopener">记一次排错经历——npm缓存浅析</a></p>
+<p><a href="http://www.ruanyifeng.com/blog/2016/01/npm-install.html" target="_blank" rel="noopener">npm 模块安装机制简介</a></p>
+</blockquote>
+<h2 id="npm-install是干嘛的"><a href="#npm-install是干嘛的" class="headerlink" title="npm install是干嘛的"></a>npm install是干嘛的</h2><p><code>npm install</code>命令用来安装模块到<code>node_modules</code>目录。</p>
+<p>安装之前，<code>npm install</code>会先检查<code>node_modules</code>目录之中是否已经存在指定模块。如果存在，就不再重新安装了，即使远程仓库已经有了一个新版本，也不会安装。</p>
+<p>如果希望一个模块不管是否安装过，npm 都要强制重新安装，可以使用<code>-f</code>或<code>--force</code>参数。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm install &lt;packageName&gt; --force</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm install --timing=true --loglevel=verbose</span><br></pre></td></tr></table></figure>
+<p>运行命令，会把安装过程的log输出。    </p>
+<p><img src="http://www.qinhanwen.xyz/WX20190711-212928@2x.png" alt="WX20190711-212928@2x"></p>
+<h2 id="registry"><a href="#registry" class="headerlink" title="registry"></a>registry</h2><p>npm 模块仓库提供了一个查询服务，叫做 <code>registry</code>，npmjs.org 的查询服务网址是<a href="https://registry.npmjs.org/" target="_blank" rel="noopener">https://registry.npmjs.org/</a></p>
+<p>后面可以加上<code>npm包名</code>，比如：<a href="https://registry.npmjs.org/npm-study4" target="_blank" rel="noopener">https://registry.npmjs.org/npm-study4</a>，打开地址是一个JSON 对象，里面是该模块所有版本的信息。<code>dist.tarball</code>属性是该版本压缩包的网址，打开这个网址就可以下载npm压缩包，在本地解压，就可以获得源码，<code>npm install</code>和<code>npm update</code>命令，都是通过这种方式安装模块。</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190709-102920@2x.png" alt="WX20190709-102920@2x"></p>
+<h2 id="npm-update"><a href="#npm-update" class="headerlink" title="npm update"></a>npm update</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm update &lt;packageName&gt;</span><br></pre></td></tr></table></figure>
+<p>它会先到远程仓库查询最新版本，然后查询本地版本。如果本地版本不存在，或者远程版本较新，就会安装。</p>
+<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>获取目录的具体位置</span><br><span class="line"><span class="meta">$</span> npm config get cache</span><br><span class="line"><span class="meta">#</span>/Users/qinhanwen/.npm</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>清除缓存目录文件</span><br><span class="line"><span class="meta">$</span> npm cache clean -f</span><br></pre></td></tr></table></figure>
+<p>要注意在 <strong>npm@5</strong> 之后</p>
+<ul>
+<li>缓存数据放在 <code>.npm/_cacache</code> 文件夹中</li>
+<li>清除命令清除的是<code>.npm/_cacache</code> 目录下文件</li>
+</ul>
+<p>那么看一下<code>.npm/_cacache</code>目录下</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190711-192302@2x.png" alt="WX20190711-192302@2x"></p>
+<p>在<code>content-v2</code> 里面基本都是一些二进制文件，把二进制文件的扩展名改为 <code>.tgz</code> 再解压之后，会发现就是在我们熟知的npm包。 </p>
+<p><img src="http://www.qinhanwen.xyz/WX20190711-212439@2x.png" alt="WX20190711-212439@2x"></p>
+<p>而<code>index-v5</code> 里面是一些描述性的文件，也是 <code>content-v2</code> 里文件的索引，有点像HTTP的响应头，而且还有缓存相关的值</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190711-213336@2x.png" alt="WX20190711-213336@2x"></p>
+<h2 id="所以npm-install之后发生了什么"><a href="#所以npm-install之后发生了什么" class="headerlink" title="所以npm install之后发生了什么"></a>所以<code>npm install</code>之后发生了什么</h2><p>在<code>npm-cli.js</code>文件后面添加<code>--inspect-brk</code>就可以断点调试</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env node  --inspect-brk</span></span><br></pre></td></tr></table></figure>
+<p> 前置条件：<strong>npm版本6.4.1</strong>，<strong>不存在package-lock.json</strong>，以及<strong>没有缓存文件存在</strong>的情况。</p>
+<p>1.发出<code>npm install</code>命令</p>
+<p>2.加载install.js</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190712-093343@2x.png" alt="WX20190712-093343@2x"></p>
+<p>3.执行install方法</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190712-094454@2x.png" alt="WX20190712-094454@2x"></p>
+<p>4.读根目录下<code>package.json</code>文件</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190712-105741@2x.png" alt="WX20190712-105741@2x"></p>
+<p>5.获取元信息</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190712-140123@2x.png" alt="WX20190712-140123@2x"></p>
+<p>6.获取包信息，就是要安装的包的<code>package.json</code>的数据</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190712-163503@2x.png" alt="WX20190712-163503@2x"></p>
+<p>内容：</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190712-164143@2x.png" alt="WX20190712-164143@2x"></p>
+<p>7.下载<code>.tgz</code>后缀的压缩包，比如<code>http://registry.npmjs.org/npm-study1/-/npm-study1-2.0.0.tgz</code>，保存到<code>.npm/_cacache</code>文件夹（实在找不到在哪里发请求下载压缩包）</p>
+<p>8.解压到<code>node_modules</code>目录下</p>
+<p>9.创建<code>package-lock.json</code>文件</p>
+<p>补充：</p>
+<p>运行<code>npm install</code>的时候，会检查<code>node_modules</code>目录，如果某个依赖包没有安装在<code>node_modules</code>目录中，也没有缓存文件，就会去下载这个压缩文件，之后解压到<code>node_modules</code>目录下（如果有在<code>node_modules</code>目录下有这个包就会忽略，即使远程仓库有新版本，也不会更新）</p>
+<p>如果<code>node_modules</code>目录下没有这个文件，缓存里有的话，据我对打印出log的观察，应该是从缓存里解压到<code>node_modules</code>目录下。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/npm/" rel="tag"># npm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/08/npm-scripts/" rel="next" title="npm scripts">
+                <i class="fa fa-chevron-left"></i> npm scripts
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">75</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-install是干嘛的"><span class="nav-number">1.</span> <span class="nav-text">npm install是干嘛的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#registry"><span class="nav-number">2.</span> <span class="nav-text">registry</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-update"><span class="nav-number">3.</span> <span class="nav-text">npm update</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存"><span class="nav-number">4.</span> <span class="nav-text">缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#所以npm-install之后发生了什么"><span class="nav-number">5.</span> <span class="nav-text">所以npm install之后发生了什么</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
