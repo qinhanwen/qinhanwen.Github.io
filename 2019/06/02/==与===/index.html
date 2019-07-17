@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法与数据结构," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="https://www.cnblogs.com/wisewrong/p/10396002.html 重学前端-总结：05、JavaScript类型：关于类型，有哪些你不知道的细节？ JavaScript 基本类型的装箱与拆箱 【JS迷你书】类型转换之拆箱操作 【JS迷你书】类型转换之装箱操作 一道常被人轻视的前端JS面试题 运算符优先级定义：运算符的优先级决定了表达式中运算执行的先后顺序，优先级高">
+<meta name="keywords" content="算法与数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="==与===，运算符优先级">
+<meta property="og:url" content="http://yoursite.com/2019/06/02/==与===/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="https://www.cnblogs.com/wisewrong/p/10396002.html 重学前端-总结：05、JavaScript类型：关于类型，有哪些你不知道的细节？ JavaScript 基本类型的装箱与拆箱 【JS迷你书】类型转换之拆箱操作 【JS迷你书】类型转换之装箱操作 一道常被人轻视的前端JS面试题 运算符优先级定义：运算符的优先级决定了表达式中运算执行的先后顺序，优先级高">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190717-084923@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190717-085011@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WechatIMG739.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190716-123325@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190716-124539@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190716-124547@2x.png">
+<meta property="og:updated_time" content="2019-07-17T13:57:54.806Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="==与===，运算符优先级">
+<meta name="twitter:description" content="https://www.cnblogs.com/wisewrong/p/10396002.html 重学前端-总结：05、JavaScript类型：关于类型，有哪些你不知道的细节？ JavaScript 基本类型的装箱与拆箱 【JS迷你书】类型转换之拆箱操作 【JS迷你书】类型转换之装箱操作 一道常被人轻视的前端JS面试题 运算符优先级定义：运算符的优先级决定了表达式中运算执行的先后顺序，优先级高">
+<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20190717-084923@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/06/02/==与===/"/>
+
+
+
+
+
+  <title>==与===，运算符优先级 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/02/==与===/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">==与===，运算符优先级</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-02T22:39:06+08:00">
+                2019-06-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法与数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">算法与数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://www.cnblogs.com/wisewrong/p/10396002.html" target="_blank" rel="noopener">https://www.cnblogs.com/wisewrong/p/10396002.html</a></p>
+<p><a href="https://blog.csdn.net/yunfeng482/article/details/87894369" target="_blank" rel="noopener">重学前端-总结：05、JavaScript类型：关于类型，有哪些你不知道的细节？</a></p>
+<p><a href="https://www.jianshu.com/p/d66cf6f711a1" target="_blank" rel="noopener">JavaScript 基本类型的装箱与拆箱</a></p>
+<p><a href="https://juejin.im/post/5ccfb58f518825405a198fcd" target="_blank" rel="noopener">【JS迷你书】类型转换之拆箱操作</a></p>
+<p><a href="https://juejin.im/post/5cbaf130518825325050fb0a" target="_blank" rel="noopener">【JS迷你书】类型转换之装箱操作</a></p>
+<p><a href="https://www.cnblogs.com/xxcanghai/p/5189353.html#!comments" target="_blank" rel="noopener">一道常被人轻视的前端JS面试题</a></p>
+<h2 id="运算符优先级"><a href="#运算符优先级" class="headerlink" title="运算符优先级"></a>运算符优先级</h2><p>定义：运算符的优先级决定了表达式中运算执行的先后顺序，优先级高的运算符最先被执行。</p>
+<p>常用运算符优先级排序：具有<strong>相同优先级的运算符</strong>按从左到右（或从右到左）的顺序求值。</p>
+<table>
+<thead>
+<tr>
+<th>运算类型</th>
+<th>运算符</th>
+<th>示例</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>圆括号</td>
+<td>()</td>
+<td>(a+b)</td>
+<td>20</td>
+</tr>
+<tr>
+<td>成员访问</td>
+<td>.</td>
+<td>Obj.a</td>
+<td>19</td>
+</tr>
+<tr>
+<td>需计算的成员访问</td>
+<td>…[…]</td>
+<td>Obj[1+2]</td>
+<td></td>
+</tr>
+<tr>
+<td>new(带参数列表)</td>
+<td></td>
+<td>new Person(‘name’,’age’)</td>
+<td></td>
+</tr>
+<tr>
+<td>函数调用</td>
+<td></td>
+<td>func()</td>
+<td></td>
+</tr>
+<tr>
+<td>new(无参数列表)</td>
+<td></td>
+<td>new Foo 等同于 new Foo()，也就是没有指定参数列表</td>
+<td>18（从右到左）</td>
+</tr>
+<tr>
+<td>后置递增</td>
+<td></td>
+<td>i++</td>
+<td>17</td>
+</tr>
+<tr>
+<td>后置递减</td>
+<td></td>
+<td>i–</td>
+<td></td>
+</tr>
+<tr>
+<td>逻辑非</td>
+<td>!…</td>
+<td>![]</td>
+<td>16（从右到左）</td>
+</tr>
+<tr>
+<td>一元正号</td>
+<td>+…</td>
+<td>+3  //3 、  +”3” //3、 +true //1</td>
+<td></td>
+</tr>
+<tr>
+<td>一元负号</td>
+<td>-…</td>
+<td>-1 // -1</td>
+<td></td>
+</tr>
+<tr>
+<td>前置递增</td>
+<td></td>
+<td>++i</td>
+<td></td>
+</tr>
+<tr>
+<td>前置递减</td>
+<td></td>
+<td>–i</td>
+<td></td>
+</tr>
+<tr>
+<td>typeof</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>delete</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>await</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>乘法</td>
+<td>*</td>
+<td>1*2</td>
+<td>14</td>
+</tr>
+<tr>
+<td>除法</td>
+<td>/</td>
+<td>1/2</td>
+<td></td>
+</tr>
+<tr>
+<td>取余</td>
+<td>%</td>
+<td>1%2</td>
+<td></td>
+</tr>
+<tr>
+<td>加法</td>
+<td>+</td>
+<td>1+2</td>
+<td>13</td>
+</tr>
+<tr>
+<td>减法</td>
+<td>-</td>
+<td>1-2</td>
+<td></td>
+</tr>
+<tr>
+<td>小于</td>
+<td>&lt;</td>
+<td></td>
+<td>11</td>
+</tr>
+<tr>
+<td>小于等于</td>
+<td>&lt;=</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>大于</td>
+<td>&gt;</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>大于等于</td>
+<td>&gt;=</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>in</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>instantceof</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>等号</td>
+<td>==</td>
+<td>1 == 1</td>
+<td>10</td>
+</tr>
+<tr>
+<td>不等</td>
+<td>!=</td>
+<td>1 != 2</td>
+<td></td>
+</tr>
+<tr>
+<td>全等</td>
+<td>===</td>
+<td>1 === 1</td>
+<td></td>
+</tr>
+<tr>
+<td>不全等</td>
+<td>!==</td>
+<td>1 !== 2</td>
+<td></td>
+</tr>
+<tr>
+<td>按位与</td>
+<td></td>
+<td>… &amp; …</td>
+<td>9</td>
+</tr>
+<tr>
+<td>按位异或</td>
+<td></td>
+<td>… ^ …</td>
+<td>8</td>
+</tr>
+<tr>
+<td>按位或</td>
+<td></td>
+<td>… \</td>
+<td>…</td>
+<td>7</td>
+</tr>
+<tr>
+<td>逻辑与</td>
+<td></td>
+<td>… &amp;&amp; …</td>
+<td>6</td>
+</tr>
+<tr>
+<td>逻辑或</td>
+<td></td>
+<td>… \</td>
+<td>\</td>
+<td>…</td>
+<td>5</td>
+</tr>
+<tr>
+<td>条件运算符</td>
+<td></td>
+<td>… ? … : …</td>
+<td>4（从右到左）</td>
+</tr>
+<tr>
+<td>赋值</td>
+<td></td>
+<td></td>
+<td>3（从右到左）</td>
+</tr>
+<tr>
+<td>yield</td>
+<td></td>
+<td></td>
+<td>2（从右到左）</td>
+</tr>
+<tr>
+<td>yield*</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>展开运算符</td>
+<td></td>
+<td>…[]</td>
+<td>1</td>
+</tr>
+<tr>
+<td>逗号</td>
+<td></td>
+<td>,</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>只写了一些相对比较常见的。</p>
+<p>举几个例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"she is "</span>+<span class="literal">true</span>? <span class="string">"?"</span>:<span class="string">"nt"</span>+<span class="string">" here."</span>) <span class="comment">// "?"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;<span class="attr">n</span>:<span class="number">1</span>&#125;;</span><br><span class="line">a.x = a = &#123;<span class="attr">n</span>:<span class="number">2</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(a.x); <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
+<p>变量提升和函数提升，优先关系：</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190717-084923@2x.png" alt="WX20190717-084923@2x"></p>
+<p><img src="http://www.qinhanwen.xyz/WX20190717-085011@2x.png" alt="WX20190717-085011@2x"></p>
+<p>看一下另外一篇</p>
+<p><img src="http://www.qinhanwen.xyz/WechatIMG739.png" alt="WechatIMG739"></p>
+<p>反正就是说也就是说函数声明优先，var声明重复的变量名，会被忽略，之后的函数声明会覆盖前面的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	    <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">	 &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line"> &#125;</span><br><span class="line">Foo.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Foo.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">4</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">5</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Foo.getName();<span class="comment">//2</span></span><br><span class="line">getName(); <span class="comment">//4</span></span><br><span class="line">Foo().getName(); <span class="comment">//1</span></span><br><span class="line">getName(); <span class="comment">//1</span></span><br><span class="line"><span class="keyword">new</span> Foo.getName();  <span class="comment">//2    </span></span><br><span class="line"><span class="keyword">new</span> Foo().getName();  <span class="comment">//3</span></span><br><span class="line"><span class="keyword">new</span> <span class="keyword">new</span> Foo().getName(); <span class="comment">//3</span></span><br></pre></td></tr></table></figure>
+<p>编译阶段变化：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	    <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">	 &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">5</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//根据上面截图的提升规则 var getName; 会被忽略</span></span><br><span class="line">Foo.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">&#125;</span><br><span class="line">Foo.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">4</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Foo.getName();<span class="comment">//2</span></span><br><span class="line"><span class="comment">//略</span></span><br><span class="line"></span><br><span class="line">getName(); <span class="comment">//4</span></span><br><span class="line"><span class="comment">//略</span></span><br><span class="line"></span><br><span class="line">Foo().getName(); <span class="comment">//1</span></span><br><span class="line"><span class="comment">//在这里 函数调用、(.)成员访问、函数调用同级(19级)，所以从左到右依次执行</span></span><br><span class="line"><span class="comment">//调用Foo()，window.getName函数被改变（打印1的那个），返回的this指向window</span></span><br><span class="line"><span class="comment">//接着等于调用window.getName()，返回1</span></span><br><span class="line"></span><br><span class="line">getName(); <span class="comment">//1</span></span><br><span class="line"><span class="comment">//调用window.getName()，返回1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Foo.getName();  <span class="comment">//2  </span></span><br><span class="line"><span class="comment">// new Foo 无参数列表(18级)  (.)成员访问(19级) 函数调用(19级)</span></span><br><span class="line"><span class="comment">//所以转换成 new (Foo.getName)()  组合成为有参列表</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Foo().getName();  <span class="comment">//3</span></span><br><span class="line"><span class="comment">//new Foo()有参列表(19级) (.)成员访问(19级) 函数调用(19级)</span></span><br><span class="line"><span class="comment">//从左到右执行</span></span><br><span class="line"><span class="comment">//转换成 (new Foo()).getName()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="keyword">new</span> Foo().getName(); <span class="comment">//3</span></span><br><span class="line"><span class="comment">//new 有参列表(19级) (.)成员访问(19级) 函数调用(19级)</span></span><br><span class="line"><span class="comment">//转换成 new (new Foo().getName())</span></span><br><span class="line"><span class="comment">//转换成 new ((new Foo()).getName)()</span></span><br></pre></td></tr></table></figure>
+<h2 id="与"><a href="#与" class="headerlink" title="==与==="></a>==与===</h2><p><strong>什么是装箱操作</strong></p>
+<p>所谓装箱，就是把基本类型转变为对应的对象。装箱分为<strong>隐式</strong>和<strong>显示</strong>。</p>
+<p>隐式装箱</p>
+<p>每当读取一个基本类型的值时，后台会创建一个该基本类型所对应的<code>对象</code>。这个<code>对象</code>是个<code>临时对象</code>，调用的方法也是这个<code>对象</code>上的方法。执行方法后<code>对象</code>立刻被销毁。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">num.toFixed(<span class="number">2</span>); <span class="comment">// '123.00'</span></span><br><span class="line"><span class="comment">//上方代码在后台的真正步骤为</span></span><br><span class="line"><span class="keyword">var</span> c = <span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">123</span>);</span><br><span class="line">c.toFixed(<span class="number">2</span>);</span><br><span class="line">c = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">a.x = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);<span class="comment">// 1  </span></span><br><span class="line"><span class="built_in">console</span>.log(a.x);<span class="comment">// undefined  </span></span><br><span class="line"><span class="comment">//真正步骤</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> temp1 = <span class="keyword">new</span> <span class="built_in">Number</span>(a);</span><br><span class="line">temp1.x = <span class="number">2</span>;</span><br><span class="line">temp1 = <span class="literal">null</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);<span class="comment">// 1  </span></span><br><span class="line"><span class="keyword">var</span> temp2 = <span class="keyword">new</span> <span class="built_in">Number</span>(a);</span><br><span class="line"><span class="built_in">console</span>.log(temp2.x);<span class="comment">// undefined  </span></span><br><span class="line">temp2 = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+<p>显式装箱</p>
+<p>通过内置对象 Boolean、Object、String 等可以对基本类型进行显示装箱。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'123'</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>拆箱操作</strong></p>
+<p>对引用类型进行基本类型才该有的操作，会把对象转变为基本类型的值。</p>
+<p>对象到 String 和 Number 的转换都遵循“先拆箱再转换”的规则。通过拆箱转换，把对象变成基本类型，再从基本类型转换为对应的 String 或者 Number。</p>
+<p>拆箱过程，检查对象中是否有用户显式定义的<code>[Symbol.toPrimitive]</code> 方法，如果有，直接调用。否则调用内部函数  ToPrimitive。该操作接受两个参数，第一个参数是要转变的对象，第二个参数 <code>PreferredType</code> 是对象被期待转成的类型。第二个参数不是必须的（默认为 number），即对象被期待转为数字类型。拆箱转换会尝试调用 valueOf 和 toString 来获得拆箱后的基本类型（如果 PreferrenType 的值为 string。则先调用 toString ，再调用 valueOf）。</p>
+<p>1.<strong>用户定义的 [Symbol.toPrimitive]</strong>，以及这个方法可以干扰一个对象转换为原始值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj1 = &#123;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(+obj1);     <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;obj1&#125;</span>`</span>); <span class="comment">// "[object Object]"</span></span><br><span class="line"><span class="built_in">console</span>.log(obj1 + <span class="string">""</span>); <span class="comment">// "[object Object]"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 接下面声明一个对象，手动赋予了 Symbol.toPrimitive 属性，再来查看输出结果</span></span><br><span class="line"><span class="keyword">var</span> obj2 = &#123;</span><br><span class="line">  [<span class="built_in">Symbol</span>.toPrimitive](hint) &#123;</span><br><span class="line">    <span class="keyword">if</span> (hint == <span class="string">"number"</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (hint == <span class="string">"string"</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">"hello"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(+obj2);     <span class="comment">// 10      -- hint 参数值是 "number"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;obj2&#125;</span>`</span>); <span class="comment">// "hello" -- hint 参数值是 "string"</span></span><br><span class="line"><span class="built_in">console</span>.log(obj2 + <span class="string">""</span>); <span class="comment">// "true"  -- hint 参数值是 "default"</span></span><br></pre></td></tr></table></figure>
+<p>2.如果 valueOf 和 toString 都不存在，或者没有返回基本类型，则会产生类型错误 TypeError。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    valueOf : <span class="function"><span class="params">()</span> =&gt;</span> &#123;<span class="built_in">console</span>.log(<span class="string">"valueOf"</span>); <span class="keyword">return</span> []&#125;,</span><br><span class="line">    toString : <span class="function"><span class="params">()</span> =&gt;</span> &#123;<span class="built_in">console</span>.log(<span class="string">"toString"</span>); <span class="keyword">return</span> []&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">String</span>(obj)</span><br><span class="line"><span class="comment">// toString</span></span><br><span class="line"><span class="comment">// valueOf</span></span><br><span class="line"><span class="comment">// Uncaught TypeError: Cannot convert object to primitive value</span></span><br><span class="line"></span><br><span class="line">obj+<span class="string">' '</span></span><br><span class="line"><span class="comment">//valueOf</span></span><br><span class="line"><span class="comment">//toString</span></span><br><span class="line"><span class="comment">// Uncaught TypeError: Cannot convert object to primitive value</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Number</span>(obj)</span><br><span class="line"><span class="comment">//valueOf</span></span><br><span class="line"><span class="comment">//toString</span></span><br><span class="line"><span class="comment">// Uncaught TypeError: Cannot convert object to primitive value</span></span><br></pre></td></tr></table></figure>
+<p>不同值比较时，转换规则：</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190716-123325@2x.png" alt="WX20190716-123325@2x"></p>
+<p>toNumber：</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190716-124539@2x.png" alt="WX20190716-124539@2x"></p>
+<p>toPrimitive：</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190716-124547@2x.png" alt="WX20190716-124547@2x"></p>
+<p>例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'string'</span> == <span class="literal">true</span>);<span class="comment">//false</span></span><br><span class="line"><span class="comment">//1. true先转换为数值，结果是1 等式变为 'string' == 1</span></span><br><span class="line"><span class="comment">//2. 'string'转换为数值，结果是NAN 等式变为 NAN == 1 </span></span><br><span class="line"><span class="comment">//3. 所以是false</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[] == ![] <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//1. !…优先级高，转换为  [] == false</span></span><br><span class="line"><span class="comment">//2. 布尔值与任何类型比较，布尔值转换为数值，转换为 [] == 0</span></span><br><span class="line"><span class="comment">//3. 对象跟数值比较，对象调用toString()返回原始值，转换为 "" == 0</span></span><br><span class="line"><span class="comment">//4. 字符串跟数值比较，转为数值，转换为 0 == 0</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#125; == !&#123;&#125; <span class="comment">//false</span></span><br><span class="line"><span class="comment">//1. !…优先级高，转换为  &#123;&#125; == false</span></span><br><span class="line"><span class="comment">//2. 布尔值与任何类型比较，布尔值转换为数值，转换为 &#123;&#125; == 0</span></span><br><span class="line"><span class="comment">//3. 对象跟数值比较，对象调用toString()返回原始值，转换为 "[object Object]" == 0</span></span><br><span class="line"><span class="comment">//4. 字符串与数值比较，字符串转换为数值，转换为	NaN == 0</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法与数据结构/" rel="tag"># 算法与数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/27/大前端网络专题篇之HTTP/" rel="next" title="大前端网络专题篇之HTTP">
+                <i class="fa fa-chevron-left"></i> 大前端网络专题篇之HTTP
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/09/大前端网络专题篇之HTTP（3）/" rel="prev" title="大前端网络专题篇之HTTP(3)">
+                大前端网络专题篇之HTTP(3) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">77</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#运算符优先级"><span class="nav-number">1.</span> <span class="nav-text">运算符优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与"><span class="nav-number">2.</span> <span class="nav-text">==与===</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

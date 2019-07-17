@@ -114,7 +114,7 @@
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190703-091915@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190703-092353@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190703-093419@2x.png">
-<meta property="og:updated_time" content="2019-07-12T10:18:31.939Z">
+<meta property="og:updated_time" content="2019-07-17T08:31:14.320Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="npm">
 <meta name="twitter:description" content="前端工程化（5）：你所需要的npm知识储备都在这了 https://juejin.im/post/5ab3f77df265da2392364341 semver规范 package-lock.json  npm 是什么npm是随同NodeJS一起安装的包管理工具。 常见使用场景：  允许用户从NPM服务器下载别人编写的第三方包到本地使用。 允许用户从NPM服务器下载并安装别人编写的命令行程序到本">
@@ -422,7 +422,7 @@
 <p>新建另外一个文件夹</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">新增package.json文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm init -y</span></span><br><span class="line"><span class="meta">#</span><span class="bash">安装依赖包</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install npm-study-qhw</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">新建index.js文件</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">运行index.js文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> node index</span></span><br></pre></td></tr></table></figure>
 <p><img src="http://www.qinhanwen.xyz/569D362A18DC9925A04BADB20F480C37.png" alt="569D362A18DC9925A04BADB20F480C37"></p>
-<p><code>npm install packageName</code>的时候，会自动添加到<code>dependencies</code>下面。</p>
+<p><code>npm install packageName</code>的时候，会自动添加到<code>dependencies</code>下面（与npm版本有关）。</p>
 <p><img src="http://www.qinhanwen.xyz/QQ20190701-0.png" alt="QQ20190701-0"></p>
 <p>八、更新版本</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm version &lt;update_type&gt;</span></span><br><span class="line"><span class="meta">#</span><span class="bash">update_type为patch, minor, or major其中之一，分别表示补丁，小版本，大版本</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm publish</span></span><br></pre></td></tr></table></figure>
@@ -482,7 +482,7 @@
 <li><code>requires</code>：依赖包所需要的所有依赖项，对应依赖包<code>package.json</code>里<code>dependencies</code>中的依赖项</li>
 <li><code>dependencies</code>：依赖包<code>node_modules</code>中依赖的包，与顶层的<code>dependencies</code>一样的结构</li>
 </ul>
-<p>切换到npm版本<code>6.4.1</code>，在大版本相同的前提下，以<code>^</code>版本为例，<code>npm-study3</code>依赖包版本有<code>1.3.0</code>，<code>1.4.0</code>，<code>1.6.0</code>还有<code>1.9.0</code>，那么测试一下<code>package-lock.json</code>的表现：</p>
+<p>切换到npm版本<code>6.4.1</code>，在大版本相同的前提下，以<code>^</code>版本为例，<code>npm-study3</code>依赖包版本有<code>1.3.0</code>，<code>1.4.0</code>，<code>1.6.0</code>还有<code>1.9.0</code>，<code>node_modules</code>下没有该依赖包的情况，那么测试一下<code>package-lock.json</code>的表现：</p>
 <p>1）如果一个模块在<code>package.json</code>中的小版本要<strong>小于</strong><code>package-lock.json</code>中的小版本，则被<code>package-lock.json</code>中的版本锁定</p>
 <p><img src="http://www.qinhanwen.xyz/WX20190703-091915@2x.png" alt="WX20190703-091915@2x"></p>
 <p>安装的<code>npm-study3</code>依赖包的实际版本为<code>1.4.0</code></p>
@@ -620,7 +620,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">75</span>
+                <span class="site-state-item-count">77</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -631,7 +631,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -642,7 +642,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

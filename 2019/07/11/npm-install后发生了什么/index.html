@@ -94,13 +94,13 @@
 
 
 
-<meta name="description" content="npm install 之后发生了什么？ 记一次排错经历——npm缓存浅析 npm 模块安装机制简介  npm install是干嘛的npm install命令用来安装模块到node_modules目录。 安装之前，npm install会先检查node_modules目录之中是否已经存在指定模块。如果存在，就不再重新安装了，即使远程仓库已经有了一个新版本，也不会安装。 如果希望一个模块不管是否">
+<meta name="description" content="npm install 之后发生了什么？ 记一次排错经历——npm缓存浅析 npm 模块安装机制简介 介绍下 npm 模块安装机制，为什么输入 npm install 就可以自动安装对应的模块？  npm install是干嘛的npm install命令用来安装模块到node_modules目录。 安装之前，npm install会先检查node_modules目录之中是否已经存在指定模块。如果">
 <meta name="keywords" content="npm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="npm install后发生了什么">
 <meta property="og:url" content="http://yoursite.com/2019/07/11/npm-install后发生了什么/index.html">
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
-<meta property="og:description" content="npm install 之后发生了什么？ 记一次排错经历——npm缓存浅析 npm 模块安装机制简介  npm install是干嘛的npm install命令用来安装模块到node_modules目录。 安装之前，npm install会先检查node_modules目录之中是否已经存在指定模块。如果存在，就不再重新安装了，即使远程仓库已经有了一个新版本，也不会安装。 如果希望一个模块不管是否">
+<meta property="og:description" content="npm install 之后发生了什么？ 记一次排错经历——npm缓存浅析 npm 模块安装机制简介 介绍下 npm 模块安装机制，为什么输入 npm install 就可以自动安装对应的模块？  npm install是干嘛的npm install命令用来安装模块到node_modules目录。 安装之前，npm install会先检查node_modules目录之中是否已经存在指定模块。如果">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190711-212928@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190709-102920@2x.png">
@@ -113,10 +113,10 @@
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190712-140123@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190712-163503@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190712-164143@2x.png">
-<meta property="og:updated_time" content="2019-07-12T16:11:58.351Z">
+<meta property="og:updated_time" content="2019-07-17T09:31:40.541Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="npm install后发生了什么">
-<meta name="twitter:description" content="npm install 之后发生了什么？ 记一次排错经历——npm缓存浅析 npm 模块安装机制简介  npm install是干嘛的npm install命令用来安装模块到node_modules目录。 安装之前，npm install会先检查node_modules目录之中是否已经存在指定模块。如果存在，就不再重新安装了，即使远程仓库已经有了一个新版本，也不会安装。 如果希望一个模块不管是否">
+<meta name="twitter:description" content="npm install 之后发生了什么？ 记一次排错经历——npm缓存浅析 npm 模块安装机制简介 介绍下 npm 模块安装机制，为什么输入 npm install 就可以自动安装对应的模块？  npm install是干嘛的npm install命令用来安装模块到node_modules目录。 安装之前，npm install会先检查node_modules目录之中是否已经存在指定模块。如果">
 <meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20190711-212928@2x.png">
 
 
@@ -388,20 +388,21 @@
 <p><a href="https://zhuanlan.zhihu.com/p/37285173" target="_blank" rel="noopener">npm install 之后发生了什么？</a></p>
 <p><a href="https://juejin.im/post/5c77e05e518825407a32b94b" target="_blank" rel="noopener">记一次排错经历——npm缓存浅析</a></p>
 <p><a href="http://www.ruanyifeng.com/blog/2016/01/npm-install.html" target="_blank" rel="noopener">npm 模块安装机制简介</a></p>
+<p><a href="https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/22" target="_blank" rel="noopener">介绍下 npm 模块安装机制，为什么输入 npm install 就可以自动安装对应的模块？</a></p>
 </blockquote>
 <h2 id="npm-install是干嘛的"><a href="#npm-install是干嘛的" class="headerlink" title="npm install是干嘛的"></a>npm install是干嘛的</h2><p><code>npm install</code>命令用来安装模块到<code>node_modules</code>目录。</p>
 <p>安装之前，<code>npm install</code>会先检查<code>node_modules</code>目录之中是否已经存在指定模块。如果存在，就不再重新安装了，即使远程仓库已经有了一个新版本，也不会安装。</p>
 <p>如果希望一个模块不管是否安装过，npm 都要强制重新安装，可以使用<code>-f</code>或<code>--force</code>参数。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm install &lt;packageName&gt; --force</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm install --timing=true --loglevel=verbose</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install &lt;packageName&gt; --force</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install --timing=<span class="literal">true</span> --loglevel=verbose</span></span><br></pre></td></tr></table></figure>
 <p>运行命令，会把安装过程的log输出。    </p>
 <p><img src="http://www.qinhanwen.xyz/WX20190711-212928@2x.png" alt="WX20190711-212928@2x"></p>
 <h2 id="registry"><a href="#registry" class="headerlink" title="registry"></a>registry</h2><p>npm 模块仓库提供了一个查询服务，叫做 <code>registry</code>，npmjs.org 的查询服务网址是<a href="https://registry.npmjs.org/" target="_blank" rel="noopener">https://registry.npmjs.org/</a></p>
 <p>后面可以加上<code>npm包名</code>，比如：<a href="https://registry.npmjs.org/npm-study4" target="_blank" rel="noopener">https://registry.npmjs.org/npm-study4</a>，打开地址是一个JSON 对象，里面是该模块所有版本的信息。<code>dist.tarball</code>属性是该版本压缩包的网址，打开这个网址就可以下载npm压缩包，在本地解压，就可以获得源码，<code>npm install</code>和<code>npm update</code>命令，都是通过这种方式安装模块。</p>
 <p><img src="http://www.qinhanwen.xyz/WX20190709-102920@2x.png" alt="WX20190709-102920@2x"></p>
-<h2 id="npm-update"><a href="#npm-update" class="headerlink" title="npm update"></a>npm update</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm update &lt;packageName&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="npm-update"><a href="#npm-update" class="headerlink" title="npm update"></a>npm update</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm update &lt;packageName&gt;</span></span><br></pre></td></tr></table></figure>
 <p>它会先到远程仓库查询最新版本，然后查询本地版本。如果本地版本不存在，或者远程版本较新，就会安装。</p>
-<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>获取目录的具体位置</span><br><span class="line"><span class="meta">$</span> npm config get cache</span><br><span class="line"><span class="meta">#</span>/Users/qinhanwen/.npm</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>清除缓存目录文件</span><br><span class="line"><span class="meta">$</span> npm cache clean -f</span><br></pre></td></tr></table></figure>
+<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">获取目录的具体位置</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm config get cache</span></span><br><span class="line"><span class="meta">#</span><span class="bash">/Users/qinhanwen/.npm</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">清除缓存目录文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm cache clean -f</span></span><br></pre></td></tr></table></figure>
 <p>要注意在 <strong>npm@5</strong> 之后</p>
 <ul>
 <li>缓存数据放在 <code>.npm/_cacache</code> 文件夹中</li>
@@ -416,25 +417,33 @@
 <h2 id="所以npm-install之后发生了什么"><a href="#所以npm-install之后发生了什么" class="headerlink" title="所以npm install之后发生了什么"></a>所以<code>npm install</code>之后发生了什么</h2><p>在<code>npm-cli.js</code>文件后面添加<code>--inspect-brk</code>就可以断点调试</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env node  --inspect-brk</span></span><br></pre></td></tr></table></figure>
 <p> 前置条件：<strong>npm版本6.4.1</strong>，<strong>不存在package-lock.json</strong>，以及<strong>没有缓存文件存在</strong>的情况。</p>
-<p>1.发出<code>npm install</code>命令</p>
-<p>2.加载install.js</p>
+<p>看几个代码片段</p>
+<p>加载install.js</p>
 <p><img src="http://www.qinhanwen.xyz/WX20190712-093343@2x.png" alt="WX20190712-093343@2x"></p>
-<p>3.执行install方法</p>
+<p>执行install方法</p>
 <p><img src="http://www.qinhanwen.xyz/WX20190712-094454@2x.png" alt="WX20190712-094454@2x"></p>
-<p>4.读根目录下<code>package.json</code>文件</p>
+<p>读根目录下<code>package.json</code>文件</p>
 <p><img src="http://www.qinhanwen.xyz/WX20190712-105741@2x.png" alt="WX20190712-105741@2x"></p>
-<p>5.获取元信息</p>
+<p>获取元信息</p>
 <p><img src="http://www.qinhanwen.xyz/WX20190712-140123@2x.png" alt="WX20190712-140123@2x"></p>
-<p>6.获取包信息，就是要安装的包的<code>package.json</code>的数据</p>
+<p>获取包信息，就是要安装的包的<code>package.json</code>的数据</p>
 <p><img src="http://www.qinhanwen.xyz/WX20190712-163503@2x.png" alt="WX20190712-163503@2x"></p>
 <p>内容：</p>
 <p><img src="http://www.qinhanwen.xyz/WX20190712-164143@2x.png" alt="WX20190712-164143@2x"></p>
-<p>7.下载<code>.tgz</code>后缀的压缩包，比如<code>http://registry.npmjs.org/npm-study1/-/npm-study1-2.0.0.tgz</code>，保存到<code>.npm/_cacache</code>文件夹（实在找不到在哪里发请求下载压缩包）</p>
-<p>8.解压到<code>node_modules</code>目录下</p>
-<p>9.创建<code>package-lock.json</code>文件</p>
+<p>之后下载<code>.tgz</code>后缀的压缩包，比如<code>http://registry.npmjs.org/npm-study1/-/npm-study1-2.0.0.tgz</code>，保存到<code>.npm/_cacache</code>文件夹（实在找不到在哪里发请求下载压缩包），解压到<code>node_modules</code>目录下，创建<code>package-lock.json</code>文件。</p>
 <p>补充：</p>
-<p>运行<code>npm install</code>的时候，会检查<code>node_modules</code>目录，如果某个依赖包没有安装在<code>node_modules</code>目录中，也没有缓存文件，就会去下载这个压缩文件，之后解压到<code>node_modules</code>目录下（如果有在<code>node_modules</code>目录下有这个包就会忽略，即使远程仓库有新版本，也不会更新）</p>
+<p>当运行<code>npm install</code>的时候，会检查<code>node_modules</code>目录下，并不是<code>node_modules</code>目录下有依赖包，就不安装了（情况比较多）。</p>
 <p>如果<code>node_modules</code>目录下没有这个文件，缓存里有的话，据我对打印出log的观察，应该是从缓存里解压到<code>node_modules</code>目录下。</p>
+<p>那么哪些操作会更新<code>package.json</code>或更新<code>package-lock.json</code>，同时更新<code>node_modules</code>下的依赖包？</p>
+<p>当<code>node_modules</code>下不存在某依赖包:</p>
+<p><code>npm init</code>初始化后，<code>npm install xxx</code>（高版本的npm）会自动更新<code>package.json</code>文件，并且在最后创建<code>package-lock.json</code>文件，同时更新<code>node_modules</code>下的依赖包。</p>
+<p>当<code>node_modules</code>下存在某依赖包:</p>
+<p>1）<code>^</code>版本号情况下， <code>package.json</code>中某个依赖包的小版本要<strong>大于</strong><code>package-lock.json</code>中的同个依赖包小版本，</p>
+<p><code>npm install</code>的时候，会修改<code>package-lock.json</code>文件，同时更新<code>node_modules</code>下的依赖包（安装某依赖包为当前大版本下的最新版本）。 <strong>小于</strong>的话，更新<code>node_modules</code>下的某依赖包，版本号与<code>package-lock.json</code>版本号一致。</p>
+<p>2）版本号具体到某个版本的话，只要和<code>node_modules</code>下的依赖包版本不同，就会安装。</p>
+<p>2）<code>npm update packageName</code>，更新<code>package.json</code>文件，同时更新<code>node_modules</code>下的某依赖包，版本号为当前依赖包大版本号下最新的版本（比如2.1.0就升到2.9.0，不会超过3.0.0）。</p>
+<p>4）或者<code>npm install xxx@x.x.x</code>，更新<code>package.json</code>文件，更新<code>package-lock.json</code>文件，更新<code>node_modules</code></p>
+<p>5）<code>npm uninstall packageName &lt;args&gt;</code>，更新<code>package.json</code>文件，更新<code>package-lock.json</code>文件，更新<code>node_modules</code></p>
 
       
     </div>
@@ -474,6 +483,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/14/大前端混合应用专题篇-4/" rel="prev" title="大前端混合应用专题篇(4)">
+                大前端混合应用专题篇(4) <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -550,7 +563,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">75</span>
+                <span class="site-state-item-count">77</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -561,7 +574,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -572,7 +585,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

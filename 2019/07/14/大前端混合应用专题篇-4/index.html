@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="混合应用," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="1️⃣、请选择一个你比较熟悉的 cordova 插件，介绍其功能、使用方式及运行原理。 插件：cordova-plugin-camera 功能：供照相机API与设备相机进行交互 调用示例和参数： 1navigator.camera.getPicture(cameraSuccess, cameraError, cameraOptions);    Name Type Default Descript">
+<meta name="keywords" content="混合应用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大前端混合应用专题篇(4)">
+<meta property="og:url" content="http://yoursite.com/2019/07/14/大前端混合应用专题篇-4/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="1️⃣、请选择一个你比较熟悉的 cordova 插件，介绍其功能、使用方式及运行原理。 插件：cordova-plugin-camera 功能：供照相机API与设备相机进行交互 调用示例和参数： 1navigator.camera.getPicture(cameraSuccess, cameraError, cameraOptions);    Name Type Default Descript">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190128-183902@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190128-184112@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190130-185249@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190129-124901@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190129-125233@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190714-224039@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190714-224654@2x.png">
+<meta property="og:updated_time" content="2019-07-15T05:42:37.575Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="大前端混合应用专题篇(4)">
+<meta name="twitter:description" content="1️⃣、请选择一个你比较熟悉的 cordova 插件，介绍其功能、使用方式及运行原理。 插件：cordova-plugin-camera 功能：供照相机API与设备相机进行交互 调用示例和参数： 1navigator.camera.getPicture(cameraSuccess, cameraError, cameraOptions);    Name Type Default Descript">
+<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20190128-183902@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/14/大前端混合应用专题篇-4/"/>
+
+
+
+
+
+  <title>大前端混合应用专题篇(4) | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/14/大前端混合应用专题篇-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">大前端混合应用专题篇(4)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-14T13:08:56+08:00">
+                2019-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/混合应用/" itemprop="url" rel="index">
+                    <span itemprop="name">混合应用</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>1️⃣、请选择一个你比较熟悉的 cordova 插件，介绍其功能、使用方式及运行原理。</p>
+<p>插件：cordova-plugin-camera</p>
+<p>功能：供照相机API与设备相机进行交互</p>
+<p>调用示例和参数：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">navigator.camera.getPicture(cameraSuccess, cameraError, cameraOptions);</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">quality</td>
+<td style="text-align:left"><code>number</code></td>
+<td style="text-align:left"><code>50</code></td>
+<td style="text-align:left">图像的保存质量，范围0-100，100是最大值，最高的分辨率，没有任何压缩损失（请注意有关该相机的分辨率信息不可用。）</td>
+</tr>
+<tr>
+<td style="text-align:left">destinationType</td>
+<td style="text-align:left"><code>DestinationType</code></td>
+<td style="text-align:left"><code>FILE_URI</code></td>
+<td style="text-align:left">选择返回值的格式</td>
+</tr>
+<tr>
+<td style="text-align:left">sourceType</td>
+<td style="text-align:left"><code>PictureSourceType</code></td>
+<td style="text-align:left"><code>CAMERA</code></td>
+<td style="text-align:left">获取图片的来</td>
+</tr>
+<tr>
+<td style="text-align:left">allowEdit</td>
+<td style="text-align:left"><code>Boolean</code></td>
+<td style="text-align:left"><code>false</code></td>
+<td style="text-align:left">允许在选择图片之前进行简单的编辑</td>
+</tr>
+<tr>
+<td style="text-align:left">encodingType</td>
+<td style="text-align:left"><code>EncodingType</code></td>
+<td style="text-align:left"><code>JPEG</code></td>
+<td style="text-align:left">选择图像的返回编码</td>
+</tr>
+<tr>
+<td style="text-align:left">targetWidth</td>
+<td style="text-align:left"><code>number</code></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">宽度像素用来缩放图像。必须和targetHeight一起使用。宽高比保持不变。</td>
+</tr>
+<tr>
+<td style="text-align:left">targetHeight</td>
+<td style="text-align:left"><code>number</code></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">高度像素用来缩放图像。必须和targetWidth一起使用。宽高比保持不变</td>
+</tr>
+<tr>
+<td style="text-align:left">mediaType</td>
+<td style="text-align:left"><code>MediaType</code></td>
+<td style="text-align:left"><code>PICTURE</code></td>
+<td style="text-align:left">选择media类型。它只适用PictureSourceType是PHOTOLIBRARY或SAVEDPHOTOALBUM</td>
+</tr>
+<tr>
+<td style="text-align:left">correctOrientation</td>
+<td style="text-align:left"><code>Boolean</code></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">如果是横向拍摄的照片，会自动旋转到正确的方向</td>
+</tr>
+<tr>
+<td style="text-align:left">saveToPhotoAlbum</td>
+<td style="text-align:left"><code>Boolean</code></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">设备拍照后的图像是否保存的图片库中</td>
+</tr>
+<tr>
+<td style="text-align:left">popoverOptions</td>
+<td style="text-align:left"><code>CameraPopoverOptions</code></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">仅ios可用，设定在ipad的popover的位置</td>
+</tr>
+<tr>
+<td style="text-align:left">cameraDirection</td>
+<td style="text-align:left"><code>Direction</code></td>
+<td style="text-align:left"><code>BACK</code></td>
+<td style="text-align:left">选择前置摄像头还是后置摄像头</td>
+</tr>
+</tbody>
+</table>
+<p>以新建项目ionic1为例</p>
+<p>1.新建项目</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo npm install -g cordova ionic</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ionic start myApp tabs --<span class="built_in">type</span> ionic1</span></span><br></pre></td></tr></table></figure>
+<p>2.安装<code>ngCordova</code>（也可以忽略），这个其实就是多封装了一层promise的</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#安装ngCordova</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> bower install ngCordova</span></span><br></pre></td></tr></table></figure>
+<p>3.引入js文件，同时引入了cordova.js</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190128-183902@2x.png" alt="WX20190128-183902@2x"></p>
+<p>4.注入</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190128-184112@2x.png" alt="WX20190128-184112@2x"></p>
+<p>5.添加平台并且安装插件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#添加平台</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ionic cordova platform add ios</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#安装插件</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cordova plugin add cordova-plugin-camera</span></span><br></pre></td></tr></table></figure>
+<p>6.真机调试（调试前可以修改使用UIWebView还是WkWebView）</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190130-185249@2x.png" alt="WX20190130-185249@2x"></p>
+<p>使用xcode安装到手机上，接着碰到一个问题导致调用插件的时候app直接闪退</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190129-124901@2x.png" alt="WX20190129-124901@2x"></p>
+<p>解决方案：</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190129-125233@2x.png" alt="WX20190129-125233@2x"></p>
+<p>7.在要使用插件的模块注入。</p>
+<p>8.启动执行过程</p>
+<p>1）前端加载 <code>cordova.js</code></p>
+<p>2）前端加载 <code>cordova_plugins.js</code></p>
+<p>3）通过 <code>cordova_plugins.js</code> 找到需要加载的 <code>cordova</code> 插件</p>
+<p>4）通过动态创建 <code>&lt;script&gt;</code> 加载 <code>cordova</code> 插件</p>
+<p>5）<code>cordova</code> 插件动态创建 <code>iframe</code> 或复写 <code>prompt</code> 方法调用</p>
+<p>6）<code>exec</code> -&gt; <code>iOSExec</code> -&gt; <code>pokeNative</code></p>
+<p>7）原生层调用 <code>nativeFetchMessages</code> 获取调用参数</p>
+<p>8）通过 <code>cordova.callbackFromNative</code> 获取原生回传的数据。</p>
+<p>补充：</p>
+<p>Cordova 内部自己实现了一个模块加载器，require 引入模块后，会根据 clobbers 字段配置的值，自动导出到指定的对象上。</p>
+<p>2️⃣、请介绍一下开发 cordova 插件的主要流程和注意事项。</p>
+<p><a href="https://www.jianshu.com/p/ce358949712a?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation" target="_blank" rel="noopener">cordova插件编写与使用</a></p>
+<p>1.安装 plugman</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install -g plugman</span></span><br></pre></td></tr></table></figure>
+<p>2.创建插件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> plugman create --name EchoPlugin --plugin_id com.joker.cordova --plugin_version 1.0.0</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://www.qinhanwen.xyz/WX20190714-224039@2x.png" alt="WX20190714-224039@2x"></p>
+<p>3.<code>plugin.xml</code>内容</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version='1.0' encoding='utf-8'?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">plugin</span> <span class="attr">id</span>=<span class="string">"com.joker.cordova"</span> <span class="attr">version</span>=<span class="string">"1.0.0"</span> <span class="attr">xmlns</span>=<span class="string">"http://apache.org/cordova/ns/plugins/1.0"</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>EchoPlugin<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">js-module</span> <span class="attr">name</span>=<span class="string">"EchoPlugin"</span> <span class="attr">src</span>=<span class="string">"www/EchoPlugin.js"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">clobbers</span> <span class="attr">target</span>=<span class="string">"cordova.plugins.EchoPlugin"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">js-module</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>id</code>为plugman创建命令使用的–plugin_id<br><code>version</code>为创建命令使用的–plugin_version</p>
+<p>4.添加android平台(插件)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> EchoPlugin/plugman platform add --platform_name android</span></span><br></pre></td></tr></table></figure>
+<p>EchoPlugin为默认插件，该插件返回调用的字符串参数。<br><code>EchoPlugin.java</code>为继承<code>CordovaPlugin</code>插件的类，主要内容如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EchoPlugin</span> <span class="keyword">extends</span> <span class="title">CordovaPlugin</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">execute</span><span class="params">(String action, JSONArray args, CallbackContext callbackContext)</span> <span class="keyword">throws</span> JSONException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (action.equals(<span class="string">"coolMethod"</span>)) &#123;</span><br><span class="line">            String message = args.getString(<span class="number">0</span>);</span><br><span class="line">            <span class="keyword">this</span>.coolMethod(message, callbackContext);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">coolMethod</span><span class="params">(String message, CallbackContext callbackContext)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (message != <span class="keyword">null</span> &amp;&amp; message.length() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            callbackContext.success(message);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            callbackContext.error(<span class="string">"Expected one non-empty string argument."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>核心方法<code>execute</code>执行JS的调用<br>接收参数：<br><code>action</code>调用方法名，<br><code>args</code>调用方法传递的参数<br><code>callbackContext</code>异步回调函数，向JS返回执行结果</p>
+<p>5.添加package.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"cordova-plugin-echo"</span>,</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">    <span class="attr">"description"</span>: <span class="string">"A sample Apache Cordova application that responds to the deviceready event."</span>,</span><br><span class="line">    <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">        <span class="attr">"test"</span>: <span class="string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"author"</span>: <span class="string">"Apache Cordova Team"</span>,</span><br><span class="line">    <span class="attr">"license"</span>: <span class="string">"Apache-2.0"</span>,</span><br><span class="line">    <span class="attr">"cordova"</span>: &#123;</span><br><span class="line">        <span class="attr">"id"</span>: <span class="string">"cordova-plugin-echo"</span>,</span><br><span class="line">        <span class="attr">"platforms"</span>: [</span><br><span class="line">            <span class="string">"android"</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>6.修改插件配置文件<code>plugin.xml</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version='1.0' encoding='utf-8'?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">plugin</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">id</span>=<span class="string">"cordova-plugin-echo"</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">version</span>=<span class="string">"1.0.0"</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns</span>=<span class="string">"http://apache.org/cordova/ns/plugins/1.0"</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>EchoPlugin<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">js-module</span> <span class="attr">name</span>=<span class="string">"EchoPlugin"</span> <span class="attr">src</span>=<span class="string">"www/EchoPlugin.js"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">clobbers</span> <span class="attr">target</span>=<span class="string">"EchoPlugin"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">js-module</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">platform</span> <span class="attr">name</span>=<span class="string">"android"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">config-file</span> <span class="attr">parent</span>=<span class="string">"/*"</span> <span class="attr">target</span>=<span class="string">"res/xml/config.xml"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">feature</span> <span class="attr">name</span>=<span class="string">"EchoPlugin"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">"android-package"</span> <span class="attr">value</span>=<span class="string">"com.joker.cordova.EchoPlugin"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">feature</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">config-file</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">config-file</span> <span class="attr">parent</span>=<span class="string">"/*"</span> <span class="attr">target</span>=<span class="string">"AndroidManifest.xml"</span>&gt;</span><span class="tag">&lt;/<span class="name">config-file</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">source-file</span> <span class="attr">src</span>=<span class="string">"src/android/EchoPlugin.java"</span> <span class="attr">target-dir</span>=<span class="string">"src/com/joker/cordova"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">platform</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://www.qinhanwen.xyz/WX20190714-224654@2x.png" alt="WX20190714-224654@2x"></p>
+<p>3️⃣、 请选择一个你比较熟悉的 ionic-native 插件，介绍其功能、使用方式及运行原理。</p>
+<p><a href="https://www.jianshu.com/p/4710cac028e5" target="_blank" rel="noopener">ionic探索之路-ionic-native插件使用，调试</a></p>
+<p>Ionic Native是Cordova / PhoneGap插件的一个TypeScript包装器</p>
+<p>1.安装<code>@ionic-native/插件名</code>，和插件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ionic cordova plugin add cordova-plugin-camera</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install @ionic-native/camera</span></span><br></pre></td></tr></table></figure>
+<p>单纯的使用<code>cordova plugin add …</code>安装了插件的话是不能引用到的，因为ts不能引用到js哦。<br>解决方式是：添加一个xx.d.ts文件即可。</p>
+<p><strong>什么是 “.d.ts”头文件？</strong></p>
+<p>简单一点讲，就是你可以在 ts 中调用的 js 的声明文件，它完全是个声明文件，没有任何实现代码，<a href="https://developer.egret.com/cn/docs/page/698" target="_blank" rel="noopener">如何写.d.ts文件</a></p>
+<p>2.在需要使用的地方的<code>xxx.module.ts</code>的地方引入，就可以使用了</p>
+<p>调用示例和参数：和第一题一样</p>
+<p>4️⃣、请介绍一下开发 ionic-native 插件的主要流程和注意事项。</p>
+<p><a href="https://blog.csdn.net/u010172505/article/details/78164280" target="_blank" rel="noopener">ionic 自定义native插件</a></p>
+<p>1.创建插件类</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Injectable</span>()</span><br><span class="line"><span class="keyword">class</span> Geolocation &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.创建类元数据,我们需要指定一些关于插件的一些信息,如@Plugin装饰器来添加一些插件的信息</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Plugin</span>(&#123;</span><br><span class="line">  plugin: <span class="string">'cordova-plugin-geolocation'</span>,</span><br><span class="line">  pluginRef: <span class="string">'navigator.geolocation'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="meta">@Injectable</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> Geolocation &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3.创建类方法,如getCurrentPosition方法</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Cordova</span>()</span><br><span class="line">getCurrentPosition(options?: GeolocationOptions): <span class="built_in">Promise</span>&lt;Geoposition&gt; &#123; <span class="keyword">return</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>4.在platformModule中使用派生类注册provider，useClass使用对应平台的插件类</p>
+<p>5.具体业务逻辑层import exe-插件名的派生类，依赖注入后使用</p>
+<p>5️⃣、请分析一下 ionic-native 插件和 cordova 插件是如何协作的。</p>
+<p>ionic-native插件：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Injectable &#125; <span class="keyword">from</span> <span class="string">"@angular/core"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Cordova, IonicNativePlugin, Plugin &#125; <span class="keyword">from</span> <span class="string">"@ionic-native/core"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Observable &#125; <span class="keyword">from</span> <span class="string">"rxjs/observable"</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Plugin</span>(&#123;</span><br><span class="line">  pluginName: <span class="string">"EXELocation"</span>,</span><br><span class="line">  plugin: <span class="string">"com.exe.EXELocation"</span>, <span class="comment">// npm package name, example: cordova-plugin-camera</span></span><br><span class="line">  pluginRef: <span class="string">"plugins.EXELocation"</span>, <span class="comment">// the variable reference to call the plugin, example: navigator.geolocation</span></span><br><span class="line">  repo: <span class="string">""</span>, <span class="comment">// the github repository URL for the plugin</span></span><br><span class="line">  install: <span class="string">""</span>, <span class="comment">// OPTIONAL install command, in case the plugin requires variables</span></span><br><span class="line">  installVariables: [], <span class="comment">// OPTIONAL the plugin requires variables</span></span><br><span class="line">  platforms: [<span class="string">"Android"</span>, <span class="string">"iOS"</span>] <span class="comment">// Array of platforms supported, example: ['Android', 'iOS']</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="meta">@Injectable</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> EXELocation <span class="keyword">extends</span> IonicNativePlugin &#123;</span><br><span class="line">  <span class="meta">@Cordova</span>()</span><br><span class="line">  getCurrentPosition(message: <span class="built_in">any</span>): <span class="built_in">Promise</span>&lt;<span class="built_in">any</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Cordova</span>(&#123;</span><br><span class="line">    observable: <span class="literal">true</span></span><br><span class="line">  &#125;)</span><br><span class="line">  startContinuedLocation(message: <span class="built_in">any</span>): Observable&lt;<span class="built_in">any</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Cordova</span>()</span><br><span class="line">  stopContinuedLocation(): <span class="built_in">Promise</span>&lt;<span class="built_in">any</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@Plugin：</p>
+<p>在<code>ionic-native/core/decorators.ts</code>下，其实是个方法调用，传入<code>config</code>参数，然后为类添加静态方法，定义了一些方法。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">Plugin</span>(<span class="params">config: PluginConfig</span>): <span class="title">ClassDecorator</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">cls: <span class="built_in">any</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// Add these fields to the class</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> prop <span class="keyword">in</span> config) &#123;</span><br><span class="line">      cls[prop] = config[prop];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cls[<span class="string">'installed'</span>] = <span class="function">(<span class="params">printWarning?: <span class="built_in">boolean</span></span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> !!getPlugin(config.pluginRef);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    cls[<span class="string">'getPlugin'</span>] = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> getPlugin(config.pluginRef);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    cls[<span class="string">'checkInstall'</span>] = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> checkAvailability(cls) === <span class="literal">true</span>;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    cls[<span class="string">'getPluginName'</span>] = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> config.pluginName;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    cls[<span class="string">'getPluginRef'</span>] = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> config.pluginRef;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    cls[<span class="string">'getPluginInstallName'</span>] = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> config.plugin;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    cls[<span class="string">'getPluginRepo'</span>] = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> config.repo;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    cls[<span class="string">'getSupportedPlatforms'</span>] = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> config.platforms;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> cls;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@Cordova：</p>
+<p>会返回一个对象，里面有个方法调起对应的插件。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">Cordova</span>(<span class="params">opts: CordovaOptions = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    target: <span class="built_in">Object</span>,</span><br><span class="line">    methodName: <span class="built_in">string</span>,</span><br><span class="line">    descriptor: TypedPropertyDescriptor&lt;<span class="built_in">any</span>&gt;</span><br><span class="line">  ) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      value(...args: <span class="built_in">any</span>[]) &#123;</span><br><span class="line">        <span class="keyword">return</span> wrap(<span class="keyword">this</span>, methodName, opts).apply(<span class="keyword">this</span>, args);</span><br><span class="line">      &#125;,</span><br><span class="line">      enumerable: <span class="literal">true</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>wrap函数:</p>
+<p>封装了返回的类型，根据装饰器方法参数，可返回promise，observable等类型函数，默认返回为promise。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * pluginObj: 插件对象</span></span><br><span class="line"><span class="comment"> * methodName: 方法名</span></span><br><span class="line"><span class="comment"> * opts：装饰器方法参数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> wrap = <span class="function"><span class="keyword">function</span> (<span class="params">pluginObj: <span class="built_in">any</span>, methodName: <span class="built_in">string</span>, </span></span></span><br><span class="line"><span class="function"><span class="params">   opts: CordovaOptions = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">...args: <span class="built_in">any</span>[]</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (opts.sync) &#123;</span><br><span class="line">      <span class="comment">// Sync doesn't wrap the plugin with a promise or observable, </span></span><br><span class="line">      <span class="comment">// it returns the result as-is</span></span><br><span class="line">      <span class="keyword">return</span> callCordovaPlugin(pluginObj, methodName, args, opts);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (opts.observable) &#123;</span><br><span class="line">      <span class="keyword">return</span> wrapObservable(pluginObj, methodName, args, opts);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (opts.eventObservable &amp;&amp; opts.event) &#123;</span><br><span class="line">      <span class="keyword">return</span> wrapEventObservable(opts.event, opts.element);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (opts.otherPromise) &#123;</span><br><span class="line">      <span class="keyword">return</span> wrapOtherPromise(pluginObj, methodName, args, opts);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> wrapPromise(pluginObj, methodName, args, opts);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>setIndex方法适配不同的cordova插件调用</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setIndex</span>(<span class="params">args: <span class="built_in">any</span>[], </span></span></span><br><span class="line"><span class="function"><span class="params">  opts: <span class="built_in">any</span> = &#123;&#125;, </span></span></span><br><span class="line"><span class="function"><span class="params">  resolve?: <span class="built_in">Function</span>, </span></span></span><br><span class="line"><span class="function"><span class="params">  reject?: <span class="built_in">Function</span></span>): <span class="title">any</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ignore resolve and reject in case sync</span></span><br><span class="line">  <span class="comment">// 同步的情况，则忽略resolve和reject方法</span></span><br><span class="line">  <span class="keyword">if</span> (opts.sync) &#123;</span><br><span class="line">    <span class="keyword">return</span> args;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// If the plugin method expects myMethod(success, err, options)</span></span><br><span class="line">  <span class="keyword">if</span> (opts.callbackOrder === <span class="string">'reverse'</span>) &#123;</span><br><span class="line">    <span class="comment">// Get those arguments in the order [resolve, reject, ...restOfArgs]</span></span><br><span class="line">    args.unshift(reject);</span><br><span class="line">    args.unshift(resolve);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (opts.callbackStyle === <span class="string">'node'</span>) &#123; <span class="comment">// Node.js error-first 风格</span></span><br><span class="line">    args.push(<span class="function">(<span class="params">err: <span class="built_in">any</span>, result: <span class="built_in">any</span></span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        reject(err);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        resolve(result);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (opts.callbackStyle === <span class="string">'object'</span> &amp;&amp; opts.successName &amp;&amp; opts.errorName) &#123;</span><br><span class="line">    <span class="keyword">let</span> obj: <span class="built_in">any</span> = &#123;&#125;;</span><br><span class="line">    obj[opts.successName] = resolve;</span><br><span class="line">    obj[opts.errorName] = reject;</span><br><span class="line">    args.push(obj);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> opts.successIndex !== <span class="string">'undefined'</span> || </span><br><span class="line">    <span class="keyword">typeof</span> opts.errorIndex !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> setSuccessIndex = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// If we've specified a success/error index</span></span><br><span class="line">      <span class="keyword">if</span> (opts.successIndex &gt; args.length) &#123;</span><br><span class="line">        args[opts.successIndex] = resolve;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        args.splice(opts.successIndex, <span class="number">0</span>, resolve);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> setErrorIndex = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// We don't want that the reject cb gets spliced into the position of an optional argument that has not been defined and thus causing non expected behaviour.</span></span><br><span class="line">      <span class="keyword">if</span> (opts.errorIndex &gt; args.length) &#123;</span><br><span class="line">        args[opts.errorIndex] = reject; <span class="comment">// insert the reject fn at the correct specific index</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        args.splice(opts.errorIndex, <span class="number">0</span>, reject); <span class="comment">// otherwise just splice it into the array</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (opts.successIndex &gt; opts.errorIndex) &#123;</span><br><span class="line">      setErrorIndex();</span><br><span class="line">      setSuccessIndex();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      setSuccessIndex();</span><br><span class="line">      setErrorIndex();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// Otherwise, let's tack them on to the end of the argument list</span></span><br><span class="line">    <span class="comment">// which is 90% of cases</span></span><br><span class="line">    args.push(resolve);</span><br><span class="line">    args.push(reject);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> args;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/混合应用/" rel="tag"># 混合应用</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/11/npm-install后发生了什么/" rel="next" title="npm install后发生了什么">
+                <i class="fa fa-chevron-left"></i> npm install后发生了什么
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">77</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
