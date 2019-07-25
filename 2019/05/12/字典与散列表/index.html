@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法与数据结构," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="一、字典和散列表的概念1.字典是什么？ ​    是一些元素的结合。每个元素有一个称作key的域，不同元素的key各不相同。 2.字典和集合有什么异同？ ​    集合是以[值，值]的方式存储数据，而字典是以[键，值]方式存储数据。 3.什么是散列表和散列函数？ ​    散列表：是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，">
+<meta name="keywords" content="算法与数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dictionary和HashTable">
+<meta property="og:url" content="http://yoursite.com/2019/05/12/字典与散列表/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="一、字典和散列表的概念1.字典是什么？ ​    是一些元素的结合。每个元素有一个称作key的域，不同元素的key各不相同。 2.字典和集合有什么异同？ ​    集合是以[值，值]的方式存储数据，而字典是以[键，值]方式存储数据。 3.什么是散列表和散列函数？ ​    散列表：是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190723-131710@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190723-132117@2x.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/102778/1556970090828-8bc73588-76b8-49c3-b39e-34928db5c5ae.png">
+<meta property="og:updated_time" content="2019-07-25T02:41:52.286Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dictionary和HashTable">
+<meta name="twitter:description" content="一、字典和散列表的概念1.字典是什么？ ​    是一些元素的结合。每个元素有一个称作key的域，不同元素的key各不相同。 2.字典和集合有什么异同？ ​    集合是以[值，值]的方式存储数据，而字典是以[键，值]方式存储数据。 3.什么是散列表和散列函数？ ​    散列表：是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，">
+<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20190723-131710@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/12/字典与散列表/"/>
+
+
+
+
+
+  <title>Dictionary和HashTable | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/12/字典与散列表/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Dictionary和HashTable</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-12T09:47:59+08:00">
+                2019-05-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法与数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">算法与数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="一、字典和散列表的概念"><a href="#一、字典和散列表的概念" class="headerlink" title="一、字典和散列表的概念"></a>一、字典和散列表的概念</h4><p>1.字典是什么？</p>
+<p>​    是一些元素的结合。每个元素有一个称作key的域，不同元素的key各不相同。</p>
+<p>2.字典和集合有什么异同？</p>
+<p>​    集合是以[值，值]的方式存储数据，而字典是以[键，值]方式存储数据。</p>
+<p>3.什么是散列表和散列函数？</p>
+<p>​    散列表：是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做散列函数，存放记录的数组叫做散列表。</p>
+<p>​    散列函数：给定一个键值，然后返回值在表中的位置。</p>
+<p>4.散列表的特点是什么？</p>
+<p>1) 访问速度很快</p>
+<p>由于散列表有散列函数，可以将指定的 Key 都映射到一个地址上，所以在访问一个 Key（键）对应的 Value（值）时，根本不需要一个一个地进行查找，可以直接跳到那个地址。所以我们在对散列表进行添加、删除、修改、查找等任何操作时，速度都很快。</p>
+<p>2) 需要额外的空间</p>
+<p>首先，散列表实际上是存不满的，如果一个散列表刚好能够存满，那么肯定是个巧合。而且当散列表中元素的使用率越来越高时，性能会下降，所以一般会选择扩容来解决这个问题。另外，如果有冲突的话，则也是需要额外的空间去存储的，比如链地址法，不但需要额外的空间，甚至需要使用其他数据结构。</p>
+<p>这个特点有个很常用的词可以表达，叫作“空间换时间”，在大多数时候，对于算法的实现，为了能够有更好的性能，往往会考虑牺牲些空间，让算法能够更快些。</p>
+<p>3) 无序</p>
+<p>散列表还有一个非常明显的特点，那就是无序。为了能够更快地访问元素，散列表是根据散列函数直接找到存储地址的，这样我们的访问速度就能够更快，但是对于有序访问却没有办法应对。</p>
+<p>4) 可能会产生碰撞</p>
+<p>没有完美的散列函数，无论如何总会产生冲突，这时就需要采用冲突解决方案，这也使散列表更加复杂。通常在不同的高级语言的实现中，对于冲突的解决方案不一定一样。</p>
+<h4 id="二、请实现一个字典"><a href="#二、请实现一个字典" class="headerlink" title="二、请实现一个字典"></a>二、请实现一个字典</h4><ul>
+<li>set(key,value)：向字典中添加新元素。</li>
+<li>delete(key)：通过使用键值从字典中移除键值对应的值。</li>
+<li>has(key)：如果某个键值存在于这个字典中，则返回 true，否则返回 false。</li>
+<li>get(key)：使用键值查找对应的值并返回。</li>
+<li>clear()：删除字典中的所有元素。</li>
+<li>size()：返回字典包含的元素数量，与数组的 length 属性类似。</li>
+<li>keys()：将字典的所有键名以数组的形式返回。</li>
+<li>values()：将字典包含的所有数值以数组形式返回。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// - set(key,value)：向字典中添加新元素。</span></span><br><span class="line"><span class="comment">// - delete(key)：通过使用键值从字典中移除键值对应的值。</span></span><br><span class="line"><span class="comment">// - has(key)：如果某个键值存在于这个字典中，则返回 true，否则返回 false。</span></span><br><span class="line"><span class="comment">// - get(key)：使用键值查找对应的值并返回。</span></span><br><span class="line"><span class="comment">// - clear()：删除字典中的所有元素。</span></span><br><span class="line"><span class="comment">// - size()：返回字典包含的元素数量，与数组的 length 属性类似。</span></span><br><span class="line"><span class="comment">// - keys()：将字典的所有键名以数组的形式返回。</span></span><br><span class="line"><span class="comment">// - values()：将字典包含的所有数值以数组形式返回。</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dictionary</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">this</span>.item = &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    set(key, value) &#123;</span><br><span class="line">        <span class="keyword">this</span>.item[key] = value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">delete</span>(key)&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.has(key))&#123;</span><br><span class="line">            <span class="keyword">delete</span> <span class="keyword">this</span>.item[key];</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    has(key)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.item.hasOwnProperty(key);<span class="comment">//hasOwnProperty方法是判断实例上是否有某个属性，而in操作符会先判断实例，没有的话会往[[Prototype]]上找</span></span><br><span class="line">    &#125;</span><br><span class="line">    get(key)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.has(key) ? <span class="keyword">this</span>.item[key] : <span class="literal">undefined</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    clear()&#123;</span><br><span class="line">        <span class="keyword">this</span>.item = &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    size()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.keys().length;</span><br><span class="line">    &#125;</span><br><span class="line">    keys()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Object</span>.keys(<span class="keyword">this</span>.item);</span><br><span class="line">    &#125;</span><br><span class="line">    values()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Object</span>.values(<span class="keyword">this</span>.item);<span class="comment">//返回可被枚举的值</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="三、请实现一个散列表"><a href="#三、请实现一个散列表" class="headerlink" title="三、请实现一个散列表"></a>三、请实现一个散列表</h4><p>散列函数：</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190723-131710@2x.png" alt="WX20190723-131710@2x"></p>
+<ul>
+<li>put(key,value)：向散列表增加/更新一个新的项。</li>
+<li>remove(key)：根据键值从散列表中移除值。</li>
+<li>get(key)：根据键值检索到特定的值。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HashTable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">this</span>.table = [];</span><br><span class="line">    &#125;</span><br><span class="line">    hashCode(key) &#123;</span><br><span class="line">        <span class="keyword">let</span> hash = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; key.length; i++) &#123;</span><br><span class="line">            hash += key.charCodeAt(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> hash % <span class="number">37</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    put(key, value) &#123;</span><br><span class="line">        <span class="keyword">const</span> position = <span class="keyword">this</span>.hashCode(key);</span><br><span class="line">        <span class="keyword">this</span>.table[position] = value;</span><br><span class="line">    &#125;</span><br><span class="line">    remove(key) &#123;</span><br><span class="line">        <span class="keyword">const</span> position = <span class="keyword">this</span>.hashCode(key);</span><br><span class="line">        <span class="keyword">this</span>.table[position] = <span class="literal">undefined</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    get(key) &#123;</span><br><span class="line">        <span class="keyword">const</span> position = <span class="keyword">this</span>.hashCode(key);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.table[position];</span><br><span class="line">    &#125;</span><br><span class="line">    print() &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.table.length; ++i) &#123; <span class="comment">//&#123;1&#125;</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.table[i] !== <span class="literal">undefined</span>) &#123;        <span class="comment">//&#123;2&#125;</span></span><br><span class="line">                <span class="built_in">console</span>.log(i + <span class="string">": "</span> + <span class="keyword">this</span>.table[i]);<span class="comment">//&#123;3&#125;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为什么<code>remove</code>方法，不是删除键，而是将键值设置为<code>undefined</code>?</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190723-132117@2x.png" alt="WX20190723-132117@2x"></p>
+<p><strong>散列表中存在的冲突</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> hashTable = <span class="keyword">new</span> HashTable();</span><br><span class="line">hashTable.put(<span class="string">'Jamie'</span>,<span class="string">'123'</span>);</span><br><span class="line">hashTable.put(<span class="string">'Sue'</span>,<span class="string">'345'</span>);</span><br><span class="line">hashTable.print();<span class="comment">//5: 345</span></span><br></pre></td></tr></table></figure>
+<p>Jamie和Sue的散列值是一样的，后面覆盖了前面的。解决方法在下面。</p>
+<h4 id="四、请利用之前已实现的链表，实现一个分离链接的散列表"><a href="#四、请利用之前已实现的链表，实现一个分离链接的散列表" class="headerlink" title="四、请利用之前已实现的链表，实现一个分离链接的散列表"></a>四、请利用之前已实现的链表，实现一个分离链接的散列表</h4><p><strong>分离链接</strong>是为散列表的每一个位置创建一个链表储存元素的方式来处理散列表中的冲突：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/102778/1556970090828-8bc73588-76b8-49c3-b39e-34928db5c5ae.png" alt=""></p>
+<p>请实现新的散列表方法：</p>
+<ul>
+<li>put(key,value)：将 key 和 value 存在一个 ValuePair 对象中（即可定义一个包含 key 和 value 属性的 ValuePair 类），并将其加入对应位置的链表中。</li>
+<li>get(key)：返回键值对应的值，没有则返回 undefined。</li>
+<li>remove(key)：从散列表中移除键值对应的元素。</li>
+<li>print()：打印散列表中已保存的值。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ValuePair</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(key, value) &#123;</span><br><span class="line">        <span class="keyword">this</span>.key = key;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HashTable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">this</span>.table = [];</span><br><span class="line">    &#125;</span><br><span class="line">    hashCode(key) &#123;</span><br><span class="line">        <span class="keyword">let</span> hash = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; key.length; i++) &#123;</span><br><span class="line">            hash += key.charCodeAt(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> hash % <span class="number">37</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    put(key, value) &#123;</span><br><span class="line">        <span class="keyword">const</span> position = <span class="keyword">this</span>.hashCode(key);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.table[position] == <span class="literal">undefined</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.table[position] = <span class="keyword">new</span> LinkedList();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.table[position].append(<span class="keyword">new</span> ValuePair(key, value));</span><br><span class="line">    &#125;</span><br><span class="line">    get(key) &#123;</span><br><span class="line">        <span class="keyword">const</span> position = <span class="keyword">this</span>.hashCode(key);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.table[position] != <span class="literal">undefined</span>) &#123;</span><br><span class="line">            <span class="keyword">let</span> current = <span class="keyword">this</span>.table[position].getHead();</span><br><span class="line">            <span class="keyword">while</span> (current &amp;&amp; current.element.key !== key) &#123;</span><br><span class="line">                current = current.next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (current) <span class="keyword">return</span> current.element.value;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">undefined</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    remove(key) &#123;</span><br><span class="line">        <span class="keyword">const</span> position = <span class="keyword">this</span>.hashCode(key);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.table[position] != <span class="literal">undefined</span>) &#123;</span><br><span class="line">            <span class="keyword">let</span> current = <span class="keyword">this</span>.table[position].getHead();</span><br><span class="line">            <span class="keyword">while</span> (current &amp;&amp; current.element.key !== key) &#123;</span><br><span class="line">                current = current.next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (current) &#123;</span><br><span class="line">                <span class="keyword">this</span>.table[position].remove(current.element);</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.table[position].isEmpty()) <span class="keyword">this</span>.table[position] = <span class="literal">undefined</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    print() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Object</span>.values(<span class="keyword">this</span>.table);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="五、实现一个线性探查的散列表"><a href="#五、实现一个线性探查的散列表" class="headerlink" title="五、实现一个线性探查的散列表"></a>五、实现一个线性探查的散列表</h4><p><strong>线性探查</strong>是解决散列表中冲突的另一种方法，当向表中某一个位置加入新元素的时候，如果索引为 index 的位置已经被占据了，就尝试 index+1 的位置。如果 index+1 的位置也被占据，就尝试 index+2，以此类推。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ValuePair</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(key, value) &#123;</span><br><span class="line">        <span class="keyword">this</span>.key = key;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HashTable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">this</span>.table = [];</span><br><span class="line">    &#125;</span><br><span class="line">    hashCode(key) &#123;</span><br><span class="line">        <span class="keyword">let</span> hash = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; key.length; i++) &#123;</span><br><span class="line">            hash += key.charCodeAt(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> hash % <span class="number">37</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    put(key, value) &#123;</span><br><span class="line">        <span class="keyword">let</span> position = <span class="keyword">this</span>.hashCode(key);</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">this</span>.table[position]) &#123;</span><br><span class="line">            position++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.table[position] = <span class="keyword">new</span> ValuePair(key, value);</span><br><span class="line">    &#125;</span><br><span class="line">    get(key) &#123;</span><br><span class="line">        <span class="keyword">let</span> position = <span class="keyword">this</span>.hashCode(key);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.table[position] != <span class="literal">undefined</span>) &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">this</span>.table[position] == <span class="literal">undefined</span> || <span class="keyword">this</span>.table[position].key != key) &#123;</span><br><span class="line">                position++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.table[position].key == key) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">this</span>.table[position].value</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">undefined</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    remove(key) &#123;</span><br><span class="line">        <span class="keyword">let</span> position = <span class="keyword">this</span>.hashCode(key);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.table[position] != <span class="literal">undefined</span>) &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">this</span>.table[position] == <span class="literal">undefined</span> || <span class="keyword">this</span>.table[position].key != key) &#123;</span><br><span class="line">                position++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.table[position].key == key) &#123;</span><br><span class="line">                <span class="keyword">this</span>.table[position] = <span class="literal">undefined</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    print() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Object</span>.values(<span class="keyword">this</span>.table);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个会进入死循环</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hashTable.put(<span class="string">'Jamie'</span>,<span class="string">'123'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(hashTable.get(<span class="string">'Jamie'</span>));</span><br><span class="line"><span class="built_in">console</span>.log(hashTable.get(<span class="string">'Sue'</span>));</span><br></pre></td></tr></table></figure>
+<h4 id="Map类"><a href="#Map类" class="headerlink" title="Map类"></a>Map类</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">map.set(<span class="string">'Gandalf'</span>, <span class="string">'gandalf@email.com'</span>);</span><br><span class="line">map.set(<span class="string">'John'</span>, <span class="string">'johnsnow@email.com'</span>);</span><br><span class="line">map.set(<span class="string">'Tyrion'</span>, <span class="string">'tyrion@email.com'</span>);</span><br><span class="line"><span class="keyword">var</span> g = map.keys();</span><br><span class="line"><span class="built_in">console</span>.log(map.has(<span class="string">'Gandalf'</span>)); <span class="comment">//输出true </span></span><br><span class="line"><span class="built_in">console</span>.log(map.size); <span class="comment">//输出3</span></span><br><span class="line"><span class="built_in">console</span>.log(g.next()); <span class="comment">//输出&#123;value: "Gandalf", done: false&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(g.next()); <span class="comment">//输出&#123;value: "John", done: false&#125;</span></span><br></pre></td></tr></table></figure>
+<p>Map类的<code>values</code>和<code>keys</code>返回的是<code>Iterator</code>，并且自带<code>size</code>属性</p>
+<h5 id="WeakMap和WeakSet"><a href="#WeakMap和WeakSet" class="headerlink" title="WeakMap和WeakSet"></a>WeakMap和WeakSet</h5><ul>
+<li>WeakSet或WeakMap类􏴌􏱨entries􏲡keys和values􏳠方法􏴝</li>
+<li>􏳗 􏰬能用对象作为􏳎􏰦键名</li>
+<li>知道键才能取出值</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法与数据结构/" rel="tag"># 算法与数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/26/集合/" rel="next" title="Set">
+                <i class="fa fa-chevron-left"></i> Set
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/21/七牛云上传文件demo/" rel="prev" title="七牛云上传文件demo">
+                七牛云上传文件demo <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、字典和散列表的概念"><span class="nav-number">1.</span> <span class="nav-text">一、字典和散列表的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、请实现一个字典"><span class="nav-number">2.</span> <span class="nav-text">二、请实现一个字典</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、请实现一个散列表"><span class="nav-number">3.</span> <span class="nav-text">三、请实现一个散列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、请利用之前已实现的链表，实现一个分离链接的散列表"><span class="nav-number">4.</span> <span class="nav-text">四、请利用之前已实现的链表，实现一个分离链接的散列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#五、实现一个线性探查的散列表"><span class="nav-number">5.</span> <span class="nav-text">五、实现一个线性探查的散列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Map类"><span class="nav-number">6.</span> <span class="nav-text">Map类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#WeakMap和WeakSet"><span class="nav-number">6.1.</span> <span class="nav-text">WeakMap和WeakSet</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
