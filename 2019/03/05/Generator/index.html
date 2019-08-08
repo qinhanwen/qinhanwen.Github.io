@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="Generator 参考资料    https://juejin.im/post/5a6db41351882573351a8d72  概念1）函数声明方式：在function关键字与函数名之间有个 * 号2）函数体内：可以使用yield表达式3）执行时：返回一个iterator对象，可以用过调用next方法，遍历iterator对象里的每个yield表达式定义的状态yield表达式1234567f">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-06T13:19:27.583Z">
+<meta property="og:updated_time" content="2019-08-08T08:53:14.614Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Generator">
 <meta name="twitter:description" content="Generator 参考资料    https://juejin.im/post/5a6db41351882573351a8d72  概念1）函数声明方式：在function关键字与函数名之间有个 * 号2）函数体内：可以使用yield表达式3）执行时：返回一个iterator对象，可以用过调用next方法，遍历iterator对象里的每个yield表达式定义的状态yield表达式1234567f">
@@ -423,7 +423,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    name: <span class="string">'qinhanwen'</span>,</span><br><span class="line">    age: <span class="string">'25'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> arr = <span class="built_in">Object</span>.keys(<span class="keyword">this</span>)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> item <span class="keyword">of</span> arr) &#123;</span><br><span class="line">      <span class="keyword">yield</span> [item, <span class="keyword">this</span>[item]]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj[<span class="built_in">Symbol</span>.iterator] = test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> [key,value] <span class="keyword">of</span> obj)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(key,value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//name qinhanwen</span></span><br><span class="line"><span class="comment">//age 25</span></span><br></pre></td></tr></table></figure>
 <p>稍微看一下具有<code>Iterator</code>接口的数据类型</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数组</span></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="string">'qinhanwen'</span>,<span class="string">'25'</span>];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">of</span> arr)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(key);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//qinhanwen</span></span><br><span class="line"><span class="comment">//25</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//字符串</span></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">'qinhanwen'</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">of</span> str)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(key);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//q</span></span><br><span class="line"><span class="comment">//i</span></span><br><span class="line"><span class="comment">//n</span></span><br><span class="line"><span class="comment">//h</span></span><br><span class="line"><span class="comment">//a</span></span><br><span class="line"><span class="comment">//n</span></span><br><span class="line"><span class="comment">//w</span></span><br><span class="line"><span class="comment">//e</span></span><br><span class="line"><span class="comment">//n</span></span><br></pre></td></tr></table></figure>
-<p>对有Iterator接口的数据类型，可以使用<code>展开运算符</code>，<code>解构赋值</code>，<code>for…of</code>，<code>Array.from</code>。<a href="![image-20190306211217543](/Users/qinhanwen/Library/Application Support/typora-user-images/image-20190306211217543.png">了解一下字符串反转</a>)</p>
+<p>对有Iterator接口的数据类型，可以使用<code>展开运算符</code>，<code>解构赋值</code>，<code>for…of</code>，<code>Array.from</code>。<a href="![image-20190306211217543](http://www.qinhanwen.xyz/image-20190306211217543.png">了解一下字符串反转</a>)</p>
 
       
     </div>
@@ -543,7 +543,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">86</span>
+                <span class="site-state-item-count">85</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -554,7 +554,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -565,7 +565,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

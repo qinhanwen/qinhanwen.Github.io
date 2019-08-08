@@ -109,7 +109,7 @@
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190719-005203@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190719-233059@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/6F00020A81A132B95C9D3FE24E431754.png">
-<meta property="og:updated_time" content="2019-07-26T06:30:07.765Z">
+<meta property="og:updated_time" content="2019-08-07T03:29:34.417Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git">
 <meta name="twitter:description" content="Git常用命令1.忽略已经在版本控制里的文件12345$ git update-index --assume-unchanged 文件路径#这样 Git 会忽略文件的修改。$ git update-index --no-assume-unchanged 文件路径# 需要提交的时候需要重置改标识，.gitignore无法忽略在添加到版本中的文件 某目录下所有文件可以写成 src/** 2.更改签名1">
@@ -433,6 +433,9 @@
 <h5 id="18-删除分支"><a href="#18-删除分支" class="headerlink" title="18.删除分支"></a>18.删除分支</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git branch -D  要删除的分支</span><br></pre></td></tr></table></figure>
 <h4 id="备注："><a href="#备注：" class="headerlink" title="备注："></a>备注：</h4><h5 id="gitignore文件"><a href="#gitignore文件" class="headerlink" title=".gitignore文件"></a>.gitignore文件</h5><p>.gitignore只能忽略那些原来没有被追踪的文件，如果需要新增忽略文件的话</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git rm -r --cached .</span><br><span class="line"><span class="meta">$</span> git add .</span><br><span class="line"><span class="meta">$</span> git commit -m 'update .gitignore'</span><br></pre></td></tr></table></figure>
+<p><strong>误删本地分支恢复</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>删除分支</span><br><span class="line"><span class="meta">$</span> git branch -D develop </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>找到提交log</span><br><span class="line"><span class="meta">$</span> git log -g</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>找到最后一笔commit的记录，或者删除分支的索引值</span><br><span class="line"><span class="meta">$</span> git branch [分支名]  [哈希索引值]</span><br></pre></td></tr></table></figure>
+<p>删除分支的本质，其实是删除了.git/refs/heads/目录下的一个与分支同名文件，文件内容是一个分支所指向commit对象的sha-1值。也就是说真正删除的并不是commit对象本身，更为形象的说就是揭掉贴在commit对象上的标签，当然我们可以再贴上一个标签。</p>
 
       
     </div>
@@ -552,7 +555,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">86</span>
+                <span class="site-state-item-count">85</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -563,7 +566,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -574,7 +577,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
