@@ -103,11 +103,11 @@
 <meta property="og:description" content="配置文件entry与output修改之前的文件路径，新增webpack.config.js文件（因为每个项目工程目录不同，所以可以根据需要自己的配置），业务逻辑代码放在src下面。 12$ webpack --config webpack.config.js#设置配置文件 文件目录 12345678|—— dist  |—— index.html|—— src  |—— a.js  |—— b.j">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190627-205301@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyzWX20190728-140741@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190728-140741@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190630-162033@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190630-231105@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190630-231534@2x.png">
-<meta property="og:updated_time" content="2019-08-08T08:53:31.456Z">
+<meta property="og:updated_time" content="2019-08-09T14:54:22.349Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack入门（2）-配置文件">
 <meta name="twitter:description" content="配置文件entry与output修改之前的文件路径，新增webpack.config.js文件（因为每个项目工程目录不同，所以可以根据需要自己的配置），业务逻辑代码放在src下面。 12$ webpack --config webpack.config.js#设置配置文件 文件目录 12345678|—— dist  |—— index.html|—— src  |—— a.js  |—— b.j">
@@ -409,7 +409,7 @@
 <p><strong><code>library</code>和<code>libraryTaget</code></strong></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">    output: &#123;<span class="comment">//输出</span></span><br><span class="line">        <span class="comment">// publicPath: 'http://www.qinhanwen.xyz',</span></span><br><span class="line">        filename: <span class="string">'[name].js'</span>,<span class="comment">//最终文件命名</span></span><br><span class="line">        path: path.resolve(__dirname, <span class="string">'dist'</span>),<span class="comment">//输出文件夹的路径</span></span><br><span class="line">        library:<span class="string">'eft'</span>,</span><br><span class="line">        libraryTarget:<span class="string">'umd'</span></span><br><span class="line">    &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>加了这两个之后编译成这样，<code>libraryTarget:&#39;umd&#39;</code>是兼容各种模块化规范，比如AMD，CMD，CommonJS，还有<code>library:&#39;eft&#39;</code>是暴露在某个命名空间下（使用script标签引入的方式）。</p>
-<p><img src="http://www.qinhanwen.xyzWX20190728-140741@2x.png" alt="WX20190728-140741@2x"></p>
+<p><img src="http://www.qinhanwen.xyz/WX20190728-140741@2x.png" alt="WX20190728-140741@2x"></p>
 <h5 id="mode"><a href="#mode" class="headerlink" title="mode"></a>mode</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  	mode:<span class="string">'development'</span>,<span class="comment">//打包模式 development和production（默认模式），是否压缩打包出来的文件</span></span><br><span class="line">    entry:<span class="string">"./src/index.js"</span>,<span class="comment">//从哪个文件开始打包</span></span><br><span class="line">    output:&#123;<span class="comment">//输出</span></span><br><span class="line">        filename:<span class="string">'bundle.js'</span>,<span class="comment">//最终文件命名</span></span><br><span class="line">        path: path.resolve(__dirname,<span class="string">'dist'</span>),<span class="comment">//输出文件夹的路径</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="loader"><a href="#loader" class="headerlink" title="loader"></a>loader</h5><p>用于告诉webpack，对于<strong>特定的文件（非js文件）</strong>使用怎样的处理方式</p>
 <p>举个例子，打包<code>图片类型</code>和<code>scss类型</code>文件</p>

@@ -102,17 +102,17 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="大前端网络专题篇之HTTP1️⃣、请简述浏览器输入 URL 地址以后所发生的事情 浏览器解析URL      将url中元素拆分出来 URL格式，重要的是scheme，host和path  按照URL格式拆分：  请求需要访问www.lab.glasscom.com域下的dir1目录下的file1.html文件。 几个例子： 如果是http://www.lab.glasscom.com/，表示访问">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://www.qinhanwen.xyzWX20190731-234236@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyzWX20190801-012945@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyzWX20190801-174811@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyzWX20190801-232437@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyzWX20190731-215041@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyzWX20190731-224335@2x.png">
-<meta property="og:updated_time" content="2019-08-08T08:53:31.456Z">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190731-234236@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190801-012945@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190801-174811@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190801-232437@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190731-215041@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190731-224335@2x.png">
+<meta property="og:updated_time" content="2019-08-09T14:54:22.349Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大前端网络专题篇之HTTP">
 <meta name="twitter:description" content="大前端网络专题篇之HTTP1️⃣、请简述浏览器输入 URL 地址以后所发生的事情 浏览器解析URL      将url中元素拆分出来 URL格式，重要的是scheme，host和path  按照URL格式拆分：  请求需要访问www.lab.glasscom.com域下的dir1目录下的file1.html文件。 几个例子： 如果是http://www.lab.glasscom.com/，表示访问">
-<meta name="twitter:image" content="http://www.qinhanwen.xyzWX20190731-234236@2x.png">
+<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20190731-234236@2x.png">
 
 
 
@@ -384,9 +384,9 @@
 <ul>
 <li><p>将url中元素拆分出来</p>
 <p>URL格式，重要的是<strong>scheme，host和path</strong></p>
-<p><img src="http://www.qinhanwen.xyzWX20190731-234236@2x.png" alt="WX20190731-234236@2x"></p>
+<p><img src="http://www.qinhanwen.xyz/WX20190731-234236@2x.png" alt="WX20190731-234236@2x"></p>
 <p>按照URL格式拆分：</p>
-<p><img src="http://www.qinhanwen.xyzWX20190801-012945@2x.png" alt="WX20190801-012945@2x"></p>
+<p><img src="http://www.qinhanwen.xyz/WX20190801-012945@2x.png" alt="WX20190801-012945@2x"></p>
 <p>请求需要访问<code>www.lab.glasscom.com</code>域下的<code>dir1</code>目录下的<code>file1.html</code>文件。</p>
 <p>几个例子：</p>
 <p>如果是<code>http://www.lab.glasscom.com/</code>，表示访问根目录下的默认文件（<code>index.html</code>之类的，根据服务器配置信息决定）</p>
@@ -396,7 +396,7 @@
 <p><strong>生成http请求消息</strong></p>
 <p><strong>向DNS服务器查询web服务器IP地址</strong></p>
 <p>补充：</p>
-<p><img src="http://www.qinhanwen.xyzWX20190801-174811@2x.png" alt="WX20190801-174811@2x"></p>
+<p><img src="http://www.qinhanwen.xyz/WX20190801-174811@2x.png" alt="WX20190801-174811@2x"></p>
 <p>​        浏览器不具备将消息发送到网络中的能力，要借助操作系统完成。这时候要知道通信对象的IP地址（不直接使用域名确定通信对象是因为运行效率问题，IP地址长度为32比特，4字节。域名最短几十字节，最多255字节）</p>
 <p>​        DNS 中的域名都是用句点来分隔的，比如 <a href="http://www.lab.glasscom.com，这里的句点代表了不同层次之间的界限（相当于公司里面的组织结构不用部、科之类的名称来划分，只是用句点来分隔而已" target="_blank" rel="noopener">www.lab.glasscom.com，这里的句点代表了不同层次之间的界限（相当于公司里面的组织结构不用部、科之类的名称来划分，只是用句点来分隔而已</a> ），域名中越靠右的层级越高。每个域的信息都存放在相应层级的 DNS 服务器中。</p>
 <p>​        以为 <a href="http://www.lab.glasscom.com" target="_blank" rel="noopener">www.lab.glasscom.com</a> 为例，<code>com</code>和<code>jp</code>上还有一层域，成为根域。一般书写时候被忽略，明确表示的话是这样<code>www.lab.glasscom.com.</code></p>
@@ -415,7 +415,7 @@
 <p>4）<code>com</code>域返回了<code>glasscom</code>域的<code>IP</code>，说你去问问吧</p>
 <p>5）<code>glasscom</code>域返回了<code>lab</code>域的<code>IP</code> ，说你去问问</p>
 <p>6）重复上面步骤， 最后找到了，返回<code>IP</code>。</p>
-<p><img src="http://www.qinhanwen.xyzWX20190801-232437@2x.png" alt="WX20190801-232437@2x"></p>
+<p><img src="http://www.qinhanwen.xyz/WX20190801-232437@2x.png" alt="WX20190801-232437@2x"></p>
 <p>​    <strong>三次握手</strong></p>
 <p><strong>SYN（发送方和接收方互相确认序号，为1表示连接） ACK（表示接收数据序号有效，一般代表数据被接收到） FIN（表示断开连接）</strong></p>
 <p><strong>刚开始客户端处于 closed 的状态（没有任何连接状态），服务器处于 listen 状态（侦听来自远方TCP端口的连接请求）</strong></p>
@@ -423,7 +423,7 @@
 <p>​        2）如果服务器接受请求，会指定了自己的初始化序列号 <strong>ISN(s)</strong>，并向客户端回送一个tcp分组，带有<strong>ACK</strong>（客户端的 <strong>ISN + 1</strong> 做为 <strong>ACK</strong> 的值）和 <strong>SYN</strong> 的标记，说明请求被接收，此时服务器处于 <strong>SYN_RCVD</strong> 状态（SYN-RECEIVED - 在收到和发送一个连接请求后等待对连接请求的确认）。</p>
 <p>​        3）客户端接收到到之后，向服务器发送一条确认信息（可以在这次握手发送数据），带有 <strong>ACK</strong>（服务器的 <strong>ISN + 1</strong> 作为 <strong>ACK</strong> 的值） 标记，说明连接已经成功建立，此时客户端处于 <strong>establised</strong> 状态（ESTABLISHED- 代表一个打开的连接，数据可以传送给用户）。</p>
 <p>服务器接收到之后也处于 <strong>establised</strong> 状态。</p>
-<p><img src="http://www.qinhanwen.xyzWX20190731-215041@2x.png" alt="WX20190731-215041@2x"></p>
+<p><img src="http://www.qinhanwen.xyz/WX20190731-215041@2x.png" alt="WX20190731-215041@2x"></p>
 <p><strong>通信阶段，传递消息</strong></p>
 <p><strong>浏览器解析</strong></p>
 <p>​        1）构建DOM树</p>
@@ -437,7 +437,7 @@
 <p>2）服务器接收到，返回一个数据包带有 <strong>ACK</strong>标记（客户端的序列号 + 1 的值），此时服务端处于 <strong>CLOSE_WAIT</strong>状态（CLOSE-WAIT - 等待从本地用户发来的连接中断请求）。</p>
 <p>3）服务端也想断开连接，发送数据包，带有 <strong>FIN</strong>标记，报文中会指定一个序列号，此时服务端处于 <strong>LAST_ACK</strong> 的状态（LAST-ACK - 等待原来发向远程TCP的连接中断请求的确认）</p>
 <p>4）客户端接收到，返回一个数据包带有 <strong>ACK</strong>标记（服务器的序列号 + 1 的值），此时客户端处于 <strong>TIME_WAIT</strong> 状态（TIME-WAIT -等待足够的时间以确保远程TCP接收到连接中断请求的确认），一段时间之后进入 <strong>CLOSED</strong> 状态（CLOSED - 没有任何连接状态；）</p>
-<p><img src="http://www.qinhanwen.xyzWX20190731-224335@2x.png" alt="WX20190731-224335@2x"></p>
+<p><img src="http://www.qinhanwen.xyz/WX20190731-224335@2x.png" alt="WX20190731-224335@2x"></p>
 <p>2️⃣、请列举常见的 HTTP 状态码并介绍它们的含义，至少五个以上。</p>
 <p>​        101 服务器将遵从客户的请求转换到另外一种协议</p>
 <p>​        200 OK 请求被正常处理</p>
