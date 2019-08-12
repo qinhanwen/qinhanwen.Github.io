@@ -114,7 +114,7 @@
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190712-140123@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190712-163503@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190712-164143@2x.png">
-<meta property="og:updated_time" content="2019-08-09T14:54:22.349Z">
+<meta property="og:updated_time" content="2019-08-11T10:05:09.121Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="npm install后发生了什么">
 <meta name="twitter:description" content="npm install 之后发生了什么？ 记一次排错经历——npm缓存浅析 npm 模块安装机制简介 介绍下 npm 模块安装机制，为什么输入 npm install 就可以自动安装对应的模块？  npm install是干嘛的npm install命令用来安装模块到node_modules目录。 安装之前，npm install会先检查node_modules目录之中是否已经存在指定模块。如果">
@@ -415,7 +415,12 @@
 <p><img src="http://www.qinhanwen.xyz/WX20190711-212439@2x.png" alt="WX20190711-212439@2x"></p>
 <p>而<code>index-v5</code> 里面是一些描述性的文件，也是 <code>content-v2</code> 里文件的索引，有点像HTTP的响应头，而且还有缓存相关的值</p>
 <p><img src="http://www.qinhanwen.xyz/WX20190711-213336@2x.png" alt="WX20190711-213336@2x"></p>
-<h2 id="所以npm-install之后发生了什么"><a href="#所以npm-install之后发生了什么" class="headerlink" title="所以npm install之后发生了什么"></a>所以<code>npm install</code>之后发生了什么</h2><p>在<code>npm</code>入口文件后面添加<code>--inspect-brk</code>就可以断点调试</p>
+<h2 id="所以npm-install之后发生了什么"><a href="#所以npm-install之后发生了什么" class="headerlink" title="所以npm install之后发生了什么"></a>所以<code>npm install</code>之后发生了什么</h2><p><strong>先了解一下shell的<code>解释行（Shebang）</code>是什么</strong></p>
+<p><strong>Shebang</strong>（也称为<strong>Hashbang</strong>）是一个由井号和叹号构成的字符串行（<em>#!</em>），其出现在文本文件的第一行的前两个字符。</p>
+<p>如下列出了一些典型的shebang解释器指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh—使用sh，即Bourne shell或其它兼容shell执行脚本</span><br><span class="line">#!/bin/csh—使用csh，即C shell执行</span><br><span class="line">#!/usr/bin/perl -w—使用带警告的Perl执行</span><br><span class="line">#!/usr/bin/python -O—使用具有代码优化的Python执行</span><br><span class="line">#!/usr/bin/php—使用PHP的命令行解释器执行</span><br></pre></td></tr></table></figure>
+<p>通常出现在linux的shell脚本第一行，作为解释行，告诉解释器shell的执行方式。</p>
+<p>在<code>npm</code>入口文件后面添加<code>--inspect-brk</code>就可以断点调试</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env node  --inspect-brk</span></span><br></pre></td></tr></table></figure>
 <p>入口文件在：</p>
 <p><img src="http://www.qinhanwen.xyz/WX20190808-134156@2x.png" alt="WX20190808-134156@2x"></p>
