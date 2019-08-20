@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="TS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="TypeScript面向对象编程SOLID（下面的首字母简写）原则 职责单一原则（SRP）：组件（函数、类、模块）专注于单一任务，这样容易看出类做了哪些事情。类的属性通常描述对象的特征，方法通常描述对象行为。如果拥有过多属性和方法，就要考虑是否职责单一（比如Person类有名字、性别、电话、说hello的方法。那么验证电话号码正确性的方法，应该抽成另外一个类里。） 开/闭原则（OCP）：时刻考虑到">
+<meta name="keywords" content="TS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TypeScript-2">
+<meta property="og:url" content="http://yoursite.com/2019/08/15/TypeScript-2/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="TypeScript面向对象编程SOLID（下面的首字母简写）原则 职责单一原则（SRP）：组件（函数、类、模块）专注于单一任务，这样容易看出类做了哪些事情。类的属性通常描述对象的特征，方法通常描述对象行为。如果拥有过多属性和方法，就要考虑是否职责单一（比如Person类有名字、性别、电话、说hello的方法。那么验证电话号码正确性的方法，应该抽成另外一个类里。） 开/闭原则（OCP）：时刻考虑到">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/Users/qinhanwen/Desktop/new-images/WX20190817-000855@2x.png">
+<meta property="og:image" content="http://yoursite.com/Users/qinhanwen/Desktop/new-images/WX20190818-000319@2x.png">
+<meta property="og:image" content="http://yoursite.com/Users/qinhanwen/Desktop/new-images/WX20190818-000811@2x.png">
+<meta property="og:updated_time" content="2019-08-20T14:52:41.180Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TypeScript-2">
+<meta name="twitter:description" content="TypeScript面向对象编程SOLID（下面的首字母简写）原则 职责单一原则（SRP）：组件（函数、类、模块）专注于单一任务，这样容易看出类做了哪些事情。类的属性通常描述对象的特征，方法通常描述对象行为。如果拥有过多属性和方法，就要考虑是否职责单一（比如Person类有名字、性别、电话、说hello的方法。那么验证电话号码正确性的方法，应该抽成另外一个类里。） 开/闭原则（OCP）：时刻考虑到">
+<meta name="twitter:image" content="http://yoursite.com/Users/qinhanwen/Desktop/new-images/WX20190817-000855@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/15/TypeScript-2/"/>
+
+
+
+
+
+  <title>TypeScript-2 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/15/TypeScript-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TypeScript-2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-15T22:49:11+08:00">
+                2019-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TS/" itemprop="url" rel="index">
+                    <span itemprop="name">TS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="TypeScript面向对象编程"><a href="#TypeScript面向对象编程" class="headerlink" title="TypeScript面向对象编程"></a>TypeScript面向对象编程</h2><h5 id="SOLID（下面的首字母简写）原则"><a href="#SOLID（下面的首字母简写）原则" class="headerlink" title="SOLID（下面的首字母简写）原则"></a>SOLID（下面的首字母简写）原则</h5><ul>
+<li><strong>职责单一原则（SRP）：</strong>组件（函数、类、模块）专注于单一任务，这样容易看出类做了哪些事情。类的属性通常描述对象的特征，方法通常描述对象行为。如果拥有过多属性和方法，就要考虑是否职责单一（比如Person类有名字、性别、电话、说hello的方法。那么验证电话号码正确性的方法，应该抽成另外一个类里。）</li>
+<li><strong>开/闭原则（OCP）</strong>：时刻考虑到代码的扩展性（就是新增功能时候，能够最小程度修改代码）</li>
+<li><strong>里氏替换原则（LSP）</strong>：派生类对象替换基类对象（比如b是基类有个save方法，a是派生类可以有自己的save方法）</li>
+<li><strong>接口隔离原则（ISP）</strong>：将特别大的接口，拆分成小的。</li>
+<li><strong>依赖反转原则（DIP）</strong>：一个方法遵从依赖于抽象而不是实例。</li>
+</ul>
+<h2 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm init</span><br><span class="line"><span class="meta">$</span> npm install gulp gulp-typescript -S</span><br></pre></td></tr></table></figure>
+<p>目录结构，这里选择了比较熟悉的<code>gulp</code>，而没使用<code>webpack</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">├── gulpfile.js</span><br><span class="line">├── package-lock.json</span><br><span class="line">├── package.json</span><br><span class="line">├── src</span><br><span class="line">│   └── main.ts</span><br><span class="line">└── tsconfig.json</span><br></pre></td></tr></table></figure>
+<p>tsconfig.json</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>可以通过这种方式创建</span><br><span class="line"><span class="meta">$</span> tsc —init</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"files"</span>: [</span><br><span class="line">        <span class="string">"src/main.ts"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line">        <span class="attr">"noImplicitAny"</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">"target"</span>: <span class="string">"es5"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>gulpfile.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> gulp = <span class="built_in">require</span>(<span class="string">"gulp"</span>);</span><br><span class="line"><span class="keyword">const</span> ts = <span class="built_in">require</span>(<span class="string">"gulp-typescript"</span>);</span><br><span class="line"><span class="keyword">const</span> tsProject = ts.createProject(<span class="string">"tsconfig.json"</span>);</span><br><span class="line"></span><br><span class="line">gulp.task(<span class="string">"default"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> tsProject.src()</span><br><span class="line">        .pipe(tsProject())</span><br><span class="line">        .js.pipe(gulp.dest(<span class="string">"dist"</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>main.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Test &#123;</span><br><span class="line">    name: <span class="built_in">string</span> = <span class="string">'qinhanwen'</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译一下试试</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npx gulp</span><br></pre></td></tr></table></figure>
+<p>编译出来文件在<code>dist/main.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Test = <span class="comment">/** @class */</span> (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = <span class="string">'qinhanwen'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Test;</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<h2 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h2><p>装饰器有<code>类装饰器</code>、<code>参数装饰器</code>、<code>方法装饰器</code>和<code>属性装饰器</code>。它们的作用就是在不修改原有对象（接口）的情况下，对类及其方法、入参、属性行为的修改。</p>
+<p><strong>类装饰器</strong></p>
+<p>main.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">logClass</span>(<span class="params">target: <span class="built_in">any</span></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 保存原构造函数的引用</span></span><br><span class="line">    <span class="keyword">var</span> original = target;</span><br><span class="line">    <span class="comment">//用来生成类的实例的工具方法</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">construct</span>(<span class="params">constructor, args</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> c: <span class="built_in">any</span> = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">constructor</span>.apply(<span class="params"><span class="keyword">this</span>, args</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        c.prototype = <span class="keyword">constructor</span>.prototype;</span><br><span class="line">        return new c(<span class="params"></span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //新的构造函数行为</span><br><span class="line">    var f: any = function (<span class="params">...args</span>) &#123;</span><br><span class="line">        console.log("New: " + original.name);</span><br><span class="line">        <span class="keyword">return</span> construct(original, args);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//复制原型，使 instanceof操作能正常使用</span></span><br><span class="line">    f.prototype = original.prototype;</span><br><span class="line">    <span class="comment">//返回新的构造函数(将会覆盖原构造函数)</span></span><br><span class="line">    <span class="keyword">return</span> f</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@logClass</span></span><br><span class="line"><span class="keyword">class</span> Person &#123;</span><br><span class="line">    name: <span class="built_in">string</span>;</span><br><span class="line">    age: <span class="built_in">number</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">name, age</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    getName() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>遇到提示</p>
+<p><img src="/Users/qinhanwen/Desktop/new-images/WX20190817-000855@2x.png" alt="WX20190817-000855@2x"></p>
+<p>解决方案，修改<code>tsconfig.json</code>文件：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">		...</span><br><span class="line">    "compilerOptions": &#123;</span><br><span class="line">       	...</span><br><span class="line">        "experimentalDecorators": true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译ts，main.js文件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> __decorate = (<span class="keyword">this</span> &amp;&amp; <span class="keyword">this</span>.__decorate) || <span class="function"><span class="keyword">function</span> (<span class="params">decorators, target, key, desc</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> c = <span class="built_in">arguments</span>.length, r = c &lt; <span class="number">3</span> ? target : desc === <span class="literal">null</span> ? desc = <span class="built_in">Object</span>.getOwnPropertyDescriptor(target, key) : desc, d;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">Reflect</span> === <span class="string">"object"</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">Reflect</span>.decorate === <span class="string">"function"</span>) r = <span class="built_in">Reflect</span>.decorate(decorators, target, key, desc);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">for</span> (<span class="keyword">var</span> i = decorators.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) <span class="keyword">if</span> (d = decorators[i]) r = (c &lt; <span class="number">3</span> ? d(r) : c &gt; <span class="number">3</span> ? d(target, key, r) : d(target, key)) || r;</span><br><span class="line">    <span class="keyword">return</span> c &gt; <span class="number">3</span> &amp;&amp; r &amp;&amp; <span class="built_in">Object</span>.defineProperty(target, key, r), r;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">logClass</span>(<span class="params">target</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 保存原构造函数的引用</span></span><br><span class="line">    <span class="keyword">var</span> original = target;</span><br><span class="line">    <span class="comment">//用来生成类的实例的工具方法</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">construct</span>(<span class="params">constructor, args</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> c = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">constructor</span>.apply(this, args);</span><br><span class="line">        &#125;;</span><br><span class="line">        c.prototype = <span class="keyword">constructor</span>.prototype;</span><br><span class="line">        return new c();</span><br><span class="line">    &#125;</span><br><span class="line">    //新的构造函数行为</span><br><span class="line">    var f = function () &#123;</span><br><span class="line">        <span class="keyword">var</span> args = [];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> _i = <span class="number">0</span>; _i &lt; <span class="built_in">arguments</span>.length; _i++) &#123;</span><br><span class="line">            args[_i] = <span class="built_in">arguments</span>[_i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"New: "</span> + original.name);</span><br><span class="line">        <span class="keyword">return</span> construct(original, args);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">//复制原型，使 instanceof操作能正常使用</span></span><br><span class="line">    f.prototype = original.prototype;</span><br><span class="line">    <span class="comment">//返回新的构造函数(将会覆盖原构造函数)</span></span><br><span class="line">    <span class="keyword">return</span> f;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> Person = <span class="comment">/** @class */</span> (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    Person.prototype.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">    &#125;;</span><br><span class="line">    Person = __decorate([</span><br><span class="line">        logClass</span><br><span class="line">    ], Person);</span><br><span class="line">    <span class="keyword">return</span> Person;</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<p>类装饰器接收一个参数（构造函数），为类添加一些额外的逻辑。</p>
+<p><strong>方法装饰器</strong>·</p>
+<p>main.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">logMethod</span>(<span class="params">target: <span class="built_in">any</span>, key: <span class="built_in">string</span>, descriptor: <span class="built_in">any</span></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//保存方法引用</span></span><br><span class="line">    <span class="keyword">var</span> originMethod = descriptor.value;</span><br><span class="line">    descriptor.value = <span class="function"><span class="keyword">function</span> (<span class="params">...args: <span class="built_in">any</span>[]</span>) </span>&#123;</span><br><span class="line">      	<span class="comment">//用于打印，演示部分</span></span><br><span class="line">        <span class="keyword">var</span> a = args.map(<span class="function"><span class="params">item</span> =&gt;</span> <span class="built_in">JSON</span>.stringify(item)).join();</span><br><span class="line">        <span class="keyword">var</span> result = originMethod.apply(<span class="keyword">this</span>, args);</span><br><span class="line">        <span class="keyword">var</span> r = <span class="built_in">JSON</span>.stringify(result);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`call <span class="subst">$&#123;key&#125;</span>(<span class="subst">$&#123;a&#125;</span>=&gt;<span class="subst">$&#123;r&#125;</span>)`</span>);</span><br><span class="line">        <span class="keyword">return</span> result;<span class="comment">//返回方法调用的返回值</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> descriptor;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Person &#123;</span><br><span class="line">    name: <span class="built_in">string</span>;</span><br><span class="line">    age: <span class="built_in">number</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">name, age</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@logMethod</span></span><br><span class="line">    getName(desc:<span class="built_in">String</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> desc + <span class="keyword">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>main.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> __decorate = (<span class="keyword">this</span> &amp;&amp; <span class="keyword">this</span>.__decorate) || <span class="function"><span class="keyword">function</span> (<span class="params">decorators, target, key, desc</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> c = <span class="built_in">arguments</span>.length, r = c &lt; <span class="number">3</span> ? target : desc === <span class="literal">null</span> ? desc = <span class="built_in">Object</span>.getOwnPropertyDescriptor(target, key) : desc, d;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">Reflect</span> === <span class="string">"object"</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">Reflect</span>.decorate === <span class="string">"function"</span>) r = <span class="built_in">Reflect</span>.decorate(decorators, target, key, desc);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">for</span> (<span class="keyword">var</span> i = decorators.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) <span class="keyword">if</span> (d = decorators[i]) r = (c &lt; <span class="number">3</span> ? d(r) : c &gt; <span class="number">3</span> ? d(target, key, r) : d(target, key)) || r;</span><br><span class="line">    <span class="keyword">return</span> c &gt; <span class="number">3</span> &amp;&amp; r &amp;&amp; <span class="built_in">Object</span>.defineProperty(target, key, r), r;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">logMethod</span>(<span class="params">target, key, descriptor</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//保存方法引用</span></span><br><span class="line">    <span class="keyword">var</span> originMethod = descriptor.value;</span><br><span class="line">    descriptor.value = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> args = [];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> _i = <span class="number">0</span>; _i &lt; <span class="built_in">arguments</span>.length; _i++) &#123;</span><br><span class="line">            args[_i] = <span class="built_in">arguments</span>[_i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">var</span> a = args.map(<span class="function"><span class="keyword">function</span> (<span class="params">item</span>) </span>&#123; <span class="keyword">return</span> <span class="built_in">JSON</span>.stringify(item); &#125;).join();</span><br><span class="line">        <span class="keyword">var</span> result = originMethod.apply(<span class="keyword">this</span>, args);</span><br><span class="line">        <span class="keyword">var</span> r = <span class="built_in">JSON</span>.stringify(result);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"call "</span> + key + <span class="string">"("</span> + a + <span class="string">"=&gt;"</span> + r + <span class="string">")"</span>);<span class="comment">//call getName("name is "=&gt;"name is qinhanwen")</span></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> descriptor;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> Person = <span class="comment">/** @class */</span> (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    Person.prototype.getName = <span class="function"><span class="keyword">function</span> (<span class="params">desc</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> desc + <span class="keyword">this</span>.name;</span><br><span class="line">    &#125;;</span><br><span class="line">    __decorate([</span><br><span class="line">        logMethod</span><br><span class="line">    ], Person.prototype, <span class="string">"getName"</span>, <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">return</span> Person;</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<p>方法装饰器接收3个参数，属性对象，属性名和属性描述符，为方法增加一些额外的逻辑。</p>
+<p><strong>属性装饰器</strong></p>
+<p>main.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">logProperty</span>(<span class="params">target: <span class="built_in">any</span>, key: <span class="built_in">string</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> _val = <span class="keyword">this</span>[key];</span><br><span class="line">    <span class="keyword">var</span> getter = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`get <span class="subst">$&#123;key&#125;</span> <span class="subst">$&#123;_val&#125;</span>`</span>);</span><br><span class="line">        <span class="keyword">return</span> _val;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> setter = <span class="function"><span class="keyword">function</span> (<span class="params">newVal</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`set <span class="subst">$&#123;key&#125;</span> <span class="subst">$&#123;newVal&#125;</span>`</span>);</span><br><span class="line">        _val = newVal;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">delete</span> <span class="keyword">this</span>[key]) &#123;</span><br><span class="line">        <span class="built_in">Object</span>.defineProperty(target, key, &#123;</span><br><span class="line">            <span class="keyword">get</span>: getter,</span><br><span class="line">            <span class="keyword">set</span>: setter,</span><br><span class="line">            configurable: <span class="literal">true</span>,</span><br><span class="line">            enumerable: <span class="literal">true</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Person &#123;</span><br><span class="line">    <span class="meta">@logProperty</span></span><br><span class="line">    name: <span class="built_in">string</span>;</span><br><span class="line">    age: <span class="built_in">number</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">name, age</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    getName(desc: <span class="built_in">String</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> desc + <span class="keyword">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>main.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> __decorate = (<span class="keyword">this</span> &amp;&amp; <span class="keyword">this</span>.__decorate) || <span class="function"><span class="keyword">function</span> (<span class="params">decorators, target, key, desc</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> c = <span class="built_in">arguments</span>.length, r = c &lt; <span class="number">3</span> ? target : desc === <span class="literal">null</span> ? desc = <span class="built_in">Object</span>.getOwnPropertyDescriptor(target, key) : desc, d;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">Reflect</span> === <span class="string">"object"</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">Reflect</span>.decorate === <span class="string">"function"</span>) r = <span class="built_in">Reflect</span>.decorate(decorators, target, key, desc);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">for</span> (<span class="keyword">var</span> i = decorators.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) <span class="keyword">if</span> (d = decorators[i]) r = (c &lt; <span class="number">3</span> ? d(r) : c &gt; <span class="number">3</span> ? d(target, key, r) : d(target, key)) || r;</span><br><span class="line">    <span class="keyword">return</span> c &gt; <span class="number">3</span> &amp;&amp; r &amp;&amp; <span class="built_in">Object</span>.defineProperty(target, key, r), r;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">logProperty</span>(<span class="params">target, key</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> _val = <span class="keyword">this</span>[key];</span><br><span class="line">    <span class="keyword">var</span> getter = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"get "</span> + key + <span class="string">" "</span> + _val);</span><br><span class="line">        <span class="keyword">return</span> _val;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">var</span> setter = <span class="function"><span class="keyword">function</span> (<span class="params">newVal</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"set "</span> + key + <span class="string">" "</span> + newVal);</span><br><span class="line">        _val = newVal;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">delete</span> <span class="keyword">this</span>[key]) &#123;</span><br><span class="line">        <span class="built_in">Object</span>.defineProperty(target, key, &#123;</span><br><span class="line">            get: getter,</span><br><span class="line">            set: setter,</span><br><span class="line">            configurable: <span class="literal">true</span>,</span><br><span class="line">            enumerable: <span class="literal">true</span></span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> Person = <span class="comment">/** @class */</span> (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    Person.prototype.getName = <span class="function"><span class="keyword">function</span> (<span class="params">desc</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> desc + <span class="keyword">this</span>.name;</span><br><span class="line">    &#125;;</span><br><span class="line">    __decorate([</span><br><span class="line">        logProperty</span><br><span class="line">    ], Person.prototype, <span class="string">"name"</span>, <span class="keyword">void</span> <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> Person;</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<p>属性装饰器接收2个参数，属性对象与属性名，为属性的set和get操作添加一些逻辑</p>
+<p><strong>参数装饰器</strong></p>
+<p>main.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addMetadata</span>(<span class="params">target: <span class="built_in">any</span>, key: <span class="built_in">string</span>, index: <span class="built_in">number</span></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> Person &#123;</span><br><span class="line">    name: <span class="built_in">string</span>;</span><br><span class="line">    age: <span class="built_in">number</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">name, age</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    getName(<span class="meta">@addMetadata</span> desc: <span class="built_in">String</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> desc + <span class="keyword">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>main.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> __decorate = (<span class="keyword">this</span> &amp;&amp; <span class="keyword">this</span>.__decorate) || <span class="function"><span class="keyword">function</span> (<span class="params">decorators, target, key, desc</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> c = <span class="built_in">arguments</span>.length, r = c &lt; <span class="number">3</span> ? target : desc === <span class="literal">null</span> ? desc = <span class="built_in">Object</span>.getOwnPropertyDescriptor(target, key) : desc, d;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">Reflect</span> === <span class="string">"object"</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">Reflect</span>.decorate === <span class="string">"function"</span>) r = <span class="built_in">Reflect</span>.decorate(decorators, target, key, desc);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">for</span> (<span class="keyword">var</span> i = decorators.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) <span class="keyword">if</span> (d = decorators[i]) r = (c &lt; <span class="number">3</span> ? d(r) : c &gt; <span class="number">3</span> ? d(target, key, r) : d(target, key)) || r;</span><br><span class="line">    <span class="keyword">return</span> c &gt; <span class="number">3</span> &amp;&amp; r &amp;&amp; <span class="built_in">Object</span>.defineProperty(target, key, r), r;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> __param = (<span class="keyword">this</span> &amp;&amp; <span class="keyword">this</span>.__param) || <span class="function"><span class="keyword">function</span> (<span class="params">paramIndex, decorator</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">target, key</span>) </span>&#123; decorator(target, key, paramIndex); &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addMetadata</span>(<span class="params">target, key, index</span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> Person = <span class="comment">/** @class */</span> (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    Person.prototype.getName = <span class="function"><span class="keyword">function</span> (<span class="params">desc</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> desc + <span class="keyword">this</span>.name;</span><br><span class="line">    &#125;;</span><br><span class="line">    __decorate([</span><br><span class="line">        __param(<span class="number">0</span>, addMetadata)</span><br><span class="line">    ], Person.prototype, <span class="string">"getName"</span>, <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">return</span> Person;</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<h2 id="装饰器工厂"><a href="#装饰器工厂" class="headerlink" title="装饰器工厂"></a>装饰器工厂</h2><p>装饰器工厂能够鉴别使用哪种装饰器</p>
+<p><img src="/Users/qinhanwen/Desktop/new-images/WX20190818-000319@2x.png" alt="WX20190818-000319@2x"></p>
+<p>使用<code>@log</code>装饰器</p>
+<p><img src="/Users/qinhanwen/Desktop/new-images/WX20190818-000811@2x.png" alt="WX20190818-000811@2x"></p>
+<h2 id="带参装饰器"><a href="#带参装饰器" class="headerlink" title="带参装饰器"></a>带参装饰器</h2><p>特殊的装饰器工厂</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">logMethod</span>(<span class="params">options: <span class="built_in">any</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">target: <span class="built_in">any</span>, key: <span class="built_in">string</span>, descriptor: <span class="built_in">any</span></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(options);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Person &#123;</span><br><span class="line">    name: <span class="built_in">string</span>;</span><br><span class="line">    age: <span class="built_in">number</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">name, age</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@logMethod</span>(<span class="string">'method'</span>)</span><br><span class="line">    getName(desc: <span class="built_in">String</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> desc + <span class="keyword">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="新语法"><a href="#新语法" class="headerlink" title="新语法"></a>新语法</h2><p><code>declare var</code>声明全局变量</p>
+<p><code>declare function</code> 声明全局方法</p>
+<p><code>declare class</code> 声明全局类</p>
+<p><code>declare enum</code> 声明全局枚举类型</p>
+<p><code>declare namespace</code>声明（含有子属性的）全局对象</p>
+<p><code>interface</code> 和 <code>type</code> 声明全局类型</p>
+<p><code>export</code> 导出变量</p>
+<p><code>export namespace</code> 导出（含有子属性的）对象</p>
+<p><code>export default</code>ES6 默认导出</p>
+<p><code>export =</code> commonjs 导出模块</p>
+<p><code>export as namespace</code>UMD 库声明全局变量</p>
+<p><code>declare global</code> 扩展全局变量</p>
+<p><code>declare module</code>扩展模块</p>
+<p><code>/// &lt;reference /&gt;</code>三斜线指令</p>
+<p><strong>全局变量的声明文件主要有以下几种语法：</strong></p>
+<ul>
+<li><code>declare var</code>声明全局变量</li>
+</ul>
+<p>用来定义一个全局变量的类型</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="keyword">var</span> <span class="function"><span class="keyword">function</span><span class="title">A</span>: (<span class="params">param: <span class="built_in">any</span></span>) =&gt; <span class="title">any</span></span>; </span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">let</span> <span class="function"><span class="keyword">function</span><span class="title">B</span>: (<span class="params">param: <span class="built_in">any</span></span>) =&gt; <span class="title">any</span></span>; </span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">const</span> <span class="function"><span class="keyword">function</span><span class="title">C</span>: (<span class="params">param: <span class="built_in">any</span></span>) =&gt; <span class="title">any</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>declare function</code> 声明全局方法</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="function"><span class="keyword">function</span> <span class="function"><span class="keyword">function</span><span class="title">A</span>(<span class="params">selector: <span class="built_in">string</span></span>): <span class="title">any</span></span>;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>declare class</code>声明全局类</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="keyword">class</span> Animal &#123;</span><br><span class="line">    name: <span class="built_in">string</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>);</span><br><span class="line">    sayHi(<span class="params"></span>): string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>declare enum</code> 声明全局枚举类型</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="keyword">enum</span> Directions &#123;</span><br><span class="line">    Up,</span><br><span class="line">    Down,</span><br><span class="line">    Left,</span><br><span class="line">    Right</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>declare namespace</code> 声明（含有子属性的）全局对象</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="keyword">namespace</span> jQuery &#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">ajax</span>(<span class="params">url: <span class="built_in">string</span>, settings?: <span class="built_in">any</span></span>): <span class="title">void</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//声明这个拥有多个子属性的全局变量</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>interface</code> 和 <code>type</code>声明全局类型</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> AjaxSettings &#123;</span><br><span class="line">    method?: <span class="string">'GET'</span> | <span class="string">'POST'</span></span><br><span class="line">    data?: <span class="built_in">any</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>type</code> 与 <code>interface</code> 类似</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Name = <span class="built_in">string</span>;</span><br><span class="line"><span class="keyword">type</span> NameResolver = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">string</span>;</span><br><span class="line"><span class="keyword">type</span> NameOrResolver = Name | NameResolver;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params">n: NameOrResolver</span>): <span class="title">Name</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> n === <span class="string">'string'</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> n;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> n();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>声明语句中只能定义类型，不要在声明语句中定义具体实现。</p>
+<h2 id="声明文件"><a href="#声明文件" class="headerlink" title="声明文件"></a>声明文件</h2><p><strong>什么是<code>.d.ts文件</code></strong></p>
+<p>这个文件是对第三方库类型API的类型声明，<code>JavaScript</code>和<code>TypeScript</code>能集成在一起依赖于它。</p>
+<p><strong>@types</strong></p>
+<p>使用 <code>@types</code> 统一管理第三方库的声明文件，可以使用<code>npm</code>直接安装对应依赖包的声明模块</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm install @types/jquery -S</span><br></pre></td></tr></table></figure>
+<p><strong>书写声明文件</strong></p>
+<p>不同场景下，声明文件的内容和使用方式也不同。</p>
+<h2 id="npm包"><a href="#npm包" class="headerlink" title="npm包"></a>npm包</h2><p>npm包的声明文件可能存在两个地方</p>
+<ul>
+<li><code>package.json</code> 中有 <code>types</code> 字段，或者有一个 <code>index.d.ts</code> 声明文件</li>
+<li>我们只需要尝试安装一下对应的 <code>@types</code> 包</li>
+</ul>
+<p>如果没有描述文件，可以自己写声明文件</p>
+<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><p><code>abstract</code>用于定义抽象类和其中的抽象方法，它有以下特点</p>
+<ul>
+<li>抽象类是不允许被实例化</li>
+<li>抽象方法必须被子类实现</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> Animal &#123;</span><br><span class="line">    name: <span class="built_in">string</span></span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">name</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    sayHi(<span class="built_in">string</span>) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> Dog <span class="keyword">extends</span> Animal &#123;</span><br><span class="line">    sayHi() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`hi <span class="subst">$&#123;this.name&#125;</span>`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">new</span> Dog(<span class="string">'dog'</span>).sayHi();<span class="comment">//hi dog</span></span><br></pre></td></tr></table></figure>
+<p>看一下类的继承，使用 <code>extends</code> 关键字实现继承</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Animal &#123;</span><br><span class="line">    name: <span class="built_in">string</span></span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">name</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    sayHi(<span class="built_in">string</span>) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> Dog <span class="keyword">extends</span> Animal &#123;</span><br><span class="line">    sayHi() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`hi <span class="subst">$&#123;this.name&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">new</span> Dog(<span class="string">'dog'</span>).sayHi();<span class="comment">//hi dog</span></span><br></pre></td></tr></table></figure>
+<p><code>Dog</code>类里没有构造函数，<code>this</code>指向<code>Dog</code>实例，看下编译成JavaScript</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> __extends = (<span class="keyword">this</span> &amp;&amp; <span class="keyword">this</span>.__extends) || (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> extendStatics = <span class="function"><span class="keyword">function</span> (<span class="params">d, b</span>) </span>&#123;<span class="comment">//这个方法让d.__proto__ = b</span></span><br><span class="line">        extendStatics = <span class="built_in">Object</span>.setPrototypeOf ||</span><br><span class="line">            (&#123; <span class="attr">__proto__</span>: [] &#125; <span class="keyword">instanceof</span> <span class="built_in">Array</span> &amp;&amp; <span class="function"><span class="keyword">function</span> (<span class="params">d, b</span>) </span>&#123; d.__proto__ = b; &#125;) ||</span><br><span class="line">            <span class="function"><span class="keyword">function</span> (<span class="params">d, b</span>) </span>&#123; <span class="keyword">for</span> (<span class="keyword">var</span> p <span class="keyword">in</span> b) <span class="keyword">if</span> (b.hasOwnProperty(p)) d[p] = b[p]; &#125;;</span><br><span class="line">        <span class="keyword">return</span> extendStatics(d, b);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">d, b</span>) </span>&#123;</span><br><span class="line">        extendStatics(d, b);</span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">__</span>(<span class="params"></span>) </span>&#123; <span class="keyword">this</span>.constructor = d; &#125;</span><br><span class="line">        d.prototype = b === <span class="literal">null</span> ? <span class="built_in">Object</span>.create(b) : (__.prototype = b.prototype, <span class="keyword">new</span> __());</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)();</span><br><span class="line"><span class="keyword">var</span> Animal = <span class="comment">/** @class */</span> (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    Animal.prototype.sayHi = <span class="function"><span class="keyword">function</span> (<span class="params">string</span>) </span>&#123;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> Animal;</span><br><span class="line">&#125;());</span><br><span class="line"><span class="keyword">var</span> Dog = <span class="comment">/** @class */</span> (<span class="function"><span class="keyword">function</span> (<span class="params">_super</span>) </span>&#123;</span><br><span class="line">    __extends(Dog, _super);</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Dog</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> _super !== <span class="literal">null</span> &amp;&amp; _super.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>) || <span class="keyword">this</span>;<span class="comment">//这里调用时候走进Animal方法，this指向Dog，所以name属性在Dog实例上</span></span><br><span class="line">    &#125;</span><br><span class="line">    Dog.prototype.sayHi = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"hi "</span> + <span class="keyword">this</span>.name); </span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> Dog;</span><br><span class="line">&#125;(Animal));</span><br><span class="line"><span class="keyword">new</span> Dog(<span class="string">'dog'</span>).sayHi(); <span class="comment">//hi dog</span></span><br></pre></td></tr></table></figure>
+<p>类的继承特点：</p>
+<ul>
+<li>可以不需要实现父类的方法</li>
+<li>可以使用 <code>super</code> 关键字来调用父类的构造函数和方法</li>
+</ul>
+<h2 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h2><p><a href="https://zhongsp.gitbooks.io/typescript-handbook/content/doc/handbook/tsconfig.json.html" target="_blank" rel="noopener">tsconfig.js文件</a></p>
+<p><a href="https://ts.xcatliu.com/basics/declaration-files" target="_blank" rel="noopener">https://ts.xcatliu.com/basics/declaration-files</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/TS/" rel="tag"># TS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/14/大前端混合应用专题篇-4/" rel="next" title="大前端混合应用专题篇(4)">
+                <i class="fa fa-chevron-left"></i> 大前端混合应用专题篇(4)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">87</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript面向对象编程"><span class="nav-number">1.</span> <span class="nav-text">TypeScript面向对象编程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SOLID（下面的首字母简写）原则"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">SOLID（下面的首字母简写）原则</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建项目"><span class="nav-number">2.</span> <span class="nav-text">新建项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装饰器"><span class="nav-number">3.</span> <span class="nav-text">装饰器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装饰器工厂"><span class="nav-number">4.</span> <span class="nav-text">装饰器工厂</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#带参装饰器"><span class="nav-number">5.</span> <span class="nav-text">带参装饰器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新语法"><span class="nav-number">6.</span> <span class="nav-text">新语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#声明文件"><span class="nav-number">7.</span> <span class="nav-text">声明文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#npm包"><span class="nav-number">8.</span> <span class="nav-text">npm包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象类"><span class="nav-number">9.</span> <span class="nav-text">抽象类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资料"><span class="nav-number">10.</span> <span class="nav-text">资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
