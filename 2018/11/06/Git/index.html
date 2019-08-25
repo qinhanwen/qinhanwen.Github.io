@@ -109,7 +109,7 @@
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190719-005203@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190719-233059@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/6F00020A81A132B95C9D3FE24E431754.png">
-<meta property="og:updated_time" content="2019-08-15T16:09:42.524Z">
+<meta property="og:updated_time" content="2019-08-23T22:00:58.067Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git">
 <meta name="twitter:description" content="Git常用命令1.忽略已经在版本控制里的文件12345$ git update-index --assume-unchanged 文件路径#这样 Git 会忽略文件的修改。$ git update-index --no-assume-unchanged 文件路径# 需要提交的时候需要重置改标识，.gitignore无法忽略在添加到版本中的文件 某目录下所有文件可以写成 src/** 2.更改签名1">
@@ -413,6 +413,7 @@
 <p>需要将多笔提交，复制到其他分支的时候，如图</p>
 <p><img src="http://www.qinhanwen.xyz/WX20190719-005203@2x.png" alt="WX20190719-005203@2x"></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git rebase  [startpoint]   [endpoint]  --onto  [branchName]</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>放弃合并，回到rebase操作之前的状态，之前的提交的不会丢弃</span><br><span class="line"><span class="meta">$</span> git rebase --abort</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>合并冲突，结合"git add 文件"命令一起用与修复冲突，提示开发者，一步一步地有没有解决冲突</span><br><span class="line"><span class="meta">$</span> git rebase --continue</span><br></pre></td></tr></table></figure>
 <h5 id="16-pull"><a href="#16-pull" class="headerlink" title="16. pull"></a>16. pull</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git pull</span><br><span class="line"><span class="meta">#</span>等价于	</span><br><span class="line"><span class="meta">#</span> git fetch + git merge FETCH_HEAD </span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> git pull --rebase</span><br><span class="line"><span class="meta">#</span>等价于	</span><br><span class="line"><span class="meta">#</span> git fetch + git rebase FETCH_HEAD </span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> git pull origin develop:develop</span><br><span class="line"><span class="meta">#</span>远端develop更新到本地的develop</span><br></pre></td></tr></table></figure>
 <p><strong>FETCH_HEAD：</strong> 是一个版本链接，记录在本地的一个文件中，指向着目前已经从远程仓库取下来的分支的末端版本。</p>
 <p>比如有两个分支</p>
@@ -557,7 +558,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">87</span>
+                <span class="site-state-item-count">92</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -568,7 +569,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -579,7 +580,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
