@@ -280,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/26/了解浏览器渲染过程/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/26/实现call、apply、bind/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -299,7 +299,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/26/了解浏览器渲染过程/" itemprop="url">了解浏览器渲染过程</a></h1>
+                <a class="post-title-link" href="/2019/02/26/实现call、apply、bind/" itemprop="url">简单实现call、apply、bind</a></h1>
         
 
         <div class="post-meta">
@@ -311,8 +311,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-26T17:21:08+08:00">
-                2018-12-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-26T14:45:24+08:00">
+                2019-02-26
               </time>
             
 
@@ -334,8 +334,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/优化/" itemprop="url" rel="index">
-                    <span itemprop="name">优化</span>
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
                   </a>
                 </span>
 
@@ -373,21 +373,11 @@
       
         
           
-          了解浏览器渲染过程
-参考链接：https://juejin.im/post/5c24d736f265da614b120d4a
-​           https://blog.csdn.net/u013510838/article/details/55271887    
-​           视频教程  
-
-先说结论
-处理HTML标记数据并生成DOM树。
-处理CSS标记数据并生成CSSOM树。
-将DOM树与CSSOM树合并在一起生成渲染树。
-遍历渲染树开始布局，计算每个节点的位置信息。
-将每
+          Function.prototype.call()先看下call的表现，第一个🌰12345678910111213var cat = &#123;    food:'fish',    eat:function()&#123;        console.log(this.food);    &#125;&#125;var dog = &#123;    food:'meat',&#125;cat.eat.call(dog);//meatcat.eat.call();//undefinedc
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/26/了解浏览器渲染过程/#more" rel="contents">
+            <a class="btn" href="/2019/02/26/实现call、apply、bind/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -438,7 +428,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/26/图片懒加载/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/25/记录一次小小的需求过程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -457,7 +447,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/26/图片懒加载/" itemprop="url">图片懒加载</a></h1>
+                <a class="post-title-link" href="/2019/02/25/记录一次小小的需求过程/" itemprop="url">记录一次小小的需求过程</a></h1>
         
 
         <div class="post-meta">
@@ -469,8 +459,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-26T11:09:18+08:00">
-                2018-12-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-25T12:51:23+08:00">
+                2019-02-25
               </time>
             
 
@@ -492,8 +482,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/优化/" itemprop="url" rel="index">
-                    <span itemprop="name">优化</span>
+                  <a href="/categories/小记/" itemprop="url" rel="index">
+                    <span itemprop="name">小记</span>
                   </a>
                 </span>
 
@@ -531,18 +521,14 @@
       
         
           
-          图片懒加载图片优化：
-1）压缩或者剪裁
-2）减少http请求：使用雪碧图
-3）使用字体图标
-4）图片懒加载
-只有上面这四种方法吗，当然不是，我只了解这四种哈哈哈哈哈🤣
-图片懒加载1）为什么需要懒加载有的页面会有非常非常多的图片，一进入页面，就去加载全部的图片，会让加载过程变的漫长。而且一次发送那么多请求也会增加服务器压力，并且我打开一个页面，可能我只会浏览部分内容，有些没浏览到的地方，其实我是不需要加载出来的，我们只需要加载需要的资源，显然这样子是不合理的。
-2）实现思路1.我们给图片的src
+          需求背景：在我们应用嵌入客户的native容器，客户想要通过它们的app扫一扫二维码登录pc版。类似微信扫一扫二维码登录pc版本，弹出确认登录页面，点击确认后登录。
+实现思路：1.客户使用手机app扫一扫PC端的登录二维码之后，打开一个新的webview，地址是这个登录页的地址，并且将二维码里的信息，以及token当做查询参数拼接在地址上。
+2.打开后页面从url里获取对应的数据，在用户点击登录按钮的时候，发送一个POST请求给服务端，验证是否登录成功。
+3.PC端轮训发送请求，询问服务端是否该
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/26/图片懒加载/#more" rel="contents">
+            <a class="btn" href="/2019/02/25/记录一次小小的需求过程/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -593,7 +579,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/25/事件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/21/继承/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -612,7 +598,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/25/事件/" itemprop="url">事件</a></h1>
+                <a class="post-title-link" href="/2019/02/21/继承/" itemprop="url">继承</a></h1>
         
 
         <div class="post-meta">
@@ -624,8 +610,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-25T23:04:14+08:00">
-                2018-12-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-21T23:18:45+08:00">
+                2019-02-21
               </time>
             
 
@@ -647,8 +633,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/优化/" itemprop="url" rel="index">
-                    <span itemprop="name">优化</span>
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
                   </a>
                 </span>
 
@@ -686,16 +672,13 @@
       
         
           
-          
-参考资料：https://www.bitovi.com/blog/a-crash-course-in-how-dom-events-work
-
-事件事件监听1.怎样监听一个事件DOM0123&lt;button onclick="alert('hello');"&gt;   click me! &lt;/button&gt;
-这种直接将事件混合在HTML中，非常的不灵活
-DOM11234var button = document.getElementById('button');button.
+          什么是继承？我认为利用原型链让一个引用类型，可以使用另一个引用类型的属性和方法，就叫做继承。
+继承方式1.原型链使用原型链，让一个引用类型继承另外一个引用类型的属性和方法。
+12345678910111213141516171819202122function Parent()&#123;    this.name = 'qinhanwen';&#125;Parent.prototype.getParentName = function()&#123;    console.log(this.n
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/25/事件/#more" rel="contents">
+            <a class="btn" href="/2019/02/21/继承/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -746,7 +729,7 @@ DOM11234var button = document.getElementById('button');button.
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/25/回流和重绘/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/对象/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -765,7 +748,7 @@ DOM11234var button = document.getElementById('button');button.
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/25/回流和重绘/" itemprop="url">重排和重绘</a></h1>
+                <a class="post-title-link" href="/2019/02/18/对象/" itemprop="url">对象和Object构造函数</a></h1>
         
 
         <div class="post-meta">
@@ -777,8 +760,8 @@ DOM11234var button = document.getElementById('button');button.
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-25T11:24:23+08:00">
-                2018-12-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-18T20:44:09+08:00">
+                2019-02-18
               </time>
             
 
@@ -787,28 +770,6 @@ DOM11234var button = document.getElementById('button');button.
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/优化/" itemprop="url" rel="index">
-                    <span itemprop="name">优化</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -839,18 +800,12 @@ DOM11234var button = document.getElementById('button');button.
       
         
           
-          
-参考资料         https://juejin.im/post/5c15f797f265da61141c7f86
-
-接上浏览器渲染过程
-经过对浏览器渲染过程的了解，最后两步就是渲染，也就是在这个阶段出现了重排与重绘，也同时是最耗时的阶段。(意思就是说在第一次加载页面的时候，就会出现重排与重绘)。
-重排（回流）当DOM的变化影响到了元素的几何信息，浏览器需要重新计算元素的宽高信息和位置信息。这个过程叫重排。
-触发的条件1.添加或者删除可见的DOM元素；
-2.元素尺寸改变——边距、填充、边
+          对象和Object构造函数没有单独区分出es6新增的一些属性方法
+1.对象创建一个对象12345678910var obj = &#123;&#125;;var obj1 = Object();//参数接受任何值,如果是null或者undefined，则返回一个空对象，否则返回给定的值的对应类型的对象var obj2 = new Object();//同上var obj3 = Object.create(&#123;&#125;);//这里参数接受一个对象或者null，下面有详细的说明//它们之
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/25/回流和重绘/#more" rel="contents">
+            <a class="btn" href="/2019/02/18/对象/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -901,7 +856,7 @@ DOM11234var button = document.getElementById('button');button.
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/20/初识macrotask和microtask/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/13/import-export等等/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -920,7 +875,7 @@ DOM11234var button = document.getElementById('button');button.
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/20/初识macrotask和microtask/" itemprop="url">事件循环</a></h1>
+                <a class="post-title-link" href="/2019/02/13/import-export等等/" itemprop="url">import export 和 export default</a></h1>
         
 
         <div class="post-meta">
@@ -932,8 +887,8 @@ DOM11234var button = document.getElementById('button');button.
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-20T18:44:49+08:00">
-                2018-12-20
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-13T21:08:35+08:00">
+                2019-02-13
               </time>
             
 
@@ -942,28 +897,6 @@ DOM11234var button = document.getElementById('button');button.
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/优化/" itemprop="url" rel="index">
-                    <span itemprop="name">优化</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -994,16 +927,15 @@ DOM11234var button = document.getElementById('button');button.
       
         
           
-          事件循环（Event Loop）入门这里只说浏览器环境下,在不同浏览器下表现不同，这里是在chrome!!!!
-参考资料         https://www.codercto.com/a/18956.html
-https://github.com/aooy/blog/issues/5
-​             这个地址，可以看到具体的执行过程，还有详细的教程，中文字幕哈哈哈哈
-
-1.单线程的JavaScript负责解析和执行JavaScript的线程只有一个，同一时间只能执行一段JavaS
+          模块功能主要由两个命令构成：export和import。export命令用于规定模块的对外接口，import命令用于输入其他模块提供的功能
+export与importtest.js
+123456export var name = "qinhanwen";export var age = 25;//等价于var name = "qinhanwen";var age = 25;export &#123; name, age &#125;;
+test1.js
+123import &#123; name
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/20/初识macrotask和microtask/#more" rel="contents">
+            <a class="btn" href="/2019/02/13/import-export等等/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1054,7 +986,7 @@ https://github.com/aooy/blog/issues/5
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/七牛云测试域名过期/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/02/react入门-基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1073,7 +1005,7 @@ https://github.com/aooy/blog/issues/5
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/15/七牛云测试域名过期/" itemprop="url">七牛云测试域名过期</a></h1>
+                <a class="post-title-link" href="/2019/02/02/react入门-基础/" itemprop="url">react入门-基础</a></h1>
         
 
         <div class="post-meta">
@@ -1085,8 +1017,8 @@ https://github.com/aooy/blog/issues/5
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T11:06:25+08:00">
-                2018-12-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-02T20:38:58+08:00">
+                2019-02-02
               </time>
             
 
@@ -1108,8 +1040,8 @@ https://github.com/aooy/blog/issues/5
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/puppeteer/" itemprop="url" rel="index">
-                    <span itemprop="name">puppeteer</span>
+                  <a href="/categories/react入门/" itemprop="url" rel="index">
+                    <span itemprop="name">react入门</span>
                   </a>
                 </span>
 
@@ -1147,11 +1079,21 @@ https://github.com/aooy/blog/issues/5
       
         
           
-          背景：有一天突然发现七牛云测试域名被回收了，有些图片显示不出来了，图片也不能直接下载，本地还没有备份。于是乎想到的办法就是打开一张张图片链接，手动保存到本地。作为一只程序🐒，这种事情自然是做不出来的，查了一堆资料都觉得麻烦，所以用自己的方式解决问题，当然也有解决方案。想法：其实想法就是1.登陆七牛云2.跳转到对应的页面3.加载完成的图片列表，并且获取全部图片的名字（因为我只有80张，所以只需要点击一次加载更多，就可以获取全部列表）4.打开图片完整路径，下载图片到本地使用puppeteer来解决
+          
+资料    https://github.com/semlinker/reactjs-interview-questions
+
+[TOC]
+使用node版本10.11.0
+1.开始安装1$ npm install -g create-react-app
+创建项目1$ create-react-app app
+运行项目12$ cd app$ npm start
+2.JSXJSX是一种用于描述UI的JavaScript拓展语法。
+标签类型DOM类型标签
+1const element = &lt;p
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/15/七牛云测试域名过期/#more" rel="contents">
+            <a class="btn" href="/2019/02/02/react入门-基础/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1202,7 +1144,7 @@ https://github.com/aooy/blog/issues/5
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/11/JSBridge-分离插件js/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/29/JSBrige-简单了解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1221,7 +1163,7 @@ https://github.com/aooy/blog/issues/5
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/11/JSBridge-分离插件js/" itemprop="url">JSBridge-分离插件js</a></h1>
+                <a class="post-title-link" href="/2019/01/29/JSBrige-简单了解/" itemprop="url">JSBrige-简单了解</a></h1>
         
 
         <div class="post-meta">
@@ -1233,8 +1175,8 @@ https://github.com/aooy/blog/issues/5
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-11T23:04:36+08:00">
-                2018-12-11
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-29T22:55:47+08:00">
+                2019-01-29
               </time>
             
 
@@ -1295,14 +1237,16 @@ https://github.com/aooy/blog/issues/5
       
         
           
-          JSBridge-分离插件js宝哥总是说做Hybird应用开发的，这个要了解一下，那就了解一下哈哈哈哈。刚好有机会写个接入的文档，总结一下流程。
-1.JSBridge其实就是Native和Web之间通信的桥梁。
-2.需求1）引入lauch.js，根据ua判断，引入不同平台的cordova.js。
-2）引入的cordova.js会根据配置文件cordova.plugin.js里的配置数据（数组），然后再动态创建script标签，引入不同的插件js。（cordova.js、cordova.plugi
+          
+参考资料：cordova.js源码分析
+
+通过整理JSBridge分离插件js稍微了解了cordova.js文件，还有不同平台间js通知原生层的方式。
+JSBridge在Hybrid App开发中，H5应用是内嵌到原生的WebView组件中，纯H5在很多功能使用都收到限制，而且功能的使用存在很多的兼容性问题，所以使用一些受限的功能时候需要依赖原生，而JSbridge就是JS与原生之间通信的桥梁。
+JS调用Native1）注入 API其实就是向JavaScript的Context（window）
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/11/JSBridge-分离插件js/#more" rel="contents">
+            <a class="btn" href="/2019/01/29/JSBrige-简单了解/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1353,7 +1297,7 @@ https://github.com/aooy/blog/issues/5
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/原型和原型链/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/循环/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1372,7 +1316,7 @@ https://github.com/aooy/blog/issues/5
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/06/原型和原型链/" itemprop="url">原型和原型链</a></h1>
+                <a class="post-title-link" href="/2019/01/23/循环/" itemprop="url">循环</a></h1>
         
 
         <div class="post-meta">
@@ -1384,8 +1328,8 @@ https://github.com/aooy/blog/issues/5
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-06T00:03:52+08:00">
-                2018-12-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-23T17:44:54+08:00">
+                2019-01-23
               </time>
             
 
@@ -1446,17 +1390,14 @@ https://github.com/aooy/blog/issues/5
       
         
           
-          原型和原型链
- https://juejin.im/post/5835853f570c35005e413b19
- https://juejin.im/post/5c218e4c5188254caf18bb1a
-
-引用类型都是对象原型与原型链对象都有原型，原型也是对象，也有自己的原型，就组成了一条原型链。在对象上找某个属性没找到就会往原型链上找。
-第一个🌰
-1234567891011121314var obj = &#123;&#125;;console.log(obj.__proto__ ==
+          实现一下数组方法 forEach，map，reduce，filter先写自己实现的想法，可能有疏漏和错误，发现了再更改。1.forEach首先了解一下forEach
+1array.forEach(callback[, thisObject]);
+写个例子观察一下
+12345678910111213var arr = [1,2,3];var obj = &#123;    arr1:[]&#125;arr.forEach(function(item,index,array)&#123;    co
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/06/原型和原型链/#more" rel="contents">
+            <a class="btn" href="/2019/01/23/循环/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1507,7 +1448,7 @@ https://github.com/aooy/blog/issues/5
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/this/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/下载网页请求的图片资源/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1526,7 +1467,7 @@ https://github.com/aooy/blog/issues/5
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/05/this/" itemprop="url">this</a></h1>
+                <a class="post-title-link" href="/2019/01/18/下载网页请求的图片资源/" itemprop="url">下载网页的所有图片资源</a></h1>
         
 
         <div class="post-meta">
@@ -1538,8 +1479,8 @@ https://github.com/aooy/blog/issues/5
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-05T23:30:20+08:00">
-                2018-12-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-18T23:43:46+08:00">
+                2019-01-18
               </time>
             
 
@@ -1561,8 +1502,8 @@ https://github.com/aooy/blog/issues/5
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/puppeteer/" itemprop="url" rel="index">
+                    <span itemprop="name">puppeteer</span>
                   </a>
                 </span>
 
@@ -1600,13 +1541,17 @@ https://github.com/aooy/blog/issues/5
       
         
           
-          this在手写Promise的时候被this折腾的不清，网上this又一堆资料看了也还是不会，于是决定认真的看一下你不知道的JavaScript。用的例子基本都是原文偷的。
-首先this只与调用时候的上下文环境有关，与声明的上下文环境无关。1.了解调用位置就是函数被调用的位置
-12345678910111213141516function baz() &#123;    // 当前调用栈是:baz    // 因此，当前调用位置是全局作用域    console.log("baz");    b
+          思路1.获取图片的请求地址，保存到列表。
+2.遍历列表，下载图片到本地
+实现使用Puppeteer
+1.过滤请求，只需要图片的请求首先我们了解一下Accept字段，表示客户端能够处理的媒体类型，还有优先级，q的值从0到1（默认1）。
+
+那我们只要过滤出image的元素的请求就好了，刚好Puppeteer也提供了API，request.resourceType()，它会返回请求的资源类型。
+12345678910111213141516171819202122232425262728293031c
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/05/this/#more" rel="contents">
+            <a class="btn" href="/2019/01/18/下载网页请求的图片资源/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1657,7 +1602,7 @@ https://github.com/aooy/blog/issues/5
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/flex布局/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/13/linear-gradient/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1676,7 +1621,7 @@ https://github.com/aooy/blog/issues/5
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/05/flex布局/" itemprop="url">Flex布局</a></h1>
+                <a class="post-title-link" href="/2019/01/13/linear-gradient/" itemprop="url">linear-gradient</a></h1>
         
 
         <div class="post-meta">
@@ -1688,8 +1633,8 @@ https://github.com/aooy/blog/issues/5
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-05T10:27:01+08:00">
-                2018-12-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-13T11:40:43+08:00">
+                2019-01-13
               </time>
             
 
@@ -1750,17 +1695,14 @@ https://github.com/aooy/blog/issues/5
       
         
           
-          Flex布局
-参考资料：http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
+          
+参考资料 https://www.w3cplus.com/css3/do-you-really-understand-css-linear-gradients.html
 
-1.弹性布局（flexible box）任何一个容器都可以变成Flex布局
-1）块级元素123.box&#123;    display:flex;&#125;
-2）行内元素也可以123.box&#123;    display:inline-flex;&#125;
-强大的东西一般都有兼容性问题，Webkit 内核的浏览器，需要加上-webkit。之前碰到i
+渐变背景，都是在chrome下调试，这个样式有兼容性问题，在不同浏览器有差异语法:12345&lt;linear-gradient&gt; = linear-gradient([ [ &lt;angle&gt; | to &lt;side-or-corner&gt; ] ,]? &lt;color-stop&gt;[, &l
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/05/flex布局/#more" rel="contents">
+            <a class="btn" href="/2019/01/13/linear-gradient/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1802,7 +1744,7 @@ https://github.com/aooy/blog/issues/5
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1848,7 +1790,7 @@ https://github.com/aooy/blog/issues/5
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">92</span>
+                <span class="site-state-item-count">106</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1859,7 +1801,7 @@ https://github.com/aooy/blog/issues/5
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1870,7 +1812,7 @@ https://github.com/aooy/blog/issues/5
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

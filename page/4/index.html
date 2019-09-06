@@ -280,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/08/MongoDB安装和使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/16/数组/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -299,7 +299,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/08/MongoDB安装和使用/" itemprop="url">MongoDB安装和使用Mac OSX</a></h1>
+                <a class="post-title-link" href="/2019/06/16/数组/" itemprop="url">数组</a></h1>
         
 
         <div class="post-meta">
@@ -311,8 +311,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-08T20:22:16+08:00">
-                2019-04-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-16T10:35:52+08:00">
+                2019-06-16
               </time>
             
 
@@ -334,8 +334,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/拓展/" itemprop="url" rel="index">
-                    <span itemprop="name">拓展</span>
+                  <a href="/categories/算法与数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">算法与数据结构</span>
                   </a>
                 </span>
 
@@ -373,16 +373,25 @@
       
         
           
-          
-参考       https://jspang.com/post/mongodb.html
-
-[TOC]
-下载与安装下载地址
-123456789101112131415161718# 下载之后，将解压后的文件夹重命名为 MongoDB 放入 /usr/local ,可以打开Finder后按 shift + command + G 输入 /usr/local 回车#配置环境变量，打开终端，输入$ open -e .bash_profile#在打开的文件中加入$ export PATH=$&#12
+          数组数组是最简单的内存数据结构
+创建和初始化数组
+123var arr = [];var arr = new Array(2);var arr = Array(2);
+添加元素
+1arr[index] = 1;
+push方法
+把元素添加到数组末尾
+12arr.push(1);arr.push(2,3);
+unshift方法
+数组首位插入元素
+12arr.unshift(-1);arr.unshift(-2,-3);
+pop方法
+从末尾删除元素，并返回该元素
+1arr.pop();
+shift方法
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/08/MongoDB安装和使用/#more" rel="contents">
+            <a class="btn" href="/2019/06/16/数组/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -433,7 +442,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/30/react入门-路由/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/16/算法复杂度/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -452,7 +461,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/30/react入门-路由/" itemprop="url">react入门-路由</a></h1>
+                <a class="post-title-link" href="/2019/06/16/算法复杂度/" itemprop="url">复杂度</a></h1>
         
 
         <div class="post-meta">
@@ -464,8 +473,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-30T22:20:33+08:00">
-                2019-03-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-16T10:35:48+08:00">
+                2019-06-16
               </time>
             
 
@@ -487,8 +496,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/react入门/" itemprop="url" rel="index">
-                    <span itemprop="name">react入门</span>
+                  <a href="/categories/算法与数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">算法与数据结构</span>
                   </a>
                 </span>
 
@@ -526,21 +535,13 @@
       
         
           
-          单页应用与多页应用单页应用
-1）一次性载入公共资源（js，css）
-2）页面局部更新
-3）页面间传递数据比较容易
-多页应用
-1）每次都重新载入公共资源
-2）页面刷新
-3）页面间传递数据比较不方便（url，本地存储等）
-​    没有太多的介绍区别，反正就是多页应用每次都请求一个页面的地址，加载这个页面以及有关的所有资源，服务器压力比较大，而单页应用首次加载的时候比较久，之后变换URL只是更新视图。
-react Router安装有多个库，这里安装react-router-dom
-1$ npm in
+          一、 什么是复杂度分析 ，为什么需要复杂度分析什么是复杂度分析​    复杂度分析的是算法执行时间（或占用空间）与数据规模的增长关系
+为什么需要复杂度分析​    和性能测试相比，复杂度分析有不依赖执行环境、成本低、效率高、易操作、指导性强的特点，并且掌握复杂度分析，将能编写出性能更优的代码，有利于降低系统开发和维护成本。
+二、如何进行复杂度分析大 O 表示法算法的执行时间与每行代码的执行次数成正比，用 T(n) = O(f(n)) 表示。其中 T(n) 表示算法执行总时间，f(n) 表示每行代
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/30/react入门-路由/#more" rel="contents">
+            <a class="btn" href="/2019/06/16/算法复杂度/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -591,7 +592,7 @@ react Router安装有多个库，这里安装react-router-dom
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/30/react入门-高阶组件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/11/nginx入门/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -610,7 +611,7 @@ react Router安装有多个库，这里安装react-router-dom
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/30/react入门-高阶组件/" itemprop="url">react入门-高阶组件</a></h1>
+                <a class="post-title-link" href="/2019/06/11/nginx入门/" itemprop="url">nginx入门</a></h1>
         
 
         <div class="post-meta">
@@ -622,8 +623,8 @@ react Router安装有多个库，这里安装react-router-dom
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-30T15:33:57+08:00">
-                2019-03-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-11T22:35:16+08:00">
+                2019-06-11
               </time>
             
 
@@ -645,8 +646,8 @@ react Router安装有多个库，这里安装react-router-dom
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/react入门/" itemprop="url" rel="index">
-                    <span itemprop="name">react入门</span>
+                  <a href="/categories/Nginx/" itemprop="url" rel="index">
+                    <span itemprop="name">Nginx</span>
                   </a>
                 </span>
 
@@ -684,13 +685,15 @@ react Router安装有多个库，这里安装react-router-dom
       
         
           
-          高阶组件接受个函数，并且返回也是个函数
-举个🌰，需要从localStorage取得数据，在页面中展示
-123456789101112131415import React, &#123; Component &#125; from 'react';export default class Example extends Component &#123;    componentWillMount() &#123;        let name = localStorage.getItem('n
+          Nginx是一个高性能的HTTP和反向代理web服务器，大部分使用作为代理。
+MacOS安装1.先安装homebrew1/usr/bin/ruby -e "$(curl -fsSL  https://raw.githubusercontent.com/Homebrew/install/master/install)"
+安装的时候碰到这样的问题，一直卡在这里。
+
+解决方案：打开Xcode，然后选择「Xcode」-「Open Developer Tool」-「More Developer Tools
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/30/react入门-高阶组件/#more" rel="contents">
+            <a class="btn" href="/2019/06/11/nginx入门/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -741,7 +744,7 @@ react Router安装有多个库，这里安装react-router-dom
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/27/react入门-组件通信与ref/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/09/大前端网络专题篇之HTTP-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -760,7 +763,7 @@ react Router安装有多个库，这里安装react-router-dom
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/27/react入门-组件通信与ref/" itemprop="url">react入门-组件通信与ref</a></h1>
+                <a class="post-title-link" href="/2019/06/09/大前端网络专题篇之HTTP-2/" itemprop="url">大前端网络专题篇之HTTP(2)</a></h1>
         
 
         <div class="post-meta">
@@ -772,8 +775,8 @@ react Router安装有多个库，这里安装react-router-dom
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-27T13:37:45+08:00">
-                2019-03-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-09T21:34:55+08:00">
+                2019-06-09
               </time>
             
 
@@ -795,8 +798,8 @@ react Router安装有多个库，这里安装react-router-dom
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/react入门/" itemprop="url" rel="index">
-                    <span itemprop="name">react入门</span>
+                  <a href="/categories/http/" itemprop="url" rel="index">
+                    <span itemprop="name">http</span>
                   </a>
                 </span>
 
@@ -834,15 +837,18 @@ react Router安装有多个库，这里安装react-router-dom
       
         
           
-          
-资料    https://github.com/hujiulong/blog/issues/7
+          面试官问：你了解HTTP2.0吗？
+1️⃣、HTTP 请求报文与响应报文格式
+请求报文：
 
-[TOC]
-组件的state设置合适的statestate里面适用于放置一些与页面渲染UI有关的状态集，其他的属性可以直接绑定在this上。123456789101112131415161718192021222324252627282930import React, &#123; Component &#125; from 'react';class Timer extends Compone
+响应报文：
+
+2️⃣、HTTP/1.1 有什么优缺点
+​    长链接：HTTP1.1默认支持（HTTP1.0需要带上keep-alive标识告诉服务器建立长链接），优点是减少重复进行TCP三次握手的开销，提高效率。如果client使用HTTP1.1协议，但又不希望使用长链接，则需要在header中指明connection的值为close；如果server方也不想支持长链接，则在response中也需要明
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/27/react入门-组件通信与ref/#more" rel="contents">
+            <a class="btn" href="/2019/06/09/大前端网络专题篇之HTTP-2/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -893,7 +899,7 @@ react Router安装有多个库，这里安装react-router-dom
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/18/XSS/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/09/大前端网络专题篇之HTTP（3）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -912,7 +918,7 @@ react Router安装有多个库，这里安装react-router-dom
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/18/XSS/" itemprop="url">XSS简单了解</a></h1>
+                <a class="post-title-link" href="/2019/06/09/大前端网络专题篇之HTTP（3）/" itemprop="url">大前端网络专题篇之HTTP(3)</a></h1>
         
 
         <div class="post-meta">
@@ -924,8 +930,8 @@ react Router安装有多个库，这里安装react-router-dom
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-18T22:37:28+08:00">
-                2019-03-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-09T21:34:55+08:00">
+                2019-06-09
               </time>
             
 
@@ -947,8 +953,8 @@ react Router安装有多个库，这里安装react-router-dom
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web安全/" itemprop="url" rel="index">
-                    <span itemprop="name">web安全</span>
+                  <a href="/categories/http/" itemprop="url" rel="index">
+                    <span itemprop="name">http</span>
                   </a>
                 </span>
 
@@ -986,21 +992,25 @@ react Router安装有多个库，这里安装react-router-dom
       
         
           
-          
-参考资料     https://juejin.im/post/5bad9140e51d450e935c6d64
-​            https://juejin.im/post/5b97ba596fb9a05cda774ba4
-​                练习
-​            https://excess-xss.com/
-​            中文
-​            CSP
+          大前端网络专题篇之HTTP1️⃣、什么是跨域，如何解决跨域
+什么是跨域：跨域是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。
+同源策略限制了以下行为：
 
-​            
-​    
-XSS是什么XSS（Cross Site
+Cookie、LocalStorage 和 IndexDB 无法读取
+DOM 和 JS 对象无法获取
+Ajax请求发送不出去
+
+跨域通信方式：
+​    1.JSONP
+​    2.CORS
+​    3.NGINX
+​    4.WebSocket
+​    5.Postmessage
+​    6.window.
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/18/XSS/#more" rel="contents">
+            <a class="btn" href="/2019/06/09/大前端网络专题篇之HTTP（3）/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1051,7 +1061,7 @@ XSS是什么XSS（Cross Site
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/14/CSRF/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/02/==与===/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1070,7 +1080,7 @@ XSS是什么XSS（Cross Site
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/14/CSRF/" itemprop="url">了解CSRF</a></h1>
+                <a class="post-title-link" href="/2019/06/02/==与===/" itemprop="url">==与===，运算符优先级</a></h1>
         
 
         <div class="post-meta">
@@ -1082,8 +1092,8 @@ XSS是什么XSS（Cross Site
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T23:50:20+08:00">
-                2019-03-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-02T22:39:06+08:00">
+                2019-06-02
               </time>
             
 
@@ -1105,8 +1115,8 @@ XSS是什么XSS（Cross Site
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web安全/" itemprop="url" rel="index">
-                    <span itemprop="name">web安全</span>
+                  <a href="/categories/算法与数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">算法与数据结构</span>
                   </a>
                 </span>
 
@@ -1144,18 +1154,18 @@ XSS是什么XSS（Cross Site
       
         
           
-          
-参考资料    https://juejin.im/post/5bc009996fb9a05d0a055192
-​            先了解一下Cookie相关
-
-CSRF是什么CSRF（Cross-site request forgery）跨站请求伪造。攻击者诱导用户点击进入第三方网站，在第三方网站中，对攻击网站发送跨域请求。其中携带了用户的登录成功的信息，达到冒充用户的目的。
-比如：
-1）用户访问a.com网站，并且获取了登录凭证(Cookie)。
-2）攻击者在a.com网站留下了b.
+          https://www.cnblogs.com/wisewrong/p/10396002.html
+重学前端-总结：05、JavaScript类型：关于类型，有哪些你不知道的细节？
+JavaScript 基本类型的装箱与拆箱
+【JS迷你书】类型转换之拆箱操作
+【JS迷你书】类型转换之装箱操作
+一道常被人轻视的前端JS面试题
+运算符优先级定义：运算符的优先级决定了表达式中运算执行的先后顺序，优先级高的运算符最先被执行。
+常用运算符优先级排序：具有相同优先级的运算符按从左到右（或从右到左）的顺序求值
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/14/CSRF/#more" rel="contents">
+            <a class="btn" href="/2019/06/02/==与===/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1206,7 +1216,7 @@ CSRF是什么CSRF（Cross-site request forgery）跨站请求伪造。攻击者�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/11/cookie/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/27/大前端网络专题篇之HTTP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1225,7 +1235,7 @@ CSRF是什么CSRF（Cross-site request forgery）跨站请求伪造。攻击者�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/11/cookie/" itemprop="url">cookie</a></h1>
+                <a class="post-title-link" href="/2019/05/27/大前端网络专题篇之HTTP/" itemprop="url">大前端网络专题篇之HTTP</a></h1>
         
 
         <div class="post-meta">
@@ -1237,8 +1247,8 @@ CSRF是什么CSRF（Cross-site request forgery）跨站请求伪造。攻击者�
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-11T19:09:54+08:00">
-                2019-03-11
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-27T17:48:31+08:00">
+                2019-05-27
               </time>
             
 
@@ -1260,8 +1270,8 @@ CSRF是什么CSRF（Cross-site request forgery）跨站请求伪造。攻击者�
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/优化/" itemprop="url" rel="index">
-                    <span itemprop="name">优化</span>
+                  <a href="/categories/http/" itemprop="url" rel="index">
+                    <span itemprop="name">http</span>
                   </a>
                 </span>
 
@@ -1299,16 +1309,22 @@ CSRF是什么CSRF（Cross-site request forgery）跨站请求伪造。攻击者�
       
         
           
-          
-参考资料：        https://juejin.im/post/5aede266f265da0ba266e0ef                  https://www.jianshu.com/p/0fff1ba9fba5  
+          大前端网络专题篇之HTTP1️⃣、请简述浏览器输入 URL 地址以后所发生的事情
+浏览器解析URL    
 
-cookie是什么曲奇饼，哈哈哈哈哈。
-首先，http是无状态（就是上一次发请求和下一次发请求无关联，据说是因为http起初只是使用来浏览静态文件的，所以无状态协议就足够了），所以无法知道上一次是谁访问了它，那么cookie其实就是用来记录状态的一种东西。
+将url中元素拆分出来
+URL格式，重要的是scheme，host和path
 
+按照URL格式拆分：
+
+请求需要访问www.lab.glasscom.com域下的dir1目录下的file1.html文件。
+几个例子：
+如果是http://www.lab.glasscom.com/，表示访问根目录下的默认文件（index.html之类的，根据服务器配置信息决定）
+如果是http://www
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/11/cookie/#more" rel="contents">
+            <a class="btn" href="/2019/05/27/大前端网络专题篇之HTTP/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1359,7 +1375,7 @@ cookie是什么曲奇饼，哈哈哈哈哈。
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/07/TypeScript/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/21/七牛云上传文件demo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1378,7 +1394,7 @@ cookie是什么曲奇饼，哈哈哈哈哈。
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/07/TypeScript/" itemprop="url">TypeScript学习笔记</a></h1>
+                <a class="post-title-link" href="/2019/05/21/七牛云上传文件demo/" itemprop="url">七牛云上传文件demo</a></h1>
         
 
         <div class="post-meta">
@@ -1390,8 +1406,8 @@ cookie是什么曲奇饼，哈哈哈哈哈。
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-07T22:43:08+08:00">
-                2019-03-07
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-21T23:27:34+08:00">
+                2019-05-21
               </time>
             
 
@@ -1400,28 +1416,6 @@ cookie是什么曲奇饼，哈哈哈哈哈。
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/TS/" itemprop="url" rel="index">
-                    <span itemprop="name">TS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -1452,17 +1446,12 @@ cookie是什么曲奇饼，哈哈哈哈哈。
       
         
           
-          在学习了es6的常见常用的知识之后，工作需要好好学习一下TS。一些与es6相同的特性就不写了。
-在开始之前，可以通过npm安装TypeScript
-1$ npm install -g typescript
-之后通过
-1$ tsc greeter.ts
-会输出一个greeter.js文件
-基础类型123456789let bool:boolean = true;let num:number = 1;let string:string = 'string';let array:Array&lt;nu
+          一、服务端获取凭证1$ npm i qiniu -S
+12345678910111213var qiniu = require('qiniu');// 1、定义鉴权对象macvar accessKey = 'your accessKey';var secretKey = 'your secretKey';//secretKeyvar mac = new qiniu.auth.digest.Mac(accessKey, secretKey);// 2、上传凭证var options = &#123
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/07/TypeScript/#more" rel="contents">
+            <a class="btn" href="/2019/05/21/七牛云上传文件demo/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1513,7 +1502,7 @@ cookie是什么曲奇饼，哈哈哈哈哈。
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/06/Iterator/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/19/树/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1532,7 +1521,7 @@ cookie是什么曲奇饼，哈哈哈哈哈。
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/06/Iterator/" itemprop="url">Iterator</a></h1>
+                <a class="post-title-link" href="/2019/05/19/树/" itemprop="url">Tree</a></h1>
         
 
         <div class="post-meta">
@@ -1544,8 +1533,8 @@ cookie是什么曲奇饼，哈哈哈哈哈。
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-06T21:24:06+08:00">
-                2019-03-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-19T15:30:00+08:00">
+                2019-05-19
               </time>
             
 
@@ -1567,8 +1556,8 @@ cookie是什么曲奇饼，哈哈哈哈哈。
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/es6/" itemprop="url" rel="index">
-                    <span itemprop="name">es6</span>
+                  <a href="/categories/算法与数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">算法与数据结构</span>
                   </a>
                 </span>
 
@@ -1606,14 +1595,18 @@ cookie是什么曲奇饼，哈哈哈哈哈。
       
         
           
-          了解Generator，以及为对象添加Iterator接口
-概念为数据结构提供的访问机制，数据只要部署了Iterator接口，就能完成遍历。
-Symbol.iterator属性与for…of首先看个🌰，已知对象是没有Iterator接口的，那么让它获得一个
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646
+          一、什么是树？1.树有什么特点，什么是二叉树和二叉搜索树？特点：一个树结构包含一系列存在父子关系的节点，每个节点都有一个父节点（根节点除外），或者0到多个子节点。
+二叉树：二叉树中的节点最多有2个子节点
+
+二叉搜索树：一种特殊的二叉树，相对较小的值保存在左节点中，较大的值保存在右节点中。
+2.生活中常见的例子有哪些？网盘文件夹树结构
+二、请实现二叉搜索树（BST），并实现以下方法：
+insert(key)：向树中插入一个新的键；
+search(key)：树中查找一个键，如果节点存在返回true，
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/06/Iterator/#more" rel="contents">
+            <a class="btn" href="/2019/05/19/树/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1664,7 +1657,7 @@ Symbol.iterator属性与for…of首先看个🌰，已知对象是没有Iterator
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/05/Generator/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/12/字典与散列表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1683,7 +1676,7 @@ Symbol.iterator属性与for…of首先看个🌰，已知对象是没有Iterator
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/05/Generator/" itemprop="url">Generator</a></h1>
+                <a class="post-title-link" href="/2019/05/12/字典与散列表/" itemprop="url">Dictionary和HashTable</a></h1>
         
 
         <div class="post-meta">
@@ -1695,8 +1688,8 @@ Symbol.iterator属性与for…of首先看个🌰，已知对象是没有Iterator
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-05T20:27:48+08:00">
-                2019-03-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-12T09:47:59+08:00">
+                2019-05-12
               </time>
             
 
@@ -1718,8 +1711,8 @@ Symbol.iterator属性与for…of首先看个🌰，已知对象是没有Iterator
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/es6/" itemprop="url" rel="index">
-                    <span itemprop="name">es6</span>
+                  <a href="/categories/算法与数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">算法与数据结构</span>
                   </a>
                 </span>
 
@@ -1757,14 +1750,17 @@ Symbol.iterator属性与for…of首先看个🌰，已知对象是没有Iterator
       
         
           
-          Generator
-参考资料    https://juejin.im/post/5a6db41351882573351a8d72
-
-概念1）函数声明方式：在function关键字与函数名之间有个 * 号2）函数体内：可以使用yield表达式3）执行时：返回一个iterator对象，可以用过调用next方法，遍历iterator对象里的每个yield表达式定义的状态yield表达式1234567function *test()&#123;    console.log(1);    yield 
+          一、字典和散列表的概念1.字典是什么？
+​    是一些元素的结合。每个元素有一个称作key的域，不同元素的key各不相同。
+2.字典和集合有什么异同？
+​    集合是以[值，值]的方式存储数据，而字典是以[键，值]方式存储数据。
+3.什么是散列表和散列函数？
+​    散列表：是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做散列函数，存放记录的数组叫做散列表。
+​    散列函数：给定一个
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/05/Generator/#more" rel="contents">
+            <a class="btn" href="/2019/05/12/字典与散列表/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1806,7 +1802,7 @@ Symbol.iterator属性与for…of首先看个🌰，已知对象是没有Iterator
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1852,7 +1848,7 @@ Symbol.iterator属性与for…of首先看个🌰，已知对象是没有Iterator
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">92</span>
+                <span class="site-state-item-count">106</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1863,7 +1859,7 @@ Symbol.iterator属性与for…of首先看个🌰，已知对象是没有Iterator
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1874,7 +1870,7 @@ Symbol.iterator属性与for…of首先看个🌰，已知对象是没有Iterator
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

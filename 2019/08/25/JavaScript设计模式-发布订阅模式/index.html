@@ -103,7 +103,7 @@
 <meta property="og:description" content="定义发布订阅模式理念和观察者模式相同，但是处理方式上不同：订阅者把自己想订阅的事件注册到调度中心，当该事件触发时候，发布者发布该事件到调度中心（顺带上下文），由调度中心统一调度订阅者注册到调度中心的处理代码。  双向解耦，发布者和订阅者都不用清楚对方，全部由订阅中心做处理。 实现123456789101112131415161718192021222324252627282930313233343">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190825-011607@2x.png">
-<meta property="og:updated_time" content="2019-08-25T04:23:24.621Z">
+<meta property="og:updated_time" content="2019-08-26T10:56:09.663Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript设计模式-发布订阅模式">
 <meta name="twitter:description" content="定义发布订阅模式理念和观察者模式相同，但是处理方式上不同：订阅者把自己想订阅的事件注册到调度中心，当该事件触发时候，发布者发布该事件到调度中心（顺带上下文），由调度中心统一调度订阅者注册到调度中心的处理代码。  双向解耦，发布者和订阅者都不用清楚对方，全部由订阅中心做处理。 实现123456789101112131415161718192021222324252627282930313233343">
@@ -378,6 +378,154 @@
 <p><img src="http://www.qinhanwen.xyz/WX20190825-011607@2x.png" alt="WX20190825-011607@2x"></p>
 <p>双向解耦，发布者和订阅者都不用清楚对方，全部由订阅中心做处理。</p>
 <h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Event = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> clientList = &#123;&#125;, listen, trigger, remove;</span><br><span class="line">    listen = <span class="function"><span class="keyword">function</span> (<span class="params">key, fn</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!clientList[key]) &#123;</span><br><span class="line">            clientList[key] = [];</span><br><span class="line">        &#125;</span><br><span class="line">        clientList[key].push(fn);</span><br><span class="line">    &#125;</span><br><span class="line">    trigger = <span class="function"><span class="keyword">function</span> (<span class="params">key, ...args</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> key = <span class="built_in">Array</span>.prototype.shift.call(<span class="built_in">arguments</span>);</span><br><span class="line">        <span class="keyword">var</span> fns = clientList[key];</span><br><span class="line">        <span class="keyword">if</span> (fns &amp;&amp; fns.length) &#123;</span><br><span class="line">            fns.forEach(<span class="function"><span class="params">fn</span> =&gt;</span> &#123;</span><br><span class="line">                fn(...args);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    remove = <span class="function"><span class="keyword">function</span> (<span class="params">key, fn</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> fns = clientList[key];</span><br><span class="line">        <span class="keyword">if</span> (fns &amp;&amp; fns.length) &#123;</span><br><span class="line">            <span class="keyword">var</span> index = fns.findIndex(<span class="function"><span class="params">_fn</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> _fn !== fn</span><br><span class="line">            &#125;);</span><br><span class="line">            fns.splice(index, <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        listen,</span><br><span class="line">        trigger,</span><br><span class="line">        remove</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getSalary</span>(<span class="params">salary</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(salary);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Event.listen(<span class="string">'A'</span>, getSalary);</span><br><span class="line">Event.trigger(<span class="string">'A'</span>, <span class="number">1000</span>);</span><br><span class="line">Event.remove(<span class="string">'A'</span>, getSalary);</span><br><span class="line">Event.trigger(<span class="string">'A'</span>, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<p><code>ionic</code>中的<code>Events</code>实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">factory</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">module</span> === <span class="string">"object"</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">module</span>.exports === <span class="string">"object"</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> v = factory(<span class="built_in">require</span>, exports);</span><br><span class="line">        <span class="keyword">if</span> (v !== <span class="literal">undefined</span>) <span class="built_in">module</span>.exports = v;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">"function"</span> &amp;&amp; define.amd) &#123;</span><br><span class="line">        define([<span class="string">"require"</span>, <span class="string">"exports"</span>, <span class="string">"./scroll-view"</span>], factory);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)(<span class="function"><span class="keyword">function</span> (<span class="params">require, exports</span>) </span>&#123;</span><br><span class="line"><span class="meta">    "use strict"</span>;</span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(exports, <span class="string">"__esModule"</span>, &#123; <span class="attr">value</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">    <span class="keyword">var</span> scroll_view_1 = <span class="built_in">require</span>(<span class="string">"./scroll-view"</span>);</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * @name Events</span></span><br><span class="line"><span class="comment">     * @description</span></span><br><span class="line"><span class="comment">     * Events is a publish-subscribe style event system for sending and responding to application-level</span></span><br><span class="line"><span class="comment">     * events across your app.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * @usage</span></span><br><span class="line"><span class="comment">     * ```ts</span></span><br><span class="line"><span class="comment">     * import &#123; Events &#125; from 'ionic-angular';</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * // first page (publish an event when a user is created)</span></span><br><span class="line"><span class="comment">     * constructor(public events: Events) &#123; &#125;</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * createUser(user) &#123;</span></span><br><span class="line"><span class="comment">     *   console.log('User created!')</span></span><br><span class="line"><span class="comment">     *   this.events.publish('user:created', user, Date.now());</span></span><br><span class="line"><span class="comment">     * &#125;</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * // second page (listen for the user created event after function is called)</span></span><br><span class="line"><span class="comment">     * constructor(public events: Events) &#123;</span></span><br><span class="line"><span class="comment">     *   events.subscribe('user:created', (user, time) =&gt; &#123;</span></span><br><span class="line"><span class="comment">     *     // user and time are the same arguments passed in `events.publish(user, time)`</span></span><br><span class="line"><span class="comment">     *     console.log('Welcome', user, 'at', time);</span></span><br><span class="line"><span class="comment">     *   &#125;);</span></span><br><span class="line"><span class="comment">     * &#125;</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     *</span></span><br></pre></td></tr></table></figure>
+<pre><code> * @demo /docs/demos/src/events/
+ */
+var Events = (function () {
+    function Events() {
+        this._channels = [];
+    }
+    /**
+     * Subscribe to an event topic. Events that get posted to that topic will trigger the provided handler.
+     *
+     * @param {string} topic the topic to subscribe to
+     * @param {function} handler the event handler
+     */
+    Events.prototype.subscribe = function (topic) {
+        var _this = this;
+        var handlers = [];
+        for (var _i = 1; _i &lt; arguments.length; _i++) {
+            handlers[_i - 1] = arguments[_i];
+        }
+        if (!this._channels[topic]) {
+            this._channels[topic] = [];
+        }
+        handlers.forEach(function (handler) {
+            _this._channels[topic].push(handler);
+        });
+    };
+    /**
+     * Unsubscribe from the given topic. Your handler will no longer receive events published to this topic.
+     *
+     * @param {string} topic the topic to unsubscribe from
+     * @param {function} handler the event handler
+     *
+     * @return true if a handler was removed
+     */
+    Events.prototype.unsubscribe = function (topic, handler) {
+        if (handler === void 0) { handler = null; }
+        var t = this._channels[topic];
+        if (!t) {
+            // Wasn&apos;t found, wasn&apos;t removed
+            return false;
+        }
+        if (!handler) {
+            // Remove all handlers for this topic
+            delete this._channels[topic];
+            return true;
+        }
+        // We need to find and remove a specific handler
+        var i = t.indexOf(handler);
+        if (i &lt; 0) {
+            // Wasn&apos;t found, wasn&apos;t removed
+            return false;
+        }
+        t.splice(i, 1);
+        // If the channel is empty now, remove it from the channel map
+        if (!t.length) {
+            delete this._channels[topic];
+        }
+        return true;
+    };
+    /**
+     * Publish an event to the given topic.
+     *
+     * @param {string} topic the topic to publish to
+     * @param {any} eventData the data to send as the event
+     */
+    Events.prototype.publish = function (topic) {
+        var args = [];
+        for (var _i = 1; _i &lt; arguments.length; _i++) {
+            args[_i - 1] = arguments[_i];
+        }
+        var t = this._channels[topic];
+        if (!t) {
+            return null;
+        }
+        var responses = [];
+        t.forEach(function (handler) {
+            responses.push(handler.apply(void 0, args));
+        });
+        return responses;
+    };
+    return Events;
+}());
+exports.Events = Events;
+/**
+ * @hidden
+ */
+function setupEvents(plt, dom) {
+    var events = new Events();
+    var win = plt.win();
+    var doc = plt.doc();
+    // start listening for resizes XXms after the app starts
+    plt.timeout(function () {
+        win.addEventListener(&apos;online&apos;, function (ev) {
+            events.publish(&apos;app:online&apos;, ev);
+        }, false);
+        win.addEventListener(&apos;offline&apos;, function (ev) {
+            events.publish(&apos;app:offline&apos;, ev);
+        }, false);
+        win.addEventListener(&apos;orientationchange&apos;, function (ev) {
+            events.publish(&apos;app:rotated&apos;, ev);
+        });
+        // When that status taps, we respond
+        win.addEventListener(&apos;statusTap&apos;, function () {
+            // TODO: Make this more better
+            var el = doc.elementFromPoint(plt.width() / 2, plt.height() / 2);
+            if (!el) {
+                return;
+            }
+            var contentEle = el.closest(&apos;.scroll-content&apos;);
+            if (contentEle) {
+                var style = contentEle.style;
+                var scroll = new scroll_view_1.ScrollView(null, plt, dom);
+                scroll._el = contentEle;
+                // We need to stop scrolling if it&apos;s happening and scroll up
+                style[&apos;WebkitBackfaceVisibility&apos;] = &apos;hidden&apos;;
+                style[&apos;WebkitTransform&apos;] = &apos;translate3d(0,0,0)&apos;;
+                dom.write(function () {
+                    style.overflow = &apos;hidden&apos;;
+                    function finish() {
+                        style.overflow = &apos;&apos;;
+                        style[&apos;WebkitBackfaceVisibility&apos;] = &apos;&apos;;
+                        style[&apos;WebkitTransform&apos;] = &apos;&apos;;
+                    }
+                    var didScrollTimeout = plt.timeout(function () {
+                        finish();
+                    }, 400);
+                    scroll.scrollTo(0, 0, 300).then(function () {
+                        plt.cancelTimeout(didScrollTimeout);
+                        finish();
+                    });
+                });
+            }
+        });
+    }, 2000);
+    return events;
+}
+exports.setupEvents = setupEvents;
+/**
+ * @hidden
+ */
+function setupProvideEvents(plt, dom) {
+    return function () {
+        return setupEvents(plt, dom);
+    };
+}
+exports.setupProvideEvents = setupProvideEvents;
+</code></pre><p>});<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">去除一些不太重要的东西</span><br><span class="line"></span><br><span class="line">```javascript</span><br><span class="line">var Events = (function () &#123;</span><br><span class="line">    function Events() &#123;</span><br><span class="line">        this._channels = [];</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * Subscribe to an event topic. Events that get posted to that topic will trigger the provided handler.</span><br><span class="line">     *</span><br><span class="line">     * @param &#123;string&#125; topic the topic to subscribe to</span><br><span class="line">     * @param &#123;function&#125; handler the event handler</span><br><span class="line">     */</span><br><span class="line">    Events.prototype.subscribe = function (topic) &#123;</span><br><span class="line">        var _this = this;</span><br><span class="line">        var handlers = [];</span><br><span class="line">        for (var _i = 1; _i &lt; arguments.length; _i++) &#123;</span><br><span class="line">            handlers[_i - 1] = arguments[_i];</span><br><span class="line">        &#125;</span><br><span class="line">        if (!this._channels[topic]) &#123;</span><br><span class="line">            this._channels[topic] = [];</span><br><span class="line">        &#125;</span><br><span class="line">        handlers.forEach(function (handler) &#123;</span><br><span class="line">            _this._channels[topic].push(handler);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;;</span><br><span class="line">    /**</span><br><span class="line">     * Unsubscribe from the given topic. Your handler will no longer receive events published to this topic.</span><br><span class="line">     *</span><br><span class="line">     * @param &#123;string&#125; topic the topic to unsubscribe from</span><br><span class="line">     * @param &#123;function&#125; handler the event handler</span><br><span class="line">     *</span><br><span class="line">     * @return true if a handler was removed</span><br><span class="line">     */</span><br><span class="line">    Events.prototype.unsubscribe = function (topic, handler) &#123;</span><br><span class="line">        if (handler === void 0) &#123;</span><br><span class="line">            handler = null;</span><br><span class="line">        &#125;</span><br><span class="line">        var t = this._channels[topic];</span><br><span class="line">        if (!t) &#123;</span><br><span class="line">            // Wasn&apos;t found, wasn&apos;t removed</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        if (!handler) &#123;</span><br><span class="line">            // Remove all handlers for this topic</span><br><span class="line">            delete this._channels[topic];</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        // We need to find and remove a specific handler</span><br><span class="line">        var i = t.indexOf(handler);</span><br><span class="line">        if (i &lt; 0) &#123;</span><br><span class="line">            // Wasn&apos;t found, wasn&apos;t removed</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        t.splice(i, 1);</span><br><span class="line">        // If the channel is empty now, remove it from the channel map</span><br><span class="line">        if (!t.length) &#123;</span><br><span class="line">            delete this._channels[topic];</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;;</span><br><span class="line">    /**</span><br><span class="line">     * Publish an event to the given topic.</span><br><span class="line">     *</span><br><span class="line">     * @param &#123;string&#125; topic the topic to publish to</span><br><span class="line">     * @param &#123;any&#125; eventData the data to send as the event</span><br><span class="line">     */</span><br><span class="line">    Events.prototype.publish = function (topic) &#123;</span><br><span class="line">        var args = [];</span><br><span class="line">        for (var _i = 1; _i &lt; arguments.length; _i++) &#123;</span><br><span class="line">            args[_i - 1] = arguments[_i];</span><br><span class="line">        &#125;</span><br><span class="line">        var t = this._channels[topic];</span><br><span class="line">        if (!t) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        var responses = [];</span><br><span class="line">        t.forEach(function (handler) &#123;</span><br><span class="line">            responses.push(handler.apply(void 0, args));</span><br><span class="line">        &#125;);</span><br><span class="line">        return responses;</span><br><span class="line">    &#125;;</span><br><span class="line">    return Events;</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -497,7 +645,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">92</span>
+                <span class="site-state-item-count">106</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -508,7 +656,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -519,7 +667,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
