@@ -135,7 +135,34 @@
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190906-185841@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190906-190059@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20190907-123004@2x.png">
-<meta property="og:updated_time" content="2019-09-08T14:53:36.402Z">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190908-233124@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190908-233206@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190908-234713@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190908-234921@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190908-235121@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190908-235121@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-082624@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-084215@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-002952@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-084428@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-084607@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-101749@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-102602@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-103118@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-103558@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-104124@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-125426@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-125530@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-130108@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-130256@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-221338@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-222713@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-225609@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-224918@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-224041@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-225316@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190909-225405@2x.png">
+<meta property="og:updated_time" content="2019-09-09T15:13:22.934Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue源码解析（7）- 补充">
 <meta name="twitter:description" content="补充事件改一下例子 main.js 12345678910111213141516171819202122232425262728import Vue from &apos;vue&apos;import App from &apos;./App&apos;;Vue.config.productionTip = false/* eslint-disable no-new */new Vue(&amp;#123;  el: &apos;#app&apos;,  da">
@@ -538,6 +565,122 @@
 <p>1）在模板解析，生成<code>render</code>方法的时候，为<code>input</code>的<code>el</code>先添加了<code>events</code>属性，之后又判断有<code>events</code>属性的话，生成的<code>data</code>做字符串拼接(最后拼接到<code>render</code>方法里的字符串)</p>
 <p><img src="http://www.qinhanwen.xyz/WX20190907-123004@2x.png" alt="WX20190907-123004@2x"></p>
 <p>2）在调用<code>render</code>方法生成<code>vnode</code>以后，在<code>update</code>的<code>patch</code>阶段，为DOM元素增加事件</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>为什么不能直接通过索引，或者通过<code>length</code>属性修改值，在响应式原理。</p>
+<h2 id="nextTick"><a href="#nextTick" class="headerlink" title="nextTick"></a>nextTick</h2><p>这个方法接收到参数后，把参数包在匿名函数中<code>push</code>进<code>callbacks</code>数组，然后把一个方法加到微任务队列或者宏任务队列，加进去的方法就是遍历<code>callbacks</code>调用匿名函数。</p>
+<h2 id="Vue-组件中-data-为什么必须是函数"><a href="#Vue-组件中-data-为什么必须是函数" class="headerlink" title="Vue 组件中 data 为什么必须是函数"></a>Vue 组件中 data 为什么必须是函数</h2><p>先看错误提示在哪</p>
+<p>在子组件做<code>mergeOptions</code>的时候</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190908-233124@2x.png" alt="WX20190908-233124@2x"></p>
+<p>如果<code>childVal</code>不是<code>function</code>类型就会提示</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190908-233206@2x.png" alt="WX20190908-233206@2x"></p>
+<p>因为：</p>
+<p>在组件创建实例做参数合并的时候，看一下<code>data</code>，合并参数后返回的是这个方法，其中的<code>childVal</code>是<code>new Vue(options)</code>，中的<code>options</code>中<code>data</code>的引用地址</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190908-234713@2x.png" alt="WX20190908-234713@2x"></p>
+<p>然后在<code>initData</code>的时候，获取<code>data</code></p>
+<p><img src="http://www.qinhanwen.xyz/WX20190908-234921@2x.png" alt="WX20190908-234921@2x"></p>
+<p>然后我去修改<code>data</code>的值</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190908-235121@2x.png" alt="WX20190908-235121@2x"></p>
+<p>然后看下<code>new Vue(options)</code></p>
+<p><img src="http://www.qinhanwen.xyz/WX20190908-235121@2x.png" alt="WX20190908-235121@2x"></p>
+<p>也就是说，在组件创建实例的时候，<code>data</code>如果是对象的话，每个组件的实例修改<code>data</code>的值，会有影响，所以使用方法可以让每个实例的<code>data</code>独立</p>
+<h2 id="自定义事件通知"><a href="#自定义事件通知" class="headerlink" title="自定义事件通知"></a>自定义事件通知</h2><p>emm…，意思其实就是子组件通知父组件啦</p>
+<p>main.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span>;</span><br><span class="line">Vue.config.productionTip = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* eslint-disable no-new */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  methods:&#123;</span><br><span class="line">    childEmitHandler() &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'Child select!'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    childEmitHandler1() &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'Child select1!'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components:&#123;</span><br><span class="line">    App</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`&lt;div&gt; </span></span><br><span class="line"><span class="string">  &lt;App @childEmitHandler="childEmitHandler();childEmitHandler1()" /&gt;</span></span><br><span class="line"><span class="string">  &lt;/div&gt;`</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>App.vue</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;button @click=<span class="string">"clickHandler($event)"</span>&gt;click me&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">"App"</span>,</span><br><span class="line">  props: &#123;</span><br><span class="line">    firstName: <span class="built_in">String</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    clickHandler(e) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'child clicked'</span>);</span><br><span class="line">      <span class="keyword">this</span>.$emit(<span class="string">"childEmitHandler"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>写个大概吧。</p>
+<p>1）父组件初始化的时候，<code>initState</code>的时候，<code>childEmitHandler</code>强绑定<code>this</code>后挂载到<code>vm</code>实例上，在<code>update</code>阶段的时候为元素添加事件</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-082624@2x.png" alt="WX20190909-082624@2x"></p>
+<p>2）子组件初始化的时候，<code>initEvents</code>的时候，添加自定义事件进<code>vm._events</code>对象</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-084215@2x.png" alt="WX20190909-084215@2x"></p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-002952@2x.png" alt="WX20190909-002952@2x"></p>
+<p>然后<code>initState</code>的时候<code>clickHandler</code>绑定<code>this</code>后挂载在实例上，在<code>update</code>阶段的时候为元素添加事件。</p>
+<p>3）触发子组件点击事件，调用<code>$emit</code>方法通知调用自定义事件，遍历<code>vm._events[event]</code>，调用每一项的方法调用</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-084428@2x.png" alt="WX20190909-084428@2x"></p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-084607@2x.png" alt="WX20190909-084607@2x"></p>
+<p>并且得知，事件是可以绑定多个方法的</p>
+<h2 id="vue中-key-值的作用"><a href="#vue中-key-值的作用" class="headerlink" title="vue中 key 值的作用"></a>vue中 <code>key</code> 值的作用</h2><p>写两个例子，分别<code>带key</code>和<code>不带key</code>的情况</p>
+<p><strong>不带key</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span>;</span><br><span class="line">Vue.config.productionTip = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* eslint-disable no-new */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data:&#123;</span><br><span class="line">    userList:[&#123;</span><br><span class="line">      name:<span class="string">"qinhanwen"</span>,</span><br><span class="line">      id:<span class="number">1</span>,</span><br><span class="line">    &#125;,&#123;</span><br><span class="line">      name:<span class="string">"zenghua"</span>,</span><br><span class="line">      id:<span class="number">2</span>,</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;,</span><br><span class="line">  methods:&#123;</span><br><span class="line">    reverseUserList() &#123;</span><br><span class="line">      <span class="keyword">this</span>.userList.reverse();</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`&lt;ul @click="reverseUserList()"&gt; </span></span><br><span class="line"><span class="string">    &lt;li v-for="item in userList"&gt;&#123;&#123;item.name&#125;&#125;&lt;/li&gt;</span></span><br><span class="line"><span class="string">  &lt;/ul&gt;`</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>1）触发点击事件</p>
+<p>2）更新<code>vnode</code></p>
+<p>3）触发<code>DOM</code>更新</p>
+<p>当没有key的时候（<code>key</code>是<code>undefined</code>），<code>sameVnode(oldStartVnode, newStartVnode)</code>方法的返回值为<code>true</code>，选择复用之前的<code>DOM</code>结构，也就是<code>DOM</code>元素不变，去改变它的<code>children</code>（当前这个元素是第一个<code>li</code>元素）</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-101749@2x.png" alt="WX20190909-101749@2x"></p>
+<p>当前元素的<code>children</code>的值更新了</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-102602@2x.png" alt="WX20190909-102602@2x"></p>
+<p>之后再改变另外一个<code>li</code>元素的<code>children</code></p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-103118@2x.png" alt="WX20190909-103118@2x"></p>
+<p><strong>带key</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span>;</span><br><span class="line">Vue.config.productionTip = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* eslint-disable no-new */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data:&#123;</span><br><span class="line">    userList:[&#123;</span><br><span class="line">      name:<span class="string">"qinhanwen"</span>,</span><br><span class="line">      id:<span class="number">1</span>,</span><br><span class="line">    &#125;,&#123;</span><br><span class="line">      name:<span class="string">"zenghua"</span>,</span><br><span class="line">      id:<span class="number">2</span>,</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;,</span><br><span class="line">  methods:&#123;</span><br><span class="line">    reverseUserList() &#123;</span><br><span class="line">      <span class="keyword">this</span>.userList.reverse();</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`&lt;ul @click="reverseUserList()"&gt; </span></span><br><span class="line"><span class="string">    &lt;li v-for="item in userList" key="item.id"&gt;&#123;&#123;item.name&#125;&#125;&lt;/li&gt;</span></span><br><span class="line"><span class="string">  &lt;/ul&gt;`</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>1）触发点击事件</p>
+<p>2）更新<code>vnode</code></p>
+<p>3）触发<code>DOM</code>更新</p>
+<p>这时候因为有<code>key</code>，所以<code>sameVnode(oldStartVnode, newStartVnode)</code>方法返回值为<code>false</code></p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-103558@2x.png" alt="WX20190909-103558@2x"></p>
+<p>所以走进了另外一个处理分支，<code>sameVnode(oldStartVnode, newEndVnode)</code>返回为<code>true</code>，把现有元素通过<code>insertBefore</code>移动到前面</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-104124@2x.png" alt="WX20190909-104124@2x"></p>
+<p><strong>总结：</strong></p>
+<p><code>带key</code>：根据key的变化，来重新排列元素顺序，更新<code>DOM</code>结构。</p>
+<p><code>不带key</code>：没有 <code>key</code> 的值会采取一种“就地更新策略”，更新现有的<code>DOM</code>节点和它的<code>children</code>，（有可能会做很多创建、删除节点之类的，相对来说效率更低一点）。</p>
+<h2 id="为什么key不建议使用index"><a href="#为什么key不建议使用index" class="headerlink" title="为什么key不建议使用index"></a>为什么key不建议使用index</h2><p>写两个例子</p>
+<p><strong><code>key</code>为<code>index</code></strong></p>
+<p>main.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span>;</span><br><span class="line">Vue.config.productionTip = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* eslint-disable no-new */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data:&#123;</span><br><span class="line">    userList:[&#123;</span><br><span class="line">      name:<span class="string">"qinhanwen"</span>,</span><br><span class="line">      id:<span class="number">1</span>,</span><br><span class="line">    &#125;,&#123;</span><br><span class="line">      name:<span class="string">"zenghua"</span>,</span><br><span class="line">      id:<span class="number">2</span>,</span><br><span class="line">    &#125;,&#123;</span><br><span class="line">      name:<span class="string">"bao"</span>,</span><br><span class="line">      id:<span class="number">3</span>,</span><br><span class="line">    &#125;,&#123;</span><br><span class="line">      name:<span class="string">"guo"</span>,</span><br><span class="line">      id:<span class="number">4</span>,</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;,</span><br><span class="line">  methods:&#123;</span><br><span class="line">    reverseUserList() &#123;</span><br><span class="line">      <span class="keyword">this</span>.userList.splice(<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`&lt;ul @click="reverseUserList()"&gt; </span></span><br><span class="line"><span class="string">    &lt;li v-for="(item,index) in userList" :key="index"&gt;&#123;&#123;item.name&#125;&#125;&#123;&#123;index&#125;&#125;&lt;/li&gt;</span></span><br><span class="line"><span class="string">  &lt;/ul&gt;`</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>1）触发点击事件</p>
+<p>2）更新<code>vnode</code></p>
+<p>3）</p>
+<ul>
+<li><p>第一个<code>li</code>无变化，没有重新渲染</p>
+</li>
+<li><p>第二个<code>li</code>被重新渲染</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-125426@2x.png" alt="WX20190909-125426@2x"></p>
+</li>
+<li><p>第三个<code>li</code>被重新渲染</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-125530@2x.png" alt="WX20190909-125530@2x"></p>
+</li>
+<li><p>第四个<code>li</code>被移除</p>
+</li>
+</ul>
+<p><strong><code>key</code>为<code>id</code></strong></p>
+<p>main.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span>;</span><br><span class="line">Vue.config.productionTip = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* eslint-disable no-new */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data:&#123;</span><br><span class="line">    userList:[&#123;</span><br><span class="line">      name:<span class="string">"qinhanwen"</span>,</span><br><span class="line">      id:<span class="number">1</span>,</span><br><span class="line">    &#125;,&#123;</span><br><span class="line">      name:<span class="string">"zenghua"</span>,</span><br><span class="line">      id:<span class="number">2</span>,</span><br><span class="line">    &#125;,&#123;</span><br><span class="line">      name:<span class="string">"bao"</span>,</span><br><span class="line">      id:<span class="number">3</span>,</span><br><span class="line">    &#125;,&#123;</span><br><span class="line">      name:<span class="string">"guo"</span>,</span><br><span class="line">      id:<span class="number">4</span>,</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;,</span><br><span class="line">  methods:&#123;</span><br><span class="line">    reverseUserList() &#123;</span><br><span class="line">      <span class="keyword">this</span>.userList.splice(<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`&lt;ul @click="reverseUserList()"&gt; </span></span><br><span class="line"><span class="string">    &lt;li v-for="(item,index) in userList" :key="item.id"&gt;&#123;&#123;item.name&#125;&#125;&#123;&#123;index&#125;&#125;&lt;/li&gt;</span></span><br><span class="line"><span class="string">  &lt;/ul&gt;`</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>1）触发点击事件</p>
+<p>2）更新<code>vnode</code></p>
+<p>3）</p>
+<ul>
+<li><p>第一个<code>li</code>无变化，没有重新渲染</p>
+</li>
+<li><p>第四个<code>li</code>的更新内容</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-130108@2x.png" alt="WX20190909-130108@2x"></p>
+</li>
+<li><p>第三个<code>li</code>更新内容</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-130256@2x.png" alt="WX20190909-130256@2x"></p>
+</li>
+<li><p>移除第二个<code>li</code></p>
+</li>
+</ul>
+<p><strong>总结：</strong></p>
+<p><code>key</code>为<code>index</code>：当移除数组的某一项，某项开始到之后的所有节点都会被重新渲染</p>
+<p><code>key</code>为<code>id</code>：尽可能复用相同的<code>id</code>的节点（因为插值表达式写了<code>index</code>，才做了渲染），只移除需要移除的那一项。</p>
+<h2 id="v-show和v-if指令的共同点和不同点"><a href="#v-show和v-if指令的共同点和不同点" class="headerlink" title="v-show和v-if指令的共同点和不同点"></a>v-show和v-if指令的共同点和不同点</h2><p><code>v-show</code>指令是通过修改元素的<code>display</code>CSS属性让其显示或者隐藏</p>
+<p><code>v-if</code>指令是直接销毁和重建DOM达到让元素显示和隐藏的效果（注意：v-if 可以实现组件的重新渲染）</p>
+<h2 id="route与-router"><a href="#route与-router" class="headerlink" title="\$route与\$router"></a>\$route与\$router</h2><p><code>Vue.use(VueRouter)</code>后，在执行<code>install</code>方法的时候，除了安装了两个生命周期函数和全局组件，还为<code>vm.$router</code>和<code>vm.$route</code>添加了<code>get</code></p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-221338@2x.png" alt="WX20190909-221338@2x"></p>
+<p>在<code>new VueRouter({routes})</code>的时候，创建路由注册表，下面是创建的实例</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-222713@2x.png" alt="WX20190909-222713@2x"></p>
+<p>它的<code>__proto__</code>属性：</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-225609@2x.png" alt="WX20190909-225609@2x"></p>
+<p>在<code>init</code>初始化，执行<code>callHook(vm, &#39;beforeCreate&#39;);</code>，也就是调用<code>install</code>的时候添加的<code>beforeCreate</code>生命周期钩子函数，在这里做路由初始化</p>
+<p><code>$router</code>就是<code>VueRouter</code>的实例</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-224918@2x.png" alt="WX20190909-224918@2x"></p>
+<p>监听路由变化</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-224041@2x.png" alt="WX20190909-224041@2x"></p>
+<p>然后<code>$route</code>在这里赋值</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-225316@2x.png" alt="WX20190909-225316@2x"></p>
+<p><img src="http://www.qinhanwen.xyz/WX20190909-225405@2x.png" alt="WX20190909-225405@2x"></p>
+<p><strong>总结：</strong></p>
+<p><code>$router</code>：路由器对象，提供了系列跳转相关的方法。</p>
+<p><code>$route</code>：相当于当前正在跳转的路由对象。</p>
 
       
     </div>
@@ -710,7 +853,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#补充"><span class="nav-number">1.</span> <span class="nav-text">补充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事件"><span class="nav-number">1.1.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双向绑定原理"><span class="nav-number">1.2.</span> <span class="nav-text">双向绑定原理</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#补充"><span class="nav-number">1.</span> <span class="nav-text">补充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事件"><span class="nav-number">1.1.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双向绑定原理"><span class="nav-number">1.2.</span> <span class="nav-text">双向绑定原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">2.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nextTick"><span class="nav-number">3.</span> <span class="nav-text">nextTick</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-组件中-data-为什么必须是函数"><span class="nav-number">4.</span> <span class="nav-text">Vue 组件中 data 为什么必须是函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义事件通知"><span class="nav-number">5.</span> <span class="nav-text">自定义事件通知</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue中-key-值的作用"><span class="nav-number">6.</span> <span class="nav-text">vue中 key 值的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么key不建议使用index"><span class="nav-number">7.</span> <span class="nav-text">为什么key不建议使用index</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#v-show和v-if指令的共同点和不同点"><span class="nav-number">8.</span> <span class="nav-text">v-show和v-if指令的共同点和不同点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#route与-router"><span class="nav-number">9.</span> <span class="nav-text">\$route与\$router</span></a></li></ol></div>
             
 
           </div>
