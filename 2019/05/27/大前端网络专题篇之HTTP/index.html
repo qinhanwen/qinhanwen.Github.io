@@ -116,7 +116,9 @@
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191010-184737@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191010-184805@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191011-180136@2x.png">
-<meta property="og:updated_time" content="2019-10-11T15:15:10.733Z">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191012-153336@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191012-160353@2x.png">
+<meta property="og:updated_time" content="2019-10-18T13:35:24.707Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大前端网络专题篇之HTTP">
 <meta name="twitter:description" content="大前端网络专题篇之HTTP1️⃣、请简述浏览器输入 URL 地址以后所发生的事情 浏览器解析URL      将url中元素拆分出来 URL格式，重要的是scheme，host和path  按照URL格式拆分：  请求需要访问www.lab.glasscom.com域下的dir1目录下的file1.html文件。 几个例子： 如果是http://www.lab.glasscom.com/，表示访问">
@@ -486,6 +488,17 @@
 <p><img src="http://www.qinhanwen.xyz/WX20191011-180136@2x.png" alt="WX20191011-180136@2x"></p>
 <p><code>IP</code>模块将<code>TCP</code>头部和数据块看作一整块二进制数据，收发操作的时候不关心其中内容，也不关心包的丢包与乱序。</p>
 <p>将<code>IP</code>包转换成<strong>电或光信号</strong>发送出去，<code>IP</code>生成的网络包只是存放在内存中的数组信息，无法直接发送，需要转换。</p>
+<ul>
+<li><code>MAC</code>模块把包取出，给网络包增加3个控制数据，在开头加上报头（用于确认包的读取时机）和起始帧分界符（<code>SFD</code>，用来确认帧的起始位置），在末尾加上用于检测错误的帧校验序列</li>
+</ul>
+<p><img src="http://www.qinhanwen.xyz/WX20191012-153336@2x.png" alt="WX20191012-153336@2x"></p>
+<ul>
+<li>从包头开始将数字信息按每个比特转成电信号，之后由<code>PHY（MAU）</code>将信号转换为可在网线上传输的格式，并通过网线发送出去</li>
+</ul>
+<p><img src="http://www.qinhanwen.xyz/WX20191012-160353@2x.png" alt="WX20191012-160353@2x"></p>
+<p><strong>UDP协议与TCP协议区别</strong></p>
+<p><code>TCP</code>会管理发送和确认进度，如果漏掉包，没有收到就会重新发送，收发之前需要建立和断开连接的步骤。</p>
+<p><code>UDP</code>数据很短，一个包就能装下，不用考虑哪个包未收到，重新发送也只是发一个包而已，收到的数据会被当成回复，就不用专门接收确认包。也就是说它没有接收确认，窗口等机制，收发之前也不需要建立和断开连接。只需要从应用程序中取出数据，加上<code>UDP</code>头部，以后交给<code>IP</code>发送就可以了，对于错误与丢包一概不管，但是没有收到回复的时候，应用程序会注意到就会重发。</p>
 <p>2️⃣、请列举常见的 HTTP 状态码并介绍它们的含义，至少五个以上。</p>
 <p>​        101 服务器将遵从客户的请求转换到另外一种协议</p>
 <p>​        200 OK 请求被正常处理</p>
@@ -671,7 +684,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-count">112</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

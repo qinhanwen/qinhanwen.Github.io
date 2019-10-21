@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="webpack," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="webpack构建过程Webpack 的运行流程是一个串行的过程，从启动到结束会依次执行以下流程：  webpack会读取你在命令行传入的配置以及项目里的 webpack.config.js 文件，初始化本次构建的配置参数，并且执行配置文件中的插件实例化语句，生成Compiler传入plugin的apply方法，为webpack事件流挂上自定义钩子。  接下来到了entryOption阶段，web">
+<meta name="keywords" content="webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack构建">
+<meta property="og:url" content="http://yoursite.com/2019/08/11/webpack构建过程/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="webpack构建过程Webpack 的运行流程是一个串行的过程，从启动到结束会依次执行以下流程：  webpack会读取你在命令行传入的配置以及项目里的 webpack.config.js 文件，初始化本次构建的配置参数，并且执行配置文件中的插件实例化语句，生成Compiler传入plugin的apply方法，为webpack事件流挂上自定义钩子。  接下来到了entryOption阶段，web">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.qinhanwen.xyz/TB1GVGFNXXXXXaTapXXXXXXXXXX-4436-4244.jpg">
+<meta property="og:image" content="http://www.qinhanwen.xyz/微信截图_20191014215251.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/微信截图_20191014215401.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/微信截图_20191014215553.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/微信截图_20191014214345.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/微信截图_20191015083039.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/微信截图_20191015083645.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/微信截图_20191015084054.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/微信截图_20191015090614.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/微信截图_20191018102343.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/微信截图_20191018104524.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/微信截图_20191018105214.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/微信截图_20191018105417.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/微信截图_20191015153328.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/微信截图_20191015154017.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191019-163429@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191020-000729@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191020-003218@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191020-140848@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191020-004151@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191020-005357@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191020-005557@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191020-104909@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191020-131310@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191020-132202@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191020-132551@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191021-142223@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191021-142755@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191020-133753@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191020-133820@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191019-134633@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191019-134936@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191019-140006@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191019-140055@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191019-140153@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191020-214616@2x.png">
+<meta property="og:updated_time" content="2019-10-21T08:43:32.865Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack构建">
+<meta name="twitter:description" content="webpack构建过程Webpack 的运行流程是一个串行的过程，从启动到结束会依次执行以下流程：  webpack会读取你在命令行传入的配置以及项目里的 webpack.config.js 文件，初始化本次构建的配置参数，并且执行配置文件中的插件实例化语句，生成Compiler传入plugin的apply方法，为webpack事件流挂上自定义钩子。  接下来到了entryOption阶段，web">
+<meta name="twitter:image" content="http://www.qinhanwen.xyz/TB1GVGFNXXXXXaTapXXXXXXXXXX-4436-4244.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/11/webpack构建过程/"/>
+
+
+
+
+
+  <title>webpack构建 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/11/webpack构建过程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">webpack构建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-11T00:21:52+08:00">
+                2019-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="webpack构建过程"><a href="#webpack构建过程" class="headerlink" title="webpack构建过程"></a>webpack构建过程</h2><p>Webpack 的运行流程是一个串行的过程，从启动到结束会依次执行以下流程：</p>
+<ul>
+<li><p>webpack会读取你在命令行传入的配置以及项目里的 webpack.config.js 文件，初始化本次构建的配置参数，并且执行配置文件中的插件实例化语句，生成Compiler传入plugin的apply方法，为webpack事件流挂上自定义钩子。</p>
+</li>
+<li><p>接下来到了entryOption阶段，webpack开始读取配置的Entries，递归遍历所有的入口文件</p>
+</li>
+<li><p>Webpack接下来就开始了compilation过程。会依次进入其中每一个入口文件(entry)，先使用用户配置好的loader对文件内容进行编译（buildModule），我们可以从传入事件回调的compilation上拿到module的resource（资源路径）、loaders（经过的loaders）等信息；之后，再将编译好的文件内容使用acorn解析生成AST静态语法树（normalModuleLoader），分析文件的依赖关系逐个拉取依赖模块并重复上述过程，最后将所有模块中的require语法替换成__webpack_require__来模拟模块化操作。</p>
+</li>
+<li><p>emit阶段，所有文件的编译及转化都已经完成，包含了最终输出的资源，我们可以在传入事件回调的compilation.assets 上拿到所需数据，其中包括即将输出的资源、代码块Chunk等等信息</p>
+</li>
+</ul>
+<p><img src="http://www.qinhanwen.xyz/TB1GVGFNXXXXXaTapXXXXXXXXXX-4436-4244.jpg" alt="TB1GVGFNXXXXXaTapXXXXXXXXXX-4436-4244"></p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>npm初始化项目，根目录新建文件</p>
+<p>webpack.config.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> &#123; CleanWebpackPlugin &#125; = <span class="built_in">require</span>(<span class="string">'clean-webpack-plugin'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">'development'</span>,<span class="comment">//打包模式 development和production，是否压缩打包出来的文件</span></span><br><span class="line">    entry: <span class="string">"./index.js"</span>,<span class="comment">//从哪个文件开始打包</span></span><br><span class="line">    plugins: [</span><br><span class="line">    <span class="keyword">new</span> CleanWebpackPlugin(&#123; <span class="attr">cleanAfterEveryBuildPatterns</span>: [<span class="string">'dist'</span>], <span class="attr">verbose</span>: <span class="literal">true</span> &#125;)],</span><br><span class="line">    output: &#123;<span class="comment">//输出</span></span><br><span class="line">        filename: <span class="string">'bundle.js'</span>,<span class="comment">//最终文件命名</span></span><br><span class="line">        path: path.resolve(__dirname, <span class="string">'dist'</span>),<span class="comment">//输出文件夹的路径</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>index.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> a <span class="keyword">from</span> <span class="string">'./index1.js'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br></pre></td></tr></table></figure>
+<p>index1.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> b <span class="keyword">from</span> <span class="string">'./index2.js'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(b);</span><br><span class="line"><span class="keyword">const</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> a;</span><br></pre></td></tr></table></figure>
+<p>index2.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> b;</span><br></pre></td></tr></table></figure>
+<p>修改package.json文件</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"> "scripts": &#123;</span><br><span class="line">    "build": " node ./node_modules/webpack/bin/webpack.js --inline --progress --config ./webpack.config.js"</span><br><span class="line">  &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>执行sctipts命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm run build</span></span><br></pre></td></tr></table></figure>
+<p>看下构建完的代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/******/</span> (<span class="function"><span class="keyword">function</span>(<span class="params">modules</span>) </span>&#123; <span class="comment">// webpackBootstrap</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// The module cache</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="keyword">var</span> installedModules = &#123;&#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// The require function</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="function"><span class="keyword">function</span> <span class="title">__webpack_require__</span>(<span class="params">moduleId</span>) </span>&#123;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Check if module is in cache</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>(installedModules[moduleId]) &#123;</span><br><span class="line"><span class="comment">/******/</span> 			<span class="keyword">return</span> installedModules[moduleId].exports;</span><br><span class="line"><span class="comment">/******/</span> 		&#125;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Create a new module (and put it into the cache)</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">var</span> <span class="built_in">module</span> = installedModules[moduleId] = &#123;</span><br><span class="line"><span class="comment">/******/</span> 			i: moduleId,</span><br><span class="line"><span class="comment">/******/</span> 			l: <span class="literal">false</span>,</span><br><span class="line"><span class="comment">/******/</span> 			exports: &#123;&#125;</span><br><span class="line"><span class="comment">/******/</span> 		&#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Execute the module function</span></span><br><span class="line"><span class="comment">/******/</span> 		modules[moduleId].call(<span class="built_in">module</span>.exports, <span class="built_in">module</span>, <span class="built_in">module</span>.exports, __webpack_require__);</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Flag the module as loaded</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="built_in">module</span>.l = <span class="literal">true</span>;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Return the exports of the module</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">return</span> <span class="built_in">module</span>.exports;</span><br><span class="line"><span class="comment">/******/</span> 	&#125;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// expose the modules object (__webpack_modules__)</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.m = modules;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// expose the module cache</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.c = installedModules;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// define getter function for harmony exports</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.d = <span class="function"><span class="keyword">function</span>(<span class="params">exports, name, getter</span>) </span>&#123;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>(!__webpack_require__.o(exports, name)) &#123;</span><br><span class="line"><span class="comment">/******/</span> 			<span class="built_in">Object</span>.defineProperty(exports, name, &#123; <span class="attr">enumerable</span>: <span class="literal">true</span>, <span class="attr">get</span>: getter &#125;);</span><br><span class="line"><span class="comment">/******/</span> 		&#125;</span><br><span class="line"><span class="comment">/******/</span> 	&#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// define __esModule on exports</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.r = <span class="function"><span class="keyword">function</span>(<span class="params">exports</span>) </span>&#123;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="built_in">Symbol</span> !== <span class="string">'undefined'</span> &amp;&amp; <span class="built_in">Symbol</span>.toStringTag) &#123;</span><br><span class="line"><span class="comment">/******/</span> 			<span class="built_in">Object</span>.defineProperty(exports, <span class="built_in">Symbol</span>.toStringTag, &#123; <span class="attr">value</span>: <span class="string">'Module'</span> &#125;);</span><br><span class="line"><span class="comment">/******/</span> 		&#125;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="built_in">Object</span>.defineProperty(exports, <span class="string">'__esModule'</span>, &#123; <span class="attr">value</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"><span class="comment">/******/</span> 	&#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// create a fake namespace object</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// mode &amp; 1: value is a module id, require it</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// mode &amp; 2: merge all properties of value into the ns</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// mode &amp; 4: return value when already ns object</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// mode &amp; 8|1: behave like require</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.t = <span class="function"><span class="keyword">function</span>(<span class="params">value, mode</span>) </span>&#123;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>(mode &amp; <span class="number">1</span>) value = __webpack_require__(value);</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>(mode &amp; <span class="number">8</span>) <span class="keyword">return</span> value;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>((mode &amp; <span class="number">4</span>) &amp;&amp; <span class="keyword">typeof</span> value === <span class="string">'object'</span> &amp;&amp; value &amp;&amp; value.__esModule) <span class="keyword">return</span> value;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">var</span> ns = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line"><span class="comment">/******/</span> 		__webpack_require__.r(ns);</span><br><span class="line"><span class="comment">/******/</span> 		<span class="built_in">Object</span>.defineProperty(ns, <span class="string">'default'</span>, &#123; <span class="attr">enumerable</span>: <span class="literal">true</span>, <span class="attr">value</span>: value &#125;);</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>(mode &amp; <span class="number">2</span> &amp;&amp; <span class="keyword">typeof</span> value != <span class="string">'string'</span>) <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> value) __webpack_require__.d(ns, key, <span class="function"><span class="keyword">function</span>(<span class="params">key</span>) </span>&#123; <span class="keyword">return</span> value[key]; &#125;.bind(<span class="literal">null</span>, key));</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">return</span> ns;</span><br><span class="line"><span class="comment">/******/</span> 	&#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// getDefaultExport function for compatibility with non-harmony modules</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.n = <span class="function"><span class="keyword">function</span>(<span class="params">module</span>) </span>&#123;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">var</span> getter = <span class="built_in">module</span> &amp;&amp; <span class="built_in">module</span>.__esModule ?</span><br><span class="line"><span class="comment">/******/</span> 			<span class="function"><span class="keyword">function</span> <span class="title">getDefault</span>(<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="built_in">module</span>[<span class="string">'default'</span>]; &#125; :</span><br><span class="line"><span class="comment">/******/</span> 			<span class="function"><span class="keyword">function</span> <span class="title">getModuleExports</span>(<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="built_in">module</span>; &#125;;</span><br><span class="line"><span class="comment">/******/</span> 		__webpack_require__.d(getter, <span class="string">'a'</span>, getter);</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">return</span> getter;</span><br><span class="line"><span class="comment">/******/</span> 	&#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// Object.prototype.hasOwnProperty.call</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.o = <span class="function"><span class="keyword">function</span>(<span class="params">object, property</span>) </span>&#123; <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.hasOwnProperty.call(object, property); &#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// __webpack_public_path__</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.p = <span class="string">""</span>;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// Load entry module and return exports</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="keyword">return</span> __webpack_require__(__webpack_require__.s = <span class="string">"./index.js"</span>);</span><br><span class="line"><span class="comment">/******/</span> &#125;)</span><br><span class="line"><span class="comment">/************************************************************************/</span></span><br><span class="line"><span class="comment">/******/</span> (&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">/***/</span> <span class="string">"./index.js"</span>:</span><br><span class="line"><span class="comment">/*!******************!*\</span></span><br><span class="line"><span class="comment">  !*** ./index.js ***!</span></span><br><span class="line"><span class="comment">  \******************/</span></span><br><span class="line"><span class="comment">/*! no exports provided */</span></span><br><span class="line"><span class="comment">/***/</span> (<span class="function"><span class="keyword">function</span>(<span class="params">module, __webpack_exports__, __webpack_require__</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">"__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _index1_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index1.js */ \"./index1.js\");\n\nconsole.log(_index1_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"]);\n\n//# sourceURL=webpack:///./index.js?"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/***/</span> &#125;),</span><br><span class="line"></span><br><span class="line"><span class="comment">/***/</span> <span class="string">"./index1.js"</span>:</span><br><span class="line"><span class="comment">/*!*******************!*\</span></span><br><span class="line"><span class="comment">  !*** ./index1.js ***!</span></span><br><span class="line"><span class="comment">  \*******************/</span></span><br><span class="line"><span class="comment">/*! exports provided: default */</span></span><br><span class="line"><span class="comment">/***/</span> (<span class="function"><span class="keyword">function</span>(<span class="params">module, __webpack_exports__, __webpack_require__</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">"__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _index2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index2.js */ \"./index2.js\");\n\nconsole.log(_index2_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"]);\nconst a = 1;\n/* harmony default export */ __webpack_exports__[\"default\"] = (a);\n\n//# sourceURL=webpack:///./index1.js?"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/***/</span> &#125;),</span><br><span class="line"></span><br><span class="line"><span class="comment">/***/</span> <span class="string">"./index2.js"</span>:</span><br><span class="line"><span class="comment">/*!*******************!*\</span></span><br><span class="line"><span class="comment">  !*** ./index2.js ***!</span></span><br><span class="line"><span class="comment">  \*******************/</span></span><br><span class="line"><span class="comment">/*! exports provided: default */</span></span><br><span class="line"><span class="comment">/***/</span> (<span class="function"><span class="keyword">function</span>(<span class="params">module, __webpack_exports__, __webpack_require__</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">"__webpack_require__.r(__webpack_exports__);\nconst b = 2;\n/* harmony default export */ __webpack_exports__[\"default\"] = (b);\n\n//# sourceURL=webpack:///./index2.js?"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/***/</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/******/</span> &#125;);</span><br></pre></td></tr></table></figure>
+<p>webpack_require实现了自己的模块化，并且把代码都缓存在了installedModules里，代码文件以对象形式传入，key是路径，value是包裹的代码字符串。</p>
+<p><strong>如何断点调试打包过程</strong></p>
+<p>修改package.json文件</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"> "scripts": &#123;</span><br><span class="line">    "build": " node --inspect-brk ./node_modules/webpack/bin/webpack.js --inline --progress --config ./webpack.config.js"</span><br><span class="line">  &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>因为可以知道构建的时候调用的是webpack.js文件，所以添加<code>--inspect-brk</code>参数，开启调试。</p>
+<p>上面这个例子，调用webpack.js文件的时候，最后是调用到这</p>
+<p><img src="http://www.qinhanwen.xyz/微信截图_20191014215251.png" alt="微信截图_20191014215251"></p>
+<p>也就是引入这个模块</p>
+<p><img src="http://www.qinhanwen.xyz/微信截图_20191014215401.png" alt="微信截图_20191014215401"></p>
+<p>所以进入这个文件打个<code>debugger</code></p>
+<p><img src="http://www.qinhanwen.xyz/微信截图_20191014215553.png" alt="微信截图_20191014215553"></p>
+<p><strong>初始化参数</strong></p>
+<p><img src="http://www.qinhanwen.xyz/微信截图_20191014214345.png" alt="微信截图_20191014214345"></p>
+<p>首先调用<code>yargs.parse</code>方法，传入命令行参数与回调函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">self.parse = <span class="function"><span class="keyword">function</span> <span class="title">parse</span> (<span class="params">args, shortCircuit, _parseFn</span>) </span>&#123;</span><br><span class="line">  argsert(<span class="string">'[string|array] [function|boolean|object] [function]'</span>, [args, shortCircuit, _parseFn], <span class="built_in">arguments</span>.length)</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> args === <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> self._parseArgs(processArgs)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> shortCircuit === <span class="string">'object'</span>) &#123;</span><br><span class="line">    parseContext = shortCircuit</span><br><span class="line">    shortCircuit = _parseFn</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> shortCircuit === <span class="string">'function'</span>) &#123;</span><br><span class="line">    parseFn = shortCircuit</span><br><span class="line">    shortCircuit = <span class="literal">null</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (!shortCircuit) processArgs = args</span><br><span class="line"></span><br><span class="line">  freeze()</span><br><span class="line">  <span class="keyword">if</span> (parseFn) exitProcess = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> parsed = self._parseArgs(args, shortCircuit)</span><br><span class="line">  <span class="keyword">if</span> (parseFn) parseFn(exitError, parsed, output)</span><br><span class="line">  unfreeze()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> parsed</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里做参数合并，之后调用传入的回调函数</p>
+<p><img src="http://www.qinhanwen.xyz/微信截图_20191015083039.png" alt="微信截图_20191015083039"></p>
+<p>走进<code>options = require(&quot;./utils/convert-argv&quot;)(argv);</code>，在这里面获取配置文件位置，并且把配置项<code>push</code>到<code>options</code>数组里</p>
+<p><img src="http://www.qinhanwen.xyz/微信截图_20191015083645.png" alt="微信截图_20191015083645"></p>
+<p><code>requireConfig</code>方法，就是引入配置文件模块</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> requireConfig = <span class="function"><span class="keyword">function</span> <span class="title">requireConfig</span>(<span class="params">configPath</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">let</span> options = (<span class="function"><span class="keyword">function</span> <span class="title">WEBPACK_OPTIONS</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (argv.configRegister &amp;&amp; argv.configRegister.length) &#123;</span><br><span class="line">			<span class="built_in">module</span>.paths.unshift(path.resolve(process.cwd(), <span class="string">"node_modules"</span>), process.cwd());</span><br><span class="line">			argv.configRegister.forEach(<span class="function"><span class="params">dep</span> =&gt;</span> &#123;</span><br><span class="line">				<span class="built_in">require</span>(dep);</span><br><span class="line">			&#125;);</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">require</span>(path.resolve(process.cwd(), configPath));</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">require</span>(path.resolve(process.cwd(), configPath));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)();</span><br><span class="line">	options = prepareOptions(options, argv);</span><br><span class="line">	<span class="keyword">return</span> options;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>最后得到的配置信息</p>
+<p><img src="http://www.qinhanwen.xyz/微信截图_20191015084054.png" alt="微信截图_20191015084054"></p>
+<p>之后把配置信息传入<code>processOptions</code>函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">processOptions</span>(<span class="params">options</span>) </span>&#123;</span><br><span class="line">	...</span><br><span class="line">	...</span><br><span class="line">          </span><br><span class="line">	<span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">"webpack"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">let</span> lastHash = <span class="literal">null</span>;</span><br><span class="line">	<span class="keyword">let</span> compiler;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		compiler = webpack(options);</span><br><span class="line">	&#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">		<span class="keyword">if</span> (err.name === <span class="string">"WebpackOptionsValidationError"</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span> (argv.color) <span class="built_in">console</span>.error(<span class="string">`\u001b[1m\u001b[31m<span class="subst">$&#123;err.message&#125;</span>\u001b[39m\u001b[22m`</span>);</span><br><span class="line">			<span class="keyword">else</span> <span class="built_in">console</span>.error(err.message);</span><br><span class="line">			<span class="comment">// eslint-disable-next-line no-process-exit</span></span><br><span class="line">			process.exit(<span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">throw</span> err;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (argv.progress) &#123;</span><br><span class="line">		<span class="keyword">const</span> ProgressPlugin = <span class="built_in">require</span>(<span class="string">"webpack"</span>).ProgressPlugin;</span><br><span class="line">		<span class="keyword">new</span> ProgressPlugin(&#123;</span><br><span class="line">			profile: argv.profile</span><br><span class="line">		&#125;).apply(compiler);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (outputOptions.infoVerbosity === <span class="string">"verbose"</span>) &#123;</span><br><span class="line">		<span class="keyword">if</span> (argv.w) &#123;</span><br><span class="line">			compiler.hooks.watchRun.tap(<span class="string">"WebpackInfo"</span>, compilation =&gt; &#123;</span><br><span class="line">				<span class="keyword">const</span> compilationName = compilation.name ? compilation.name : <span class="string">""</span>;</span><br><span class="line">				<span class="built_in">console</span>.error(<span class="string">"\nCompilation "</span> + compilationName + <span class="string">" starting…\n"</span>);</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			compiler.hooks.beforeRun.tap(<span class="string">"WebpackInfo"</span>, compilation =&gt; &#123;</span><br><span class="line">				<span class="keyword">const</span> compilationName = compilation.name ? compilation.name : <span class="string">""</span>;</span><br><span class="line">				<span class="built_in">console</span>.error(<span class="string">"\nCompilation "</span> + compilationName + <span class="string">" starting…\n"</span>);</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;</span><br><span class="line">		compiler.hooks.done.tap(<span class="string">"WebpackInfo"</span>, compilation =&gt; &#123;</span><br><span class="line">			<span class="keyword">const</span> compilationName = compilation.name ? compilation.name : <span class="string">""</span>;</span><br><span class="line">			<span class="built_in">console</span>.error(<span class="string">"\nCompilation "</span> + compilationName + <span class="string">" finished\n"</span>);</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">compilerCallback</span>(<span class="params">err, stats</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (!options.watch || err) &#123;</span><br><span class="line">			<span class="comment">// Do not keep cache anymore</span></span><br><span class="line">			compiler.purgeInputFileSystem();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (err) &#123;</span><br><span class="line">			lastHash = <span class="literal">null</span>;</span><br><span class="line">			<span class="built_in">console</span>.error(err.stack || err);</span><br><span class="line">			<span class="keyword">if</span> (err.details) <span class="built_in">console</span>.error(err.details);</span><br><span class="line">			process.exitCode = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (outputOptions.json) &#123;</span><br><span class="line">			stdout.write(<span class="built_in">JSON</span>.stringify(stats.toJson(outputOptions), <span class="literal">null</span>, <span class="number">2</span>) + <span class="string">"\n"</span>);</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (stats.hash !== lastHash) &#123;</span><br><span class="line">			lastHash = stats.hash;</span><br><span class="line">			<span class="keyword">if</span> (stats.compilation &amp;&amp; stats.compilation.errors.length !== <span class="number">0</span>) &#123;</span><br><span class="line">				<span class="keyword">const</span> errors = stats.compilation.errors;</span><br><span class="line">				<span class="keyword">if</span> (errors[<span class="number">0</span>].name === <span class="string">"EntryModuleNotFoundError"</span>) &#123;</span><br><span class="line">					<span class="built_in">console</span>.error(<span class="string">"\n\u001b[1m\u001b[31mInsufficient number of arguments or no entry found."</span>);</span><br><span class="line">					<span class="built_in">console</span>.error(</span><br><span class="line">						<span class="string">"\u001b[1m\u001b[31mAlternatively, run 'webpack(-cli) --help' for usage info.\u001b[39m\u001b[22m\n"</span></span><br><span class="line">					);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">const</span> statsString = stats.toString(outputOptions);</span><br><span class="line">			<span class="keyword">const</span> delimiter = outputOptions.buildDelimiter ? <span class="string">`<span class="subst">$&#123;outputOptions.buildDelimiter&#125;</span>\n`</span> : <span class="string">""</span>;</span><br><span class="line">			<span class="keyword">if</span> (statsString) stdout.write(<span class="string">`<span class="subst">$&#123;statsString&#125;</span>\n<span class="subst">$&#123;delimiter&#125;</span>`</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (!options.watch &amp;&amp; stats.hasErrors()) &#123;</span><br><span class="line">			process.exitCode = <span class="number">2</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (firstOptions.watch || options.watch) &#123;</span><br><span class="line">		<span class="keyword">const</span> watchOptions =</span><br><span class="line">			firstOptions.watchOptions || options.watchOptions || firstOptions.watch || options.watch || &#123;&#125;;</span><br><span class="line">		<span class="keyword">if</span> (watchOptions.stdin) &#123;</span><br><span class="line">			process.stdin.on(<span class="string">"end"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">_</span>) </span>&#123;</span><br><span class="line">				process.exit(); <span class="comment">// eslint-disable-line</span></span><br><span class="line">			&#125;);</span><br><span class="line">			process.stdin.resume();</span><br><span class="line">		&#125;</span><br><span class="line">		compiler.watch(watchOptions, compilerCallback);</span><br><span class="line">		<span class="keyword">if</span> (outputOptions.infoVerbosity !== <span class="string">"none"</span>) <span class="built_in">console</span>.error(<span class="string">"\nwebpack is watching the files…\n"</span>);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		compiler.run(<span class="function">(<span class="params">err, stats</span>) =&gt;</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> (compiler.close) &#123;</span><br><span class="line">				compiler.close(<span class="function"><span class="params">err2</span> =&gt;</span> &#123;</span><br><span class="line">					compilerCallback(err || err2, stats);</span><br><span class="line">				&#125;);</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				compilerCallback(err, stats);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先引入<code>webpack</code> ，文件目录在<code>node_modules/webpack/lib/webpack.js</code></p>
+<p><img src="http://www.qinhanwen.xyz/微信截图_20191015090614.png" alt="微信截图_20191015090614"></p>
+<p> <strong>开始编译</strong></p>
+<p> 初始化 <code>Compiler</code> 对象 <code>compiler = webpack(options);</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> webpack = <span class="function">(<span class="params">options, callback</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">const</span> webpackOptionsValidationErrors = validateSchema(</span><br><span class="line">		webpackOptionsSchema,</span><br><span class="line">		options</span><br><span class="line">	);</span><br><span class="line">	<span class="keyword">if</span> (webpackOptionsValidationErrors.length) &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> WebpackOptionsValidationError(webpackOptionsValidationErrors);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">let</span> compiler;</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(options)) &#123;</span><br><span class="line">		compiler = <span class="keyword">new</span> MultiCompiler(</span><br><span class="line">			<span class="built_in">Array</span>.from(options).map(<span class="function"><span class="params">options</span> =&gt;</span> webpack(options))</span><br><span class="line">		);</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> options === <span class="string">"object"</span>) &#123;</span><br><span class="line">		options = <span class="keyword">new</span> WebpackOptionsDefaulter().process(options);</span><br><span class="line"></span><br><span class="line">		compiler = <span class="keyword">new</span> Compiler(options.context);</span><br><span class="line">		compiler.options = options;</span><br><span class="line">		<span class="keyword">new</span> NodeEnvironmentPlugin(&#123;</span><br><span class="line">			infrastructureLogging: options.infrastructureLogging</span><br><span class="line">		&#125;).apply(compiler);</span><br><span class="line">		<span class="keyword">if</span> (options.plugins &amp;&amp; <span class="built_in">Array</span>.isArray(options.plugins)) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">const</span> plugin <span class="keyword">of</span> options.plugins) &#123;</span><br><span class="line">				<span class="keyword">if</span> (<span class="keyword">typeof</span> plugin === <span class="string">"function"</span>) &#123;</span><br><span class="line">					plugin.call(compiler, compiler);</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					plugin.apply(compiler);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		compiler.hooks.environment.call();</span><br><span class="line">		compiler.hooks.afterEnvironment.call();</span><br><span class="line">		compiler.options = <span class="keyword">new</span> WebpackOptionsApply().process(options, compiler);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Invalid argument: options"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (callback) &#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">typeof</span> callback !== <span class="string">"function"</span>) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Invalid argument: callback"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (</span><br><span class="line">			options.watch === <span class="literal">true</span> ||</span><br><span class="line">			(<span class="built_in">Array</span>.isArray(options) &amp;&amp; options.some(<span class="function"><span class="params">o</span> =&gt;</span> o.watch))</span><br><span class="line">		) &#123;</span><br><span class="line">			<span class="keyword">const</span> watchOptions = <span class="built_in">Array</span>.isArray(options)</span><br><span class="line">				? options.map(<span class="function"><span class="params">o</span> =&gt;</span> o.watchOptions || &#123;&#125;)</span><br><span class="line">				: options.watchOptions || &#123;&#125;;</span><br><span class="line">			<span class="keyword">return</span> compiler.watch(watchOptions, callback);</span><br><span class="line">		&#125;</span><br><span class="line">		compiler.run(callback);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> compiler;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>其中遍历了<code>plugins</code>数组</p>
+<p><img src="http://www.qinhanwen.xyz/微信截图_20191018102343.png" alt="微信截图_20191018102343"></p>
+<p>判断是否是<code>function</code>类型，不是就调用<code>apply</code>方法（我们这边只使用了<code>CleanWebpackPlugin</code>插件，所以调用的是它实例的<code>apply</code>方法）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">apply(compiler: Compiler) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!compiler.options.output || !compiler.options.output.path) &#123;</span><br><span class="line">        <span class="comment">// eslint-disable-next-line no-console</span></span><br><span class="line">        <span class="built_in">console</span>.warn(</span><br><span class="line">            <span class="string">'clean-webpack-plugin: options.output.path not defined. Plugin disabled...'</span>,</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.outputPath = compiler.options.output.path;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * webpack 4+ comes with a new plugin system.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * Check for hooks in-order to support old plugin system</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">const</span> hooks = compiler.hooks;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.cleanOnceBeforeBuildPatterns.length !== <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (hooks) &#123;</span><br><span class="line">            hooks.emit.tap(<span class="string">'clean-webpack-plugin'</span>, (compilation) =&gt; &#123;</span><br><span class="line">                <span class="keyword">this</span>.handleInitial(compilation);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            compiler.plugin(<span class="string">'emit'</span>, (compilation, callback) =&gt; &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">this</span>.handleInitial(compilation);</span><br><span class="line"></span><br><span class="line">                    callback();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">                    callback(error);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (hooks) &#123;</span><br><span class="line">        hooks.done.tap(<span class="string">'clean-webpack-plugin'</span>, (stats) =&gt; &#123;</span><br><span class="line">            <span class="keyword">this</span>.handleDone(stats);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        compiler.plugin(<span class="string">'done'</span>, (stats) =&gt; &#123;</span><br><span class="line">            <span class="keyword">this</span>.handleDone(stats);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>先判断<code>compiler.options.output.path</code>，输出路径是否存在，不存在就报提醒</li>
+<li>之后判断<code>cleanOnceBeforeBuildPatterns</code>的长度，它是在实例化的时候创建的</li>
+</ul>
+<p><img src="http://www.qinhanwen.xyz/微信截图_20191018104524.png" alt="微信截图_20191018104524"></p>
+<p>，再判断是否有<code>hooks</code>，之后调用下面这个方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hooks.emit.tap(<span class="string">'clean-webpack-plugin'</span>, (compilation) =&gt; &#123;</span><br><span class="line"> 	<span class="keyword">this</span>.handleInitial(compilation);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>把名字、类型、回调存到数组里，挂载在<code>hook.emit</code>上</p>
+<p><img src="http://www.qinhanwen.xyz/微信截图_20191018105214.png" alt="微信截图_20191018105214"></p>
+<ul>
+<li>之后又在<code>hooks.done</code>上的<code>taps</code>属性存入，这里的区别是回调函数不一样</li>
+</ul>
+<p><img src="http://www.qinhanwen.xyz/微信截图_20191018105417.png" alt="微信截图_20191018105417"></p>
+<p>最后得到的<code>compiler</code></p>
+<p> <img src="http://www.qinhanwen.xyz/微信截图_20191015153328.png" alt="微信截图_20191015153328"></p>
+<p>执行run方法开始执行编译</p>
+<p><img src="http://www.qinhanwen.xyz/微信截图_20191015154017.png" alt="微信截图_20191015154017"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">run(callback) &#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">this</span>.running) <span class="keyword">return</span> callback(<span class="keyword">new</span> ConcurrentCompilationError());</span><br><span class="line"></span><br><span class="line">	<span class="keyword">const</span> finalCallback = <span class="function">(<span class="params">err, stats</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">this</span>.running = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (err) &#123;</span><br><span class="line">			<span class="keyword">this</span>.hooks.failed.call(err);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (callback !== <span class="literal">undefined</span>) <span class="keyword">return</span> callback(err, stats);</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">const</span> startTime = <span class="built_in">Date</span>.now();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span>.running = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">const</span> onCompiled = <span class="function">(<span class="params">err, compilation</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (err) <span class="keyword">return</span> finalCallback(err);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>.hooks.shouldEmit.call(compilation) === <span class="literal">false</span>) &#123;</span><br><span class="line">			<span class="keyword">const</span> stats = <span class="keyword">new</span> Stats(compilation);</span><br><span class="line">			stats.startTime = startTime;</span><br><span class="line">			stats.endTime = <span class="built_in">Date</span>.now();</span><br><span class="line">			<span class="keyword">this</span>.hooks.done.callAsync(stats, err =&gt; &#123;</span><br><span class="line">				<span class="keyword">if</span> (err) <span class="keyword">return</span> finalCallback(err);</span><br><span class="line">				<span class="keyword">return</span> finalCallback(<span class="literal">null</span>, stats);</span><br><span class="line">			&#125;);</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">this</span>.emitAssets(compilation, err =&gt; &#123;</span><br><span class="line">			<span class="keyword">if</span> (err) <span class="keyword">return</span> finalCallback(err);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> (compilation.hooks.needAdditionalPass.call()) &#123;</span><br><span class="line">				compilation.needAdditionalPass = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">				<span class="keyword">const</span> stats = <span class="keyword">new</span> Stats(compilation);</span><br><span class="line">				stats.startTime = startTime;</span><br><span class="line">				stats.endTime = <span class="built_in">Date</span>.now();</span><br><span class="line">				<span class="keyword">this</span>.hooks.done.callAsync(stats, err =&gt; &#123;</span><br><span class="line">					<span class="keyword">if</span> (err) <span class="keyword">return</span> finalCallback(err);</span><br><span class="line"></span><br><span class="line">					<span class="keyword">this</span>.hooks.additionalPass.callAsync(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">						<span class="keyword">if</span> (err) <span class="keyword">return</span> finalCallback(err);</span><br><span class="line">						<span class="keyword">this</span>.compile(onCompiled);</span><br><span class="line">					&#125;);</span><br><span class="line">				&#125;);</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">this</span>.emitRecords(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">				<span class="keyword">if</span> (err) <span class="keyword">return</span> finalCallback(err);</span><br><span class="line"></span><br><span class="line">				<span class="keyword">const</span> stats = <span class="keyword">new</span> Stats(compilation);</span><br><span class="line">				stats.startTime = startTime;</span><br><span class="line">				stats.endTime = <span class="built_in">Date</span>.now();</span><br><span class="line">				<span class="keyword">this</span>.hooks.done.callAsync(stats, err =&gt; &#123;</span><br><span class="line">					<span class="keyword">if</span> (err) <span class="keyword">return</span> finalCallback(err);</span><br><span class="line">					<span class="keyword">return</span> finalCallback(<span class="literal">null</span>, stats);</span><br><span class="line">				&#125;);</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span>.hooks.beforeRun.callAsync(<span class="keyword">this</span>, err =&gt; &#123;</span><br><span class="line">		<span class="keyword">if</span> (err) <span class="keyword">return</span> finalCallback(err);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">this</span>.hooks.run.callAsync(<span class="keyword">this</span>, err =&gt; &#123;</span><br><span class="line">			<span class="keyword">if</span> (err) <span class="keyword">return</span> finalCallback(err);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">this</span>.readRecords(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">				<span class="keyword">if</span> (err) <span class="keyword">return</span> finalCallback(err);</span><br><span class="line"></span><br><span class="line">				<span class="keyword">this</span>.compile(onCompiled);</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>进入<code>this.compile(onCompiled);</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">compile(callback) &#123;</span><br><span class="line">	<span class="keyword">const</span> params = <span class="keyword">this</span>.newCompilationParams();</span><br><span class="line">	<span class="keyword">this</span>.hooks.beforeCompile.callAsync(params, err =&gt; &#123;</span><br><span class="line">		<span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">this</span>.hooks.compile.call(params);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">const</span> compilation = <span class="keyword">this</span>.newCompilation(params);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">this</span>.hooks.make.callAsync(compilation, err =&gt; &#123;</span><br><span class="line">			<span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</span><br><span class="line"></span><br><span class="line">			compilation.finish(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">				<span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</span><br><span class="line"></span><br><span class="line">				compilation.seal(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">					<span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</span><br><span class="line"></span><br><span class="line">					<span class="keyword">this</span>.hooks.afterCompile.callAsync(compilation, err =&gt; &#123;</span><br><span class="line">						<span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</span><br><span class="line"></span><br><span class="line">						<span class="keyword">return</span> callback(<span class="literal">null</span>, compilation);</span><br><span class="line">					&#125;);</span><br><span class="line">				&#125;);</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里构建compilation对象</p>
+<p><strong>确认入口</strong></p>
+<p>之后进入<code>this.hooks.make.callAsync</code>，目的是确认入口</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191019-163429@2x.png" alt="WX20191019-163429@2x"></p>
+<p>进入<code>this._addModuleChain</code></p>
+<p><img src="http://www.qinhanwen.xyz/WX20191020-000729@2x.png" alt="WX20191020-000729@2x"></p>
+<p>之后对module进行build</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191020-003218@2x.png" alt="WX20191020-003218@2x"></p>
+<p>进入<code>doBuild</code>方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.doBuild(options, compilation, resolver, fs, err =&gt; &#123;</span><br><span class="line">			<span class="keyword">this</span>._cachedSources.clear();</span><br><span class="line"></span><br><span class="line">			<span class="comment">// if we have an error mark module as failed and exit</span></span><br><span class="line">			<span class="keyword">if</span> (err) &#123;</span><br><span class="line">				<span class="keyword">this</span>.markModuleAsErrored(err);</span><br><span class="line">				<span class="keyword">this</span>._initBuildHash(compilation);</span><br><span class="line">				<span class="keyword">return</span> callback();</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="comment">// check if this module should !not! be parsed.</span></span><br><span class="line">			<span class="comment">// if so, exit here;</span></span><br><span class="line">			<span class="keyword">const</span> noParseRule = options.module &amp;&amp; options.module.noParse;</span><br><span class="line">			<span class="keyword">if</span> (<span class="keyword">this</span>.shouldPreventParsing(noParseRule, <span class="keyword">this</span>.request)) &#123;</span><br><span class="line">				<span class="keyword">this</span>._initBuildHash(compilation);</span><br><span class="line">				<span class="keyword">return</span> callback();</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">const</span> handleParseError = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">				<span class="keyword">const</span> source = <span class="keyword">this</span>._source.source();</span><br><span class="line">				<span class="keyword">const</span> loaders = <span class="keyword">this</span>.loaders.map(<span class="function"><span class="params">item</span> =&gt;</span></span><br><span class="line">					contextify(options.context, item.loader)</span><br><span class="line">				);</span><br><span class="line">				<span class="keyword">const</span> error = <span class="keyword">new</span> ModuleParseError(<span class="keyword">this</span>, source, e, loaders);</span><br><span class="line">				<span class="keyword">this</span>.markModuleAsErrored(error);</span><br><span class="line">				<span class="keyword">this</span>._initBuildHash(compilation);</span><br><span class="line">				<span class="keyword">return</span> callback();</span><br><span class="line">			&#125;;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">const</span> handleParseResult = <span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">				<span class="keyword">this</span>._lastSuccessfulBuildMeta = <span class="keyword">this</span>.buildMeta;</span><br><span class="line">				<span class="keyword">this</span>._initBuildHash(compilation);</span><br><span class="line">				<span class="keyword">return</span> callback();</span><br><span class="line">			&#125;;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				<span class="keyword">const</span> result = <span class="keyword">this</span>.parser.parse(</span><br><span class="line">					<span class="keyword">this</span>._ast || <span class="keyword">this</span>._source.source(),</span><br><span class="line">					&#123;</span><br><span class="line">						current: <span class="keyword">this</span>,</span><br><span class="line">						<span class="built_in">module</span>: <span class="keyword">this</span>,</span><br><span class="line">						compilation: compilation,</span><br><span class="line">						options: options</span><br><span class="line">					&#125;,</span><br><span class="line">					(err, result) =&gt; &#123;</span><br><span class="line">						<span class="keyword">if</span> (err) &#123;</span><br><span class="line">							handleParseError(err);</span><br><span class="line">						&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">							handleParseResult(result);</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">				);</span><br><span class="line">				<span class="keyword">if</span> (result !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">					<span class="comment">// parse is sync</span></span><br><span class="line">					handleParseResult(result);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">				handleParseError(e);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br></pre></td></tr></table></figure>
+<p>在这里解析入口文件转成ast</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191020-140848@2x.png" alt="WX20191020-140848@2x"></p>
+<p>之后进入handleParseResult</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191020-004151@2x.png" alt="WX20191020-004151@2x"></p>
+<p>解析出的依赖会继续走到<code>parser.parse</code>的地方</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191020-005357@2x.png" alt="WX20191020-005357@2x"></p>
+<p><img src="http://www.qinhanwen.xyz/WX20191020-005557@2x.png" alt="WX20191020-005557@2x"></p>
+<p><strong>输出资源</strong></p>
+<p>webpack 会监听 <code>seal</code> 事件调用各插件对构建后的结果进行封装，要逐次对每个 module 和 chunk 进行整理，生成编译后的源码，合并，拆分，生成 hash </p>
+<p>进入compilation.seal</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191020-104909@2x.png" alt="WX20191020-104909@2x"></p>
+<p>进入createChunkAssets方法，遍历chunks</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191020-131310@2x.png" alt="WX20191020-131310@2x"></p>
+<p>进入fileManifest.render()</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191020-132202@2x.png" alt="WX20191020-132202@2x"></p>
+<p>生成source的方法是renderBootstrap，所有的requirefn被替换成了__webpack_require__</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">renderBootstrap(hash, chunk, moduleTemplate, dependencyTemplates) &#123;</span><br><span class="line">	<span class="keyword">const</span> buf = [];</span><br><span class="line">	buf.push(</span><br><span class="line">		<span class="keyword">this</span>.hooks.bootstrap.call(</span><br><span class="line">			<span class="string">""</span>,</span><br><span class="line">			chunk,</span><br><span class="line">			hash,</span><br><span class="line">			moduleTemplate,</span><br><span class="line">			dependencyTemplates</span><br><span class="line">		)</span><br><span class="line">	);</span><br><span class="line">	buf.push(<span class="keyword">this</span>.hooks.localVars.call(<span class="string">""</span>, chunk, hash));</span><br><span class="line">	buf.push(<span class="string">""</span>);</span><br><span class="line">	buf.push(<span class="string">"// The require function"</span>);</span><br><span class="line">	buf.push(<span class="string">`function <span class="subst">$&#123;<span class="keyword">this</span>.requireFn&#125;</span>(moduleId) &#123;`</span>);</span><br><span class="line">	buf.push(Template.indent(<span class="keyword">this</span>.hooks.require.call(<span class="string">""</span>, chunk, hash)));</span><br><span class="line">	buf.push(<span class="string">"&#125;"</span>);</span><br><span class="line">	buf.push(<span class="string">""</span>);</span><br><span class="line">	buf.push(</span><br><span class="line">		Template.asString(<span class="keyword">this</span>.hooks.requireExtensions.call(<span class="string">""</span>, chunk, hash))</span><br><span class="line">	);</span><br><span class="line">	buf.push(<span class="string">""</span>);</span><br><span class="line">	buf.push(Template.asString(<span class="keyword">this</span>.hooks.beforeStartup.call(<span class="string">""</span>, chunk, hash)));</span><br><span class="line">	<span class="keyword">const</span> afterStartupCode = Template.asString(</span><br><span class="line">		<span class="keyword">this</span>.hooks.afterStartup.call(<span class="string">""</span>, chunk, hash)</span><br><span class="line">	);</span><br><span class="line">	<span class="keyword">if</span> (afterStartupCode) &#123;</span><br><span class="line">		<span class="comment">// TODO webpack 5: this is a bit hacky to avoid a breaking change</span></span><br><span class="line">		<span class="comment">// change it to a better way</span></span><br><span class="line">		buf.push(<span class="string">"var startupResult = (function() &#123;"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	buf.push(Template.asString(<span class="keyword">this</span>.hooks.startup.call(<span class="string">""</span>, chunk, hash)));</span><br><span class="line">	<span class="keyword">if</span> (afterStartupCode) &#123;</span><br><span class="line">		buf.push(<span class="string">"&#125;)();"</span>);</span><br><span class="line">		buf.push(afterStartupCode);</span><br><span class="line">		buf.push(<span class="string">"return startupResult;"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> buf;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最终得到source</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191020-132551@2x.png" alt="WX20191020-132551@2x"></p>
+<p>生成好的js保存在compilation.assets里</p>
+<p>之后走进onCompiled方法，又走进emitAssets方法，调用进入<code>this.hooks.emit.callAsync</code>中的回调方法</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191021-142223@2x.png" alt="WX20191021-142223@2x"></p>
+<p>最后走到writeOut方法，先得到content</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191021-142755@2x.png" alt="WX20191021-142755@2x"></p>
+<p>进入source.source方法，其实就是循环然后拼接</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">source() &#123;</span><br><span class="line">	<span class="keyword">let</span> source = <span class="string">""</span>;</span><br><span class="line">	<span class="keyword">const</span> children = <span class="keyword">this</span>.children;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; children.length; i++) &#123;</span><br><span class="line">		<span class="keyword">const</span> child = children[i];</span><br><span class="line">		source += <span class="keyword">typeof</span> child === <span class="string">"string"</span> ? child : child.source();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> source;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后将文件写入到目标目录</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191020-133753@2x.png" alt="WX20191020-133753@2x"></p>
+<p><img src="http://www.qinhanwen.xyz/WX20191020-133820@2x.png" alt="WX20191020-133820@2x"></p>
+<p><strong>补充</strong></p>
+<p>其中的广播事件，调用clean-webpack-plugin插件的时候</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191019-134633@2x.png" alt="WX20191019-134633@2x"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br></pre></td><td class="code"><pre><span class="line">emitAssets(compilation, callback) &#123;</span><br><span class="line">	<span class="keyword">let</span> outputPath;</span><br><span class="line">	<span class="keyword">const</span> emitFiles = <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</span><br><span class="line"></span><br><span class="line">		asyncLib.forEachLimit(</span><br><span class="line">			compilation.getAssets(),</span><br><span class="line">			<span class="number">15</span>,</span><br><span class="line">			(&#123; <span class="attr">name</span>: file, source &#125;, callback) =&gt; &#123;</span><br><span class="line">				<span class="keyword">let</span> targetFile = file;</span><br><span class="line">				<span class="keyword">const</span> queryStringIdx = targetFile.indexOf(<span class="string">"?"</span>);</span><br><span class="line">				<span class="keyword">if</span> (queryStringIdx &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">					targetFile = targetFile.substr(<span class="number">0</span>, queryStringIdx);</span><br><span class="line">				&#125;</span><br><span class="line"></span><br><span class="line">				<span class="keyword">const</span> writeOut = <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">					<span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</span><br><span class="line">					<span class="keyword">const</span> targetPath = <span class="keyword">this</span>.outputFileSystem.join(</span><br><span class="line">						outputPath,</span><br><span class="line">						targetFile</span><br><span class="line">					);</span><br><span class="line">					<span class="comment">// TODO webpack 5 remove futureEmitAssets option and make it on by default</span></span><br><span class="line">					<span class="keyword">if</span> (<span class="keyword">this</span>.options.output.futureEmitAssets) &#123;</span><br><span class="line">						<span class="comment">// check if the target file has already been written by this Compiler</span></span><br><span class="line">						<span class="keyword">const</span> targetFileGeneration = <span class="keyword">this</span>._assetEmittingWrittenFiles.get(</span><br><span class="line">							targetPath</span><br><span class="line">						);</span><br><span class="line"></span><br><span class="line">						<span class="comment">// create an cache entry for this Source if not already existing</span></span><br><span class="line">						<span class="keyword">let</span> cacheEntry = <span class="keyword">this</span>._assetEmittingSourceCache.get(source);</span><br><span class="line">						<span class="keyword">if</span> (cacheEntry === <span class="literal">undefined</span>) &#123;</span><br><span class="line">							cacheEntry = &#123;</span><br><span class="line">								sizeOnlySource: <span class="literal">undefined</span>,</span><br><span class="line">								writtenTo: <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line">							&#125;;</span><br><span class="line">							<span class="keyword">this</span>._assetEmittingSourceCache.set(source, cacheEntry);</span><br><span class="line">						&#125;</span><br><span class="line"></span><br><span class="line">						<span class="comment">// if the target file has already been written</span></span><br><span class="line">						<span class="keyword">if</span> (targetFileGeneration !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">							<span class="comment">// check if the Source has been written to this target file</span></span><br><span class="line">							<span class="keyword">const</span> writtenGeneration = cacheEntry.writtenTo.get(targetPath);</span><br><span class="line">							<span class="keyword">if</span> (writtenGeneration === targetFileGeneration) &#123;</span><br><span class="line">								<span class="comment">// if yes, we skip writing the file</span></span><br><span class="line">								<span class="comment">// as it's already there</span></span><br><span class="line">								<span class="comment">// (we assume one doesn't remove files while the Compiler is running)</span></span><br><span class="line"></span><br><span class="line">								compilation.updateAsset(file, cacheEntry.sizeOnlySource, &#123;</span><br><span class="line">									size: cacheEntry.sizeOnlySource.size()</span><br><span class="line">								&#125;);</span><br><span class="line"></span><br><span class="line">								<span class="keyword">return</span> callback();</span><br><span class="line">							&#125;</span><br><span class="line">						&#125;</span><br><span class="line"></span><br><span class="line">						<span class="comment">// TODO webpack 5: if info.immutable check if file already exists in output</span></span><br><span class="line">						<span class="comment">// skip emitting if it's already there</span></span><br><span class="line"></span><br><span class="line">						<span class="comment">// get the binary (Buffer) content from the Source</span></span><br><span class="line">						<span class="comment">/** @type &#123;Buffer&#125; */</span></span><br><span class="line">						<span class="keyword">let</span> content;</span><br><span class="line">						<span class="keyword">if</span> (<span class="keyword">typeof</span> source.buffer === <span class="string">"function"</span>) &#123;</span><br><span class="line">							content = source.buffer();</span><br><span class="line">						&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">							<span class="keyword">const</span> bufferOrString = source.source();</span><br><span class="line">							<span class="keyword">if</span> (Buffer.isBuffer(bufferOrString)) &#123;</span><br><span class="line">								content = bufferOrString;</span><br><span class="line">							&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">								content = Buffer.from(bufferOrString, <span class="string">"utf8"</span>);</span><br><span class="line">							&#125;</span><br><span class="line">						&#125;</span><br><span class="line"></span><br><span class="line">						<span class="comment">// Create a replacement resource which only allows to ask for size</span></span><br><span class="line">						<span class="comment">// This allows to GC all memory allocated by the Source</span></span><br><span class="line">						<span class="comment">// (expect when the Source is stored in any other cache)</span></span><br><span class="line">						cacheEntry.sizeOnlySource = <span class="keyword">new</span> SizeOnlySource(content.length);</span><br><span class="line">						compilation.updateAsset(file, cacheEntry.sizeOnlySource, &#123;</span><br><span class="line">							size: content.length</span><br><span class="line">						&#125;);</span><br><span class="line"></span><br><span class="line">						<span class="comment">// Write the file to output file system</span></span><br><span class="line">						<span class="keyword">this</span>.outputFileSystem.writeFile(targetPath, content, err =&gt; &#123;</span><br><span class="line">							<span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</span><br><span class="line"></span><br><span class="line">							<span class="comment">// information marker that the asset has been emitted</span></span><br><span class="line">							compilation.emittedAssets.add(file);</span><br><span class="line"></span><br><span class="line">							<span class="comment">// cache the information that the Source has been written to that location</span></span><br><span class="line">							<span class="keyword">const</span> newGeneration =</span><br><span class="line">								targetFileGeneration === <span class="literal">undefined</span></span><br><span class="line">									? <span class="number">1</span></span><br><span class="line">									: targetFileGeneration + <span class="number">1</span>;</span><br><span class="line">							cacheEntry.writtenTo.set(targetPath, newGeneration);</span><br><span class="line">							<span class="keyword">this</span>._assetEmittingWrittenFiles.set(targetPath, newGeneration);</span><br><span class="line">							<span class="keyword">this</span>.hooks.assetEmitted.callAsync(file, content, callback);</span><br><span class="line">						&#125;);</span><br><span class="line">					&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">						<span class="keyword">if</span> (source.existsAt === targetPath) &#123;</span><br><span class="line">							source.emitted = <span class="literal">false</span>;</span><br><span class="line">							<span class="keyword">return</span> callback();</span><br><span class="line">						&#125;</span><br><span class="line">						<span class="keyword">let</span> content = source.source();</span><br><span class="line"></span><br><span class="line">						<span class="keyword">if</span> (!Buffer.isBuffer(content)) &#123;</span><br><span class="line">							content = Buffer.from(content, <span class="string">"utf8"</span>);</span><br><span class="line">						&#125;</span><br><span class="line"></span><br><span class="line">						source.existsAt = targetPath;</span><br><span class="line">						source.emitted = <span class="literal">true</span>;</span><br><span class="line">						<span class="keyword">this</span>.outputFileSystem.writeFile(targetPath, content, err =&gt; &#123;</span><br><span class="line">							<span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</span><br><span class="line">							<span class="keyword">this</span>.hooks.assetEmitted.callAsync(file, content, callback);</span><br><span class="line">						&#125;);</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;;</span><br><span class="line"></span><br><span class="line">				<span class="keyword">if</span> (targetFile.match(<span class="regexp">/\/|\\/</span>)) &#123;</span><br><span class="line">					<span class="keyword">const</span> dir = path.dirname(targetFile);</span><br><span class="line">					<span class="keyword">this</span>.outputFileSystem.mkdirp(</span><br><span class="line">						<span class="keyword">this</span>.outputFileSystem.join(outputPath, dir),</span><br><span class="line">						writeOut</span><br><span class="line">					);</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					writeOut();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;,</span><br><span class="line">			err =&gt; &#123;</span><br><span class="line">				<span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</span><br><span class="line"></span><br><span class="line">				<span class="keyword">this</span>.hooks.afterEmit.callAsync(compilation, err =&gt; &#123;</span><br><span class="line">					<span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</span><br><span class="line"></span><br><span class="line">					<span class="keyword">return</span> callback();</span><br><span class="line">				&#125;);</span><br><span class="line">			&#125;</span><br><span class="line">		);</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span>.hooks.emit.callAsync(compilation, err =&gt; &#123;</span><br><span class="line">		<span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</span><br><span class="line">		outputPath = compilation.getPath(<span class="keyword">this</span>.outputPath);</span><br><span class="line">		<span class="keyword">this</span>.outputFileSystem.mkdirp(outputPath, emitFiles);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>进入<code>this.hooks.emit.callAsync</code></p>
+<p><img src="http://www.qinhanwen.xyz/WX20191019-134936@2x.png" alt="WX20191019-134936@2x"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">	tap: <span class="function">(<span class="params">context, tap</span>) =&gt;</span> &#123;</span><br><span class="line">					<span class="keyword">if</span> (context) &#123;</span><br><span class="line">						context.reportProgress = <span class="function">(<span class="params">p, ...args</span>) =&gt;</span> &#123;</span><br><span class="line">							handler(<span class="number">0.95</span>, <span class="string">"emitting"</span>, tap.name, ...args);</span><br><span class="line">						&#125;;</span><br><span class="line">					&#125;</span><br><span class="line">					handler(<span class="number">0.95</span>, <span class="string">"emitting"</span>, tap.name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>进入<code>handler(0.95, &quot;emitting&quot;, tap.name);</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> defaultHandler = <span class="function">(<span class="params">percentage, msg, ...args</span>) =&gt;</span> &#123;</span><br><span class="line">	logger.status(<span class="string">`<span class="subst">$&#123;<span class="built_in">Math</span>.floor(percentage * <span class="number">100</span>)&#125;</span>%`</span>, msg, ...args);</span><br><span class="line">	<span class="keyword">if</span> (profile) &#123;</span><br><span class="line">		<span class="keyword">let</span> state = msg;</span><br><span class="line">		state = state.replace(<span class="regexp">/^\d+\/\d+\s+/</span>, <span class="string">""</span>);</span><br><span class="line">		<span class="keyword">if</span> (percentage === <span class="number">0</span>) &#123;</span><br><span class="line">			lastState = <span class="literal">null</span>;</span><br><span class="line">			lastStateTime = <span class="built_in">Date</span>.now();</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (state !== lastState || percentage === <span class="number">1</span>) &#123;</span><br><span class="line">			<span class="keyword">const</span> now = <span class="built_in">Date</span>.now();</span><br><span class="line">			<span class="keyword">if</span> (lastState) &#123;</span><br><span class="line">				<span class="keyword">const</span> diff = now - lastStateTime;</span><br><span class="line">				<span class="keyword">const</span> stateMsg = <span class="string">`<span class="subst">$&#123;diff&#125;</span>ms <span class="subst">$&#123;lastState&#125;</span>`</span>;</span><br><span class="line">				<span class="keyword">if</span> (diff &gt; <span class="number">1000</span>) &#123;</span><br><span class="line">					logger.warn(stateMsg);</span><br><span class="line">				&#125; <span class="keyword">else</span> <span class="keyword">if</span> (diff &gt; <span class="number">10</span>) &#123;</span><br><span class="line">					logger.info(stateMsg);</span><br><span class="line">				&#125; <span class="keyword">else</span> <span class="keyword">if</span> (diff &gt; <span class="number">0</span>) &#123;</span><br><span class="line">					logger.log(stateMsg);</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					logger.debug(stateMsg);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			lastState = state;</span><br><span class="line">			lastStateTime = now;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (percentage === <span class="number">1</span>) logger.status();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>输出进度，和插件名</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191019-140006@2x.png" alt="WX20191019-140006@2x"></p>
+<p>之后调用回调</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191019-140055@2x.png" alt="WX20191019-140055@2x"></p>
+<p>进入<code>_fn0(compilation)</code></p>
+<p><img src="http://www.qinhanwen.xyz/WX20191019-140153@2x.png" alt="WX20191019-140153@2x"></p>
+<p>进入<code>handleInitial</code>方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">handleInitial(compilation: Compilation) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.initialClean) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Do not remove files if there are compilation errors</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * Handle logging inside this.handleDone</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">const</span> stats = compilation.getStats();</span><br><span class="line">    <span class="keyword">if</span> (stats.hasErrors()) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.initialClean = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.removeFiles(<span class="keyword">this</span>.cleanOnceBeforeBuildPatterns);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>进入<code>removeFiles</code>方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">removeFiles(patterns: string[]) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> deleted = delSync(patterns, &#123;</span><br><span class="line">            force: <span class="keyword">this</span>.dangerouslyAllowCleanPatternsOutsideProject,</span><br><span class="line">            <span class="comment">// Change context to build directory</span></span><br><span class="line">            cwd: <span class="keyword">this</span>.outputPath,</span><br><span class="line">            dryRun: <span class="keyword">this</span>.dry,</span><br><span class="line">            dot: <span class="literal">true</span>,</span><br><span class="line">            ignore: <span class="keyword">this</span>.protectWebpackAssets ? <span class="keyword">this</span>.currentAssets : [],</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * Log if verbose is enabled</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.verbose) &#123;</span><br><span class="line">            deleted.forEach(<span class="function">(<span class="params">file</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">const</span> filename = path.relative(process.cwd(), file);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">const</span> message = <span class="keyword">this</span>.dry ? <span class="string">'dry'</span> : <span class="string">'removed'</span>;</span><br><span class="line"></span><br><span class="line">                <span class="comment">/**</span></span><br><span class="line"><span class="comment">                 * Use console.warn over .log</span></span><br><span class="line"><span class="comment">                 * https://github.com/webpack/webpack/issues/1904</span></span><br><span class="line"><span class="comment">                 * https://github.com/johnagan/clean-webpack-plugin/issues/11</span></span><br><span class="line"><span class="comment">                 */</span></span><br><span class="line">                <span class="comment">// eslint-disable-next-line no-console</span></span><br><span class="line">                <span class="built_in">console</span>.warn(</span><br><span class="line">                    <span class="string">`clean-webpack-plugin: <span class="subst">$&#123;message&#125;</span> <span class="subst">$&#123;filename&#125;</span>`</span>,</span><br><span class="line">                );</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">        <span class="keyword">const</span> needsForce = <span class="regexp">/Cannot delete files\/folders outside the current working directory\./</span>.test(</span><br><span class="line">            error.message,</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (needsForce) &#123;</span><br><span class="line">            <span class="keyword">const</span> message =</span><br><span class="line">                <span class="string">'clean-webpack-plugin: Cannot delete files/folders outside the current working directory. Can be overridden with the `dangerouslyAllowCleanPatternsOutsideProject` option.'</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(message);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">throw</span> error;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>进入<code>delSync</code>方法，在这里会对文件做删除处理</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports.sync = <span class="function">(<span class="params">patterns, options</span>) =&gt;</span> &#123;</span><br><span class="line">	options = <span class="built_in">Object</span>.assign(&#123;&#125;, options);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">const</span> &#123;force, dryRun&#125; = options;</span><br><span class="line">	<span class="keyword">delete</span> options.force;</span><br><span class="line">	<span class="keyword">delete</span> options.dryRun;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> globby.sync(patterns, options).map(<span class="function"><span class="params">file</span> =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (!force) &#123;</span><br><span class="line">			safeCheck(file);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		file = path.resolve(options.cwd || <span class="string">''</span>, file);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (!dryRun) &#123;</span><br><span class="line">			rimraf.sync(file, &#123;<span class="attr">glob</span>: <span class="literal">false</span>&#125;);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> file;</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>之后打印出被删除的文件名</p>
+<p><strong>hash值生成</strong></p>
+<p>使用crypto.js</p>
+<p>进入<code>this.createHash();</code>方法调用</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191020-214616@2x.png" alt="WX20191020-214616@2x"></p>
+<p>hash值是fullHash截取前20位</p>
+<p>生成逻辑在createHash方法里</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">createHash() &#123;</span><br><span class="line">	<span class="keyword">const</span> outputOptions = <span class="keyword">this</span>.outputOptions;</span><br><span class="line">	<span class="keyword">const</span> hashFunction = outputOptions.hashFunction;</span><br><span class="line">	<span class="keyword">const</span> hashDigest = outputOptions.hashDigest;</span><br><span class="line">	<span class="keyword">const</span> hashDigestLength = outputOptions.hashDigestLength;</span><br><span class="line">	<span class="keyword">const</span> hash = createHash(hashFunction);</span><br><span class="line">	<span class="keyword">if</span> (outputOptions.hashSalt) &#123;</span><br><span class="line">		hash.update(outputOptions.hashSalt);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">this</span>.mainTemplate.updateHash(hash);</span><br><span class="line">	<span class="keyword">this</span>.chunkTemplate.updateHash(hash);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">of</span> <span class="built_in">Object</span>.keys(<span class="keyword">this</span>.moduleTemplates).sort()) &#123;</span><br><span class="line">		<span class="keyword">this</span>.moduleTemplates[key].updateHash(hash);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">const</span> child <span class="keyword">of</span> <span class="keyword">this</span>.children) &#123;</span><br><span class="line">		hash.update(child.hash);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">const</span> warning <span class="keyword">of</span> <span class="keyword">this</span>.warnings) &#123;</span><br><span class="line">		hash.update(<span class="string">`<span class="subst">$&#123;warning.message&#125;</span>`</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">const</span> error <span class="keyword">of</span> <span class="keyword">this</span>.errors) &#123;</span><br><span class="line">		hash.update(<span class="string">`<span class="subst">$&#123;error.message&#125;</span>`</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">const</span> modules = <span class="keyword">this</span>.modules;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; modules.length; i++) &#123;</span><br><span class="line">		<span class="keyword">const</span> <span class="built_in">module</span> = modules[i];</span><br><span class="line">		<span class="keyword">const</span> moduleHash = createHash(hashFunction);</span><br><span class="line">		<span class="built_in">module</span>.updateHash(moduleHash);</span><br><span class="line">		<span class="built_in">module</span>.hash = <span class="comment">/** @type &#123;string&#125; */</span> (moduleHash.digest(hashDigest));</span><br><span class="line">		<span class="built_in">module</span>.renderedHash = <span class="built_in">module</span>.hash.substr(<span class="number">0</span>, hashDigestLength);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// clone needed as sort below is inplace mutation</span></span><br><span class="line">	<span class="keyword">const</span> chunks = <span class="keyword">this</span>.chunks.slice();</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * sort here will bring all "falsy" values to the beginning</span></span><br><span class="line"><span class="comment">	 * this is needed as the "hasRuntime()" chunks are dependent on the</span></span><br><span class="line"><span class="comment">	 * hashes of the non-runtime chunks.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	chunks.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">const</span> aEntry = a.hasRuntime();</span><br><span class="line">		<span class="keyword">const</span> bEntry = b.hasRuntime();</span><br><span class="line">		<span class="keyword">if</span> (aEntry &amp;&amp; !bEntry) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span> (!aEntry &amp;&amp; bEntry) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">return</span> byId(a, b);</span><br><span class="line">	&#125;);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; chunks.length; i++) &#123;</span><br><span class="line">		<span class="keyword">const</span> chunk = chunks[i];</span><br><span class="line">		<span class="keyword">const</span> chunkHash = createHash(hashFunction);</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> (outputOptions.hashSalt) &#123;</span><br><span class="line">				chunkHash.update(outputOptions.hashSalt);</span><br><span class="line">			&#125;</span><br><span class="line">			chunk.updateHash(chunkHash);</span><br><span class="line">			<span class="keyword">const</span> template = chunk.hasRuntime()</span><br><span class="line">				? <span class="keyword">this</span>.mainTemplate</span><br><span class="line">				: <span class="keyword">this</span>.chunkTemplate;</span><br><span class="line">			template.updateHashForChunk(</span><br><span class="line">				chunkHash,</span><br><span class="line">				chunk,</span><br><span class="line">				<span class="keyword">this</span>.moduleTemplates.javascript,</span><br><span class="line">				<span class="keyword">this</span>.dependencyTemplates</span><br><span class="line">			);</span><br><span class="line">			<span class="keyword">this</span>.hooks.chunkHash.call(chunk, chunkHash);</span><br><span class="line">			chunk.hash = <span class="comment">/** @type &#123;string&#125; */</span> (chunkHash.digest(hashDigest));</span><br><span class="line">			hash.update(chunk.hash);</span><br><span class="line">			chunk.renderedHash = chunk.hash.substr(<span class="number">0</span>, hashDigestLength);</span><br><span class="line">			<span class="keyword">this</span>.hooks.contentHash.call(chunk);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">			<span class="keyword">this</span>.errors.push(<span class="keyword">new</span> ChunkRenderError(chunk, <span class="string">""</span>, err));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">this</span>.fullHash = <span class="comment">/** @type &#123;string&#125; */</span> (hash.digest(hashDigest));</span><br><span class="line">	<span class="keyword">this</span>.hash = <span class="keyword">this</span>.fullHash.substr(<span class="number">0</span>, hashDigestLength);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p> <a href="https://segmentfault.com/a/1190000015088834" target="_blank" rel="noopener">https://segmentfault.com/a/1190000015088834</a> </p>
+<p><a href="https://segmentfault.com/a/1190000015917768" target="_blank" rel="noopener">https://segmentfault.com/a/1190000015917768</a></p>
+<p><a href="https://juejin.im/entry/57f4ac35a0bb9f0058168491" target="_blank" rel="noopener">https://juejin.im/entry/57f4ac35a0bb9f0058168491</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/webpack/" rel="tag"># webpack</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/14/大前端混合应用专题篇-4/" rel="next" title="大前端混合应用专题篇(4)">
+                <i class="fa fa-chevron-left"></i> 大前端混合应用专题篇(4)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/15/TypeScript-2/" rel="prev" title="TypeScript-2">
+                TypeScript-2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">112</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack构建过程"><span class="nav-number">1.</span> <span class="nav-text">webpack构建过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">2.</span> <span class="nav-text">开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
