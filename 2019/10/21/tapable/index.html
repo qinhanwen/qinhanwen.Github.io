@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="webpack," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Tapablewebpack本质上是一种事件流的机制，它的工作流程就是将各个插件串联起来，而实现这一切的核心就是Tapable。Tapable暴露出挂载plugin的方法，使我们能将plugin控制在webapack事件流上运行， Compiler、Compilation等都是继承于Tabable类。 它有很多Hook（钩子）类，为插件提供挂载的钩子 12345678910111213export">
+<meta name="keywords" content="webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tapable">
+<meta property="og:url" content="http://yoursite.com/2019/10/21/tapable/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="Tapablewebpack本质上是一种事件流的机制，它的工作流程就是将各个插件串联起来，而实现这一切的核心就是Tapable。Tapable暴露出挂载plugin的方法，使我们能将plugin控制在webapack事件流上运行， Compiler、Compilation等都是继承于Tabable类。 它有很多Hook（钩子）类，为插件提供挂载的钩子 12345678910111213export">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191022-090003@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191022-093020@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191022-093529@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191022-101512@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191022-101647@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191022-101744@2x.png">
+<meta property="og:updated_time" content="2019-10-22T07:02:35.391Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tapable">
+<meta name="twitter:description" content="Tapablewebpack本质上是一种事件流的机制，它的工作流程就是将各个插件串联起来，而实现这一切的核心就是Tapable。Tapable暴露出挂载plugin的方法，使我们能将plugin控制在webapack事件流上运行， Compiler、Compilation等都是继承于Tabable类。 它有很多Hook（钩子）类，为插件提供挂载的钩子 12345678910111213export">
+<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20191022-090003@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/10/21/tapable/"/>
+
+
+
+
+
+  <title>Tapable | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/21/tapable/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Tapable</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-21T17:39:30+08:00">
+                2019-10-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Tapable"><a href="#Tapable" class="headerlink" title="Tapable"></a>Tapable</h2><p><code>webpack</code>本质上是一种事件流的机制，它的工作流程就是将各个插件串联起来，而实现这一切的核心就是<code>Tapable</code>。<code>Tapable</code>暴露出挂载<code>plugin</code>的方法，使我们能将<code>plugin</code>控制在<code>webapack</code>事件流上运行， <code>Compiler</code>、<code>Compilation</code>等都是继承于<code>Tabable</code>类。</p>
+<p>它有很多Hook（钩子）类，为插件提供挂载的钩子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">exports.__esModule = <span class="literal">true</span>;</span><br><span class="line">exports.SyncHook = <span class="built_in">require</span>(<span class="string">"./SyncHook"</span>);</span><br><span class="line">exports.SyncBailHook = <span class="built_in">require</span>(<span class="string">"./SyncBailHook"</span>);</span><br><span class="line">exports.SyncWaterfallHook = <span class="built_in">require</span>(<span class="string">"./SyncWaterfallHook"</span>);</span><br><span class="line">exports.SyncLoopHook = <span class="built_in">require</span>(<span class="string">"./SyncLoopHook"</span>);</span><br><span class="line">exports.AsyncParallelHook = <span class="built_in">require</span>(<span class="string">"./AsyncParallelHook"</span>);</span><br><span class="line">exports.AsyncParallelBailHook = <span class="built_in">require</span>(<span class="string">"./AsyncParallelBailHook"</span>);</span><br><span class="line">exports.AsyncSeriesHook = <span class="built_in">require</span>(<span class="string">"./AsyncSeriesHook"</span>);</span><br><span class="line">exports.AsyncSeriesBailHook = <span class="built_in">require</span>(<span class="string">"./AsyncSeriesBailHook"</span>);</span><br><span class="line">exports.AsyncSeriesLoopHook = <span class="built_in">require</span>(<span class="string">"./AsyncSeriesLoopHook"</span>);</span><br><span class="line">exports.AsyncSeriesWaterfallHook = <span class="built_in">require</span>(<span class="string">"./AsyncSeriesWaterfallHook"</span>);</span><br><span class="line">exports.HookMap = <span class="built_in">require</span>(<span class="string">"./HookMap"</span>);</span><br><span class="line">exports.MultiHook = <span class="built_in">require</span>(<span class="string">"./MultiHook"</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="http://www.qinhanwen.xyz/WX20191022-090003@2x.png" alt="WX20191022-090003@2x"></p>
+<ul>
+<li>tapable 暴露出来的都是类方法，new 一个类方法获得我们需要的钩子。类方法会根据传参，接受同样数量的参数。</li>
+<li>使用 tap/tapAsync/tapPromise 绑定钩子</li>
+<li>call/callAsync 执行绑定事件</li>
+</ul>
+<p><strong>Hook类</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	MIT License http://www.opensource.org/licenses/mit-license.php</span></span><br><span class="line"><span class="comment">	Author Tobias Koppers @sokra</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> util = <span class="built_in">require</span>(<span class="string">"util"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> deprecateContext = util.deprecate(<span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;,</span><br><span class="line"><span class="string">"Hook.context is deprecated and will be removed"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> CALL_DELEGATE = <span class="function"><span class="keyword">function</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.call = <span class="keyword">this</span>._createCall(<span class="string">"sync"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.call(...args);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> CALL_ASYNC_DELEGATE = <span class="function"><span class="keyword">function</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.callAsync = <span class="keyword">this</span>._createCall(<span class="string">"async"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.callAsync(...args);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> PROMISE_DELEGATE = <span class="function"><span class="keyword">function</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.promise = <span class="keyword">this</span>._createCall(<span class="string">"promise"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.promise(...args);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Hook</span> </span>&#123;</span><br><span class="line">	<span class="keyword">constructor</span>(args = [], name = undefined) &#123;</span><br><span class="line">		<span class="keyword">this</span>._args = args;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">		<span class="keyword">this</span>.taps = [];</span><br><span class="line">		<span class="keyword">this</span>.interceptors = [];</span><br><span class="line">		<span class="keyword">this</span>._call = CALL_DELEGATE;</span><br><span class="line">		<span class="keyword">this</span>.call = CALL_DELEGATE;</span><br><span class="line">		<span class="keyword">this</span>._callAsync = CALL_ASYNC_DELEGATE;</span><br><span class="line">		<span class="keyword">this</span>.callAsync = CALL_ASYNC_DELEGATE;</span><br><span class="line">		<span class="keyword">this</span>._promise = PROMISE_DELEGATE;</span><br><span class="line">		<span class="keyword">this</span>.promise = PROMISE_DELEGATE;</span><br><span class="line">		<span class="keyword">this</span>._x = <span class="literal">undefined</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">this</span>.compile = <span class="keyword">this</span>.compile;</span><br><span class="line">		<span class="keyword">this</span>.tap = <span class="keyword">this</span>.tap;</span><br><span class="line">		<span class="keyword">this</span>.tapAsync = <span class="keyword">this</span>.tapAsync;</span><br><span class="line">		<span class="keyword">this</span>.tapPromise = <span class="keyword">this</span>.tapPromise;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	compile(options) &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Abstract: should be overridden"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	_createCall(type) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.compile(&#123;</span><br><span class="line">			taps: <span class="keyword">this</span>.taps,</span><br><span class="line">			interceptors: <span class="keyword">this</span>.interceptors,</span><br><span class="line">			args: <span class="keyword">this</span>._args,</span><br><span class="line">			type: type</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	_tap(type, options, fn) &#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">typeof</span> options === <span class="string">"string"</span>) &#123;</span><br><span class="line">			options = &#123;</span><br><span class="line">				name: options</span><br><span class="line">			&#125;;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> options !== <span class="string">"object"</span> || options === <span class="literal">null</span>) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Invalid tap options"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">typeof</span> options.name !== <span class="string">"string"</span> || options.name === <span class="string">""</span>) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Missing name for tap"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">typeof</span> options.context !== <span class="string">"undefined"</span>) &#123;</span><br><span class="line">			deprecateContext();</span><br><span class="line">		&#125;</span><br><span class="line">		options = <span class="built_in">Object</span>.assign(&#123; type, fn &#125;, options);</span><br><span class="line">		options = <span class="keyword">this</span>._runRegisterInterceptors(options);</span><br><span class="line">		<span class="keyword">this</span>._insert(options);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	tap(options, fn) &#123;</span><br><span class="line">		<span class="keyword">this</span>._tap(<span class="string">"sync"</span>, options, fn);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	tapAsync(options, fn) &#123;</span><br><span class="line">		<span class="keyword">this</span>._tap(<span class="string">"async"</span>, options, fn);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	tapPromise(options, fn) &#123;</span><br><span class="line">		<span class="keyword">this</span>._tap(<span class="string">"promise"</span>, options, fn);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	_runRegisterInterceptors(options) &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">const</span> interceptor <span class="keyword">of</span> <span class="keyword">this</span>.interceptors) &#123;</span><br><span class="line">			<span class="keyword">if</span> (interceptor.register) &#123;</span><br><span class="line">				<span class="keyword">const</span> newOptions = interceptor.register(options);</span><br><span class="line">				<span class="keyword">if</span> (newOptions !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">					options = newOptions;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> options;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	withOptions(options) &#123;</span><br><span class="line">		<span class="keyword">const</span> mergeOptions = <span class="function"><span class="params">opt</span> =&gt;</span></span><br><span class="line">			<span class="built_in">Object</span>.assign(&#123;&#125;, options, <span class="keyword">typeof</span> opt === <span class="string">"string"</span> ? &#123; <span class="attr">name</span>: opt &#125; : opt);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> &#123;</span><br><span class="line">			name: <span class="keyword">this</span>.name,</span><br><span class="line">			tap: <span class="function">(<span class="params">opt, fn</span>) =&gt;</span> <span class="keyword">this</span>.tap(mergeOptions(opt), fn),</span><br><span class="line">			tapAsync: <span class="function">(<span class="params">opt, fn</span>) =&gt;</span> <span class="keyword">this</span>.tapAsync(mergeOptions(opt), fn),</span><br><span class="line">			tapPromise: <span class="function">(<span class="params">opt, fn</span>) =&gt;</span> <span class="keyword">this</span>.tapPromise(mergeOptions(opt), fn),</span><br><span class="line">			intercept: <span class="function"><span class="params">interceptor</span> =&gt;</span> <span class="keyword">this</span>.intercept(interceptor),</span><br><span class="line">			isUsed: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">this</span>.isUsed(),</span><br><span class="line">			withOptions: <span class="function"><span class="params">opt</span> =&gt;</span> <span class="keyword">this</span>.withOptions(mergeOptions(opt))</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	isUsed() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.taps.length &gt; <span class="number">0</span> || <span class="keyword">this</span>.interceptors.length &gt; <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	intercept(interceptor) &#123;</span><br><span class="line">		<span class="keyword">this</span>._resetCompilation();</span><br><span class="line">		<span class="keyword">this</span>.interceptors.push(<span class="built_in">Object</span>.assign(&#123;&#125;, interceptor));</span><br><span class="line">		<span class="keyword">if</span> (interceptor.register) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.taps.length; i++) &#123;</span><br><span class="line">				<span class="keyword">this</span>.taps[i] = interceptor.register(<span class="keyword">this</span>.taps[i]);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	_resetCompilation() &#123;</span><br><span class="line">		<span class="keyword">this</span>.call = <span class="keyword">this</span>._call;</span><br><span class="line">		<span class="keyword">this</span>.callAsync = <span class="keyword">this</span>._callAsync;</span><br><span class="line">		<span class="keyword">this</span>.promise = <span class="keyword">this</span>._promise;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	_insert(item) &#123;</span><br><span class="line">		<span class="keyword">this</span>._resetCompilation();</span><br><span class="line">		<span class="keyword">let</span> before;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">typeof</span> item.before === <span class="string">"string"</span>) &#123;</span><br><span class="line">			before = <span class="keyword">new</span> <span class="built_in">Set</span>([item.before]);</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(item.before)) &#123;</span><br><span class="line">			before = <span class="keyword">new</span> <span class="built_in">Set</span>(item.before);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">let</span> stage = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">typeof</span> item.stage === <span class="string">"number"</span>) &#123;</span><br><span class="line">			stage = item.stage;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">let</span> i = <span class="keyword">this</span>.taps.length;</span><br><span class="line">		<span class="keyword">while</span> (i &gt; <span class="number">0</span>) &#123;</span><br><span class="line">			i--;</span><br><span class="line">			<span class="keyword">const</span> x = <span class="keyword">this</span>.taps[i];</span><br><span class="line">			<span class="keyword">this</span>.taps[i + <span class="number">1</span>] = x;</span><br><span class="line">			<span class="keyword">const</span> xStage = x.stage || <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">if</span> (before) &#123;</span><br><span class="line">				<span class="keyword">if</span> (before.has(x.name)) &#123;</span><br><span class="line">					before.delete(x.name);</span><br><span class="line">					<span class="keyword">continue</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span> (before.size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">					<span class="keyword">continue</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (xStage &gt; stage) &#123;</span><br><span class="line">				<span class="keyword">continue</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			i++;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">this</span>.taps[i] = item;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(Hook.prototype, <span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = Hook;</span><br></pre></td></tr></table></figure>
+<h2 id="同步钩子"><a href="#同步钩子" class="headerlink" title="同步钩子"></a>同步钩子</h2><p><strong>SyncHook（同步钩子）</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; SyncHook &#125; = <span class="built_in">require</span>(<span class="string">"./lib/index.js"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//实例化</span></span><br><span class="line"><span class="keyword">let</span> queue = <span class="keyword">new</span> SyncHook([<span class="string">'name'</span>]); <span class="comment">//所有的构造函数都接收一个可选的参数，这个参数是一个字符串的数组。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 订阅</span></span><br><span class="line">queue.tap(<span class="string">'1'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">name, name2</span>) </span>&#123;<span class="comment">// tap 的第一个参数是用来标识订阅的函数的</span></span><br><span class="line">    <span class="built_in">console</span>.log(name, name2, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'1'</span></span><br><span class="line">&#125;);</span><br><span class="line">queue.tap(<span class="string">'2'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(name, <span class="number">2</span>);</span><br><span class="line">&#125;);</span><br><span class="line">queue.tap(<span class="string">'3'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(name, <span class="number">3</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发布</span></span><br><span class="line">queue.call(<span class="string">'webpack'</span>, <span class="string">'webpack-cli'</span>);<span class="comment">// 发布的时候触发订阅的函数 同时传入参数</span></span><br><span class="line"><span class="comment">// webpack undefined 1</span></span><br><span class="line"><span class="comment">// webpack 2</span></span><br><span class="line"><span class="comment">// webpack 3</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过new关键字调用SyncHook，返回Hook的实例，并且重写了 tapAsync、tapPromise、compile 三个方法</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	MIT License http://www.opensource.org/licenses/mit-license.php</span></span><br><span class="line"><span class="comment">	Author Tobias Koppers @sokra</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Hook = <span class="built_in">require</span>(<span class="string">"./Hook"</span>);</span><br><span class="line"><span class="keyword">const</span> HookCodeFactory = <span class="built_in">require</span>(<span class="string">"./HookCodeFactory"</span>);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SyncHookCodeFactory</span> <span class="keyword">extends</span> <span class="title">HookCodeFactory</span> </span>&#123;</span><br><span class="line">	content(&#123; onError, onDone, rethrowIfPossible &#125;) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.callTapsSeries(&#123;</span><br><span class="line">			onError: <span class="function">(<span class="params">i, err</span>) =&gt;</span> onError(err),</span><br><span class="line">			onDone,</span><br><span class="line">			rethrowIfPossible</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> factory = <span class="keyword">new</span> SyncHookCodeFactory();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> TAP_ASYNC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"tapAsync is not supported on a SyncHook"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> TAP_PROMISE = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"tapPromise is not supported on a SyncHook"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> COMPILE = <span class="function"><span class="keyword">function</span>(<span class="params">options</span>) </span>&#123;</span><br><span class="line">	factory.setup(<span class="keyword">this</span>, options);</span><br><span class="line">	<span class="keyword">return</span> factory.create(options);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SyncHook</span>(<span class="params">args = [], name = undefined</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">const</span> hook = <span class="keyword">new</span> Hook(args, name);</span><br><span class="line">	hook.constructor = SyncHook;</span><br><span class="line">	hook.tapAsync = TAP_ASYNC;</span><br><span class="line">	hook.tapPromise = TAP_PROMISE;</span><br><span class="line">	hook.compile = COMPILE;</span><br><span class="line">	<span class="keyword">return</span> hook;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">SyncHook.prototype = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = SyncHook;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>queue.tap调用，其实就是把名称、类型与回调设置在taps数组里</li>
+</ul>
+<p><img src="http://www.qinhanwen.xyz/WX20191022-093020@2x.png" alt="WX20191022-093020@2x"></p>
+<p><img src="http://www.qinhanwen.xyz/WX20191022-093529@2x.png" alt="WX20191022-093529@2x"></p>
+<ul>
+<li>queue.call调用，这里通过new Function生成了匿名函数，之后匿名函数被调用</li>
+</ul>
+<p><img src="http://www.qinhanwen.xyz/WX20191022-101512@2x.png" alt="WX20191022-101512@2x"></p>
+<p><img src="http://www.qinhanwen.xyz/WX20191022-101647@2x.png" alt="WX20191022-101647@2x"></p>
+<p><img src="http://www.qinhanwen.xyz/WX20191022-101744@2x.png" alt="WX20191022-101744@2x"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">create(options) &#123;</span><br><span class="line">	<span class="keyword">this</span>.init(options);</span><br><span class="line">	<span class="keyword">let</span> fn;</span><br><span class="line">	<span class="keyword">switch</span> (<span class="keyword">this</span>.options.type) &#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">"sync"</span>:</span><br><span class="line">			fn = <span class="keyword">new</span> <span class="built_in">Function</span>(</span><br><span class="line">				<span class="keyword">this</span>.args(),</span><br><span class="line">				<span class="string">'"use strict";\n'</span> +</span><br><span class="line">					<span class="keyword">this</span>.header() +</span><br><span class="line">					<span class="keyword">this</span>.content(&#123;</span><br><span class="line">						onError: <span class="function"><span class="params">err</span> =&gt;</span> <span class="string">`throw <span class="subst">$&#123;err&#125;</span>;\n`</span>,</span><br><span class="line">						onResult: <span class="function"><span class="params">result</span> =&gt;</span> <span class="string">`return <span class="subst">$&#123;result&#125;</span>;\n`</span>,</span><br><span class="line">						resultReturns: <span class="literal">true</span>,</span><br><span class="line">						onDone: <span class="function"><span class="params">()</span> =&gt;</span> <span class="string">""</span>,</span><br><span class="line">						rethrowIfPossible: <span class="literal">true</span></span><br><span class="line">					&#125;)</span><br><span class="line">			);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">"async"</span>:</span><br><span class="line">			fn = <span class="keyword">new</span> <span class="built_in">Function</span>(</span><br><span class="line">				<span class="keyword">this</span>.args(&#123;</span><br><span class="line">					after: <span class="string">"_callback"</span></span><br><span class="line">				&#125;),</span><br><span class="line">				<span class="string">'"use strict";\n'</span> +</span><br><span class="line">					<span class="keyword">this</span>.header() +</span><br><span class="line">					<span class="keyword">this</span>.content(&#123;</span><br><span class="line">						onError: <span class="function"><span class="params">err</span> =&gt;</span> <span class="string">`_callback(<span class="subst">$&#123;err&#125;</span>);\n`</span>,</span><br><span class="line">						onResult: <span class="function"><span class="params">result</span> =&gt;</span> <span class="string">`_callback(null, <span class="subst">$&#123;result&#125;</span>);\n`</span>,</span><br><span class="line">						onDone: <span class="function"><span class="params">()</span> =&gt;</span> <span class="string">"_callback();\n"</span></span><br><span class="line">					&#125;)</span><br><span class="line">			);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">"promise"</span>:</span><br><span class="line">			<span class="keyword">let</span> errorHelperUsed = <span class="literal">false</span>;</span><br><span class="line">			<span class="keyword">const</span> content = <span class="keyword">this</span>.content(&#123;</span><br><span class="line">				onError: <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">					errorHelperUsed = <span class="literal">true</span>;</span><br><span class="line">					<span class="keyword">return</span> <span class="string">`_error(<span class="subst">$&#123;err&#125;</span>);\n`</span>;</span><br><span class="line">				&#125;,</span><br><span class="line">				onResult: <span class="function"><span class="params">result</span> =&gt;</span> <span class="string">`_resolve(<span class="subst">$&#123;result&#125;</span>);\n`</span>,</span><br><span class="line">				onDone: <span class="function"><span class="params">()</span> =&gt;</span> <span class="string">"_resolve();\n"</span></span><br><span class="line">			&#125;);</span><br><span class="line">			<span class="keyword">let</span> code = <span class="string">""</span>;</span><br><span class="line">			code += <span class="string">'"use strict";\n'</span>;</span><br><span class="line">			code += <span class="string">"return new Promise((_resolve, _reject) =&gt; &#123;\n"</span>;</span><br><span class="line">			<span class="keyword">if</span> (errorHelperUsed) &#123;</span><br><span class="line">				code += <span class="string">"var _sync = true;\n"</span>;</span><br><span class="line">				code += <span class="string">"function _error(_err) &#123;\n"</span>;</span><br><span class="line">				code += <span class="string">"if(_sync)\n"</span>;</span><br><span class="line">				code += <span class="string">"_resolve(Promise.resolve().then(() =&gt; &#123; throw _err; &#125;));\n"</span>;</span><br><span class="line">				code += <span class="string">"else\n"</span>;</span><br><span class="line">				code += <span class="string">"_reject(_err);\n"</span>;</span><br><span class="line">				code += <span class="string">"&#125;;\n"</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			code += <span class="keyword">this</span>.header();</span><br><span class="line">			code += content;</span><br><span class="line">			<span class="keyword">if</span> (errorHelperUsed) &#123;</span><br><span class="line">				code += <span class="string">"_sync = false;\n"</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			code += <span class="string">"&#125;);\n"</span>;</span><br><span class="line">			fn = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="keyword">this</span>.args(), code);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">this</span>.deinit();</span><br><span class="line">	<span class="keyword">return</span> fn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里生成fn</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">anonymous(name</span><br><span class="line">) &#123;</span><br><span class="line"><span class="meta">  "use strict"</span>;</span><br><span class="line">  <span class="keyword">var</span> _context;</span><br><span class="line">  <span class="keyword">var</span> _x = <span class="keyword">this</span>._x;</span><br><span class="line">  <span class="keyword">var</span> _fn0 = _x[<span class="number">0</span>];</span><br><span class="line">  _fn0(name);</span><br><span class="line">  <span class="keyword">var</span> _fn1 = _x[<span class="number">1</span>];</span><br><span class="line">  _fn1(name);</span><br><span class="line">  <span class="keyword">var</span> _fn2 = _x[<span class="number">2</span>];</span><br><span class="line">  _fn2(name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之后调用这个函数</p>
+<p><strong>SyncBailHook（同步保险钩子）</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;</span><br><span class="line">	SyncBailHook</span><br><span class="line">&#125; = <span class="built_in">require</span>(<span class="string">"./lib/index.js"</span>);</span><br><span class="line"><span class="keyword">let</span> queue = <span class="keyword">new</span> SyncBailHook([<span class="string">'name'</span>]); </span><br><span class="line"></span><br><span class="line"><span class="comment">// 订阅</span></span><br><span class="line">queue.tap(<span class="string">'1'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">name, name2</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(name, name2, <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="string">'1'</span></span><br><span class="line">&#125;);</span><br><span class="line">queue.tap(<span class="string">'2'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(name, <span class="number">2</span>);</span><br><span class="line">&#125;);</span><br><span class="line">queue.tap(<span class="string">'3'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(name, <span class="number">3</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发布</span></span><br><span class="line">queue.call(<span class="string">'webpack'</span>,<span class="string">'webpack-cli'</span>); </span><br><span class="line"><span class="comment">//webpack undefined 1</span></span><br></pre></td></tr></table></figure>
+<p>生成的fn</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">anonymous</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line"><span class="meta">  "use strict"</span>;</span><br><span class="line">  <span class="keyword">var</span> _context;</span><br><span class="line">  <span class="keyword">var</span> _x = <span class="keyword">this</span>._x;</span><br><span class="line">  <span class="keyword">var</span> _fn0 = _x[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">var</span> _result0 = _fn0(name);</span><br><span class="line">  <span class="keyword">if</span> (_result0 !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> _result0;;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> _fn1 = _x[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">var</span> _result1 = _fn1(name);</span><br><span class="line">    <span class="keyword">if</span> (_result1 !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> _result1;;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">var</span> _fn2 = _x[<span class="number">2</span>];</span><br><span class="line">      <span class="keyword">var</span> _result2 = _fn2(name);</span><br><span class="line">      <span class="keyword">if</span> (_result2 !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> _result2;;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>如果执行结果不等于undefined，就停止并返回执行结果，否则继续往下执行。</p>
+<p><strong>SyncLoopHook（同步循环钩子）</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;</span><br><span class="line">	SyncLoopHook</span><br><span class="line">&#125; = <span class="built_in">require</span>(<span class="string">"./lib/index.js"</span>);</span><br><span class="line"><span class="keyword">let</span> queue = <span class="keyword">new</span> SyncLoopHook([<span class="string">'name'</span>]); </span><br><span class="line"></span><br><span class="line"><span class="comment">// 订阅</span></span><br><span class="line">queue.tap(<span class="string">'1'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">name, name2</span>) </span>&#123; </span><br><span class="line">	<span class="built_in">console</span>.log(name, name2, <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="string">'1'</span></span><br><span class="line">&#125;);</span><br><span class="line">queue.tap(<span class="string">'2'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(name, <span class="number">2</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="string">'2'</span></span><br><span class="line">&#125;);</span><br><span class="line">queue.tap(<span class="string">'3'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(name, <span class="number">3</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发布</span></span><br><span class="line">queue.call(<span class="string">'webpack'</span>,<span class="string">'webpack-cli'</span>);</span><br></pre></td></tr></table></figure>
+<p>生成的fn</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">anonymous</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line"><span class="meta">  "use strict"</span>;</span><br><span class="line">  <span class="keyword">var</span> _context;</span><br><span class="line">  <span class="keyword">var</span> _x = <span class="keyword">this</span>._x;</span><br><span class="line">  <span class="keyword">var</span> _loop;</span><br><span class="line">  <span class="keyword">do</span> &#123;</span><br><span class="line">    _loop = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> _fn0 = _x[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">var</span> _result0 = _fn0(name);</span><br><span class="line">    <span class="keyword">if</span> (_result0 !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">      _loop = <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">var</span> _fn1 = _x[<span class="number">1</span>];</span><br><span class="line">      <span class="keyword">var</span> _result1 = _fn1(name);</span><br><span class="line">      <span class="keyword">if</span> (_result1 !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">        _loop = <span class="literal">true</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> _fn2 = _x[<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">var</span> _result2 = _fn2(name);</span><br><span class="line">        <span class="keyword">if</span> (_result2 !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">          _loop = <span class="literal">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (!_loop) &#123;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">while</span> (_loop);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>如果执行结果不等于undefined，就会一直执行</p>
+<p><strong>SyncWaterfallHook（同步瀑布钩子）</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;</span><br><span class="line">	SyncWaterfallHook</span><br><span class="line">&#125; = <span class="built_in">require</span>(<span class="string">"./lib/index.js"</span>);</span><br><span class="line"><span class="keyword">let</span> queue = <span class="keyword">new</span> SyncWaterfallHook([<span class="string">'name'</span>]); </span><br><span class="line"></span><br><span class="line"><span class="comment">// 订阅</span></span><br><span class="line">queue.tap(<span class="string">'1'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">name, name2</span>) </span>&#123; </span><br><span class="line">	<span class="built_in">console</span>.log(name, name2, <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="string">'1'</span></span><br><span class="line">&#125;);</span><br><span class="line">queue.tap(<span class="string">'2'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(name, <span class="number">2</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="string">'2'</span></span><br><span class="line">&#125;);</span><br><span class="line">queue.tap(<span class="string">'3'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(name, <span class="number">3</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发布</span></span><br><span class="line">queue.call(<span class="string">'webpack'</span>,<span class="string">'webpack-cli'</span>); </span><br><span class="line"><span class="comment">// webpack undefined 1</span></span><br><span class="line"><span class="comment">// 1 2</span></span><br><span class="line"><span class="comment">// 2 3</span></span><br></pre></td></tr></table></figure>
+<p>生成的fn</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">anonymous</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line"><span class="meta">  "use strict"</span>;</span><br><span class="line">  <span class="keyword">var</span> _context;</span><br><span class="line">  <span class="keyword">var</span> _x = <span class="keyword">this</span>._x;</span><br><span class="line">  <span class="keyword">var</span> _fn0 = _x[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">var</span> _result0 = _fn0(name);</span><br><span class="line">  <span class="keyword">if</span> (_result0 !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">    name = _result0;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> _fn1 = _x[<span class="number">1</span>];</span><br><span class="line">  <span class="keyword">var</span> _result1 = _fn1(name);</span><br><span class="line">  <span class="keyword">if</span> (_result1 !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">    name = _result1;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> _fn2 = _x[<span class="number">2</span>];</span><br><span class="line">  <span class="keyword">var</span> _result2 = _fn2(name);</span><br><span class="line">  <span class="keyword">if</span> (_result2 !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">    name = _result2;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> name;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>前面的 handler 返回值作为下一个 handler 的输入值</p>
+<h2 id="异步钩子"><a href="#异步钩子" class="headerlink" title="异步钩子"></a>异步钩子</h2><p>所有的异步钩子支持 tap、tapAsync、tapPromise 方法来注册各种类型的 handler，但是不支持 call 方法来触发 handler，只支持 promise、callAsync。</p>
+<p><strong>AsyncParallelBailHook（异步并行保险钩子）</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;</span><br><span class="line">	AsyncParallelBailHook</span><br><span class="line">&#125; = <span class="built_in">require</span>(<span class="string">"./lib/index.js"</span>);</span><br><span class="line"><span class="keyword">let</span> queue = <span class="keyword">new</span> AsyncParallelBailHook();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 订阅</span></span><br><span class="line">queue.tapAsync(<span class="string">'1'</span>, next =&gt; &#123;</span><br><span class="line">	setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">		next(<span class="number">2</span>)</span><br><span class="line">	&#125;, <span class="number">2000</span>)</span><br><span class="line">&#125;);</span><br><span class="line">queue.tapAsync(<span class="string">'2'</span>, next =&gt; &#123;</span><br><span class="line">	setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">		next(<span class="number">1</span>)</span><br><span class="line">	&#125;, <span class="number">2000</span>)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发布</span></span><br><span class="line">queue.callAsync(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(result)</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'callback 执行完成'</span>)</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// callback 执行完成</span></span><br></pre></td></tr></table></figure>
+<p>生成的fn</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">anonymous</span>(<span class="params">_callback</span>) </span>&#123;</span><br><span class="line"><span class="meta">  "use strict"</span>;</span><br><span class="line">  <span class="keyword">var</span> _context;</span><br><span class="line">  <span class="keyword">var</span> _x = <span class="keyword">this</span>._x;</span><br><span class="line">  <span class="keyword">var</span> _results = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">2</span>);</span><br><span class="line">  <span class="keyword">var</span> _checkDone = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; _results.length; i++) &#123;</span><br><span class="line">      <span class="keyword">var</span> item = _results[i];</span><br><span class="line">      <span class="keyword">if</span> (item === <span class="literal">undefined</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      <span class="keyword">if</span> (item.result !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">        _callback(<span class="literal">null</span>, item.result);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (item.error) &#123;</span><br><span class="line">        _callback(item.error);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> _counter = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">var</span> _done = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      _callback();</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">if</span> (_counter &lt;= <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">var</span> _fn0 = _x[<span class="number">0</span>];</span><br><span class="line">    _fn0(<span class="function">(<span class="params">_err0, _result0</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (_err0) &#123;</span><br><span class="line">        <span class="keyword">if</span> (_counter &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">if</span> (<span class="number">0</span> &lt; _results.length &amp;&amp; ((_results.length = <span class="number">1</span>), (_results[<span class="number">0</span>] = &#123;</span><br><span class="line">              error: _err0</span><br><span class="line">            &#125;), _checkDone())) &#123;</span><br><span class="line">            _counter = <span class="number">0</span>;</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (--_counter === <span class="number">0</span>) _done();</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (_counter &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">if</span> (<span class="number">0</span> &lt; _results.length &amp;&amp; (_result0 !== <span class="literal">undefined</span> &amp;&amp; (_results.length = <span class="number">1</span>), (_results[<span class="number">0</span>] = &#123;</span><br><span class="line">              result: _result0</span><br><span class="line">            &#125;), _checkDone())) &#123;</span><br><span class="line">            _counter = <span class="number">0</span>;</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (--_counter === <span class="number">0</span>) _done();</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">if</span> (_counter &lt;= <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">1</span> &gt;= _results.length) &#123;</span><br><span class="line">      <span class="keyword">if</span> (--_counter === <span class="number">0</span>) _done();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">var</span> _fn1 = _x[<span class="number">1</span>];</span><br><span class="line">      _fn1(<span class="function">(<span class="params">_err1, _result1</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (_err1) &#123;</span><br><span class="line">          <span class="keyword">if</span> (_counter &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="number">1</span> &lt; _results.length &amp;&amp; ((_results.length = <span class="number">2</span>), (_results[<span class="number">1</span>] = &#123;</span><br><span class="line">                error: _err1</span><br><span class="line">              &#125;), _checkDone())) &#123;</span><br><span class="line">              _counter = <span class="number">0</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              <span class="keyword">if</span> (--_counter === <span class="number">0</span>) _done();</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (_counter &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="number">1</span> &lt; _results.length &amp;&amp; (_result1 !== <span class="literal">undefined</span> &amp;&amp; (_results.length = <span class="number">2</span>), (_results[<span class="number">1</span>] = &#123;</span><br><span class="line">                result: _result1</span><br><span class="line">              &#125;), _checkDone())) &#123;</span><br><span class="line">              _counter = <span class="number">0</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              <span class="keyword">if</span> (--_counter === <span class="number">0</span>) _done();</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">while</span> (<span class="literal">false</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>每个 handler 的最后一位形参是 next，它是一个函数，用户必须手动执行并且传参，这样 callback 会拿到该参数并且执行。从例子可以看出，callback 的执行是取决于注册的 handler 的顺序。</p>
+<p><strong>AsyncParallelHook（异步并行钩子）</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;</span><br><span class="line">	AsyncParallelHook</span><br><span class="line">&#125; = <span class="built_in">require</span>(<span class="string">"./lib/index.js"</span>);</span><br><span class="line"><span class="keyword">let</span> queue = <span class="keyword">new</span> AsyncParallelHook();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 订阅</span></span><br><span class="line">queue.tapAsync(<span class="string">'1'</span>, next =&gt; &#123;</span><br><span class="line">	setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">		next(<span class="number">1</span>)</span><br><span class="line">	&#125;, <span class="number">1000</span>)</span><br><span class="line">&#125;);</span><br><span class="line">queue.tapAsync(<span class="string">'2'</span>, next =&gt; &#123;</span><br><span class="line">	setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">		next(<span class="number">2</span>)</span><br><span class="line">	&#125;, <span class="number">2000</span>)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发布</span></span><br><span class="line">queue.callAsync(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(result)</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'callback 执行完成'</span>)</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// callback 执行完成</span></span><br></pre></td></tr></table></figure>
+<p>生成的fn</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">anonymous</span>(<span class="params">_callback</span>) </span>&#123;</span><br><span class="line"><span class="meta">  "use strict"</span>;</span><br><span class="line">  <span class="keyword">var</span> _context;</span><br><span class="line">  <span class="keyword">var</span> _x = <span class="keyword">this</span>._x;</span><br><span class="line">  <span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> _counter = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">var</span> _done = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      _callback();</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">if</span> (_counter &lt;= <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">var</span> _fn0 = _x[<span class="number">0</span>];</span><br><span class="line">    _fn0(<span class="function"><span class="params">_err0</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (_err0) &#123;</span><br><span class="line">        <span class="keyword">if</span> (_counter &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          _callback(_err0);</span><br><span class="line">          _counter = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (--_counter === <span class="number">0</span>) _done();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">if</span> (_counter &lt;= <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">var</span> _fn1 = _x[<span class="number">1</span>];</span><br><span class="line">    _fn1(<span class="function"><span class="params">_err1</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (_err1) &#123;</span><br><span class="line">        <span class="keyword">if</span> (_counter &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          _callback(_err1);</span><br><span class="line">          _counter = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (--_counter === <span class="number">0</span>) _done();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">while</span> (<span class="literal">false</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>callback 的执行是取决先执行 next 函数的</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://juejin.im/post/5beb8875e51d455e5c4dd83f" target="_blank" rel="noopener">https://juejin.im/post/5beb8875e51d455e5c4dd83f</a></p>
+<p><a href="https://juejin.im/post/5c12046af265da612b1377aa#heading-7" target="_blank" rel="noopener">https://juejin.im/post/5c12046af265da612b1377aa#heading-7</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/webpack/" rel="tag"># webpack</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/08/Node学习笔记/" rel="next" title="Node学习笔记-准备工作">
+                <i class="fa fa-chevron-left"></i> Node学习笔记-准备工作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">113</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tapable"><span class="nav-number">1.</span> <span class="nav-text">Tapable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步钩子"><span class="nav-number">2.</span> <span class="nav-text">同步钩子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步钩子"><span class="nav-number">3.</span> <span class="nav-text">异步钩子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
