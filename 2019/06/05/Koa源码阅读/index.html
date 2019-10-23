@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="koa," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="基本组成 application.js：框架入口；负责管理中间件，以及处理请求 context.js：context对象的原型，代理request与response对象上的方法和属性 request.js：request对象的原型，提供请求相关的方法和属性 response.js：response对象的原型，提供响应相关的方法和属性  开始新建test.js文件 12345678910111213">
+<meta name="keywords" content="koa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Koa源码阅读">
+<meta property="og:url" content="http://yoursite.com/2019/06/05/Koa源码阅读/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="基本组成 application.js：框架入口；负责管理中间件，以及处理请求 context.js：context对象的原型，代理request与response对象上的方法和属性 request.js：request对象的原型，提供请求相关的方法和属性 response.js：response对象的原型，提供响应相关的方法和属性  开始新建test.js文件 12345678910111213">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191005-125153@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191005-125329@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191005-190445@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191005-201601@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191005-224823@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191005-225339@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191006-231742@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191006-234337@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191006-234604@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191007-153846@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191007-154107@2x.png">
+<meta property="og:updated_time" content="2019-10-23T11:43:05.665Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Koa源码阅读">
+<meta name="twitter:description" content="基本组成 application.js：框架入口；负责管理中间件，以及处理请求 context.js：context对象的原型，代理request与response对象上的方法和属性 request.js：request对象的原型，提供请求相关的方法和属性 response.js：response对象的原型，提供响应相关的方法和属性  开始新建test.js文件 12345678910111213">
+<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20191005-125153@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/06/05/Koa源码阅读/"/>
+
+
+
+
+
+  <title>Koa源码阅读 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/05/Koa源码阅读/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Koa源码阅读</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-05T11:27:58+08:00">
+                2019-06-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/koa/" itemprop="url" rel="index">
+                    <span itemprop="name">koa</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="基本组成"><a href="#基本组成" class="headerlink" title="基本组成"></a>基本组成</h2><ol>
+<li>application.js：框架入口；负责管理中间件，以及处理请求</li>
+<li>context.js：context对象的原型，代理request与response对象上的方法和属性</li>
+<li>request.js：request对象的原型，提供请求相关的方法和属性</li>
+<li>response.js：response对象的原型，提供响应相关的方法和属性</li>
+</ol>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>新建<code>test.js</code>文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> koa();</span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`1 start`</span>);</span><br><span class="line">    <span class="keyword">await</span> next();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'1 end'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`2 start`</span>);</span><br><span class="line">    <span class="keyword">await</span> next();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'2 end'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`3 start`</span>);</span><br><span class="line">    <span class="keyword">await</span> next();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'3 end'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'koa server is listening port 3000'</span>);</span><br></pre></td></tr></table></figure>
+<p>通过<code>node --inspect-brk test</code>运行，进入调试模式。</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191005-125153@2x.png" alt="WX20191005-125153@2x"></p>
+<p>浏览器打开<code>http://127.0.0.1:9229/</code>，点击这个</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191005-125329@2x.png" alt="WX20191005-125329@2x"></p>
+<p><strong>首先通过<code>new Koa()</code>创建实例</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="class"><span class="keyword">class</span> <span class="title">Application</span> <span class="keyword">extends</span> <span class="title">Emitter</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.proxy = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">this</span>.middleware = [];</span><br><span class="line">    <span class="keyword">this</span>.subdomainOffset = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">this</span>.env = process.env.NODE_ENV || <span class="string">'development'</span>;</span><br><span class="line">    <span class="keyword">this</span>.context = <span class="built_in">Object</span>.create(context);</span><br><span class="line">    <span class="keyword">this</span>.request = <span class="built_in">Object</span>.create(request);</span><br><span class="line">    <span class="keyword">this</span>.response = <span class="built_in">Object</span>.create(response);</span><br><span class="line">    <span class="keyword">if</span> (util.inspect.custom) &#123;</span><br><span class="line">      <span class="keyword">this</span>[util.inspect.custom] = <span class="keyword">this</span>.inspect;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对象实例：</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191005-190445@2x.png" alt="WX20191005-190445@2x"></p>
+<p><strong><code>app.use</code>方法</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">use(fn) &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> fn !== <span class="string">'function'</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'middleware must be a function!'</span>);</span><br><span class="line">  <span class="keyword">if</span> (isGeneratorFunction(fn)) &#123;</span><br><span class="line">    deprecate(<span class="string">'Support for generators will be removed in v3. '</span> +</span><br><span class="line">              <span class="string">'See the documentation for examples of how to convert old middleware '</span> +</span><br><span class="line">              <span class="string">'https://github.com/koajs/koa/blob/master/docs/migration.md'</span>);</span><br><span class="line">    fn = convert(fn);</span><br><span class="line">  &#125;</span><br><span class="line">  debug(<span class="string">'use %s'</span>, fn._name || fn.name || <span class="string">'-'</span>);</span><br><span class="line">  <span class="keyword">this</span>.middleware.push(fn);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>判断了传入的<code>fn</code>类型是否是<code>function</code></li>
+<li>然后判断是否是<code>generator</code>函数</li>
+<li>之后<code>push</code>进<code>middleware</code>数组里</li>
+</ul>
+<p><strong><code>app.listen</code>方法</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">listen(...args) &#123;</span><br><span class="line">  debug(<span class="string">'listen'</span>);</span><br><span class="line">  <span class="keyword">const</span> server = http.createServer(<span class="keyword">this</span>.callback());</span><br><span class="line">  <span class="keyword">return</span> server.listen(...args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>先执行<code>this.callback()</code>，返回一个<code>handleRequest</code>函数</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">callback() &#123;</span><br><span class="line">  <span class="keyword">const</span> fn = compose(<span class="keyword">this</span>.middleware);</span><br><span class="line">  <span class="keyword">if</span> (!<span class="keyword">this</span>.listenerCount(<span class="string">'error'</span>)) <span class="keyword">this</span>.on(<span class="string">'error'</span>, <span class="keyword">this</span>.onerror);</span><br><span class="line">  <span class="keyword">const</span> handleRequest = <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> ctx = <span class="keyword">this</span>.createContext(req, res);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.handleRequest(ctx, fn);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> handleRequest;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>compose</code>是由一个名为<code>koa-compose</code>的库,它可以将多个中间件组合成洋葱式调用的对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compose</span> (<span class="params">middleware</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">Array</span>.isArray(middleware)) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Middleware stack must be an array!'</span>)</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> fn <span class="keyword">of</span> middleware) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> fn !== <span class="string">'function'</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Middleware must be composed of functions!'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * @param &#123;Object&#125; context</span></span><br><span class="line"><span class="comment">   * @return &#123;Promise&#125;</span></span><br><span class="line"><span class="comment">   * @api public</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">context, next</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// last called middleware #</span></span><br><span class="line">    <span class="keyword">let</span> index = <span class="number">-1</span></span><br><span class="line">    <span class="keyword">return</span> dispatch(<span class="number">0</span>)</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">dispatch</span> (<span class="params">i</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (i &lt;= index) <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'next() called multiple times'</span>))</span><br><span class="line">      index = i</span><br><span class="line">      <span class="keyword">let</span> fn = middleware[i]</span><br><span class="line">      <span class="keyword">if</span> (i === middleware.length) fn = next</span><br><span class="line">      <span class="keyword">if</span> (!fn) <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve()</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(fn(context, dispatch.bind(<span class="literal">null</span>, i + <span class="number">1</span>)));</span><br><span class="line">      &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(err)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>调用<code>http.createServer</code>，该函数用来创建一个HTTP服务器，并将 <code>handleRequest</code> 作为 <code>request</code> 事件的监听函数。</p>
+</li>
+<li><p><code>server.listen(...args)</code>启动服务器监听连接，<code>3000</code>端口号</p>
+</li>
+</ul>
+<p><strong>发送请求到<code>http://localhost:3000/</code>，执行回调函数</strong></p>
+<p><img src="http://www.qinhanwen.xyz/WX20191005-201601@2x.png" alt="WX20191005-201601@2x"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> handleRequest = <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> ctx = <span class="keyword">this</span>.createContext(req, res);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.handleRequest(ctx, fn);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>首先调用<code>createContext</code>创建上下文对象</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">createContext(req, res) &#123;</span><br><span class="line">  <span class="keyword">const</span> context = <span class="built_in">Object</span>.create(<span class="keyword">this</span>.context);</span><br><span class="line">  <span class="keyword">const</span> request = context.request = <span class="built_in">Object</span>.create(<span class="keyword">this</span>.request);</span><br><span class="line">  <span class="keyword">const</span> response = context.response = <span class="built_in">Object</span>.create(<span class="keyword">this</span>.response);</span><br><span class="line">  context.app = request.app = response.app = <span class="keyword">this</span>;</span><br><span class="line">  context.req = request.req = response.req = req;</span><br><span class="line">  context.res = request.res = response.res = res;</span><br><span class="line">  request.ctx = response.ctx = context;</span><br><span class="line">  request.response = response;</span><br><span class="line">  response.request = request;</span><br><span class="line">  context.originalUrl = request.originalUrl = req.url;</span><br><span class="line">  context.state = &#123;&#125;;</span><br><span class="line">  <span class="keyword">return</span> context;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>调用<code>this.handleRequest(ctx, fn)</code></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">handleRequest(ctx, fnMiddleware) &#123;</span><br><span class="line">  <span class="keyword">const</span> res = ctx.res;</span><br><span class="line">  res.statusCode = <span class="number">404</span>;</span><br><span class="line">  <span class="keyword">const</span> onerror = <span class="function"><span class="params">err</span> =&gt;</span> ctx.onerror(err);</span><br><span class="line">  <span class="keyword">const</span> handleResponse = <span class="function"><span class="params">()</span> =&gt;</span> respond(ctx);</span><br><span class="line">  onFinished(res, onerror);</span><br><span class="line">  <span class="keyword">return</span> fnMiddleware(ctx).then(handleResponse).catch(onerror);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>进入<code>fnMiddleware(ctx).then(handleResponse).catch(onerror);</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">context, next</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// last called middleware #</span></span><br><span class="line">  <span class="keyword">let</span> index = <span class="number">-1</span></span><br><span class="line">  <span class="keyword">return</span> dispatch(<span class="number">0</span>)</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">dispatch</span> (<span class="params">i</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (i &lt;= index) <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'next() called multiple times'</span>))</span><br><span class="line">    index = i</span><br><span class="line">    <span class="keyword">let</span> fn = middleware[i]</span><br><span class="line">    <span class="keyword">if</span> (i === middleware.length) fn = next</span><br><span class="line">    <span class="keyword">if</span> (!fn) <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve()</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(fn(context, dispatch.bind(<span class="literal">null</span>, i + <span class="number">1</span>)));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(err)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>小结</strong></p>
+<p>1）首先先创建<code>koa</code>实例</p>
+<p>2）<code>app.use</code>是往<code>middleware</code>数组里<code>push</code>进回调函数</p>
+<p>3）<code>app.listen</code>启动服务端器监听，并且添加了回调函数</p>
+<p>4）触发接口请求回调函数的时候，会将创建的上下文对象与<code>next</code>（next其实就是<code>dispatch</code>方法），作为参数传入到<code>middleware</code>中每项的函数调用中，如果调用了<code>next</code>就是调用的<code>dispatch.bind(null, i + 1)</code></p>
+<h2 id="koa-router"><a href="#koa-router" class="headerlink" title="koa-router"></a>koa-router</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> koa();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Router = <span class="built_in">require</span>(<span class="string">'koa-router'</span>);</span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> Router();</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">'/list/:id'</span>, <span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">  ctx.body = &#123;</span><br><span class="line">    success: <span class="literal">true</span>,</span><br><span class="line">    data: [&#123;</span><br><span class="line">        name: <span class="string">'name1'</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        name: <span class="string">'name2'</span>,</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(router.routes());</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'koa server is listening port 3000'</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>看实例化<code>Router</code>的过程之前，先看一下，遍历数组为<code>Router</code>构造函数添加<code>prototype</code>属性</strong></p>
+<p><img src="http://www.qinhanwen.xyz/WX20191005-224823@2x.png" alt="WX20191005-224823@2x"></p>
+<p>看<code>Router</code>构造函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Router</span>(<span class="params">opts</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!(<span class="keyword">this</span> <span class="keyword">instanceof</span> Router)) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Router(opts);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.opts = opts || &#123;&#125;;</span><br><span class="line">  <span class="keyword">this</span>.methods = <span class="keyword">this</span>.opts.methods || [</span><br><span class="line">    <span class="string">'HEAD'</span>,</span><br><span class="line">    <span class="string">'OPTIONS'</span>,</span><br><span class="line">    <span class="string">'GET'</span>,</span><br><span class="line">    <span class="string">'PUT'</span>,</span><br><span class="line">    <span class="string">'PATCH'</span>,</span><br><span class="line">    <span class="string">'POST'</span>,</span><br><span class="line">    <span class="string">'DELETE'</span></span><br><span class="line">  ];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.params = &#123;&#125;;</span><br><span class="line">  <span class="keyword">this</span>.stack = [];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><code>Router</code>的实例</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191005-225339@2x.png" alt="WX20191005-225339@2x"></p>
+<p><strong><code>router.get</code>方法</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Router.prototype[method] = <span class="function"><span class="keyword">function</span> (<span class="params">name, path, middleware</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> middleware;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> path === <span class="string">'string'</span> || path <span class="keyword">instanceof</span> <span class="built_in">RegExp</span>) &#123;</span><br><span class="line">    middleware = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>, <span class="number">2</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    middleware = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">    path = name;</span><br><span class="line">    name = <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.register(path, [method], middleware, &#123;</span><br><span class="line">    name: name</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在这里调用<code>register</code>并且传入<code>path</code>、<code>method</code>、<code>name</code>和<code>middleware</code>（这里有对<code>router.get</code>传入的值做了一些修改）,进入<code>regiseter</code>方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">Router.prototype.register = <span class="function"><span class="keyword">function</span> (<span class="params">path, methods, middleware, opts</span>) </span>&#123;</span><br><span class="line">  opts = opts || &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> router = <span class="keyword">this</span>;</span><br><span class="line">  <span class="keyword">var</span> stack = <span class="keyword">this</span>.stack;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// support array of paths</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(path)) &#123;</span><br><span class="line">    path.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">p</span>) </span>&#123;</span><br><span class="line">      router.register.call(router, p, methods, middleware, opts);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// create route</span></span><br><span class="line">  <span class="keyword">var</span> route = <span class="keyword">new</span> Layer(path, methods, middleware, &#123;</span><br><span class="line">    end: opts.end === <span class="literal">false</span> ? opts.end : <span class="literal">true</span>,</span><br><span class="line">    name: opts.name,</span><br><span class="line">    sensitive: opts.sensitive || <span class="keyword">this</span>.opts.sensitive || <span class="literal">false</span>,</span><br><span class="line">    strict: opts.strict || <span class="keyword">this</span>.opts.strict || <span class="literal">false</span>,</span><br><span class="line">    prefix: opts.prefix || <span class="keyword">this</span>.opts.prefix || <span class="string">""</span>,</span><br><span class="line">    ignoreCaptures: opts.ignoreCaptures</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.opts.prefix) &#123;</span><br><span class="line">    route.setPrefix(<span class="keyword">this</span>.opts.prefix);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// add parameter middleware</span></span><br><span class="line">  <span class="built_in">Object</span>.keys(<span class="keyword">this</span>.params).forEach(<span class="function"><span class="keyword">function</span> (<span class="params">param</span>) </span>&#123;</span><br><span class="line">    route.param(param, <span class="keyword">this</span>.params[param]);</span><br><span class="line">  &#125;, <span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">  stack.push(route);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> route;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这里实例化了<code>route</code>，并且<code>push</code>到了<code>stack</code>里</p>
+<p><strong><code>app.use(router.routes())</code></strong></p>
+<p>先看<code>router.routes()</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">Router.prototype.routes = Router.prototype.middleware = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> router = <span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> dispatch = <span class="function"><span class="keyword">function</span> <span class="title">dispatch</span>(<span class="params">ctx, next</span>) </span>&#123;</span><br><span class="line">    debug(<span class="string">'%s %s'</span>, ctx.method, ctx.path);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> path = router.opts.routerPath || ctx.routerPath || ctx.path;</span><br><span class="line">    <span class="keyword">var</span> matched = router.match(path, ctx.method);</span><br><span class="line">    <span class="keyword">var</span> layerChain, layer, i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ctx.matched) &#123;</span><br><span class="line">      ctx.matched.push.apply(ctx.matched, matched.path);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      ctx.matched = matched.path;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ctx.router = router;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!matched.route) <span class="keyword">return</span> next();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> matchedLayers = matched.pathAndMethod</span><br><span class="line">    <span class="keyword">var</span> mostSpecificLayer = matchedLayers[matchedLayers.length - <span class="number">1</span>]</span><br><span class="line">    ctx._matchedRoute = mostSpecificLayer.path;</span><br><span class="line">    <span class="keyword">if</span> (mostSpecificLayer.name) &#123;</span><br><span class="line">      ctx._matchedRouteName = mostSpecificLayer.name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    layerChain = matchedLayers.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">memo, layer</span>) </span>&#123;</span><br><span class="line">      memo.push(<span class="function"><span class="keyword">function</span>(<span class="params">ctx, next</span>) </span>&#123;</span><br><span class="line">        ctx.captures = layer.captures(path, ctx.captures);</span><br><span class="line">        ctx.params = layer.params(path, ctx.captures, ctx.params);</span><br><span class="line">        ctx.routerName = layer.name;</span><br><span class="line">        <span class="keyword">return</span> next();</span><br><span class="line">      &#125;);</span><br><span class="line">      <span class="keyword">return</span> memo.concat(layer.stack);</span><br><span class="line">    &#125;, []);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> compose(layerChain)(ctx, next);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  dispatch.router = <span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> dispatch;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>声明<code>dispatch</code>方法并且把<code>Router</code>实例挂载到了这个方法上</p>
+<p>之后调用<code>app.use</code>把<code>dispatch</code>方法<code>push</code>进去了<code>middleware</code>数组</p>
+<p><strong><code>app.listen</code>方法</strong></p>
+<p>与上面一样，就是传入回调，启动个服务。</p>
+<p><strong>访问<code>http://localhost:3000/list/1</code>触发回调</strong></p>
+<p>进入回调函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">context, next</span>) </span>&#123;</span><br><span class="line">   <span class="comment">// last called middleware #</span></span><br><span class="line">   <span class="keyword">let</span> index = <span class="number">-1</span></span><br><span class="line">   <span class="keyword">return</span> dispatch(<span class="number">0</span>)</span><br><span class="line">   <span class="function"><span class="keyword">function</span> <span class="title">dispatch</span> (<span class="params">i</span>) </span>&#123;</span><br><span class="line">     <span class="keyword">if</span> (i &lt;= index) <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'next() called multiple times'</span>))</span><br><span class="line">     index = i</span><br><span class="line">     <span class="keyword">let</span> fn = middleware[i]</span><br><span class="line">     <span class="keyword">if</span> (i === middleware.length) fn = next</span><br><span class="line">     <span class="keyword">if</span> (!fn) <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve()</span><br><span class="line">     <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(fn(context, dispatch.bind(<span class="literal">null</span>, i + <span class="number">1</span>)));</span><br><span class="line">     &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(err)</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>在这里，取得<code>middleware</code>的第一个回调并且调用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dispatch = <span class="function"><span class="keyword">function</span> <span class="title">dispatch</span>(<span class="params">ctx, next</span>) </span>&#123;</span><br><span class="line">  debug(<span class="string">'%s %s'</span>, ctx.method, ctx.path);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> path = router.opts.routerPath || ctx.routerPath || ctx.path;</span><br><span class="line">  <span class="keyword">var</span> matched = router.match(path, ctx.method);</span><br><span class="line">  <span class="keyword">var</span> layerChain, layer, i;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (ctx.matched) &#123;</span><br><span class="line">    ctx.matched.push.apply(ctx.matched, matched.path);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    ctx.matched = matched.path;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ctx.router = router;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!matched.route) <span class="keyword">return</span> next();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> matchedLayers = matched.pathAndMethod</span><br><span class="line">  <span class="keyword">var</span> mostSpecificLayer = matchedLayers[matchedLayers.length - <span class="number">1</span>]</span><br><span class="line">  ctx._matchedRoute = mostSpecificLayer.path;</span><br><span class="line">  <span class="keyword">if</span> (mostSpecificLayer.name) &#123;</span><br><span class="line">    ctx._matchedRouteName = mostSpecificLayer.name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  layerChain = matchedLayers.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">memo, layer</span>) </span>&#123;</span><br><span class="line">    memo.push(<span class="function"><span class="keyword">function</span>(<span class="params">ctx, next</span>) </span>&#123;</span><br><span class="line">      ctx.captures = layer.captures(path, ctx.captures);</span><br><span class="line">      ctx.params = layer.params(path, ctx.captures, ctx.params);</span><br><span class="line">      ctx.routerName = layer.name;</span><br><span class="line">      <span class="keyword">return</span> next();</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> memo.concat(layer.stack);</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> compose(layerChain)(ctx, next);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>最后调用到<code>compose</code>方法，传入的<code>layerChina</code>是个数组，第一个是匿名函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">ctx, next</span>) </span>&#123;</span><br><span class="line">        ctx.captures = layer.captures(path, ctx.captures);</span><br><span class="line">        ctx.params = layer.params(path, ctx.captures, ctx.params);</span><br><span class="line">        ctx.routerName = layer.name;</span><br><span class="line">        <span class="keyword">return</span> next();</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+<p>第二个是访问<code>/list</code>的回调函数</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191006-231742@2x.png" alt="WX20191006-231742@2x"></p>
+<p>最后又调用进这个方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">context, next</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// last called middleware #</span></span><br><span class="line">  <span class="keyword">let</span> index = <span class="number">-1</span></span><br><span class="line">  <span class="keyword">return</span> dispatch(<span class="number">0</span>)</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">dispatch</span> (<span class="params">i</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (i &lt;= index) <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'next() called multiple times'</span>))</span><br><span class="line">    index = i</span><br><span class="line">    <span class="keyword">let</span> fn = middleware[i]</span><br><span class="line">    <span class="keyword">if</span> (i === middleware.length) fn = next</span><br><span class="line">    <span class="keyword">if</span> (!fn) <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve()</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(fn(context, <span class="function"><span class="keyword">function</span> <span class="title">next</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> dispatch(i + <span class="number">1</span>)</span><br><span class="line">      &#125;))</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(err)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也就是先调用了上面的匿名函数，这个匿名函数为<code>上下文对象</code>添加了一些属性</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191006-234337@2x.png" alt="WX20191006-234337@2x"></p>
+<p>之后调用<code>next</code>方法，走到我们为访问<code>/list</code>添加的回调那里</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191006-234604@2x.png" alt="WX20191006-234604@2x"></p>
+<p><strong>小结</strong></p>
+<p>1）创建<code>Router</code>实例</p>
+<p>2）<code>router.get</code>，注册路由规则，并且<code>push</code>进<code>stack</code>数组</p>
+<p>3）<code>app.use(router.routes())</code>，将<code>router.routes()</code>返回的<code>dispatch</code>方法<code>push</code>到<code>middleware</code>数组里</p>
+<p>4）<code>app.listen(3000)</code>，添加回调函数，并且启动服务器监听</p>
+<p>5）访问<code>http://localhost:3000/list/1</code>，调用<code>middleware</code>数组中第一个函数调用，这个函数调用返回<code>compose(layerChain)(ctx, next);</code></p>
+<p>6）<code>layerChain</code>是由两个函数组成的数组，里面的第一个函数被调用时候，解析<code>path</code>，为<code>ctx</code>上下文对象添加一些属性，之后调用<code>next()</code></p>
+<p>7）也就是走进<code>layerChain</code>里的第二个函数调用，也就是<code>router.get</code>的回调函数</p>
+<h2 id="koa-cors"><a href="#koa-cors" class="headerlink" title="koa-cors"></a>koa-cors</h2><p>test.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">send</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> xmlHttp;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span> (XMLHttpRequest) &#123;</span></span><br><span class="line"><span class="javascript">            xmlHttp = <span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line"><span class="javascript">        &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">            xmlHttp = <span class="keyword">new</span> ActiveXObject();</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        xmlHttp.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (xmlHttp.readyState == <span class="number">4</span>) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span> ((xmlHttp.status &gt;= <span class="number">200</span> &amp;&amp; xmlHttp.status &lt;= <span class="number">300</span>) || xmlHttp.status == <span class="number">304</span>) &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="built_in">console</span>.log(xmlHttp.response);</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="javascript">        xmlHttp.open(<span class="string">'GET'</span>, <span class="string">'http://127.0.0.1:3000/list/1'</span>, <span class="literal">true</span>);</span></span><br><span class="line"><span class="undefined">        xmlHttp.send();</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    send();</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>test.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> koa();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Router = <span class="built_in">require</span>(<span class="string">'koa-router'</span>);</span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> Router();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> cors = <span class="built_in">require</span>(<span class="string">'koa2-cors'</span>);</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">'/list/:id'</span>, <span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">  ctx.body = &#123;</span><br><span class="line">    success: <span class="literal">true</span>,</span><br><span class="line">    data: [&#123;</span><br><span class="line">        name: <span class="string">'name1'</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        name: <span class="string">'name2'</span>,</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(cors());</span><br><span class="line">app.use(router.routes());</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'koa server is listening port 3000'</span>);</span><br></pre></td></tr></table></figure>
+<p><strong><code>app.use(cors())</code>调用</strong></p>
+<p>先进入<code>cors()</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="title">crossOrigin</span>(<span class="params">options = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> defaultOptions = &#123;</span><br><span class="line">    allowMethods: [<span class="string">'GET'</span>, <span class="string">'PUT'</span>, <span class="string">'POST'</span>, <span class="string">'PATCH'</span>, <span class="string">'DELETE'</span>, <span class="string">'HEAD'</span>, <span class="string">'OPTIONS'</span>]</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// set defaultOptions to options</span></span><br><span class="line">  options = <span class="built_in">Object</span>.assign(&#123;&#125;, defaultOptions, options); <span class="comment">// eslint-disable-line no-param-reassign</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// eslint-disable-next-line consistent-return</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">cors</span>(<span class="params">ctx, next</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// always set vary Origin Header</span></span><br><span class="line">    <span class="comment">// https://github.com/rs/cors/issues/10</span></span><br><span class="line">    ctx.vary(<span class="string">'Origin'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> origin;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> options.origin === <span class="string">'function'</span>) &#123;</span><br><span class="line">      origin = options.origin(ctx);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      origin = options.origin || ctx.get(<span class="string">'Origin'</span>) || <span class="string">'*'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!origin) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">await</span> next();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Access-Control-Allow-Origin</span></span><br><span class="line">    ctx.set(<span class="string">'Access-Control-Allow-Origin'</span>, origin);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ctx.method === <span class="string">'OPTIONS'</span>) &#123;</span><br><span class="line">      <span class="comment">// Preflight Request</span></span><br><span class="line">      <span class="keyword">if</span> (!ctx.get(<span class="string">'Access-Control-Request-Method'</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> next();</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Access-Control-Max-Age</span></span><br><span class="line">      <span class="keyword">if</span> (options.maxAge) &#123;</span><br><span class="line">        ctx.set(<span class="string">'Access-Control-Max-Age'</span>, <span class="built_in">String</span>(options.maxAge));</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Access-Control-Allow-Credentials</span></span><br><span class="line">      <span class="keyword">if</span> (options.credentials === <span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="comment">// When used as part of a response to a preflight request,</span></span><br><span class="line">        <span class="comment">// this indicates whether or not the actual request can be made using credentials.</span></span><br><span class="line">        ctx.set(<span class="string">'Access-Control-Allow-Credentials'</span>, <span class="string">'true'</span>);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Access-Control-Allow-Methods</span></span><br><span class="line">      <span class="keyword">if</span> (options.allowMethods) &#123;</span><br><span class="line">        ctx.set(<span class="string">'Access-Control-Allow-Methods'</span>, options.allowMethods.join(<span class="string">','</span>));</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Access-Control-Allow-Headers</span></span><br><span class="line">      <span class="keyword">if</span> (options.allowHeaders) &#123;</span><br><span class="line">        ctx.set(<span class="string">'Access-Control-Allow-Headers'</span>, options.allowHeaders.join(<span class="string">','</span>));</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        ctx.set(<span class="string">'Access-Control-Allow-Headers'</span>, ctx.get(<span class="string">'Access-Control-Request-Headers'</span>));</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      ctx.status = <span class="number">204</span>; <span class="comment">// No Content</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// Request</span></span><br><span class="line">      <span class="comment">// Access-Control-Allow-Credentials</span></span><br><span class="line">      <span class="keyword">if</span> (options.credentials === <span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (origin === <span class="string">'*'</span>) &#123;</span><br><span class="line">          <span class="comment">// `credentials` can't be true when the `origin` is set to `*`</span></span><br><span class="line">          ctx.remove(<span class="string">'Access-Control-Allow-Credentials'</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          ctx.set(<span class="string">'Access-Control-Allow-Credentials'</span>, <span class="string">'true'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Access-Control-Expose-Headers</span></span><br><span class="line">      <span class="keyword">if</span> (options.exposeHeaders) &#123;</span><br><span class="line">        ctx.set(<span class="string">'Access-Control-Expose-Headers'</span>, options.exposeHeaders.join(<span class="string">','</span>));</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">await</span> next();</span><br><span class="line">      &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">        <span class="keyword">throw</span> err;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
+<p>返回了一个异步函数，之后<code>app.use</code>把这个函数<code>push</code>到<code>middleware</code>数组里</p>
+<p>刷新<code>html</code>页面，触发<code>send</code>方法，发送请求，触发回调，之后先调用<code>middleware</code>数组里第一个函数调用，就是上面的这个方法，这个方法（在这个例子中）做的事情：</p>
+<ul>
+<li>获取<code>origin</code>，通过<code>ctx.set(&#39;Access-Control-Allow-Origin&#39;, origin);</code>设置头部</li>
+<li>调用<code>next()</code></li>
+</ul>
+<p>这里的<code>next</code>调用就是路由<code>Router.routes()</code>返回的那个方法，调用步骤与上面路由的地方一样</p>
+<p><strong>小结</strong></p>
+<p>1）<code>app.use(cors())</code>把回调传入<code>middleware</code>数组</p>
+<p>2）发送请求，设置响应头</p>
+<p>因为这边是简单请求，所以没有<code>OPTIONS</code>预检请求</p>
+<ul>
+<li>当替换请求方法为<code>PUT</code>的时候，判断是<code>OPTIONS</code>请求的时候，会设置这个响应头</li>
+</ul>
+<p><img src="http://www.qinhanwen.xyz/WX20191007-153846@2x.png" alt="WX20191007-153846@2x"></p>
+<ul>
+<li>当添加请求头<code>name</code>属性的时候，会设置这个响应头</li>
+</ul>
+<p><img src="http://www.qinhanwen.xyz/WX20191007-154107@2x.png" alt="WX20191007-154107@2x"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/koa/" rel="tag"># koa</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/02/==与===/" rel="next" title="==与===，运算符优先级">
+                <i class="fa fa-chevron-left"></i> ==与===，运算符优先级
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/09/大前端网络专题篇之HTTP（3）/" rel="prev" title="大前端网络专题篇之HTTP(3)">
+                大前端网络专题篇之HTTP(3) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">113</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本组成"><span class="nav-number">1.</span> <span class="nav-text">基本组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">2.</span> <span class="nav-text">开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#koa-router"><span class="nav-number">3.</span> <span class="nav-text">koa-router</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#koa-cors"><span class="nav-number">4.</span> <span class="nav-text">koa-cors</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
