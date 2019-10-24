@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="实现一下数组方法 forEach，map，reduce，filter先写自己实现的想法，可能有疏漏和错误，发现了再更改。1.forEach首先了解一下forEach 1array.forEach(callback[, thisObject]); 写个例子观察一下 12345678910111213var arr = [1,2,3];var obj = &amp;#123;    arr1:[]&amp;#125;">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-25T09:19:25.653Z">
+<meta property="og:updated_time" content="2019-10-24T06:46:12.468Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="循环">
 <meta name="twitter:description" content="实现一下数组方法 forEach，map，reduce，filter先写自己实现的想法，可能有疏漏和错误，发现了再更改。1.forEach首先了解一下forEach 1array.forEach(callback[, thisObject]); 写个例子观察一下 12345678910111213var arr = [1,2,3];var obj = &amp;#123;    arr1:[]&amp;#125;">
@@ -400,7 +400,7 @@
 <p>3）callback如果传入是不是方法，提示`XX is not a function</p>
 <p>4）callback函数里返回值会被total保存</p>
 <p>5）reduce函数调用会返回total的值</p>
-<h5 id="实现："><a href="#实现：" class="headerlink" title="实现："></a>实现：</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.reduce = <span class="function"><span class="keyword">function</span> (<span class="params">cb, initialValue</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> cb !== <span class="string">'function'</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(cb + <span class="string">' is not a function'</span>);</span><br><span class="line">    <span class="keyword">var</span> total = initialValue || <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">var</span> len = <span class="keyword">this</span>.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++) &#123; </span><br><span class="line">       total = cb.call(<span class="literal">null</span>,total,<span class="keyword">this</span>[i],i,<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> total;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="实现："><a href="#实现：" class="headerlink" title="实现："></a>实现：</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.reduce = <span class="function"><span class="keyword">function</span> (<span class="params">cb, initialValue</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> cb !== <span class="string">'function'</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(cb + <span class="string">' is not a function'</span>);</span><br><span class="line">    <span class="keyword">var</span> total = initialValue || <span class="keyword">this</span>[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">var</span> len = <span class="keyword">this</span>.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++) &#123; </span><br><span class="line">       total = cb.call(<span class="literal">null</span>,total,<span class="keyword">this</span>[i],i,<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> total;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="4-filter"><a href="#4-filter" class="headerlink" title="4.filter"></a>4.filter</h5><p>语法：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.filter(callback,[ thisObject]);</span><br></pre></td></tr></table></figure>
 <p>1）filter方法接受2个参数，一个是callback，第二个是上下文环境</p>
@@ -539,7 +539,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">113</span>
+                <span class="site-state-item-count">114</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -550,7 +550,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -561,7 +561,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

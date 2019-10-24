@@ -97,7 +97,7 @@
 <meta name="description" content="基本组成 application.js：框架入口；负责管理中间件，以及处理请求 context.js：context对象的原型，代理request与response对象上的方法和属性 request.js：request对象的原型，提供请求相关的方法和属性 response.js：response对象的原型，提供响应相关的方法和属性  开始新建test.js文件 12345678910111213">
 <meta name="keywords" content="koa">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Koa源码阅读">
+<meta property="og:title" content="Koa插件之类">
 <meta property="og:url" content="http://yoursite.com/2019/06/05/Koa源码阅读/index.html">
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="基本组成 application.js：框架入口；负责管理中间件，以及处理请求 context.js：context对象的原型，代理request与response对象上的方法和属性 request.js：request对象的原型，提供请求相关的方法和属性 response.js：response对象的原型，提供响应相关的方法和属性  开始新建test.js文件 12345678910111213">
@@ -113,9 +113,11 @@
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191006-234604@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191007-153846@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191007-154107@2x.png">
-<meta property="og:updated_time" content="2019-10-23T11:43:05.665Z">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191024-215420@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191024-220208@2x.png">
+<meta property="og:updated_time" content="2019-10-24T14:19:56.707Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Koa源码阅读">
+<meta name="twitter:title" content="Koa插件之类">
 <meta name="twitter:description" content="基本组成 application.js：框架入口；负责管理中间件，以及处理请求 context.js：context对象的原型，代理request与response对象上的方法和属性 request.js：request对象的原型，提供请求相关的方法和属性 response.js：response对象的原型，提供响应相关的方法和属性  开始新建test.js文件 12345678910111213">
 <meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20191005-125153@2x.png">
 
@@ -152,7 +154,7 @@
 
 
 
-  <title>Koa源码阅读 | 渣渣大星星的学习笔记</title>
+  <title>Koa插件之类 | 渣渣大星星的学习笔记</title>
   
 
 
@@ -312,7 +314,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Koa源码阅读</h1>
+          <h1 class="post-title" itemprop="name headline">Koa插件之类</h1>
         
 
         <div class="post-meta">
@@ -507,6 +509,14 @@
 <li>当添加请求头<code>name</code>属性的时候，会设置这个响应头</li>
 </ul>
 <p><img src="http://www.qinhanwen.xyz/WX20191007-154107@2x.png" alt="WX20191007-154107@2x"></p>
+<h2 id="koa-bodyparser"><a href="#koa-bodyparser" class="headerlink" title="koa-bodyparser"></a>koa-bodyparser</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">const</span> bodyParser = <span class="built_in">require</span>(<span class="string">'koa-bodyparser'</span>)</span><br><span class="line">...</span><br><span class="line">app.use(bodyParser())</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>先进入<code>bodyParser()</code></p>
+<p>最后往middleware数组push进去这个函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">bodyParser</span>(<span class="params">ctx, next</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (ctx.request.body !== <span class="literal">undefined</span>) <span class="keyword">return</span> <span class="keyword">await</span> next();</span><br><span class="line">    <span class="keyword">if</span> (ctx.disableBodyParser) <span class="keyword">return</span> <span class="keyword">await</span> next();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> res = <span class="keyword">await</span> parseBody(ctx);</span><br><span class="line">      ctx.request.body = <span class="string">'parsed'</span> <span class="keyword">in</span> res ? res.parsed : &#123;&#125;;</span><br><span class="line">      <span class="keyword">if</span> (ctx.request.rawBody === <span class="literal">undefined</span>) ctx.request.rawBody = res.raw;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      <span class="keyword">if</span> (onerror) &#123;</span><br><span class="line">        onerror(err, ctx);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> err;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">await</span> next();</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
+<p>收到请求后根据不同的content-type调用不同的方法解析请求体，这边使用的是<code>application/x-www-form-urlencoded</code></p>
+<p><img src="http://www.qinhanwen.xyz/WX20191024-215420@2x.png" alt="WX20191024-215420@2x"></p>
+<p>解析完挂载在ctx.request.body上</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191024-220208@2x.png" alt="WX20191024-220208@2x"></p>
 
       
     </div>
@@ -626,7 +636,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">113</span>
+                <span class="site-state-item-count">114</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -637,7 +647,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -648,7 +658,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -683,7 +693,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本组成"><span class="nav-number">1.</span> <span class="nav-text">基本组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">2.</span> <span class="nav-text">开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#koa-router"><span class="nav-number">3.</span> <span class="nav-text">koa-router</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#koa-cors"><span class="nav-number">4.</span> <span class="nav-text">koa-cors</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本组成"><span class="nav-number">1.</span> <span class="nav-text">基本组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">2.</span> <span class="nav-text">开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#koa-router"><span class="nav-number">3.</span> <span class="nav-text">koa-router</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#koa-cors"><span class="nav-number">4.</span> <span class="nav-text">koa-cors</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#koa-bodyparser"><span class="nav-number">5.</span> <span class="nav-text">koa-bodyparser</span></a></li></ol></div>
             
 
           </div>
