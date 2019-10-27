@@ -1669,7 +1669,7 @@ bower install vue –save-dev
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/24/JavaScript设计模式-单例模式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/24/JavaScript设计模式-享元模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1688,7 +1688,7 @@ bower install vue –save-dev
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/24/JavaScript设计模式-单例模式/" itemprop="url">JavaScript设计模式-单例模式</a></h1>
+                <a class="post-title-link" href="/2019/08/24/JavaScript设计模式-享元模式/" itemprop="url">JavaScript设计模式-享元模式</a></h1>
         
 
         <div class="post-meta">
@@ -1700,7 +1700,7 @@ bower install vue –save-dev
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-24T13:47:08+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-24T13:48:08+08:00">
                 2019-08-24
               </time>
             
@@ -1762,15 +1762,13 @@ bower install vue –save-dev
       
         
           
-          定义保证一个类只有仅有一个实例，并提供一个全局访问它的访问点。
-其实就是把实例存下来，下次获取的时候，返回被存下的实例。
-实现方式不透明的单例模式
-必须通过Singleton.getInstance获取Singleton的实例，跟以往的使用new关键字获取实例不同
-1234567891011121314151617var Singleton = function(name)&#123;     this.name = name;     this.instance = null;&#125;Si
+          定义它使用共享物件，用来尽可能减少内存使用量以及分享资讯给尽可能多的相似物件；它适合用于当大量物件只是重复因而导致无法令人接受的使用大量内存。通常物件中的部分状态是可以分享。常见做法是把它们放在外部数据结构，当需要使用时再将它们传递给享元。
+实现假设一个一个情景, 有男女服装个100套, 需要租模特来试穿衣服, 传统做法就是男女各找100个模特试穿每一见衣服
+123456789101112131415161718// 雇佣模特let HireModel = function(sex,clothe
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/08/24/JavaScript设计模式-单例模式/#more" rel="contents">
+            <a class="btn" href="/2019/08/24/JavaScript设计模式-享元模式/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1858,7 +1856,7 @@ bower install vue –save-dev
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">116</span>
+                <span class="site-state-item-count">117</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
