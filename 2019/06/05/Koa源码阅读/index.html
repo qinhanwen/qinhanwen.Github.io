@@ -114,8 +114,12 @@
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191007-153846@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191007-154107@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191024-215420@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191028-095029@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191028-095418@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191028-094333@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191028-093318@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191024-220208@2x.png">
-<meta property="og:updated_time" content="2019-10-24T14:19:56.707Z">
+<meta property="og:updated_time" content="2019-10-28T02:31:35.633Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Koa插件之类">
 <meta name="twitter:description" content="基本组成 application.js：框架入口；负责管理中间件，以及处理请求 context.js：context对象的原型，代理request与response对象上的方法和属性 request.js：request对象的原型，提供请求相关的方法和属性 response.js：response对象的原型，提供响应相关的方法和属性  开始新建test.js文件 12345678910111213">
@@ -513,9 +517,23 @@
 <p>先进入<code>bodyParser()</code></p>
 <p>最后往middleware数组push进去这个函数</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">bodyParser</span>(<span class="params">ctx, next</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (ctx.request.body !== <span class="literal">undefined</span>) <span class="keyword">return</span> <span class="keyword">await</span> next();</span><br><span class="line">    <span class="keyword">if</span> (ctx.disableBodyParser) <span class="keyword">return</span> <span class="keyword">await</span> next();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> res = <span class="keyword">await</span> parseBody(ctx);</span><br><span class="line">      ctx.request.body = <span class="string">'parsed'</span> <span class="keyword">in</span> res ? res.parsed : &#123;&#125;;</span><br><span class="line">      <span class="keyword">if</span> (ctx.request.rawBody === <span class="literal">undefined</span>) ctx.request.rawBody = res.raw;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      <span class="keyword">if</span> (onerror) &#123;</span><br><span class="line">        onerror(err, ctx);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> err;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">await</span> next();</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
-<p>收到请求后根据不同的content-type调用不同的方法解析请求体，这边使用的是<code>application/x-www-form-urlencoded</code></p>
+<p>收到请求后根据不同的<code>content-type</code>调用不同的方法解析请求体，这边使用的是<code>application/x-www-form-urlencoded</code></p>
 <p><img src="http://www.qinhanwen.xyz/WX20191024-215420@2x.png" alt="WX20191024-215420@2x"></p>
-<p>解析完挂载在ctx.request.body上</p>
+<p>获取请求的<code>content-encoding</code>、<code>content-length</code>和编码方式<code>utf-8</code></p>
+<ul>
+<li>先根据<code>contentn-encoding</code>的值判断是否需要解压，还是直接返回</li>
+</ul>
+<p><img src="http://www.qinhanwen.xyz/WX20191028-095029@2x.png" alt="WX20191028-095029@2x"></p>
+<ul>
+<li>根据编码方式，Buffer转字符串</li>
+</ul>
+<p><img src="http://www.qinhanwen.xyz/WX20191028-095418@2x.png" alt="WX20191028-095418@2x"></p>
+<p><img src="http://www.qinhanwen.xyz/WX20191028-094333@2x.png" alt="WX20191028-094333@2x"></p>
+<ul>
+<li>解析完成后返回str</li>
+</ul>
+<p><img src="http://www.qinhanwen.xyz/WX20191028-093318@2x.png" alt="WX20191028-093318@2x"></p>
+<p>最后挂载在ctx.request.body上</p>
 <p><img src="http://www.qinhanwen.xyz/WX20191024-220208@2x.png" alt="WX20191024-220208@2x"></p>
 
       
@@ -557,8 +575,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/06/09/大前端网络专题篇之HTTP-2/" rel="prev" title="大前端网络专题篇之HTTP(2)">
-                大前端网络专题篇之HTTP(2) <i class="fa fa-chevron-right"></i>
+              <a href="/2019/06/09/大前端网络专题篇之HTTP（3）/" rel="prev" title="大前端网络专题篇之HTTP(3)">
+                大前端网络专题篇之HTTP(3) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
