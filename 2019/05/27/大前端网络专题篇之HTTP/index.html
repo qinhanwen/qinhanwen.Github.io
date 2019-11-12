@@ -118,7 +118,7 @@
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191011-180136@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191012-153336@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191012-160353@2x.png">
-<meta property="og:updated_time" content="2019-10-18T13:35:24.707Z">
+<meta property="og:updated_time" content="2019-11-05T09:12:24.618Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大前端网络专题篇之HTTP">
 <meta name="twitter:description" content="大前端网络专题篇之HTTP1️⃣、请简述浏览器输入 URL 地址以后所发生的事情 浏览器解析URL      将url中元素拆分出来 URL格式，重要的是scheme，host和path  按照URL格式拆分：  请求需要访问www.lab.glasscom.com域下的dir1目录下的file1.html文件。 几个例子： 如果是http://www.lab.glasscom.com/，表示访问">
@@ -456,6 +456,7 @@
 <li>滑动窗口与接收缓冲区：接收方会告诉发送方自己能接收多少数据，发送方根据这个值对发送数据控制。当接收方收到包以后，会将数据存放在接收缓冲区，并执行接收操作，完成之后释放接收缓冲区的空间，接收方会通过<code>TCP</code>头部告诉发送方自己能接收的数据量</li>
 </ul>
 <p><img src="http://www.qinhanwen.xyz/WX20191010-170436@2x.png" alt="WX20191010-170436@2x"></p>
+<p>那么在什么时机点返回ACK号和更新窗口的时机，接收方在发送ACK号和滑动窗口更新时，并不会马上把包发送出去，会等待一段时间，这样可以把两种通知合并到一个包里发送（当需要连续发送多个ACK号的时候也可以减少包的数量，在固态发四部分最后一个ACK号就可以了）。</p>
 <p><strong>浏览器解析</strong></p>
 <p>​        1）构建DOM树</p>
 <p>​        2）构建CSSOM树</p>
@@ -684,7 +685,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">120</span>
+                <span class="site-state-item-count">123</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -695,7 +696,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -706,7 +707,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
