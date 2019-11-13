@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="在线正则匹配测试网站 开头支持正则表达式的 String 对象的方法    方法 描述     search 检索与正则表达式相匹配的值。   match 返回的一个数组，第一个元素是整体匹配结果，然后是各个分组(括号里)匹配的内容，然后是匹配下标，最后是输入的文本。另外，正则表达式是否有修饰符 g，match返回的数组格式是不一样的。   replace 替换与正则表达式匹配的子串。   spl">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-24T03:42:37.508Z">
+<meta property="og:updated_time" content="2019-11-13T08:37:44.695Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="正则表达式">
 <meta name="twitter:description" content="在线正则匹配测试网站 开头支持正则表达式的 String 对象的方法    方法 描述     search 检索与正则表达式相匹配的值。   match 返回的一个数组，第一个元素是整体匹配结果，然后是各个分组(括号里)匹配的内容，然后是匹配下标，最后是输入的文本。另外，正则表达式是否有修饰符 g，match返回的数组格式是不一样的。   replace 替换与正则表达式匹配的子串。   spl">
@@ -568,7 +568,8 @@
 <p>密码长度 6-12 位，由数字、小写字符和大写字母组成， 必须同时包含数字、小写字母和大写字母</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])^[0-9a-zA-Z]&#123;6,12&#125;/</span>;</span><br><span class="line"><span class="keyword">var</span> string = <span class="string">"21424245Aa2"</span>;</span><br><span class="line">reg.test(string);<span class="comment">//true</span></span><br><span class="line"><span class="comment">//(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])</span></span><br><span class="line"><span class="comment">//表示后面必须包含有一个大写，一个小写字符，和一个数值</span></span><br></pre></td></tr></table></figure>
 <p><code>(?=.*[0-9])</code>表示某个位置之后由<code>任意字符</code>和一个数值组成</p>
-<p>​                   </p>
+<h5 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h5><p><strong>(?&lt;=pattern)</strong>：非获取匹配，反向肯定预查，与正向肯定预查类似，只是方向相反。例如，“(?&lt;=95|98|NT|2000)Windows”能匹配“2000Windows”中的“Windows”，但不能匹配“3.1Windows”中的“Windows”。</p>
+<p><strong>(?&lt;!patte_n)</strong>： 非获取匹配，反向否定预查，与正向否定预查类似，只是方向相反。例如“(?&lt;!95|98|NT|2000)Windows”能匹配“3.1Windows”中的“Windows”，但不能匹配“2000Windows”中的“Windows”。</p>
 <h2 id="括号的作用"><a href="#括号的作用" class="headerlink" title="括号的作用"></a>括号的作用</h2><p><strong>分组功能</strong></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> regex = <span class="regexp">/(ab)+/g</span>;</span><br><span class="line"><span class="keyword">var</span> string = <span class="string">"ababa abbb ababab"</span>;</span><br><span class="line"><span class="built_in">console</span>.log( string.match(regex) );<span class="comment">//["abab", "ab", "ababab"]</span></span><br></pre></td></tr></table></figure>
 <p><strong>分支结构</strong></p>
@@ -723,7 +724,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">123</span>
+                <span class="site-state-item-count">124</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -734,7 +735,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -745,7 +746,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -780,7 +781,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#开头"><span class="nav-number">1.</span> <span class="nav-text">开头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符匹配"><span class="nav-number">2.</span> <span class="nav-text">字符匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位置匹配"><span class="nav-number">3.</span> <span class="nav-text">位置匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#括号的作用"><span class="nav-number">4.</span> <span class="nav-text">括号的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回溯"><span class="nav-number">5.</span> <span class="nav-text">回溯</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#开头"><span class="nav-number">1.</span> <span class="nav-text">开头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符匹配"><span class="nav-number">2.</span> <span class="nav-text">字符匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位置匹配"><span class="nav-number">3.</span> <span class="nav-text">位置匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#补充："><span class="nav-number">3.0.0.1.</span> <span class="nav-text">补充：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#括号的作用"><span class="nav-number">4.</span> <span class="nav-text">括号的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回溯"><span class="nav-number">5.</span> <span class="nav-text">回溯</span></a></li></ol></div>
             
 
           </div>
