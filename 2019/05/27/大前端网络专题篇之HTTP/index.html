@@ -112,13 +112,15 @@
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191009-234503@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191010-170402@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191010-170436@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190731-224335@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191010-184737@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191010-184805@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191011-180136@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191012-153336@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191012-160353@2x.png">
-<meta property="og:updated_time" content="2019-11-05T09:12:24.618Z">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191122-171422@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191122-211858@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190731-224335@2x.png">
+<meta property="og:updated_time" content="2019-11-23T12:27:20.861Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大前端网络专题篇之HTTP">
 <meta name="twitter:description" content="大前端网络专题篇之HTTP1️⃣、请简述浏览器输入 URL 地址以后所发生的事情 浏览器解析URL      将url中元素拆分出来 URL格式，重要的是scheme，host和path  按照URL格式拆分：  请求需要访问www.lab.glasscom.com域下的dir1目录下的file1.html文件。 几个例子： 如果是http://www.lab.glasscom.com/，表示访问">
@@ -457,22 +459,6 @@
 </ul>
 <p><img src="http://www.qinhanwen.xyz/WX20191010-170436@2x.png" alt="WX20191010-170436@2x"></p>
 <p>那么在什么时机点返回ACK号和更新窗口的时机，接收方在发送ACK号和滑动窗口更新时，并不会马上把包发送出去，会等待一段时间，这样可以把两种通知合并到一个包里发送（当需要连续发送多个ACK号的时候也可以减少包的数量，在固态发四部分最后一个ACK号就可以了）。</p>
-<p><strong>浏览器解析</strong></p>
-<p>​        1）构建DOM树</p>
-<p>​        2）构建CSSOM树</p>
-<p>​        3）构建渲染树</p>
-<p>​        4）回流</p>
-<p>​        5）重绘</p>
-<p><strong>断开管道并删除套接字</strong></p>
-<p>四次挥手：</p>
-<p>刚开始双方都处于 establised 状态</p>
-<p>1）客户端发送一个数据包，带有 <strong>FIN</strong>标记，报文中会指定一个序列号，此时客户端属于 <strong>FIN_WAIT1</strong>状态（FIN-WAIT-1 - 等待远程TCP的连接中断请求，或先前的连接中断请求的确认）</p>
-<p>2）服务器接收到，返回一个数据包带有 <strong>ACK</strong>标记（客户端的序列号 + 1 的值），此时服务端处于 <strong>CLOSE_WAIT</strong>状态（CLOSE-WAIT - 等待从本地用户发来的连接中断请求）。</p>
-<p>3）服务端也想断开连接，发送数据包，带有 <strong>FIN</strong>标记，报文中会指定一个序列号，此时服务端处于 <strong>LAST_ACK</strong> 的状态（LAST-ACK - 等待原来发向远程TCP的连接中断请求的确认）</p>
-<p>4）客户端接收到，返回一个数据包带有 <strong>ACK</strong>标记（服务器的序列号 + 1 的值），此时客户端处于 <strong>TIME_WAIT</strong> 状态（TIME-WAIT -等待足够的时间以确保远程TCP接收到连接中断请求的确认），一段时间之后进入 <strong>CLOSED</strong> 状态（CLOSED - 没有任何连接状态；）</p>
-<p><img src="http://www.qinhanwen.xyz/WX20190731-224335@2x.png" alt="WX20190731-224335@2x"></p>
-<p>之后<code>套接字</code>就没有作用了，会等待一会后删除。</p>
-<p><strong>补充</strong></p>
 <p><strong><code>IP</code>与以太网的包收发操作</strong></p>
 <p><code>TCP</code>模块在执行连接、收发、断开各阶段操作的时候，都需要委托<code>IP</code>模块将数据封装成包发送给通信对象。</p>
 <ul>
@@ -497,6 +483,51 @@
 <li>从包头开始将数字信息按每个比特转成电信号，之后由<code>PHY（MAU）</code>将信号转换为可在网线上传输的格式，并通过网线发送出去</li>
 </ul>
 <p><img src="http://www.qinhanwen.xyz/WX20191012-160353@2x.png" alt="WX20191012-160353@2x"></p>
+<p><strong>信号在网线和集线器中传输</strong></p>
+<p>从计算机发送出来的网络包会通过集线器、路由器、交换机等设备被转发。</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191122-171422@2x.png" alt="WX20191122-171422@2x"></p>
+<p><strong>请求到达Web服务器，响应返回浏览器</strong></p>
+<ul>
+<li><p>服务器概览</p>
+<p>服务器需要同时和多个客户端通信，一个程序处理多个客户端请求是很难的（需要把握每一个客户端计算机进行通信），因此一般做法的是每一个客户端连接，就启动一个新的服务器程序（也可能是事先启动的），确保服务器程序和客户端是一对一的状态。</p>
+</li>
+</ul>
+<p><img src="http://www.qinhanwen.xyz/WX20191122-211858@2x.png" alt="WX20191122-211858@2x"></p>
+<ul>
+<li>服务器接收操作</li>
+</ul>
+<p>网卡将接受到的信号（光信号或电信号）转成数字信息，根据包末尾的校验序列来校验错误，如果有错误，接收到的包就是无效的，需要被丢弃。如果包有效就检查MAC头部中的接收方MAC地址，看这个包是不是发给自己的。不是就丢弃。</p>
+<ul>
+<li>服务器程序解释请求消息并作出相应</li>
+</ul>
+<p>获取HTTP请求消息，服务器程序会根据收到的请求消息中的内容进行相应的处理，并且生成响应消息，将响应消息交给协议栈，协议栈将数据分成多个网络包，然后加上头部发送出去，它们经过交换机和路由器的转发，最终到达客户端。</p>
+<ul>
+<li>浏览器接收响应消息</li>
+</ul>
+<p>服务器发送的响应消息被分成多个包发送给客户端，客户端接收数据之后把信号还原成数字信息。然后把消息转交给浏览器。</p>
+<p><strong>渲染</strong></p>
+<ul>
+<li><p>构建DOM树</p>
+</li>
+<li><p>构建CSSOM树</p>
+</li>
+<li><p>构建渲染树</p>
+</li>
+<li><p>回流</p>
+</li>
+<li><p>重绘</p>
+</li>
+</ul>
+<p><strong>断开管道并删除套接字</strong></p>
+<p>四次挥手：</p>
+<p>刚开始双方都处于 establised 状态</p>
+<p>1）客户端发送一个数据包，带有 <strong>FIN</strong>标记，报文中会指定一个序列号，此时客户端属于 <strong>FIN_WAIT1</strong>状态（FIN-WAIT-1 - 等待远程TCP的连接中断请求，或先前的连接中断请求的确认）</p>
+<p>2）服务器接收到，返回一个数据包带有 <strong>ACK</strong>标记（客户端的序列号 + 1 的值），此时服务端处于 <strong>CLOSE_WAIT</strong>状态（CLOSE-WAIT - 等待从本地用户发来的连接中断请求）。</p>
+<p>3）服务端也想断开连接，发送数据包，带有 <strong>FIN</strong>标记，报文中会指定一个序列号，此时服务端处于 <strong>LAST_ACK</strong> 的状态（LAST-ACK - 等待原来发向远程TCP的连接中断请求的确认）</p>
+<p>4）客户端接收到，返回一个数据包带有 <strong>ACK</strong>标记（服务器的序列号 + 1 的值），此时客户端处于 <strong>TIME_WAIT</strong> 状态（TIME-WAIT -等待足够的时间以确保远程TCP接收到连接中断请求的确认），一段时间之后进入 <strong>CLOSED</strong> 状态（CLOSED - 没有任何连接状态；）</p>
+<p><img src="http://www.qinhanwen.xyz/WX20190731-224335@2x.png" alt="WX20190731-224335@2x"></p>
+<p>之后<code>套接字</code>就没有作用了，会等待一会后删除。</p>
+<p><strong>补充</strong></p>
 <p><strong>UDP协议与TCP协议区别</strong></p>
 <p><code>TCP</code>会管理发送和确认进度，如果漏掉包，没有收到就会重新发送，收发之前需要建立和断开连接的步骤。</p>
 <p><code>UDP</code>数据很短，一个包就能装下，不用考虑哪个包未收到，重新发送也只是发一个包而已，收到的数据会被当成回复，就不用专门接收确认包。也就是说它没有接收确认，窗口等机制，收发之前也不需要建立和断开连接。只需要从应用程序中取出数据，加上<code>UDP</code>头部，以后交给<code>IP</code>发送就可以了，对于错误与丢包一概不管，但是没有收到回复的时候，应用程序会注意到就会重发。</p>
@@ -685,7 +716,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">125</span>
+                <span class="site-state-item-count">126</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -696,7 +727,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -707,7 +738,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

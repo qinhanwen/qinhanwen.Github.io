@@ -106,7 +106,9 @@
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191121-104615@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191121-105742@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191121-105921@2x.png">
-<meta property="og:updated_time" content="2019-11-21T08:41:44.245Z">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191123-200013@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191123-200351@2x.png">
+<meta property="og:updated_time" content="2019-11-23T12:27:20.861Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack4 + babel7 + Vue2.x">
 <meta name="twitter:description" content="新建项目目录结构 1234567891011121314151617181920212223242526272829303132333435363738.├── README.en.md├── README.md├── config│   ├── utils.js //工具类│   ├── webpack.base.js //webpack通用配置│   ├── webpack.dev.js //">
@@ -597,6 +599,17 @@
 <p>然而项目较小时，多线程打包反而会使打包速度变慢，所以这边<strong>只是补充代码，项目没有使用</strong>。</p>
 <p>配置文件（这种使用方法下一定要在根目录下加<code>.babelrc</code>文件来设置<code>babel</code>的打包配置）</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> HappyPack = <span class="built_in">require</span>(<span class="string">'happypack'</span>);</span><br><span class="line"><span class="keyword">const</span> os = <span class="built_in">require</span>(<span class="string">'os'</span>); <span class="comment">//获取电脑的处理器有几个核心，作为配置传入</span></span><br><span class="line"><span class="keyword">const</span> happyThreadPool = HappyPack.ThreadPool(&#123;</span><br><span class="line">    size: os.cpus().length</span><br><span class="line">&#125;);</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">          &#123;</span><br><span class="line">                test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">                use: [<span class="string">'happypack/loader?id=happy-babel-js'</span>],</span><br><span class="line">                include: <span class="regexp">/src/</span>, <span class="comment">// 只转化src目录下的js</span></span><br><span class="line">                exclude: <span class="regexp">/node_modules/</span> <span class="comment">// 排除掉node_modules，优化打包速度</span></span><br><span class="line">          &#125;,</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">		    <span class="keyword">new</span> HappyPack(&#123; <span class="comment">//开启多线程打包</span></span><br><span class="line">            id: <span class="string">'happy-babel-js'</span>,</span><br><span class="line">            loaders: [<span class="string">'babel-loader?cacheDirectory=true'</span>],</span><br><span class="line">            threadPool: happyThreadPool</span><br><span class="line">        &#125;),</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p><strong>打包分析优化报表</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install webpack-bundle-analyzer -D</span></span><br></pre></td></tr></table></figure>
+<p>配置</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">const</span> BundleAnalyzerPlugin = <span class="built_in">require</span>(<span class="string">'webpack-bundle-analyzer'</span>).BundleAnalyzerPlugin;</span><br><span class="line"> ...</span><br><span class="line"></span><br><span class="line">  plugins: [</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">new</span> BundleAnalyzerPlugin()</span><br><span class="line">  ]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>可以从图中分析哪些模块太大，和如何优化。</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191123-200013@2x.png" alt="WX20191123-200013@2x"></p>
+<p>比如这边lodash，我只使用了一个方法，有60多kb，因为在引入的时候只是引入了lodash的某个方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cloneDeepWith <span class="keyword">from</span> <span class="string">'lodash/cloneDeepWith'</span>;</span><br></pre></td></tr></table></figure>
+<p>如果变成这样，会导入整个lodash，有500多kb</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;cloneDeepWith&#125; <span class="keyword">from</span> <span class="string">'lodash'</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="http://www.qinhanwen.xyz/WX20191123-200351@2x.png" alt="WX20191123-200351@2x"></p>
 <h2 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h2><p><strong>先安装vue与vue-router</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install vue vue-router -S</span></span><br></pre></td></tr></table></figure>
 <p>略</p>
@@ -614,6 +627,7 @@
 <p><a href="https://www.jianshu.com/p/95752b101582" target="_blank" rel="noopener">webpack 、manifest 、runtime 、缓存与CommonsChunkPlugin</a></p>
 <p><a href="https://juejin.im/post/5c08fe7d6fb9a04a0d56a702" target="_blank" rel="noopener">webapck4 玄妙的 SplitChunks Plugin</a></p>
 <p><a href="https://www.cnblogs.com/yangsg/p/10601604.html" target="_blank" rel="noopener">webpack4提升180%编译速度</a></p>
+<p><a href="https://www.jianshu.com/p/5381df3c2afa" target="_blank" rel="noopener">webpack可视化打包性能分析插件</a></p>
 
       
     </div>
@@ -733,7 +747,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">125</span>
+                <span class="site-state-item-count">126</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -744,7 +758,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -755,7 +769,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

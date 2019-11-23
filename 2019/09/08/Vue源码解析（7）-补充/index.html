@@ -182,7 +182,7 @@
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191024-000600@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191024-000626@2x.png">
 <meta property="og:image" content="http://www.qinhanwen.xyz/WX20191024-000744@2x.png">
-<meta property="og:updated_time" content="2019-11-06T03:46:48.569Z">
+<meta property="og:updated_time" content="2019-11-22T19:43:26.691Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue源码过程（7）- 补充">
 <meta name="twitter:description" content="补充事件改一下例子 main.js 12345678910111213141516171819202122232425262728import Vue from &apos;vue&apos;import App from &apos;./App&apos;;Vue.config.productionTip = false/* eslint-disable no-new */new Vue(&amp;#123;  el: &apos;#app&apos;,  da">
@@ -621,6 +621,12 @@
 <p><img src="http://www.qinhanwen.xyz/WX20190909-084428@2x.png" alt="WX20190909-084428@2x"></p>
 <p><img src="http://www.qinhanwen.xyz/WX20190909-084607@2x.png" alt="WX20190909-084607@2x"></p>
 <p>并且得知，事件是可以绑定多个方法的</p>
+<p><strong>总结结</strong></p>
+<ul>
+<li>子组件创建实例的时候，传入了options里包含父vnode，父vnode里包含了自定义事件。子组件init进入initEvent的时候挂载到了子组件实例的_events上</li>
+<li>$emit方法调用的时候，从vm._events上取得回调，并调用</li>
+</ul>
+<p>​    </p>
 <h2 id="vue中-key-值的作用"><a href="#vue中-key-值的作用" class="headerlink" title="vue中 key 值的作用"></a>vue中 <code>key</code> 值的作用</h2><p>写两个例子，分别<code>带key</code>和<code>不带key</code>的情况</p>
 <p><strong>不带key</strong></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span>;</span><br><span class="line">Vue.config.productionTip = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* eslint-disable no-new */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  data:&#123;</span><br><span class="line">    userList:[&#123;</span><br><span class="line">      name:<span class="string">"qinhanwen"</span>,</span><br><span class="line">      id:<span class="number">1</span>,</span><br><span class="line">    &#125;,&#123;</span><br><span class="line">      name:<span class="string">"zenghua"</span>,</span><br><span class="line">      id:<span class="number">2</span>,</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;,</span><br><span class="line">  methods:&#123;</span><br><span class="line">    reverseUserList() &#123;</span><br><span class="line">      <span class="keyword">this</span>.userList.reverse();</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`&lt;ul @click="reverseUserList()"&gt; </span></span><br><span class="line"><span class="string">    &lt;li v-for="item in userList"&gt;&#123;&#123;item.name&#125;&#125;&lt;/li&gt;</span></span><br><span class="line"><span class="string">  &lt;/ul&gt;`</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
@@ -980,7 +986,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">125</span>
+                <span class="site-state-item-count">126</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -991,7 +997,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1002,7 +1008,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
