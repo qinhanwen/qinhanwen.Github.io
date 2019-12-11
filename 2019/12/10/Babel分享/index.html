@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Babel," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Babel  Babel是什么 ast是什么 访问者模式 charCodeAt   插件 @babel/parser 7.x（babylon 6.x） @babel/traverse 7.x（babel-traverse 6.x） @babel/generator 7.x （babel-generator 6.x）   过程 解析 词法分析 语法分析   转换 访问者模式   生成    Ba">
+<meta name="keywords" content="Babel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Babel分享">
+<meta property="og:url" content="http://yoursite.com/2019/12/10/Babel分享/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="Babel  Babel是什么 ast是什么 访问者模式 charCodeAt   插件 @babel/parser 7.x（babylon 6.x） @babel/traverse 7.x（babel-traverse 6.x） @babel/generator 7.x （babel-generator 6.x）   过程 解析 词法分析 语法分析   转换 访问者模式   生成    Ba">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191202-201539@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191211-161817@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191211-170048@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191211-171102@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191211-171601@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191211-171728@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191211-175602@2x.png">
+<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191211-172510@2x.png">
+<meta property="og:updated_time" content="2019-12-11T10:07:34.134Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Babel分享">
+<meta name="twitter:description" content="Babel  Babel是什么 ast是什么 访问者模式 charCodeAt   插件 @babel/parser 7.x（babylon 6.x） @babel/traverse 7.x（babel-traverse 6.x） @babel/generator 7.x （babel-generator 6.x）   过程 解析 词法分析 语法分析   转换 访问者模式   生成    Ba">
+<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20191202-201539@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/12/10/Babel分享/"/>
+
+
+
+
+
+  <title>Babel分享 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/10/Babel分享/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Babel分享</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-10T21:05:05+08:00">
+                2019-12-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Babel/" itemprop="url" rel="index">
+                    <span itemprop="name">Babel</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://www.qinhanwen.xyz/WX20191202-201539@2x.png" alt="WX20191202-201539@2x"></p>
+<ul>
+<li>Babel <ul>
+<li>Babel是什么</li>
+<li>ast是什么</li>
+<li>访问者模式</li>
+<li>charCodeAt</li>
+</ul>
+</li>
+<li>插件<ul>
+<li>@babel/parser 7.x（babylon 6.x）</li>
+<li>@babel/traverse 7.x（babel-traverse 6.x）</li>
+<li>@babel/generator 7.x （babel-generator 6.x）</li>
+</ul>
+</li>
+<li>过程<ul>
+<li>解析<ul>
+<li>词法分析</li>
+<li>语法分析</li>
+</ul>
+</li>
+<li>转换<ul>
+<li>访问者模式</li>
+</ul>
+</li>
+<li>生成</li>
+</ul>
+</li>
+</ul>
+<h2 id="Babel"><a href="#Babel" class="headerlink" title="Babel"></a>Babel</h2><p><strong>Babel是什么</strong></p>
+<p>简单来说把 JavaScript 中 es6/7/8 之类的的新语法转化为 es5，让低端运行环境(如浏览器和 node )能够认识并执行。babel 也可以转化为更低的规范。但以目前情况来说，es5 规范已经足以覆盖绝大部分浏览器，因此常规来说转到 es5 是一个安全且流行的做法。</p>
+<p><strong><a href="https://astexplorer.net/" target="_blank" rel="noopener">ast（Abstract Syntax Tree）</a></strong></p>
+<p>抽象语法树：</p>
+<p>源代码语法结构的一种抽象表示。它以树状的形式表现编程语言的语法结构，树上的每个节点都表示源代码中的一种结构。之所以说语法是“抽象”的，是因为这里的语法并不会表示出真实语法中出现的每个细节。</p>
+<p>简单来说就是对象描述语法结构。</p>
+<p>应用场景：</p>
+<ul>
+<li>eslint对代码错误或风格的检查，发现一些潜在的错误</li>
+<li>IDE的错误提示、格式化、高亮、自动补全等</li>
+<li>UglifyJS压缩代码</li>
+<li>代码打包工具webpack</li>
+</ul>
+<p><strong>访问者模式</strong></p>
+<p>访问者模式：封装一些作用于某种数据结构中的各元素的操作，它可以在不改变这个数据结构的前提下定义作用于这些元素的新的操作。</p>
+<p>举个例子：我去朋友家做客，那么朋友属于主人，我则属于访问者。这时刚好朋友在炒菜，却没得酱油了。如果朋友下去买酱油将会很麻烦而且会影响炒菜。这时就到我这个访问者出马了。一溜烟的出去打着酱油就回来了。简单理解的来说就是，访问者在主人原来的基础上帮助主人去完成主人不方便或者完不成的东西。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Visitor = &#123;&#125; <span class="comment">// 访问者对象</span></span><br><span class="line">Visitor.push = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">// 定义新的操作</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Array</span>.prototype.push.apply( <span class="keyword">this</span>, <span class="built_in">arguments</span> );</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line">obj.push = Visitor.push;</span><br><span class="line">obj.push(<span class="string">'first'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(obj[<span class="number">0</span>]) <span class="comment">// "first"</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.length);  <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/push" target="_blank" rel="noopener">Array.prototype.push</a>:</p>
+<p>push方法将值追加到数组中，<code>push</code> 方法具有通用性。该方法和 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/call" target="_blank" rel="noopener"><code>call()</code></a> 或 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/apply" target="_blank" rel="noopener"><code>apply()</code></a> 一起使用时，可应用在类似数组的对象上。<code>push</code> 方法根据 <code>length</code> 属性来决定从哪里开始插入给定的值。如果 <code>length</code> 不能被转成一个数值，则插入的元素索引为 0，包括 <code>length</code> 不存在时。当 <code>length</code> 不存在时，将会创建它。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">length</span>:<span class="number">2</span>&#125;</span><br><span class="line"><span class="built_in">Array</span>.prototype.push.call(obj,<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(obj);<span class="comment">// &#123; 2:1, length:3 &#125;</span></span><br></pre></td></tr></table></figure>
+<p><strong><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt" target="_blank" rel="noopener">String.prototype.charCodeAt</a>：返回字符所代表的unicode编码，返回值是0~65535之间的整数</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'a'</span>.charCodeAt(<span class="number">0</span>); <span class="comment">//97</span></span><br><span class="line"><span class="string">'A'</span>.charCodeAt(<span class="number">0</span>); <span class="comment">//65</span></span><br></pre></td></tr></table></figure>
+<p><a href="http://www.52unicode.com/" target="_blank" rel="noopener">unicode字符列表</a></p>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><p><strong><a href="https://babeljs.io/docs/en/next/babel-parser.html" target="_blank" rel="noopener">@babel/parser</a>：Babel解析器（以前是Babylon）是Babel中使用的JavaScript解析器，以前基于acorn</strong></p>
+<p><strong><a href="https://babeljs.io/docs/en/next/babel-traverse.html" target="_blank" rel="noopener">@babel/traverse</a>：Babel Traverse（遍历）模块维护了整棵树的状态，并且负责替换、移除和添加节点</strong></p>
+<p><strong><a href="https://babeljs.io/docs/en/next/babel-generator.html" target="_blank" rel="noopener">@babel/generator</a>：Babel 的代码生成器，它读取AST并将其转换为代码</strong> </p>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><p>举个🌰</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;parse&#125; = <span class="built_in">require</span>(<span class="string">'babylon'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> code = <span class="string">`a==b`</span>;</span><br><span class="line"><span class="keyword">const</span> ast = parse(code);</span><br></pre></td></tr></table></figure>
+<p><strong>解析</strong></p>
+<ul>
+<li><p>词法分析：把字符串形式的代码转换为令牌（token）</p>
+</li>
+<li><p>语法分析：把令牌（token）转换成 AST的形式，同时这个阶段会把令牌中的信息转换成AST的表述结构</p>
+</li>
+</ul>
+<ol>
+<li>Parser 实例</li>
+</ol>
+<p>实例化的过程中做 state 和其他属性的初始化，之后生成之后调用 parse 方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parse</span>(<span class="params">input, options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> _parser2[<span class="string">"default"</span>](options, input).parse();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parser</span>(<span class="params">options, input</span>) </span>&#123;</span><br><span class="line">  _classCallCheck(<span class="keyword">this</span>, Parser);</span><br><span class="line"></span><br><span class="line">  options = _options.getOptions(options);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// state 初始化的地方</span></span><br><span class="line">  _Tokenizer.call(<span class="keyword">this</span>, options, input);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.options = options;</span><br><span class="line">  <span class="keyword">this</span>.inModule = <span class="keyword">this</span>.options.sourceType === <span class="string">"module"</span>;</span><br><span class="line">  <span class="keyword">this</span>.isReservedWord = _utilIdentifier.reservedWords[<span class="number">6</span>];</span><br><span class="line">  <span class="keyword">this</span>.input = input;</span><br><span class="line">  <span class="keyword">this</span>.plugins = <span class="keyword">this</span>.loadPlugins(<span class="keyword">this</span>.options.plugins);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.state.pos === <span class="number">0</span> &amp;&amp; <span class="keyword">this</span>.input[<span class="number">0</span>] === <span class="string">"#"</span> &amp;&amp; <span class="keyword">this</span>.input[<span class="number">1</span>] === <span class="string">"!"</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.skipLineComment(<span class="number">2</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>state 属性</li>
+</ol>
+<p>用于保存解析的指针、值与其他位置状态信息等</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">			...</span><br><span class="line">      input: "a==b"// 表达式</span><br><span class="line">      start: 0 // 起始位置</span><br><span class="line">  		end: 1 // 结束位置</span><br><span class="line">      pos: 1 // 解析到达的位置，会作为下一个解析位置的起点</span><br><span class="line">      startLoc: Position &#123;line: 1, column: 0&#125; // 起始位置信息 行与列</span><br><span class="line">			endLoc: Position &#123;line: 1, column: 1&#125; // 结束位置信息 行与列</span><br><span class="line">      tokens: [] // tokens数组</span><br><span class="line">      value: "a" // 属性</span><br><span class="line">			lastTokEnd: 1 // 上一个被解析的结束位置</span><br><span class="line">			lastTokStart: 0 // 上一个被解析的起始位置</span><br><span class="line">			lastTokStartLoc:  Position &#123;line: 1, column: 0&#125; // 上一个被解析的起始位置的位置信息 行与列</span><br><span class="line">			lastTokEndLoc: Position &#123;line: 1, column: 1&#125; // 上一个被解析的结束位置的位置信息 行与列</span><br><span class="line">			type: TokenType &#123; // token类型，根据不同类型做处理</span><br><span class="line">        label: "name", </span><br><span class="line">        keyword: undefined, </span><br><span class="line">        beforeExpr: false, </span><br><span class="line">        startsExpr: true, </span><br><span class="line">        rightAssociative: false,</span><br><span class="line">        …</span><br><span class="line">      &#125;</span><br><span class="line">			...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>next 方法</li>
+</ol>
+<p>更新state指针、tokens状态。最后并且调用nextToken开始解析后面的内容</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Tokenizer.prototype.next = <span class="function"><span class="keyword">function</span> <span class="title">next</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="keyword">this</span>.isLookahead) &#123;</span><br><span class="line">    <span class="keyword">this</span>.state.tokens.push(<span class="keyword">new</span> Token(<span class="keyword">this</span>.state));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 存储上一个被解析内容的开始结束位置等信息</span></span><br><span class="line">  <span class="keyword">this</span>.state.lastTokEnd = <span class="keyword">this</span>.state.end;</span><br><span class="line">  <span class="keyword">this</span>.state.lastTokStart = <span class="keyword">this</span>.state.start;</span><br><span class="line">  <span class="keyword">this</span>.state.lastTokEndLoc = <span class="keyword">this</span>.state.endLoc;</span><br><span class="line">  <span class="keyword">this</span>.state.lastTokStartLoc = <span class="keyword">this</span>.state.startLoc;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 解析后面内容</span></span><br><span class="line">  <span class="keyword">this</span>.nextToken();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>nextToken 方法</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Tokenizer.prototype.nextToken = <span class="function"><span class="keyword">function</span> <span class="title">nextToken</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> curContext = <span class="keyword">this</span>.curContext();</span><br><span class="line">  <span class="keyword">if</span> (!curContext || !curContext.preserveSpace) <span class="keyword">this</span>.skipSpace();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.state.containsOctal = <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">this</span>.state.octalPosition = <span class="literal">null</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 更新解析起点位置信息</span></span><br><span class="line">  <span class="keyword">this</span>.state.start = <span class="keyword">this</span>.state.pos;</span><br><span class="line">  <span class="keyword">this</span>.state.startLoc = <span class="keyword">this</span>.state.curPosition();</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 如果解析完了，就结束</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.state.pos &gt;= <span class="keyword">this</span>.input.length) <span class="keyword">return</span> <span class="keyword">this</span>.finishToken(_types.types.eof);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (curContext.override) &#123;</span><br><span class="line">    <span class="keyword">return</span> curContext.override(<span class="keyword">this</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.readToken(<span class="keyword">this</span>.fullCharCodeAtPos());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>readWord1 方法</li>
+</ol>
+<p>词法分析过程，根据unicode的值比较，遇到<code>\</code> 、<code>.</code>之类终止循环。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">Tokenizer.prototype.readWord1 = <span class="function"><span class="keyword">function</span> <span class="title">readWord1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.state.containsEsc = <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">var</span> word = <span class="string">""</span>,</span><br><span class="line">      first = <span class="literal">true</span>,</span><br><span class="line">      chunkStart = <span class="keyword">this</span>.state.pos;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 循环从起始位置开始</span></span><br><span class="line">  <span class="keyword">while</span> (<span class="keyword">this</span>.state.pos &lt; <span class="keyword">this</span>.input.length) &#123;</span><br><span class="line">    <span class="keyword">var</span> ch = <span class="keyword">this</span>.fullCharCodeAtPos();</span><br><span class="line">    <span class="keyword">if</span> (_utilIdentifier.isIdentifierChar(ch)) &#123;</span><br><span class="line">      <span class="keyword">this</span>.state.pos += ch &lt;= <span class="number">0xffff</span> ? <span class="number">1</span> : <span class="number">2</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (ch === <span class="number">92</span>) &#123;</span><br><span class="line">      <span class="comment">// "\"</span></span><br><span class="line">      <span class="keyword">this</span>.state.containsEsc = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">      word += <span class="keyword">this</span>.input.slice(chunkStart, <span class="keyword">this</span>.state.pos);</span><br><span class="line">      <span class="keyword">var</span> escStart = <span class="keyword">this</span>.state.pos;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.input.charCodeAt(++<span class="keyword">this</span>.state.pos) !== <span class="number">117</span>) &#123;</span><br><span class="line">        <span class="comment">// "u"</span></span><br><span class="line">        <span class="keyword">this</span>.raise(<span class="keyword">this</span>.state.pos, <span class="string">"Expecting Unicode escape sequence \\uXXXX"</span>);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      ++<span class="keyword">this</span>.state.pos;</span><br><span class="line">      <span class="keyword">var</span> esc = <span class="keyword">this</span>.readCodePoint();</span><br><span class="line">      <span class="keyword">if</span> (!(first ? _utilIdentifier.isIdentifierStart : _utilIdentifier.isIdentifierChar)(esc, <span class="literal">true</span>)) &#123;</span><br><span class="line">        <span class="keyword">this</span>.raise(escStart, <span class="string">"Invalid Unicode escape"</span>);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      word += codePointToString(esc);</span><br><span class="line">      chunkStart = <span class="keyword">this</span>.state.pos;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    first = <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 从 input 表达式中，根据位置信息截取出</span></span><br><span class="line">  <span class="keyword">return</span> word + <span class="keyword">this</span>.input.slice(chunkStart, <span class="keyword">this</span>.state.pos);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>finishToken 方法</li>
+</ol>
+<p>词法分析结束，更新 state 属性上的信息</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Tokenizer.prototype.finishToken = <span class="function"><span class="keyword">function</span> <span class="title">finishToken</span>(<span class="params">type, val</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 更新位置信息、值和type</span></span><br><span class="line">  <span class="keyword">this</span>.state.end = <span class="keyword">this</span>.state.pos;</span><br><span class="line">  <span class="keyword">this</span>.state.endLoc = <span class="keyword">this</span>.state.curPosition();</span><br><span class="line">  <span class="keyword">var</span> prevType = <span class="keyword">this</span>.state.type;</span><br><span class="line">  <span class="keyword">this</span>.state.type = type;</span><br><span class="line">  <span class="keyword">this</span>.state.value = val;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.updateContext(prevType);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>finishNode 方法</p>
+<p>生成节点</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pp.finishNode = <span class="function"><span class="keyword">function</span> (<span class="params">node, type</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> finishNodeAt.call(<span class="keyword">this</span>, node, type, <span class="keyword">this</span>.state.lastTokEnd, <span class="keyword">this</span>.state.lastTokEndLoc);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ol start="7">
+<li>finishNodeAt 方法</li>
+</ol>
+<p>设置node（节点）属性，并返回node</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">finishNodeAt</span>(<span class="params">node, type, pos, loc</span>) </span>&#123;</span><br><span class="line">  node.type = type;</span><br><span class="line">  node.end = pos;</span><br><span class="line">  node.loc.end = loc;</span><br><span class="line">  <span class="keyword">this</span>.processComment(node);</span><br><span class="line">  <span class="keyword">return</span> node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://www.qinhanwen.xyz/WX20191211-161817@2x.png" alt="WX20191211-161817@2x"></p>
+<p><strong>转换</strong></p>
+<p>第二个🌰</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;</span><br><span class="line">    parse</span><br><span class="line">&#125; = <span class="built_in">require</span>(<span class="string">'babylon'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> code = <span class="string">`a==b`</span>;</span><br><span class="line"><span class="keyword">const</span> ast = parse(code);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 新增部分</span></span><br><span class="line"><span class="keyword">const</span> traverse = <span class="built_in">require</span>(<span class="string">"babel-traverse"</span>).default;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> visitor = &#123;</span><br><span class="line">	  <span class="comment">// 对语法树中特定的节点进行操作</span></span><br><span class="line">    Identifier: &#123;</span><br><span class="line">        <span class="comment">// 进入节点事件</span></span><br><span class="line">        enter(path) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(path.node.name)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">traverse(ast, visitor);</span><br></pre></td></tr></table></figure>
+<ol>
+<li>visit 方法</li>
+</ol>
+<p>会对节点遍历，单个节点和多个节点不同的处理，对具体的节点调用 visit 方法处理</p>
+<p>对遍历到的节点处理</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">visit</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="keyword">this</span>.node) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.isBlacklisted()) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.opts.shouldSkip &amp;&amp; <span class="keyword">this</span>.opts.shouldSkip(<span class="keyword">this</span>)) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.call(<span class="string">"enter"</span>) || <span class="keyword">this</span>.shouldSkip) &#123;</span><br><span class="line">    <span class="keyword">this</span>.debug(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">"Skip..."</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.shouldStop;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.debug(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Recursing into..."</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">  _index2.default.node(<span class="keyword">this</span>.node, <span class="keyword">this</span>.opts, <span class="keyword">this</span>.scope, <span class="keyword">this</span>.state, <span class="keyword">this</span>, <span class="keyword">this</span>.skipKeys);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.call(<span class="string">"exit"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.shouldStop;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>a 节点</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191211-170048@2x.png" alt="WX20191211-170048@2x"></p>
+<p>call 方法</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191211-171102@2x.png" alt="WX20191211-171102@2x"></p>
+<p>调用访问者中设置的 enter 方法</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191211-171601@2x.png" alt="WX20191211-171601@2x"></p>
+<p><img src="http://www.qinhanwen.xyz/WX20191211-171728@2x.png" alt="WX20191211-171728@2x"></p>
+<p><strong>生成</strong></p>
+<p>第三个🌰</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;</span><br><span class="line">    parse</span><br><span class="line">&#125; = <span class="built_in">require</span>(<span class="string">'babylon'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> code = <span class="string">`a==b`</span>;</span><br><span class="line"><span class="keyword">const</span> ast = parse(code);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> traverse = <span class="built_in">require</span>(<span class="string">"babel-traverse"</span>).default;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> visitor = &#123;</span><br><span class="line">    Identifier: &#123;</span><br><span class="line">        enter(path) &#123;</span><br><span class="line">            <span class="comment">// 修改类型是 Identifier， name 是 a 的节点</span></span><br><span class="line">            <span class="keyword">if</span> (path.isIdentifier(&#123;</span><br><span class="line">                    name: <span class="string">"a"</span></span><br><span class="line">                &#125;)) &#123;</span><br><span class="line">                path.node.name = <span class="string">"x"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">traverse(ast, visitor);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> generate = <span class="built_in">require</span>(<span class="string">'babel-generator'</span>).default;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> output = generate(ast);</span><br><span class="line"><span class="built_in">console</span>.log(output);<span class="comment">// &#123; code: 'x == b;', map: null, rawMappings: null &#125;</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>print 方法</li>
+</ol>
+<p>遍历节点</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Printer.prototype.print = <span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params">node, parent</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> _this = <span class="keyword">this</span>;</span><br><span class="line">	</span><br><span class="line">  ...</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">this</span>.withSource(<span class="string">"start"</span>, loc, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 根据节点的 type 处理，最后还是调用到 print 方法</span></span><br><span class="line">    _this[node.type](node, parent);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  ...</span><br><span class="line">  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>Identifier 方法</li>
+</ol>
+<p>当节点类型是 Identifier 的时候</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191211-175602@2x.png" alt="WX20191211-175602@2x"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Identifier</span>(<span class="params">node</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (node.variance) &#123;</span><br><span class="line">    <span class="keyword">if</span> (node.variance === <span class="string">"plus"</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.token(<span class="string">"+"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (node.variance === <span class="string">"minus"</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.token(<span class="string">"-"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.word(node.name); <span class="comment">// node.name 之后会被 push 到 _buf 中</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>append 方法</li>
+</ol>
+<p>在 _append 方法里，向 _buf 数组里 push 解析出的内容，就是node.name</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Buffer.prototype.append = <span class="function"><span class="keyword">function</span> <span class="title">append</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>._flush();</span><br><span class="line">  <span class="keyword">var</span> _sourcePosition = <span class="keyword">this</span>._sourcePosition,</span><br><span class="line">      line = _sourcePosition.line,</span><br><span class="line">      column = _sourcePosition.column,</span><br><span class="line">      filename = _sourcePosition.filename,</span><br><span class="line">      identifierName = _sourcePosition.identifierName;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>._append(str, line, column, identifierName, filename);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>get 方法</li>
+</ol>
+<p>合并并返回结果</p>
+<p><img src="http://www.qinhanwen.xyz/WX20191211-172510@2x.png" alt="WX20191211-172510@2x"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Buffer.prototype.get = <span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>._flush();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> map = <span class="keyword">this</span>._map;</span><br><span class="line">  <span class="keyword">var</span> result = &#123;</span><br><span class="line">    <span class="comment">// 数组 join 操作合并</span></span><br><span class="line">    code: (<span class="number">0</span>, _trimRight2.default)(<span class="keyword">this</span>._buf.join(<span class="string">""</span>)),</span><br><span class="line">    map: <span class="literal">null</span>,</span><br><span class="line">    rawMappings: map &amp;&amp; map.getRawMappings()</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p><a href="https://www.jianshu.com/p/91dad99d238c" target="_blank" rel="noopener">String.prototype.codePointAt 与  String.prototype.charCodeAt</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Babel/" rel="tag"># Babel</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/06/vue-ssr-3/" rel="next" title="vue-ssr-3">
+                <i class="fa fa-chevron-left"></i> vue-ssr-3
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">132</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Babel"><span class="nav-number">1.</span> <span class="nav-text">Babel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件"><span class="nav-number">2.</span> <span class="nav-text">插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过程"><span class="nav-number">3.</span> <span class="nav-text">过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充"><span class="nav-number">4.</span> <span class="nav-text">补充</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
