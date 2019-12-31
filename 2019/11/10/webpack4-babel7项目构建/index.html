@@ -102,18 +102,18 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="新建项目目录结构 1234567891011121314151617181920212223242526272829303132333435363738.├── README.en.md├── README.md├── config│   ├── utils.js //工具类│   ├── webpack.base.js //webpack通用配置│   ├── webpack.dev.js //">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191113-230408@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191121-104615@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191121-105742@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191121-105921@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191123-200013@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191123-200351@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191124-234008@2x.png">
-<meta property="og:updated_time" content="2019-12-17T07:42:08.696Z">
+<meta property="og:image" content="http://118.24.241.76/WX20191113-230408@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20191121-104615@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20191121-105742@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20191121-105921@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20191123-200013@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20191123-200351@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20191124-234008@2x.png">
+<meta property="og:updated_time" content="2019-12-30T03:32:10.197Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack4 + babel7 + Vue2.x">
 <meta name="twitter:description" content="新建项目目录结构 1234567891011121314151617181920212223242526272829303132333435363738.├── README.en.md├── README.md├── config│   ├── utils.js //工具类│   ├── webpack.base.js //webpack通用配置│   ├── webpack.dev.js //">
-<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20191113-230408@2x.png">
+<meta name="twitter:image" content="http://118.24.241.76/WX20191113-230408@2x.png">
 
 
 
@@ -473,7 +473,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  A,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'./index1'</span></span><br><span class="line">A();</span><br><span class="line"></span><br><span class="line"><span class="comment">//index1.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> &#123;</span><br><span class="line">    A,</span><br><span class="line">    B</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p><strong>构建</strong></p>
 <p>需要Uglifyjs之类的配合（webpack4，设置mode为production就可以）。可以在构建的shell后面添加<code>--display-used-exports</code>参数</p>
-<p><img src="http://www.qinhanwen.xyz/WX20191113-230408@2x.png" alt="WX20191113-230408@2x"></p>
+<p><img src="http://118.24.241.76/WX20191113-230408@2x.png" alt="WX20191113-230408@2x"></p>
 <h2 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h2><h5 id="几种-hash-的区别"><a href="#几种-hash-的区别" class="headerlink" title="几种 hash 的区别"></a>几种 hash 的区别</h5><ul>
 <li><p><strong>hash</strong></p>
 <ul>
@@ -589,12 +589,12 @@
 <p>也没有选择<a href="https://github.com/asfktz/autodll-webpack-plugin" target="_blank" rel="noopener">AutoDllPlugin</a>插件，虽然减少了大量的配置文件，但是路径容易出问题，加速也不明显。</p>
 <p>最后选择<a href="https://github.com/mzgoddard/hard-source-webpack-plugin" target="_blank" rel="noopener">HardSourceWebpackPlugin</a>插件：</p>
 <p>配置之前打包时间大概  <strong>4916ms</strong></p>
-<p><img src="http://www.qinhanwen.xyz/WX20191121-104615@2x.png" alt="WX20191121-104615@2x"></p>
+<p><img src="http://118.24.241.76/WX20191121-104615@2x.png" alt="WX20191121-104615@2x"></p>
 <p>配置文件，很简单的配置</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> HardSourceWebpackPlugin = <span class="built_in">require</span>(<span class="string">'hard-source-webpack-plugin'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// ......</span></span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> HardSourceWebpackPlugin()</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://www.qinhanwen.xyz/WX20191121-105742@2x.png" alt="WX20191121-105742@2x"></p>
+<p><img src="http://118.24.241.76/WX20191121-105742@2x.png" alt="WX20191121-105742@2x"></p>
 <p>文档说需要打包两次，才能看出来效果，那就看第二次构建的效果，打包时间大概 <strong>2577ms</strong></p>
-<p><img src="http://www.qinhanwen.xyz/WX20191121-105921@2x.png" alt="WX20191121-105921@2x"></p>
+<p><img src="http://118.24.241.76/WX20191121-105921@2x.png" alt="WX20191121-105921@2x"></p>
 <p><strong>HappyPack</strong></p>
 <p>由于大量文件需要解析和处理，当文件数量多的时候，webpack构建慢的问题会显得更为严重。运行在Node环境的webpack是单线程模型，不能同时处理多任务。而HappyPack能让webpack做到这一点。它将任务分解给多个子进程并发执行，子进程处理完后再将结果送给主进程。</p>
 <p>然而项目较小时，多线程打包反而会使打包速度变慢，所以这边<strong>只是补充代码，项目没有使用</strong>。</p>
@@ -605,19 +605,19 @@
 <p>配置</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">const</span> BundleAnalyzerPlugin = <span class="built_in">require</span>(<span class="string">'webpack-bundle-analyzer'</span>).BundleAnalyzerPlugin;</span><br><span class="line"> ...</span><br><span class="line"></span><br><span class="line">  plugins: [</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">new</span> BundleAnalyzerPlugin()</span><br><span class="line">  ]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>可以从图中分析哪些模块太大，和如何优化。</p>
-<p><img src="http://www.qinhanwen.xyz/WX20191123-200013@2x.png" alt="WX20191123-200013@2x"></p>
+<p><img src="http://118.24.241.76/WX20191123-200013@2x.png" alt="WX20191123-200013@2x"></p>
 <p>比如这边lodash，我只使用了一个方法，有60多kb，因为在引入的时候只是引入了lodash的某个方法</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cloneDeepWith <span class="keyword">from</span> <span class="string">'lodash/cloneDeepWith'</span>;</span><br></pre></td></tr></table></figure>
 <p>如果变成这样，会导入整个lodash，有500多kb</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;cloneDeepWith&#125; <span class="keyword">from</span> <span class="string">'lodash'</span>;</span><br></pre></td></tr></table></figure>
-<p><img src="http://www.qinhanwen.xyz/WX20191123-200351@2x.png" alt="WX20191123-200351@2x"></p>
+<p><img src="http://118.24.241.76/WX20191123-200351@2x.png" alt="WX20191123-200351@2x"></p>
 <p><strong>路由懒加载</strong></p>
 <p>构建配置</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">  output: &#123; <span class="comment">//输出文件</span></span><br><span class="line">    chunkFilename:<span class="string">"static/js/[name].[chunkhash:8].js"</span>,<span class="comment">//配置懒加载需要</span></span><br><span class="line">    filename: <span class="string">"static/js/[name].[chunkhash:8].js"</span>, <span class="comment">//文件名</span></span><br><span class="line">    path: resolve(<span class="string">'./dist'</span>) <span class="comment">//路径</span></span><br><span class="line">  &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>路由文件配置</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>;</span><br><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">'vue-router'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//方式一</span></span><br><span class="line"><span class="keyword">const</span> Home = <span class="function"><span class="params">r</span> =&gt;</span> <span class="built_in">require</span>.ensure([], () =&gt; r(<span class="built_in">require</span>(<span class="string">'views/home/home'</span>)), <span class="string">'home'</span>);</span><br><span class="line"><span class="keyword">const</span> Login = <span class="function"><span class="params">r</span> =&gt;</span> <span class="built_in">require</span>.ensure([], () =&gt; r(<span class="built_in">require</span>(<span class="string">'views/login/login'</span>)), <span class="string">'login'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//方式二</span></span><br><span class="line"><span class="comment">//const Home = () =&gt; import('views/home/home.vue')</span></span><br><span class="line"><span class="comment">//const Login = () =&gt; import('views/login/login.vue')</span></span><br><span class="line"></span><br><span class="line">Vue.use(VueRouter);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  mode: <span class="string">'hash'</span>,</span><br><span class="line">  routes: [&#123;</span><br><span class="line">      path: <span class="string">'/'</span>,</span><br><span class="line">      component: Login</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">'/home'</span>,</span><br><span class="line">      component: Home</span><br><span class="line">    &#125;,</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>其中有遇到个报错，关于<code>hard-source-webpack-plugin</code>插件的</p>
-<p><img src="http://www.qinhanwen.xyz/WX20191124-234008@2x.png" alt="WX20191124-234008@2x"></p>
+<p><img src="http://118.24.241.76/WX20191124-234008@2x.png" alt="WX20191124-234008@2x"></p>
 <p>解决方案：删除<code>node_modules/.cache</code>文件</p>
 <h2 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h2><p><strong>先安装vue与vue-router</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install vue vue-router -S</span></span><br></pre></td></tr></table></figure>
@@ -674,8 +674,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/10/21/tapable/" rel="next" title="Tapable">
-                <i class="fa fa-chevron-left"></i> Tapable
+              <a href="/2019/11/03/react源码过程（4）-任务调度/" rel="next" title="react源码过程（4）- 任务调度">
+                <i class="fa fa-chevron-left"></i> react源码过程（4）- 任务调度
               </a>
             
           </div>
@@ -763,7 +763,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">132</span>
+                <span class="site-state-item-count">139</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -774,7 +774,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -785,7 +785,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

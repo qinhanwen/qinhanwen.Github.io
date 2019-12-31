@@ -102,14 +102,14 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="github.io+hexo 创建一个库，这里的名字叫 xxx.github.io，xxx 就是你的账号名字，同时可以选择 “Initialize this … README”。    可以通过访问xxx.github.io，访问你的页面了。  我们只需要把这个项目克隆到本地，在上传本地的代码就可以了。可以添加个页面试试   123456&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20181204-175001@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/image-20181003190309249.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/image-20181004194051654.png">
-<meta property="og:updated_time" content="2019-09-08T14:53:36.478Z">
+<meta property="og:image" content="http://118.24.241.76/WX20181204-175001@2x.png">
+<meta property="og:image" content="http://118.24.241.76/image-20181003190309249.png">
+<meta property="og:image" content="http://118.24.241.76/image-20181004194051654.png">
+<meta property="og:updated_time" content="2019-12-30T03:32:10.105Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="github.io+hexo">
 <meta name="twitter:description" content="github.io+hexo 创建一个库，这里的名字叫 xxx.github.io，xxx 就是你的账号名字，同时可以选择 “Initialize this … README”。    可以通过访问xxx.github.io，访问你的页面了。  我们只需要把这个项目克隆到本地，在上传本地的代码就可以了。可以添加个页面试试   123456&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;">
-<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20181204-175001@2x.png">
+<meta name="twitter:image" content="http://118.24.241.76/WX20181204-175001@2x.png">
 
 
 
@@ -379,7 +379,7 @@
         <h1 id="github-io-hexo"><a href="#github-io-hexo" class="headerlink" title="github.io+hexo"></a>github.io+hexo</h1><ol>
 <li>创建一个库，这里的名字叫 <strong>xxx.github.io</strong>，xxx 就是你的账号名字，同时可以选择 “Initialize this … README”。</li>
 </ol>
-<p><img src="http://www.qinhanwen.xyz/WX20181204-175001@2x.png" alt="image-20181003183048661"></p>
+<p><img src="http://118.24.241.76/WX20181204-175001@2x.png" alt="image-20181003183048661"></p>
 <ol start="2">
 <li><p>可以通过访问<strong>xxx.github.io</strong>，访问你的页面了。</p>
 </li>
@@ -388,7 +388,7 @@
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>上传之后访问 <strong>xxx.github.io</strong></p>
-<p><img src="http://www.qinhanwen.xyz/image-20181003190309249.png" alt="image-20181003190309249"></p>
+<p><img src="http://118.24.241.76/image-20181003190309249.png" alt="image-20181003190309249"></p>
 <p>顺带提一下配置 SSH Key，配置 SSH Key 的目的主要配置是为了让本地和远端可以连接。</p>
 <ol>
 <li>首先查看是否存在ssh key</li>
@@ -415,7 +415,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//保存之后</span><br><span class="line"><span class="meta">$</span> hexo clean</span><br><span class="line"><span class="meta">$</span> hexo g</span><br><span class="line"><span class="meta">$</span> hexo d</span><br><span class="line"><span class="meta">#</span>在执行 hexo d 后,出现 error deployer not found:github 的错误</span><br><span class="line"><span class="meta">#</span>解决方法npm install hexo-deployer-git --save</span><br><span class="line"><span class="meta">#</span>之后修改成</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: https://github.com/qinhanwen/用户名.github.io.git</span><br><span class="line">  branch: master</span><br><span class="line"><span class="meta">#</span>再执行就可以了</span><br></pre></td></tr></table></figure>
 <h5 id="4-发布一条博客"><a href="#4-发布一条博客" class="headerlink" title="4.发布一条博客"></a>4.发布一条博客</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> hexo new "这是一条博客哦"</span><br><span class="line"><span class="meta">$</span> hexo g   #生成网页</span><br><span class="line"><span class="meta">$</span> hexo d  #部署到远端(github)</span><br></pre></td></tr></table></figure>
 <h5 id="5-更换主题"><a href="#5-更换主题" class="headerlink" title="5.更换主题"></a>5.更换主题</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> mkdir themes/next  </span><br><span class="line"><span class="meta">$</span> curl -L https://api.github.com/repos/iissnan/hexo-theme-next/tarball | tar -zxv -C themes/next --strip-components=1</span><br><span class="line"><span class="meta">#</span>新建一个文件夹，并且下载主题</span><br><span class="line"><span class="meta">#</span>修改_config.yml文件配置如下</span><br></pre></td></tr></table></figure>
-<p><img src="http://www.qinhanwen.xyz/image-20181004194051654.png" alt="image-20181004194051654"></p>
+<p><img src="http://118.24.241.76/image-20181004194051654.png" alt="image-20181004194051654"></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> hexo clean  #清理缓存</span><br><span class="line"><span class="meta">$</span> hexo g    #重新生成博客代码</span><br><span class="line"><span class="meta">$</span> hexo d   #部署到本地，之后再次打开https://xxx.github.io即可</span><br></pre></td></tr></table></figure>
 <p><a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">这是更换主题参考</a></p>
 <h5 id="6-添加分类栏与标签栏"><a href="#6-添加分类栏与标签栏" class="headerlink" title="6.添加分类栏与标签栏"></a>6.添加分类栏与标签栏</h5><p>1）在写的md文件头部添加tags和categories</p>
@@ -541,7 +541,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">132</span>
+                <span class="site-state-item-count">139</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -552,7 +552,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -563,7 +563,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

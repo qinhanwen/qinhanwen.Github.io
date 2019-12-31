@@ -102,12 +102,12 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="API@babel/parser：Babel 的解析器。最初是 从Acorn项目fork出来的。Acorn非常快，易于使用，并且针对非标准特性(以及那些未来的标准特性) 设计了一个基于插件的架构。 12345678const &amp;#123;    parse&amp;#125; = require(&apos;@babel/parser&apos;);const code = `function square(n) &amp;#123">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20191205-104742@2x.png">
-<meta property="og:updated_time" content="2019-12-13T02:44:32.449Z">
+<meta property="og:image" content="http://118.24.241.76/WX20191205-104742@2x.png">
+<meta property="og:updated_time" content="2019-12-30T03:32:10.055Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Babel学习笔记3 - API与插件">
 <meta name="twitter:description" content="API@babel/parser：Babel 的解析器。最初是 从Acorn项目fork出来的。Acorn非常快，易于使用，并且针对非标准特性(以及那些未来的标准特性) 设计了一个基于插件的架构。 12345678const &amp;#123;    parse&amp;#125; = require(&apos;@babel/parser&apos;);const code = `function square(n) &amp;#123">
-<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20191205-104742@2x.png">
+<meta name="twitter:image" content="http://118.24.241.76/WX20191205-104742@2x.png">
 
 
 
@@ -395,7 +395,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo === bar;</span><br></pre></td></tr></table></figure>
 <p>其 AST 形式如下：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  type: "BinaryExpression",</span><br><span class="line">  operator: "===",</span><br><span class="line">  left: &#123;</span><br><span class="line">    type: "Identifier",</span><br><span class="line">    name: "foo"</span><br><span class="line">  &#125;,</span><br><span class="line">  right: &#123;</span><br><span class="line">    type: "Identifier",</span><br><span class="line">    name: "bar"</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://www.qinhanwen.xyz/WX20191205-104742@2x.png" alt="WX20191205-104742@2x"></p>
+<p><img src="http://118.24.241.76/WX20191205-104742@2x.png" alt="WX20191205-104742@2x"></p>
 <p>我们从添加 <code>BinaryExpression</code> 访问者方法开始：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params">&#123; types: t &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    visitor: &#123;</span><br><span class="line">      BinaryExpression(path) &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>然后我们更确切一些，只关注哪些使用了 <code>===</code> 的 <code>BinaryExpression</code>。</p>
@@ -540,7 +540,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">132</span>
+                <span class="site-state-item-count">139</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -551,7 +551,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -562,7 +562,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

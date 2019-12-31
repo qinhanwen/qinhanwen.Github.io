@@ -102,19 +102,19 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="在学习了es6的常见常用的知识之后，工作需要好好学习一下TS。一些与es6相同的特性就不写了。 在开始之前，可以通过npm安装TypeScript 1$ npm install -g typescript 之后通过 1$ tsc greeter.ts 会输出一个greeter.js文件 基础类型123456789let bool:boolean = true;let num:number = 1;">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190308-122836@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190308-124431@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190309-170925@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190309-171743@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190309-163147@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190309-210038@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190309-215118@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190309-214559@2x.png">
-<meta property="og:updated_time" content="2019-09-08T14:53:36.640Z">
+<meta property="og:image" content="http://118.24.241.76/WX20190308-122836@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190308-124431@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190309-170925@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190309-171743@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190309-163147@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190309-210038@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190309-215118@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190309-214559@2x.png">
+<meta property="og:updated_time" content="2019-12-30T03:32:10.199Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TypeScript学习笔记">
 <meta name="twitter:description" content="在学习了es6的常见常用的知识之后，工作需要好好学习一下TS。一些与es6相同的特性就不写了。 在开始之前，可以通过npm安装TypeScript 1$ npm install -g typescript 之后通过 1$ tsc greeter.ts 会输出一个greeter.js文件 基础类型123456789let bool:boolean = true;let num:number = 1;">
-<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20190308-122836@2x.png">
+<meta name="twitter:image" content="http://118.24.241.76/WX20190308-122836@2x.png">
 
 
 
@@ -389,13 +389,13 @@
 <p>会输出一个greeter.js文件</p>
 <h2 id="基础类型"><a href="#基础类型" class="headerlink" title="基础类型"></a>基础类型</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> bool:<span class="built_in">boolean</span> = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">let</span> num:<span class="built_in">number</span> = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="built_in">string</span>:<span class="built_in">string</span> = <span class="string">'string'</span>;</span><br><span class="line"><span class="keyword">let</span> array:<span class="built_in">Array</span>&lt;<span class="built_in">number</span>&gt; = [<span class="number">1</span>,<span class="number">2</span>];</span><br><span class="line"><span class="keyword">let</span> array1:<span class="built_in">number</span>[] = [<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">let</span> obj:<span class="built_in">Object</span> = &#123;</span><br><span class="line">    name:<span class="string">'qinhanwen'</span>,</span><br><span class="line">    age:<span class="string">'25'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在声明的时候，可以为声明的变量设置类型，设置了某个类型之后，就无法再赋值为其他类型。</p>
-<p><img src="http://www.qinhanwen.xyz/WX20190308-122836@2x.png" alt="WX20190308-122836@2x"></p>
+<p><img src="http://118.24.241.76/WX20190308-122836@2x.png" alt="WX20190308-122836@2x"></p>
 <p>如果在声明的时候没有设置类型，那么会有个隐性的类型推断，也是不允许再赋值成其他类型的数据。</p>
 <p><strong>any</strong></p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="built_in">any</span>:<span class="built_in">any</span> = <span class="literal">true</span>;</span><br><span class="line"><span class="built_in">any</span> = <span class="string">"true"</span>;</span><br></pre></td></tr></table></figure>
 <p>any还有个特点，</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj:<span class="built_in">any</span> = <span class="number">1</span>;</span><br><span class="line">obj.test();</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj1:object = &#123;&#125;;</span><br><span class="line">obj1.test();<span class="comment">//报错</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://www.qinhanwen.xyz/WX20190308-124431@2x.png" alt="WX20190308-124431@2x"></p>
+<p><img src="http://118.24.241.76/WX20190308-124431@2x.png" alt="WX20190308-124431@2x"></p>
 <p><strong>void</strong></p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> unusable:<span class="built_in">void</span> = <span class="literal">undefined</span>;</span><br><span class="line">unusable = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
 <p>只能赋值为null或者undefined，也可以用来表示函数没有返回值</p>
@@ -408,10 +408,10 @@
 <p><strong>类型断言</strong>：手动的指定一个值的类型</p>
 <p>比如有个联合类型，是数值和字符串，会访问联合类型共有的属性，但是数值类型没有length属性。</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getLength</span>(<span class="params">something: <span class="built_in">string</span> | <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> something.length;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://www.qinhanwen.xyz/WX20190309-170925@2x.png" alt="WX20190309-170925@2x"></p>
+<p><img src="http://118.24.241.76/WX20190309-170925@2x.png" alt="WX20190309-170925@2x"></p>
 <p>一般会先判断是否存在length属性，再做响应的操作。</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getLength</span>(<span class="params">something: <span class="built_in">string</span> | <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (something.length) &#123;</span><br><span class="line">        <span class="keyword">return</span> something.length;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> something.toString().length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://www.qinhanwen.xyz/WX20190309-171743@2x.png" alt="WX20190309-171743@2x"></p>
+<p><img src="http://118.24.241.76/WX20190309-171743@2x.png" alt="WX20190309-171743@2x"></p>
 <p>这时候就需要类型断言</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getLength</span>(<span class="params">something: <span class="built_in">string</span> | <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((something <span class="keyword">as</span> <span class="built_in">string</span>).length) &#123;</span><br><span class="line">        <span class="keyword">return</span> (something <span class="keyword">as</span> <span class="built_in">string</span>).length;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> something.toString().length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>或者</p>
@@ -435,7 +435,7 @@
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> qinhanwen &#123;</span><br><span class="line">    readonly name: <span class="built_in">string</span>,</span><br><span class="line">    age: <span class="built_in">number</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在属性前面添加readonly，也就是说属性在刚创建的时候才可以修改值。</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> qinhanwen &#123;</span><br><span class="line">    readonly name: <span class="built_in">string</span>,</span><br><span class="line">    age: <span class="built_in">number</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">info: qinhanwen</span>) </span>&#123;</span><br><span class="line">    info.age = <span class="number">24</span>;</span><br><span class="line">    info.name = <span class="string">'zenghua'</span>;<span class="comment">//这里报错</span></span><br><span class="line">&#125;</span><br><span class="line">test(&#123; name: <span class="string">'qinhanwen'</span>, age: <span class="number">25</span> &#125;)</span><br></pre></td></tr></table></figure>
-<p><img src="http://www.qinhanwen.xyz/WX20190309-163147@2x.png" alt="WX20190309-163147@2x"></p>
+<p><img src="http://118.24.241.76/WX20190309-163147@2x.png" alt="WX20190309-163147@2x"></p>
 <p>如果还有可能附带其他任意数量的属性，这么定义</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> qinhanwen &#123;</span><br><span class="line">    readonly name: <span class="built_in">string</span>,</span><br><span class="line">    age: <span class="built_in">number</span>,</span><br><span class="line">    [propName: <span class="built_in">string</span>]: <span class="built_in">any</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">info: qinhanwen</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(info);</span><br><span class="line">&#125;</span><br><span class="line">test(&#123; name: <span class="string">'qinhanwen'</span>, age: <span class="number">25</span>, sex: <span class="string">'male'</span> &#125;)<span class="comment">//&#123; name: 'qinhanwen', age: 25, sex: 'male' &#125;</span></span><br></pre></td></tr></table></figure>
 <p><strong>函数类型</strong></p>
@@ -454,10 +454,10 @@
 <p>并且继承的也无法使用私有变量</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Person&#123;</span><br><span class="line">    <span class="keyword">private</span> name:<span class="built_in">string</span> = <span class="string">'qinhanwen'</span>;</span><br><span class="line">    <span class="keyword">private</span> age:<span class="built_in">number</span> = <span class="number">25</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> getName()&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> Child <span class="keyword">extends</span> Person&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    getParentName()&#123;</span><br><span class="line">        <span class="keyword">super</span>.getName();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如图：</p>
-<p><img src="http://www.qinhanwen.xyz/WX20190309-210038@2x.png" alt="WX20190309-210038@2x"></p>
+<p><img src="http://118.24.241.76/WX20190309-210038@2x.png" alt="WX20190309-210038@2x"></p>
 <p><strong>protected</strong></p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Person&#123;</span><br><span class="line">    <span class="keyword">protected</span> name:<span class="built_in">string</span> = <span class="string">'qinhanwen'</span>;</span><br><span class="line">    <span class="keyword">protected</span> age:<span class="built_in">number</span> = <span class="number">25</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">protected</span> getName()&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">new</span> Person().getName();<span class="comment">//报错</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://www.qinhanwen.xyz/WX20190309-215118@2x.png" alt="WX20190309-215118@2x"></p>
+<p><img src="http://118.24.241.76/WX20190309-215118@2x.png" alt="WX20190309-215118@2x"></p>
 <p>继承可以使用父类的属性和方法</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Person&#123;</span><br><span class="line">    <span class="keyword">protected</span> name:<span class="built_in">string</span> = <span class="string">'qinhanwen'</span>;</span><br><span class="line">    <span class="keyword">protected</span> age:<span class="built_in">number</span> = <span class="number">25</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">protected</span> getName()&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> Child <span class="keyword">extends</span> Person&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    getParentName()&#123;</span><br><span class="line">        <span class="keyword">super</span>.getName();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">new</span> Child().getParentName();</span><br></pre></td></tr></table></figure>
 <p><strong>readonly</strong></p>
@@ -468,7 +468,7 @@
 <p><strong>静态属性</strong></p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Person &#123;</span><br><span class="line">   <span class="keyword">static</span> myName: <span class="built_in">string</span> = <span class="string">'qinhanwen'</span>;</span><br><span class="line">   <span class="keyword">public</span> myName1: <span class="built_in">string</span> = <span class="string">'qinhanwen'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Person.myName);</span><br><span class="line"><span class="built_in">console</span>.log(Person.myName1);<span class="comment">//报错</span></span><br></pre></td></tr></table></figure>
 <p>如图：</p>
-<p><img src="http://www.qinhanwen.xyz/WX20190309-214559@2x.png" alt="WX20190309-214559@2x"></p>
+<p><img src="http://118.24.241.76/WX20190309-214559@2x.png" alt="WX20190309-214559@2x"></p>
 <p>static与上面的public，private还有protected不同，区别在于属性是在<code>类本身上</code>，还是在<code>类的实例上</code></p>
 <h5 id="区分一下static，public，private，protected"><a href="#区分一下static，public，private，protected" class="headerlink" title="区分一下static，public，private，protected"></a>区分一下static，public，private，protected</h5><p><strong>public：</strong>通过实例访问的属性，派生类也能访问到。</p>
 <p><strong>private：</strong>只能在类中使用，实例访问不到，派生类也无法访问。</p>
@@ -616,7 +616,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">132</span>
+                <span class="site-state-item-count">139</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -627,7 +627,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -638,7 +638,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

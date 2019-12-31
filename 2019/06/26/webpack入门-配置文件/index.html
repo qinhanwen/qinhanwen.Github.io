@@ -102,16 +102,16 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="配置文件entry与output修改之前的文件路径，新增webpack.config.js文件（因为每个项目工程目录不同，所以可以根据需要自己的配置），业务逻辑代码放在src下面。 12$ webpack --config webpack.config.js#设置配置文件 文件目录 12345678|—— dist  |—— index.html|—— src  |—— a.js  |—— b.j">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190627-205301@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190728-140741@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190630-162033@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190630-231105@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190630-231534@2x.png">
-<meta property="og:updated_time" content="2019-09-08T14:53:36.477Z">
+<meta property="og:image" content="http://118.24.241.76/WX20190627-205301@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190728-140741@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190630-162033@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190630-231105@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190630-231534@2x.png">
+<meta property="og:updated_time" content="2019-12-30T03:32:09.892Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack入门（2）-配置文件">
 <meta name="twitter:description" content="配置文件entry与output修改之前的文件路径，新增webpack.config.js文件（因为每个项目工程目录不同，所以可以根据需要自己的配置），业务逻辑代码放在src下面。 12$ webpack --config webpack.config.js#设置配置文件 文件目录 12345678|—— dist  |—— index.html|—— src  |—— a.js  |—— b.j">
-<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20190627-205301@2x.png">
+<meta name="twitter:image" content="http://118.24.241.76/WX20190627-205301@2x.png">
 
 
 
@@ -389,7 +389,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;webpack-study&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;1.0.0&quot;,</span><br><span class="line">  &quot;description&quot;: &quot;&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;index.js&quot;,</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;build&quot;: &quot;webpack&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;author&quot;: &quot;&quot;,</span><br><span class="line">  &quot;license&quot;: &quot;ISC&quot;,</span><br><span class="line">  &quot;dependencies&quot;: &#123;&#125;,</span><br><span class="line">  &quot;devDependencies&quot;: &#123;</span><br><span class="line">    &quot;webpack&quot;: &quot;^4.35.0&quot;,</span><br><span class="line">    &quot;webpack-cli&quot;: &quot;^3.3.5&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm run build</span></span><br></pre></td></tr></table></figure>
 <p><strong>提示说明</strong></p>
-<p><img src="http://www.qinhanwen.xyz/WX20190627-205301@2x.png" alt="WX20190627-205301@2x"></p>
+<p><img src="http://118.24.241.76/WX20190627-205301@2x.png" alt="WX20190627-205301@2x"></p>
 <p>Hash：本次打包对应的唯一hash值</p>
 <p>Version：使用的webpack版本</p>
 <p>Time：打包耗时</p>
@@ -409,7 +409,7 @@
 <p><strong><code>library</code>和<code>libraryTaget</code></strong></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">    output: &#123;<span class="comment">//输出</span></span><br><span class="line">        <span class="comment">// publicPath: 'http://www.qinhanwen.xyz',</span></span><br><span class="line">        filename: <span class="string">'[name].js'</span>,<span class="comment">//最终文件命名</span></span><br><span class="line">        path: path.resolve(__dirname, <span class="string">'dist'</span>),<span class="comment">//输出文件夹的路径</span></span><br><span class="line">        library:<span class="string">'eft'</span>,</span><br><span class="line">        libraryTarget:<span class="string">'umd'</span></span><br><span class="line">    &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>加了这两个之后编译成这样，<code>libraryTarget:&#39;umd&#39;</code>是兼容各种模块化规范，比如AMD，CMD，CommonJS，还有<code>library:&#39;eft&#39;</code>是暴露在某个命名空间下（使用script标签引入的方式）。</p>
-<p><img src="http://www.qinhanwen.xyz/WX20190728-140741@2x.png" alt="WX20190728-140741@2x"></p>
+<p><img src="http://118.24.241.76/WX20190728-140741@2x.png" alt="WX20190728-140741@2x"></p>
 <h5 id="mode"><a href="#mode" class="headerlink" title="mode"></a>mode</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  	mode:<span class="string">'development'</span>,<span class="comment">//打包模式 development和production（默认模式），是否压缩打包出来的文件</span></span><br><span class="line">    entry:<span class="string">"./src/index.js"</span>,<span class="comment">//从哪个文件开始打包</span></span><br><span class="line">    output:&#123;<span class="comment">//输出</span></span><br><span class="line">        filename:<span class="string">'bundle.js'</span>,<span class="comment">//最终文件命名</span></span><br><span class="line">        path: path.resolve(__dirname,<span class="string">'dist'</span>),<span class="comment">//输出文件夹的路径</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="loader"><a href="#loader" class="headerlink" title="loader"></a>loader</h5><p>用于告诉webpack，对于<strong>特定的文件（非js文件）</strong>使用怎样的处理方式</p>
 <p>举个例子，打包<code>图片类型</code>和<code>scss类型</code>文件</p>
@@ -436,7 +436,7 @@
 <p>新的目录结构，dist目录下文件发生变化</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">|—— assets</span><br><span class="line">  |—— images</span><br><span class="line">    |—— WX20190627-205301@2x.png</span><br><span class="line">|—— dist</span><br><span class="line">  |—— bundle.js</span><br><span class="line">  |—— image</span><br><span class="line">    |—— WX20190627-205301@2x_25b6cf8a3379db4d1fc7bc8c2a3cc9bd.png</span><br><span class="line">  |—— index.html</span><br><span class="line">|—— src</span><br><span class="line">  |—— a.js</span><br><span class="line">  |—— index.js</span><br><span class="line">  |—— index.scss</span><br><span class="line">|—— webpack.config.js</span><br></pre></td></tr></table></figure>
 <p>打开index.html页面，看到head下插入了一个style标签。</p>
-<p><img src="http://www.qinhanwen.xyz/WX20190630-162033@2x.png" alt="WX20190630-162033@2x"></p>
+<p><img src="http://118.24.241.76/WX20190630-162033@2x.png" alt="WX20190630-162033@2x"></p>
 <h5 id="plugins"><a href="#plugins" class="headerlink" title="plugins"></a>plugins</h5><p>作用：在打包运行到某些时刻的时候，可以做某些事情。</p>
 <p>1）举个例子，先新建文件</p>
 <p>public/index.html</p>
@@ -452,9 +452,9 @@
 <p>clean-webpack-plugin，options设置了cleanAfterEveryBuildPatterns和verbose，清除了dist目录下的文件。</p>
 <p>4）打包</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm run build</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://www.qinhanwen.xyz/WX20190630-231105@2x.png" alt="WX20190630-231105@2x"></p>
+<p><img src="http://118.24.241.76/WX20190630-231105@2x.png" alt="WX20190630-231105@2x"></p>
 <p>5）打开 <code>dist/index.html</code></p>
-<p><img src="http://www.qinhanwen.xyz/WX20190630-231534@2x.png" alt="WX20190630-231534@2x"></p>
+<p><img src="http://118.24.241.76/WX20190630-231534@2x.png" alt="WX20190630-231534@2x"></p>
 <h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><h5 id="怎样在文件变化时，自动编译而不用手动执行编译。"><a href="#怎样在文件变化时，自动编译而不用手动执行编译。" class="headerlink" title="怎样在文件变化时，自动编译而不用手动执行编译。"></a>怎样在文件变化时，自动编译而不用手动执行编译。</h5><p>1.添加<code>—watch</code>参数，可以在文件发生改变的时候时时编译，在<code>package.json</code>文件添加配置</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">"scripts": &#123;</span><br><span class="line">    "build": "webpack --watch"</span><br><span class="line">&#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>2.<code>webpackDevServer</code>监听文件变化，并且自动更新浏览器</p>
@@ -590,7 +590,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">132</span>
+                <span class="site-state-item-count">139</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -601,7 +601,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -612,7 +612,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

@@ -102,17 +102,17 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="https://www.cnblogs.com/wisewrong/p/10396002.html 重学前端-总结：05、JavaScript类型：关于类型，有哪些你不知道的细节？ JavaScript 基本类型的装箱与拆箱 【JS迷你书】类型转换之拆箱操作 【JS迷你书】类型转换之装箱操作 一道常被人轻视的前端JS面试题 运算符优先级定义：运算符的优先级决定了表达式中运算执行的先后顺序，优先级高">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190717-084923@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190717-085011@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WechatIMG739.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190716-123325@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190716-124539@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190716-124547@2x.png">
-<meta property="og:updated_time" content="2019-09-08T14:53:36.402Z">
+<meta property="og:image" content="http://118.24.241.76/WX20190717-084923@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190717-085011@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WechatIMG739.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190716-123325@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190716-124539@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190716-124547@2x.png">
+<meta property="og:updated_time" content="2019-12-30T03:32:09.972Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="==与===，运算符优先级">
 <meta name="twitter:description" content="https://www.cnblogs.com/wisewrong/p/10396002.html 重学前端-总结：05、JavaScript类型：关于类型，有哪些你不知道的细节？ JavaScript 基本类型的装箱与拆箱 【JS迷你书】类型转换之拆箱操作 【JS迷你书】类型转换之装箱操作 一道常被人轻视的前端JS面试题 运算符优先级定义：运算符的优先级决定了表达式中运算执行的先后顺序，优先级高">
-<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20190717-084923@2x.png">
+<meta name="twitter:image" content="http://118.24.241.76/WX20190717-084923@2x.png">
 
 
 
@@ -659,10 +659,10 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"she is "</span>+<span class="literal">true</span>? <span class="string">"?"</span>:<span class="string">"nt"</span>+<span class="string">" here."</span>) <span class="comment">// "?"</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;<span class="attr">n</span>:<span class="number">1</span>&#125;;</span><br><span class="line">a.x = a = &#123;<span class="attr">n</span>:<span class="number">2</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(a.x); <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
 <p>变量提升和函数提升，优先关系：</p>
-<p><img src="http://www.qinhanwen.xyz/WX20190717-084923@2x.png" alt="WX20190717-084923@2x"></p>
-<p><img src="http://www.qinhanwen.xyz/WX20190717-085011@2x.png" alt="WX20190717-085011@2x"></p>
+<p><img src="http://118.24.241.76/WX20190717-084923@2x.png" alt="WX20190717-084923@2x"></p>
+<p><img src="http://118.24.241.76/WX20190717-085011@2x.png" alt="WX20190717-085011@2x"></p>
 <p>看一下另外一篇</p>
-<p><img src="http://www.qinhanwen.xyz/WechatIMG739.png" alt="WechatIMG739"></p>
+<p><img src="http://118.24.241.76/WechatIMG739.png" alt="WechatIMG739"></p>
 <p>反正就是说也就是说函数声明优先，var声明重复的变量名，会被忽略，之后的函数声明会覆盖前面的。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	    <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">	 &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line"> &#125;</span><br><span class="line">Foo.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Foo.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">4</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">5</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Foo.getName();<span class="comment">//2</span></span><br><span class="line">getName(); <span class="comment">//4</span></span><br><span class="line">Foo().getName(); <span class="comment">//1</span></span><br><span class="line">getName(); <span class="comment">//1</span></span><br><span class="line"><span class="keyword">new</span> Foo.getName();  <span class="comment">//2    </span></span><br><span class="line"><span class="keyword">new</span> Foo().getName();  <span class="comment">//3</span></span><br><span class="line"><span class="keyword">new</span> <span class="keyword">new</span> Foo().getName(); <span class="comment">//3</span></span><br></pre></td></tr></table></figure>
 <p>编译阶段变化：</p>
@@ -685,11 +685,11 @@
 <p>2.如果 valueOf 和 toString 都不存在，或者没有返回基本类型，则会产生类型错误 TypeError。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    valueOf : <span class="function"><span class="params">()</span> =&gt;</span> &#123;<span class="built_in">console</span>.log(<span class="string">"valueOf"</span>); <span class="keyword">return</span> []&#125;,</span><br><span class="line">    toString : <span class="function"><span class="params">()</span> =&gt;</span> &#123;<span class="built_in">console</span>.log(<span class="string">"toString"</span>); <span class="keyword">return</span> []&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">String</span>(obj)</span><br><span class="line"><span class="comment">// toString</span></span><br><span class="line"><span class="comment">// valueOf</span></span><br><span class="line"><span class="comment">// Uncaught TypeError: Cannot convert object to primitive value</span></span><br><span class="line"></span><br><span class="line">obj+<span class="string">' '</span></span><br><span class="line"><span class="comment">//valueOf</span></span><br><span class="line"><span class="comment">//toString</span></span><br><span class="line"><span class="comment">// Uncaught TypeError: Cannot convert object to primitive value</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Number</span>(obj)</span><br><span class="line"><span class="comment">//valueOf</span></span><br><span class="line"><span class="comment">//toString</span></span><br><span class="line"><span class="comment">// Uncaught TypeError: Cannot convert object to primitive value</span></span><br></pre></td></tr></table></figure>
 <p>不同值比较时，转换规则：</p>
-<p><img src="http://www.qinhanwen.xyz/WX20190716-123325@2x.png" alt="WX20190716-123325@2x"></p>
+<p><img src="http://118.24.241.76/WX20190716-123325@2x.png" alt="WX20190716-123325@2x"></p>
 <p>toNumber：</p>
-<p><img src="http://www.qinhanwen.xyz/WX20190716-124539@2x.png" alt="WX20190716-124539@2x"></p>
+<p><img src="http://118.24.241.76/WX20190716-124539@2x.png" alt="WX20190716-124539@2x"></p>
 <p>toPrimitive：</p>
-<p><img src="http://www.qinhanwen.xyz/WX20190716-124547@2x.png" alt="WX20190716-124547@2x"></p>
+<p><img src="http://118.24.241.76/WX20190716-124547@2x.png" alt="WX20190716-124547@2x"></p>
 <p>例子：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'string'</span> == <span class="literal">true</span>);<span class="comment">//false</span></span><br><span class="line"><span class="comment">//1. true先转换为数值，结果是1 等式变为 'string' == 1</span></span><br><span class="line"><span class="comment">//2. 'string'转换为数值，结果是NAN 等式变为 NAN == 1 </span></span><br><span class="line"><span class="comment">//3. 所以是false</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[] == ![] <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//1. !…优先级高，转换为  [] == false</span></span><br><span class="line"><span class="comment">//2. 布尔值与任何类型比较，布尔值转换为数值，转换为 [] == 0</span></span><br><span class="line"><span class="comment">//3. 对象跟数值比较，对象调用toString()返回原始值，转换为 "" == 0</span></span><br><span class="line"><span class="comment">//4. 字符串跟数值比较，转为数值，转换为 0 == 0</span></span><br></pre></td></tr></table></figure>
@@ -813,7 +813,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">132</span>
+                <span class="site-state-item-count">139</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -824,7 +824,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -835,7 +835,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

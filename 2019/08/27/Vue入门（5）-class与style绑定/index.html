@@ -102,16 +102,16 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="操作元素的 class 列表和内联样式是数据绑定的一个常见需求。因为它们都是属性，所以我们可以用 v-bind 处理它们：只需要通过表达式计算出字符串结果即可。不过，字符串拼接麻烦且易错。因此，在将 v-bind 用于 class 和 style 时，Vue.js 做了专门的增强。表达式结果的类型除了字符串之外，还可以是对象或数组。 Class对象语法 1&amp;lt;div class=&quot;static">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190827-124617@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190827-125519@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190827-130200@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190827-130549@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190827-130955@2x.png">
-<meta property="og:updated_time" content="2019-09-20T04:49:45.906Z">
+<meta property="og:image" content="http://118.24.241.76/WX20190827-124617@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190827-125519@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190827-130200@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190827-130549@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190827-130955@2x.png">
+<meta property="og:updated_time" content="2019-12-30T03:32:10.198Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue入门（5）- class与style绑定">
 <meta name="twitter:description" content="操作元素的 class 列表和内联样式是数据绑定的一个常见需求。因为它们都是属性，所以我们可以用 v-bind 处理它们：只需要通过表达式计算出字符串结果即可。不过，字符串拼接麻烦且易错。因此，在将 v-bind 用于 class 和 style 时，Vue.js 做了专门的增强。表达式结果的类型除了字符串之外，还可以是对象或数组。 Class对象语法 1&amp;lt;div class=&quot;static">
-<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20190827-124617@2x.png">
+<meta name="twitter:image" content="http://118.24.241.76/WX20190827-124617@2x.png">
 
 
 
@@ -382,7 +382,7 @@
 <h2 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h2><p><strong>对象语法</strong></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"static"</span> <span class="attr">v-bind:class</span>=<span class="string">"&#123; active: isActive, 'text-danger': hasError &#125;"</span>&gt;</span>class<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  isActive: <span class="literal">true</span>,</span><br><span class="line">  hasError: <span class="literal">true</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://www.qinhanwen.xyz/WX20190827-124617@2x.png" alt="WX20190827-124617@2x"></p>
+<p><img src="http://118.24.241.76/WX20190827-124617@2x.png" alt="WX20190827-124617@2x"></p>
 <p>当<code>isActive</code>与<code>hasError</code>变化的时候，class 列表将相应地更新。</p>
 <p>绑定的数据对象不必内联定义在模板里</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"static"</span> <span class="attr">v-bind:class</span>=<span class="string">"classObject"</span>&gt;</span>class<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -393,25 +393,25 @@
 <p><strong>数组语法</strong></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"[activeClass, errorClass]"</span>&gt;</span>class4<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  activeClass:<span class="string">'active'</span>,</span><br><span class="line">  errorClass:<span class="string">'text-danger'</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-<p><img src="http://www.qinhanwen.xyz/WX20190827-125519@2x.png" alt="WX20190827-125519@2x"></p>
+<p><img src="http://118.24.241.76/WX20190827-125519@2x.png" alt="WX20190827-125519@2x"></p>
 <p>也可以使用三元表达式或者对象语法</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"[isActive ? activeClass : '', errorClass]"</span>&gt;</span>class5<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"[&#123;active:isActive&#125;, errorClass]"</span>&gt;</span>class6<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  isActive: <span class="literal">true</span>,</span><br><span class="line">	activeClass:<span class="string">'active'</span>,</span><br><span class="line">	errorClass:<span class="string">'text-danger'</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
 <p><strong>在组件上使用</strong></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">class-box</span> <span class="attr">:class</span>=<span class="string">"&#123;active:isActive&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">class-box</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'class-box'</span>,&#123;</span><br><span class="line">  template:<span class="string">'&lt;p class="inner-tag"&gt;component&lt;/p&gt;'</span></span><br><span class="line">&#125;)</span><br><span class="line">...</span><br><span class="line">  data: &#123;</span><br><span class="line">    isActive: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p><img src="http://www.qinhanwen.xyz/WX20190827-130200@2x.png" alt="WX20190827-130200@2x"></p>
+<p><img src="http://118.24.241.76/WX20190827-130200@2x.png" alt="WX20190827-130200@2x"></p>
 <h2 id="style"><a href="#style" class="headerlink" title="style"></a>style</h2><p><code>v-bind:style</code> 的对象语法十分直观——看着非常像 CSS，但其实是一个 JavaScript 对象。CSS 属性名可以用驼峰式 (camelCase) 或短横线分隔 (kebab-case，记得用引号括起来) 来命名：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:style</span>=<span class="string">"&#123; color: activeColor, fontSize: fontSize + 'px' &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  activeColor: <span class="string">'red'</span>,</span><br><span class="line">  fontSize: <span class="number">30</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://www.qinhanwen.xyz/WX20190827-130549@2x.png" alt="WX20190827-130549@2x"></p>
+<p><img src="http://118.24.241.76/WX20190827-130549@2x.png" alt="WX20190827-130549@2x"></p>
 <p>也可以不内联在模板中</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:style</span>=<span class="string">"styleObject"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  styleObject: &#123;</span><br><span class="line">    color: <span class="string">'red'</span>,</span><br><span class="line">    fontSize: <span class="string">'13px'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>数组语法</strong></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:style</span>=<span class="string">"[baseStyles,overridingStyles]"</span>&gt;</span>style2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  baseStyles: &#123;</span><br><span class="line">    color: <span class="string">'green'</span>,</span><br><span class="line">      fontSize: <span class="string">'30px'</span></span><br><span class="line">  &#125;,</span><br><span class="line">    overridingStyles: &#123;</span><br><span class="line">      <span class="string">'font-weight'</span>: <span class="string">'bold'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-<p><img src="http://www.qinhanwen.xyz/WX20190827-130955@2x.png" alt="WX20190827-130955@2x"></p>
+<p><img src="http://118.24.241.76/WX20190827-130955@2x.png" alt="WX20190827-130955@2x"></p>
 
       
     </div>
@@ -531,7 +531,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">132</span>
+                <span class="site-state-item-count">139</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -542,7 +542,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -553,7 +553,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

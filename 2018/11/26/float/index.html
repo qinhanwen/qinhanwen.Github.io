@@ -102,14 +102,14 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="float属性学习笔记1.float语法1234float:none 不使用浮动float:left 靠左浮动float:right 靠右浮动float:inherit 继承 2.清除浮动的几种方法1）clear:both清除浮动12345&amp;lt;div class=&quot;divcss5&quot;&amp;gt;       &amp;lt;div class=&quot;divcss5_left&quot;&amp;gt;布局靠左浮动&amp;lt;/div">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20181126-211600@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20181126-221025@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20181126-222436@2x.png">
-<meta property="og:updated_time" content="2019-09-08T14:53:36.640Z">
+<meta property="og:image" content="http://118.24.241.76/WX20181126-211600@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20181126-221025@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20181126-222436@2x.png">
+<meta property="og:updated_time" content="2019-12-30T03:32:10.199Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="float">
 <meta name="twitter:description" content="float属性学习笔记1.float语法1234float:none 不使用浮动float:left 靠左浮动float:right 靠右浮动float:inherit 继承 2.清除浮动的几种方法1）clear:both清除浮动12345&amp;lt;div class=&quot;divcss5&quot;&amp;gt;       &amp;lt;div class=&quot;divcss5_left&quot;&amp;gt;布局靠左浮动&amp;lt;/div">
-<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20181126-211600@2x.png">
+<meta name="twitter:image" content="http://118.24.241.76/WX20181126-211600@2x.png">
 
 
 
@@ -383,17 +383,17 @@
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.divcss5</span> &#123;</span><br><span class="line">      <span class="attribute">width</span>: <span class="number">400px</span>;</span><br><span class="line">      <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">      <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#F00</span>;</span><br><span class="line">      <span class="attribute">overflow</span>:hidden;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="selector-class">.divcss5_left</span> &#123;</span><br><span class="line">      <span class="attribute">float</span>: left;</span><br><span class="line">      <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">      <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#00F</span>;</span><br><span class="line">      <span class="attribute">height</span>: <span class="number">50px</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="selector-class">.divcss5_right</span> &#123;</span><br><span class="line">      <span class="attribute">float</span>: right;</span><br><span class="line">      <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">      <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#00F</span>;</span><br><span class="line">      <span class="attribute">height</span>: <span class="number">50px</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <h6 id="3）设置父级高度"><a href="#3）设置父级高度" class="headerlink" title="3）设置父级高度"></a>3）设置父级高度</h6><h5 id="3-文字环绕问题"><a href="#3-文字环绕问题" class="headerlink" title="3.文字环绕问题"></a>3.文字环绕问题</h5><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.outer</span> &#123;</span><br><span class="line">      <span class="attribute">border</span>: <span class="number">5px</span> dotted <span class="built_in">rgb</span>(214, 129, 137);</span><br><span class="line">      <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">      <span class="attribute">width</span>: <span class="number">450px</span>;</span><br><span class="line">      <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">      <span class="attribute">margin-bottom</span>: <span class="number">40px</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="selector-class">.float</span> &#123;</span><br><span class="line">      <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">      <span class="attribute">border</span>: <span class="number">5px</span> solid <span class="built_in">rgba</span>(214, 129, 137, .4);</span><br><span class="line">      <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">      <span class="attribute">background-color</span>: <span class="built_in">rgba</span>(233, 78, 119, .4);</span><br><span class="line">      <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">      <span class="attribute">float</span>: left;</span><br><span class="line">      <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">      <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">20px</span> <span class="number">0</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"outer"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"float"</span>&gt;</span>I am a floated element.<span class="tag">&lt;/<span class="name">div</span>&gt;</span> I am text inside the outer box.</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://www.qinhanwen.xyz/WX20181126-211600@2x.png" alt=""></p>
+<p><img src="http://118.24.241.76/WX20181126-211600@2x.png" alt=""></p>
 <p>顺带一提float和绝对定位的区别：</p>
 <p>1）绝对定位是将元素彻底从文档流删除，元素原先在正常文档流中所占的空间会关闭，就好像该元素原来不存在一样，该元素再也不会影响其他元素的布局了。</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.a</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">background</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.b</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background</span>: blue;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"b"</span>&gt;</span>这是定位内容<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"a"</span>&gt;</span>这是一大段内容这是一大段内容这是一大段内容这是一大段内容这是一大段内容这是一大段内容这是一大段内容这是一大段内容这是一大段内容这是一大段内容这是一大段内容这是一大段内容这是一大段内容这是一大段内容这是一大段内容<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>效果图：</p>
-<p><img src="http://www.qinhanwen.xyz/WX20181126-221025@2x.png" alt=""></p>
+<p><img src="http://118.24.241.76/WX20181126-221025@2x.png" alt=""></p>
 <p>2）浮动会以某种方式将元素脱离正常的文档流，但是依然占据正常文档流的文本空间。</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.a</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">background</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.b</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background</span>: blue;</span><br><span class="line">    <span class="attribute">float</span>:left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p> 效果图：</p>
-<p><img src="http://www.qinhanwen.xyz/WX20181126-222436@2x.png" alt=""></p>
+<p><img src="http://118.24.241.76/WX20181126-222436@2x.png" alt=""></p>
 <p>关于<a href="https://qinhanwen.github.io/2018/11/23/BFC/" target="_blank" rel="noopener">BFC</a></p>
 
       
@@ -514,7 +514,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">132</span>
+                <span class="site-state-item-count">139</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -525,7 +525,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -536,7 +536,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

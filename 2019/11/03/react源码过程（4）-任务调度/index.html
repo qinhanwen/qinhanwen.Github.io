@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="react源码过程," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="任务调度scheduleWork 找到更新对应的 FiberRoot 节点  如果符合条件重置 stack  如果符合条件就请求工作调度    12345678910111213141516171819202122232425262728293031323334353637383940414243function scheduleWork(   fiber: Fiber, //Fiber对象，">
+<meta name="keywords" content="react源码过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react源码过程（4）- 任务调度">
+<meta property="og:url" content="http://yoursite.com/2019/11/03/react源码过程（4）-任务调度/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="任务调度scheduleWork 找到更新对应的 FiberRoot 节点  如果符合条件重置 stack  如果符合条件就请求工作调度    12345678910111213141516171819202122232425262728293031323334353637383940414243function scheduleWork(   fiber: Fiber, //Fiber对象，">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://118.24.241.76/WX20191103-121127@2x.png">
+<meta property="og:updated_time" content="2019-12-30T03:32:10.197Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="react源码过程（4）- 任务调度">
+<meta name="twitter:description" content="任务调度scheduleWork 找到更新对应的 FiberRoot 节点  如果符合条件重置 stack  如果符合条件就请求工作调度    12345678910111213141516171819202122232425262728293031323334353637383940414243function scheduleWork(   fiber: Fiber, //Fiber对象，">
+<meta name="twitter:image" content="http://118.24.241.76/WX20191103-121127@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/03/react源码过程（4）-任务调度/"/>
+
+
+
+
+
+  <title>react源码过程（4）- 任务调度 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/03/react源码过程（4）-任务调度/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">react源码过程（4）- 任务调度</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-03T11:51:39+08:00">
+                2019-11-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/react源码过程/" itemprop="url" rel="index">
+                    <span itemprop="name">react源码过程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="任务调度"><a href="#任务调度" class="headerlink" title="任务调度"></a>任务调度</h2><h5 id="scheduleWork"><a href="#scheduleWork" class="headerlink" title="scheduleWork"></a>scheduleWork</h5><ul>
+<li><p>找到更新对应的 FiberRoot 节点</p>
+</li>
+<li><p>如果符合条件重置 stack</p>
+</li>
+<li><p>如果符合条件就请求工作调度</p>
+</li>
+</ul>
+<p><img src="http://118.24.241.76/WX20191103-121127@2x.png" alt="WX20191103-121127@2x"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">scheduleWork</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">   fiber: Fiber, <span class="regexp">//</span>Fiber对象，</span></span></span><br><span class="line"><span class="function"><span class="params">   expirationTime: ExpirationTime<span class="regexp">//</span>创建更新时候计算的过期时间</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> root = scheduleWorkToRoot(fiber, expirationTime);</span><br><span class="line">  <span class="keyword">if</span> (root === <span class="literal">null</span>) &#123;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    !isWorking &amp;&amp;</span><br><span class="line">    nextRenderExpirationTime !== NoWork &amp;&amp;</span><br><span class="line">    expirationTime &gt; nextRenderExpirationTime</span><br><span class="line">  ) &#123;</span><br><span class="line"></span><br><span class="line">    interruptedBy = fiber;</span><br><span class="line">    resetStack();<span class="comment">//</span></span><br><span class="line">  &#125;</span><br><span class="line">  markPendingPriorityLevel(root, expirationTime);</span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    !isWorking ||</span><br><span class="line">    isCommitting ||</span><br><span class="line"></span><br><span class="line">    nextRoot !== root</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="keyword">const</span> rootExpirationTime = root.expirationTime;</span><br><span class="line">    requestWork(root, rootExpirationTime);<span class="comment">//</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (nestedUpdateCount &gt; NESTED_UPDATE_LIMIT) &#123;</span><br><span class="line"></span><br><span class="line">    nestedUpdateCount = <span class="number">0</span>;</span><br><span class="line">    invariant(</span><br><span class="line">      <span class="literal">false</span>,</span><br><span class="line">      <span class="string">'Maximum update depth exceeded. This can happen when a '</span> +</span><br><span class="line">        <span class="string">'component repeatedly calls setState inside '</span> +</span><br><span class="line">        <span class="string">'componentWillUpdate or componentDidUpdate. React limits '</span> +</span><br><span class="line">        <span class="string">'the number of nested updates to prevent infinite loops.'</span>,</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>scheduleWorkToRoot</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">scheduleWorkToRoot</span>(<span class="params">fiber: Fiber, expirationTime</span>): <span class="title">FiberRoot</span> | <span class="title">null</span> </span>&#123;<span class="comment">//根据传入的fiber节点找到rootFiber对象</span></span><br><span class="line"></span><br><span class="line">  recordScheduleUpdate();</span><br><span class="line"></span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (fiber.expirationTime &lt; expirationTime) &#123;<span class="comment">//更新expirationTime</span></span><br><span class="line">    fiber.expirationTime = expirationTime;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> alternate = fiber.alternate;</span><br><span class="line">  <span class="keyword">if</span> (alternate !== <span class="literal">null</span> &amp;&amp; alternate.expirationTime &lt; expirationTime) &#123;<span class="comment">//更新expirationTime</span></span><br><span class="line">    alternate.expirationTime = expirationTime;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> node = fiber.return;<span class="comment">//得到它的上级节点</span></span><br><span class="line">  <span class="keyword">let</span> root = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">if</span> (node === <span class="literal">null</span> &amp;&amp; fiber.tag === HostRoot) &#123;<span class="comment">//如果node为null说明是RootFiber</span></span><br><span class="line">    root = fiber.stateNode;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">while</span> (node !== <span class="literal">null</span>) &#123;<span class="comment">//循环更新expirationTime，直到node为RootFiber</span></span><br><span class="line">      alternate = node.alternate;</span><br><span class="line">      <span class="keyword">if</span> (node.childExpirationTime &lt; expirationTime) &#123;</span><br><span class="line">        node.childExpirationTime = expirationTime;</span><br><span class="line">        <span class="keyword">if</span> (</span><br><span class="line">          alternate !== <span class="literal">null</span> &amp;&amp;</span><br><span class="line">          alternate.childExpirationTime &lt; expirationTime</span><br><span class="line">        ) &#123;</span><br><span class="line">          alternate.childExpirationTime = expirationTime;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (</span><br><span class="line">        alternate !== <span class="literal">null</span> &amp;&amp;</span><br><span class="line">        alternate.childExpirationTime &lt; expirationTime</span><br><span class="line">      ) &#123;</span><br><span class="line">        alternate.childExpirationTime = expirationTime;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (node.return === <span class="literal">null</span> &amp;&amp; node.tag === HostRoot) &#123;</span><br><span class="line">        root = node.stateNode;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      node = node.return;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (enableSchedulerTracing) &#123;</span><br><span class="line">    <span class="keyword">if</span> (root !== <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> interactions = __interactionsRef.current;</span><br><span class="line">      <span class="keyword">if</span> (interactions.size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> pendingInteractionMap = root.pendingInteractionMap;</span><br><span class="line">        <span class="keyword">const</span> pendingInteractions = pendingInteractionMap.get(expirationTime);</span><br><span class="line">        <span class="keyword">if</span> (pendingInteractions != <span class="literal">null</span>) &#123;</span><br><span class="line">          interactions.forEach(<span class="function"><span class="params">interaction</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (!pendingInteractions.has(interaction)) &#123;</span><br><span class="line">              interaction.__count++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            pendingInteractions.add(interaction);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          pendingInteractionMap.set(expirationTime, <span class="keyword">new</span> <span class="built_in">Set</span>(interactions));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">          interactions.forEach(<span class="function"><span class="params">interaction</span> =&gt;</span> &#123;</span><br><span class="line">            interaction.__count++;</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> subscriber = __subscriberRef.current;</span><br><span class="line">        <span class="keyword">if</span> (subscriber !== <span class="literal">null</span>) &#123;</span><br><span class="line">          <span class="keyword">const</span> threadID = computeThreadID(</span><br><span class="line">            expirationTime,</span><br><span class="line">            root.interactionThreadID,</span><br><span class="line">          );</span><br><span class="line">          subscriber.onWorkScheduled(interactions, threadID);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>resetStack</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">resetStack</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (nextUnitOfWork !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> interruptedWork = nextUnitOfWork.return;</span><br><span class="line">    <span class="keyword">while</span> (interruptedWork !== <span class="literal">null</span>) &#123;</span><br><span class="line">      unwindInterruptedWork(interruptedWork);</span><br><span class="line">      interruptedWork = interruptedWork.return;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  nextRoot = <span class="literal">null</span>;</span><br><span class="line">  nextRenderExpirationTime = NoWork;</span><br><span class="line">  nextLatestAbsoluteTimeoutMs = <span class="number">-1</span>;</span><br><span class="line">  nextRenderDidError = <span class="literal">false</span>;</span><br><span class="line">  nextUnitOfWork = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="requestWork"><a href="#requestWork" class="headerlink" title="requestWork"></a>requestWork</h5><ul>
+<li>加入到 root 调度队列</li>
+<li>判断是否批量更新</li>
+<li>根据 expirationTime 判断调度类型</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">requestWork</span>(<span class="params">root: FiberRoot, expirationTime: ExpirationTime</span>) </span>&#123;</span><br><span class="line">  addRootToSchedule(root, expirationTime)</span><br><span class="line">  <span class="keyword">if</span> (isRendering) &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (isBatchingUpdates) &#123;</span><br><span class="line">    <span class="keyword">if</span> (isUnbatchingUpdates) &#123;</span><br><span class="line">      nextFlushedRoot = root</span><br><span class="line">      nextFlushedExpirationTime = Sync</span><br><span class="line">      performWorkOnRoot(root, Sync, <span class="literal">false</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (expirationTime === Sync) &#123;</span><br><span class="line">    performSyncWork() <span class="comment">//同步调用一直执行不会被打断</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    scheduleCallbackWithExpirationTime(root, expirationTime) <span class="comment">//异步调度，在浏览器有空闲的时候执行一些任务，并且设置了deadline，把主动权交给浏览器，有空闲时候再来执行</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>addRootToSchedule</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addRootToSchedule</span>(<span class="params">root: FiberRoot, expirationTime: ExpirationTime</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (root.nextScheduledRoot === <span class="literal">null</span>) &#123;</span><br><span class="line">    root.expirationTime = expirationTime</span><br><span class="line">    <span class="keyword">if</span> (lastScheduledRoot === <span class="literal">null</span>) &#123;</span><br><span class="line">      firstScheduledRoot = lastScheduledRoot = root</span><br><span class="line">      root.nextScheduledRoot = root</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      lastScheduledRoot.nextScheduledRoot = root</span><br><span class="line">      lastScheduledRoot = root</span><br><span class="line">      lastScheduledRoot.nextScheduledRoot = firstScheduledRoot</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> remainingExpirationTime = root.expirationTime</span><br><span class="line">    <span class="keyword">if</span> (expirationTime &gt; remainingExpirationTime) &#123;</span><br><span class="line">      root.expirationTime = expirationTime</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="batchedUpdates"><a href="#batchedUpdates" class="headerlink" title="batchedUpdates"></a>batchedUpdates</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">batchedUpdates</span>&lt;<span class="title">A</span>, <span class="title">R</span>&gt;(<span class="params">fn: (a: A</span>) =&gt; <span class="title">R</span>, <span class="title">a</span>: <span class="title">A</span>): <span class="title">R</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> previousIsBatchingUpdates = isBatchingUpdates <span class="comment">//记录之前的值</span></span><br><span class="line">  isBatchingUpdates = <span class="literal">true</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> fn(a)</span><br><span class="line">  &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    isBatchingUpdates = previousIsBatchingUpdates <span class="comment">//设置为之前记录的值</span></span><br><span class="line">    <span class="keyword">if</span> (!isBatchingUpdates &amp;&amp; !isRendering) &#123;</span><br><span class="line">      performSyncWork() <span class="comment">//更新</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="React-Scheduler"><a href="#React-Scheduler" class="headerlink" title="React Scheduler"></a>React Scheduler</h5><ul>
+<li>维护时间片</li>
+<li>模拟 requestIdelCallback（requestIdelCallback 优先级比 requestAinimationFrame 低）</li>
+<li>调度列表和超时判断</li>
+</ul>
+<p><strong>performWork</strong></p>
+<ul>
+<li>是否有 deadline 的区别</li>
+<li>循环渲染 Root 的条件</li>
+<li>超过时间片的处理</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">performAsyncWork</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!shouldYieldToRenderer()) &#123;</span><br><span class="line">      <span class="keyword">if</span> (firstScheduledRoot !== <span class="literal">null</span>) &#123;</span><br><span class="line">        recomputeCurrentRendererTime()</span><br><span class="line">        <span class="keyword">let</span> root: FiberRoot = firstScheduledRoot</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">          didExpireAtExpirationTime(root, currentRendererTime)</span><br><span class="line"></span><br><span class="line">          root = (root.nextScheduledRoot: any)</span><br><span class="line">        &#125; <span class="keyword">while</span> (root !== firstScheduledRoot)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    performWork(NoWork, <span class="literal">true</span>)</span><br><span class="line">  &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    didYield = <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">performSyncWork</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  performWork(Sync, <span class="literal">false</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">performWork</span>(<span class="params">minExpirationTime: ExpirationTime, isYieldy: boolean</span>) </span>&#123;</span><br><span class="line">  findHighestPriorityRoot()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (isYieldy) &#123;</span><br><span class="line">    recomputeCurrentRendererTime()</span><br><span class="line">    currentSchedulerTime = currentRendererTime</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (enableUserTimingAPI) &#123;</span><br><span class="line">      <span class="keyword">const</span> didExpire = nextFlushedExpirationTime &gt; currentRendererTime</span><br><span class="line">      <span class="keyword">const</span> timeout = expirationTimeToMs(nextFlushedExpirationTime)</span><br><span class="line">      stopRequestCallbackTimer(didExpire, timeout)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (</span><br><span class="line">      nextFlushedRoot !== <span class="literal">null</span> &amp;&amp;</span><br><span class="line">      nextFlushedExpirationTime !== NoWork &amp;&amp;</span><br><span class="line">      minExpirationTime &lt;= nextFlushedExpirationTime &amp;&amp;</span><br><span class="line">      !(didYield &amp;&amp; currentRendererTime &gt; nextFlushedExpirationTime)</span><br><span class="line">    ) &#123;</span><br><span class="line">      performWorkOnRoot(</span><br><span class="line">        nextFlushedRoot,</span><br><span class="line">        nextFlushedExpirationTime,</span><br><span class="line">        currentRendererTime &gt; nextFlushedExpirationTime</span><br><span class="line">      )</span><br><span class="line">      findHighestPriorityRoot()</span><br><span class="line">      recomputeCurrentRendererTime()</span><br><span class="line">      currentSchedulerTime = currentRendererTime</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">while</span> (</span><br><span class="line">      nextFlushedRoot !== <span class="literal">null</span> &amp;&amp;</span><br><span class="line">      nextFlushedExpirationTime !== NoWork &amp;&amp;</span><br><span class="line">      minExpirationTime &lt;= nextFlushedExpirationTime</span><br><span class="line">    ) &#123;</span><br><span class="line">      performWorkOnRoot(nextFlushedRoot, nextFlushedExpirationTime, <span class="literal">false</span>)</span><br><span class="line">      findHighestPriorityRoot()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (isYieldy) &#123;</span><br><span class="line">    callbackExpirationTime = NoWork</span><br><span class="line">    callbackID = <span class="literal">null</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (nextFlushedExpirationTime !== NoWork) &#123;</span><br><span class="line">    scheduleCallbackWithExpirationTime(</span><br><span class="line">      ((nextFlushedRoot: any): FiberRoot),</span><br><span class="line">      nextFlushedExpirationTime</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  finishRendering()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>performWorkOnRoot</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">performWorkOnRoot</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  root: FiberRoot,</span></span></span><br><span class="line"><span class="function"><span class="params">  expirationTime: ExpirationTime,</span></span></span><br><span class="line"><span class="function"><span class="params">  isYieldy: boolean</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  invariant(</span><br><span class="line">    !isRendering,</span><br><span class="line">    <span class="string">'performWorkOnRoot was called recursively. This error is likely caused '</span> +</span><br><span class="line">      <span class="string">'by a bug in React. Please file an issue.'</span></span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">  isRendering = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!isYieldy) &#123;</span><br><span class="line">    <span class="keyword">let</span> finishedWork = root.finishedWork</span><br><span class="line">    <span class="keyword">if</span> (finishedWork !== <span class="literal">null</span>) &#123;</span><br><span class="line">      completeRoot(root, finishedWork, expirationTime)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      root.finishedWork = <span class="literal">null</span></span><br><span class="line">      <span class="keyword">const</span> timeoutHandle = root.timeoutHandle</span><br><span class="line">      <span class="keyword">if</span> (timeoutHandle !== noTimeout) &#123;</span><br><span class="line">        root.timeoutHandle = noTimeout</span><br><span class="line"></span><br><span class="line">        cancelTimeout(timeoutHandle)</span><br><span class="line">      &#125;</span><br><span class="line">      renderRoot(root, isYieldy)</span><br><span class="line">      finishedWork = root.finishedWork</span><br><span class="line">      <span class="keyword">if</span> (finishedWork !== <span class="literal">null</span>) &#123;</span><br><span class="line">        completeRoot(root, finishedWork, expirationTime)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> finishedWork = root.finishedWork</span><br><span class="line">    <span class="keyword">if</span> (finishedWork !== <span class="literal">null</span>) &#123;</span><br><span class="line">      completeRoot(root, finishedWork, expirationTime)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      root.finishedWork = <span class="literal">null</span></span><br><span class="line">      <span class="keyword">const</span> timeoutHandle = root.timeoutHandle</span><br><span class="line">      <span class="keyword">if</span> (timeoutHandle !== noTimeout) &#123;</span><br><span class="line">        root.timeoutHandle = noTimeout</span><br><span class="line"></span><br><span class="line">        cancelTimeout(timeoutHandle)</span><br><span class="line">      &#125;</span><br><span class="line">      renderRoot(root, isYieldy)</span><br><span class="line">      finishedWork = root.finishedWork</span><br><span class="line">      <span class="keyword">if</span> (finishedWork !== <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!shouldYieldToRenderer()) &#123;</span><br><span class="line">          completeRoot(root, finishedWork, expirationTime)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          root.finishedWork = finishedWork</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  isRendering = <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="renderRoot"><a href="#renderRoot" class="headerlink" title="renderRoot"></a>renderRoot</h5><ul>
+<li>调用 workLoop 进行循环单元更新</li>
+<li>捕获错误并进行处理</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">renderRoot</span>(<span class="params">root: FiberRoot, isYieldy: boolean</span>): <span class="title">void</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  flushPassiveEffects();</span><br><span class="line"></span><br><span class="line">  isWorking = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">if</span> (enableHooks) &#123;</span><br><span class="line">    ReactCurrentOwner.currentDispatcher = Dispatcher;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    ReactCurrentOwner.currentDispatcher = DispatcherWithoutHooks;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> expirationTime = root.nextExpirationTimeToWorkOn;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    expirationTime !== nextRenderExpirationTime ||</span><br><span class="line">    root !== nextRoot ||</span><br><span class="line">    nextUnitOfWork === <span class="literal">null</span></span><br><span class="line">  ) &#123;</span><br><span class="line"></span><br><span class="line">    resetStack();</span><br><span class="line">    nextRoot = root;</span><br><span class="line">    nextRenderExpirationTime = expirationTime;</span><br><span class="line">    nextUnitOfWork = createWorkInProgress(<span class="comment">//当前的节点拷贝了一份</span></span><br><span class="line">      nextRoot.current,</span><br><span class="line">      <span class="literal">null</span>,</span><br><span class="line">      nextRenderExpirationTime,</span><br><span class="line">    );</span><br><span class="line">    root.pendingCommitExpirationTime = NoWork;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (enableSchedulerTracing) &#123;</span><br><span class="line">      <span class="keyword">const</span> interactions: <span class="built_in">Set</span>&lt;Interaction&gt; = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line">      root.pendingInteractionMap.forEach(</span><br><span class="line">        (scheduledInteractions, scheduledExpirationTime) =&gt; &#123;</span><br><span class="line">          <span class="keyword">if</span> (scheduledExpirationTime &gt;= expirationTime) &#123;</span><br><span class="line">            scheduledInteractions.forEach(<span class="function"><span class="params">interaction</span> =&gt;</span></span><br><span class="line">              interactions.add(interaction),</span><br><span class="line">            );</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">      );</span><br><span class="line"></span><br><span class="line">      root.memoizedInteractions = interactions;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (interactions.size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> subscriber = __subscriberRef.current;</span><br><span class="line">        <span class="keyword">if</span> (subscriber !== <span class="literal">null</span>) &#123;</span><br><span class="line">          <span class="keyword">const</span> threadID = computeThreadID(</span><br><span class="line">            expirationTime,</span><br><span class="line">            root.interactionThreadID,</span><br><span class="line">          );</span><br><span class="line">          <span class="keyword">try</span> &#123;</span><br><span class="line">            subscriber.onWorkStarted(interactions, threadID);</span><br><span class="line">          &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!hasUnhandledError) &#123;</span><br><span class="line">              hasUnhandledError = <span class="literal">true</span>;</span><br><span class="line">              unhandledError = error;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> prevInteractions: <span class="built_in">Set</span>&lt;Interaction&gt; = (<span class="literal">null</span>: any);</span><br><span class="line">  <span class="keyword">if</span> (enableSchedulerTracing) &#123;</span><br><span class="line">    prevInteractions = __interactionsRef.current;</span><br><span class="line">    __interactionsRef.current = root.memoizedInteractions;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> didFatal = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">  startWorkLoopTimer(nextUnitOfWork);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      workLoop(isYieldy);<span class="comment">//执行每个节点更新</span></span><br><span class="line">    &#125; <span class="keyword">catch</span> (thrownValue) &#123;</span><br><span class="line">      resetContextDependences();</span><br><span class="line">      resetHooks();</span><br><span class="line"></span><br><span class="line">      <span class="keyword">let</span> mayReplay;</span><br><span class="line"></span><br><span class="line">      ...</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (nextUnitOfWork === <span class="literal">null</span>) &#123;</span><br><span class="line">        didFatal = <span class="literal">true</span>;</span><br><span class="line">        onUncaughtError(thrownValue);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (enableProfilerTimer &amp;&amp; nextUnitOfWork.mode &amp; ProfileMode) &#123;</span><br><span class="line">          stopProfilerTimerIfRunningAndRecordDelta(nextUnitOfWork, <span class="literal">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">        invariant(</span><br><span class="line">          nextUnitOfWork !== <span class="literal">null</span>,</span><br><span class="line">          <span class="string">'Failed to replay rendering after an error. This '</span> +</span><br><span class="line">            <span class="string">'is likely caused by a bug in React. Please file an issue '</span> +</span><br><span class="line">            <span class="string">'with a reproducing case to help us find it.'</span>,</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> sourceFiber: Fiber = nextUnitOfWork;</span><br><span class="line">        <span class="keyword">let</span> returnFiber = sourceFiber.return;</span><br><span class="line">        <span class="keyword">if</span> (returnFiber === <span class="literal">null</span>) &#123;</span><br><span class="line">          didFatal = <span class="literal">true</span>;</span><br><span class="line">          onUncaughtError(thrownValue);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          throwException(</span><br><span class="line">            root,</span><br><span class="line">            returnFiber,</span><br><span class="line">            sourceFiber,</span><br><span class="line">            thrownValue,</span><br><span class="line">            nextRenderExpirationTime,</span><br><span class="line">          );</span><br><span class="line">          nextUnitOfWork = completeUnitOfWork(sourceFiber);</span><br><span class="line">          <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125; <span class="keyword">while</span> (<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (enableSchedulerTracing) &#123;</span><br><span class="line">    __interactionsRef.current = prevInteractions;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  isWorking = <span class="literal">false</span>;</span><br><span class="line">  ReactCurrentOwner.currentDispatcher = <span class="literal">null</span>;</span><br><span class="line">  resetContextDependences();</span><br><span class="line">  resetHooks();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (didFatal) &#123;</span><br><span class="line">    <span class="keyword">const</span> didCompleteRoot = <span class="literal">false</span>;</span><br><span class="line">    stopWorkLoopTimer(interruptedBy, didCompleteRoot);</span><br><span class="line">    interruptedBy = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    nextRoot = <span class="literal">null</span>;</span><br><span class="line">    onFatal(root);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (nextUnitOfWork !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> didCompleteRoot = <span class="literal">false</span>;</span><br><span class="line">    stopWorkLoopTimer(interruptedBy, didCompleteRoot);</span><br><span class="line">    interruptedBy = <span class="literal">null</span>;</span><br><span class="line">    onYield(root);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> didCompleteRoot = <span class="literal">true</span>;</span><br><span class="line">  stopWorkLoopTimer(interruptedBy, didCompleteRoot);</span><br><span class="line">  <span class="keyword">const</span> rootWorkInProgress = root.current.alternate;</span><br><span class="line">  invariant(</span><br><span class="line">    rootWorkInProgress !== <span class="literal">null</span>,</span><br><span class="line">    <span class="string">'Finished root should have a work-in-progress. This error is likely '</span> +</span><br><span class="line">      <span class="string">'caused by a bug in React. Please file an issue.'</span>,</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  nextRoot = <span class="literal">null</span>;</span><br><span class="line">  interruptedBy = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (nextRenderDidError) &#123;</span><br><span class="line">    <span class="keyword">if</span> (hasLowerPriorityWork(root, expirationTime)) &#123;</span><br><span class="line">      markSuspendedPriorityLevel(root, expirationTime);</span><br><span class="line">      <span class="keyword">const</span> suspendedExpirationTime = expirationTime;</span><br><span class="line">      <span class="keyword">const</span> rootExpirationTime = root.expirationTime;</span><br><span class="line">      onSuspend(</span><br><span class="line">        root,</span><br><span class="line">        rootWorkInProgress,</span><br><span class="line">        suspendedExpirationTime,</span><br><span class="line">        rootExpirationTime,</span><br><span class="line">        <span class="number">-1</span>, <span class="comment">// Indicates no timeout</span></span><br><span class="line">      );</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (</span><br><span class="line">      !root.didError &amp;&amp;</span><br><span class="line">      isYieldy</span><br><span class="line">    ) &#123;</span><br><span class="line">      root.didError = <span class="literal">true</span>;</span><br><span class="line">      <span class="keyword">const</span> suspendedExpirationTime = (root.nextExpirationTimeToWorkOn = expirationTime);</span><br><span class="line">      <span class="keyword">const</span> rootExpirationTime = (root.expirationTime = Sync);</span><br><span class="line">      onSuspend(</span><br><span class="line">        root,</span><br><span class="line">        rootWorkInProgress,</span><br><span class="line">        suspendedExpirationTime,</span><br><span class="line">        rootExpirationTime,</span><br><span class="line">        <span class="number">-1</span>, <span class="comment">// Indicates no timeout</span></span><br><span class="line">      );</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (isYieldy &amp;&amp; nextLatestAbsoluteTimeoutMs !== <span class="number">-1</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> suspendedExpirationTime = expirationTime;</span><br><span class="line">    markSuspendedPriorityLevel(root, suspendedExpirationTime);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> earliestExpirationTime = findEarliestOutstandingPriorityLevel(</span><br><span class="line">      root,</span><br><span class="line">      expirationTime,</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">const</span> earliestExpirationTimeMs = expirationTimeToMs(earliestExpirationTime);</span><br><span class="line">    <span class="keyword">if</span> (earliestExpirationTimeMs &lt; nextLatestAbsoluteTimeoutMs) &#123;</span><br><span class="line">      nextLatestAbsoluteTimeoutMs = earliestExpirationTimeMs;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> currentTimeMs = expirationTimeToMs(requestCurrentTime());</span><br><span class="line">    <span class="keyword">let</span> msUntilTimeout = nextLatestAbsoluteTimeoutMs - currentTimeMs;</span><br><span class="line">    msUntilTimeout = msUntilTimeout &lt; <span class="number">0</span> ? <span class="number">0</span> : msUntilTimeout;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> rootExpirationTime = root.expirationTime;</span><br><span class="line">    onSuspend(</span><br><span class="line">      root,</span><br><span class="line">      rootWorkInProgress,</span><br><span class="line">      suspendedExpirationTime,</span><br><span class="line">      rootExpirationTime,</span><br><span class="line">      msUntilTimeout,</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  onComplete(root, rootWorkInProgress, expirationTime);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>workLoop</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">workLoop</span>(<span class="params">isYieldy</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!isYieldy) &#123;</span><br><span class="line">    <span class="keyword">while</span> (nextUnitOfWork !== <span class="literal">null</span>) &#123;</span><br><span class="line">      nextUnitOfWork = performUnitOfWork(nextUnitOfWork)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">while</span> (nextUnitOfWork !== <span class="literal">null</span> &amp;&amp; !shouldYieldToRenderer()) &#123;</span><br><span class="line">      nextUnitOfWork = performUnitOfWork(nextUnitOfWork)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>performUnitOfWork</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">performUnitOfWork</span>(<span class="params">workInProgress: Fiber</span>): <span class="title">Fiber</span> | <span class="title">null</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> current = workInProgress.alternate;</span><br><span class="line">  startWorkTimer(workInProgress);</span><br><span class="line"></span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> next;</span><br><span class="line">  <span class="keyword">if</span> (enableProfilerTimer) &#123;</span><br><span class="line">    <span class="keyword">if</span> (workInProgress.mode &amp; ProfileMode) &#123;</span><br><span class="line">      startProfilerTimer(workInProgress);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    next = beginWork(current, workInProgress, nextRenderExpirationTime);<span class="comment">//每个节点的更新完返回下一个节点</span></span><br><span class="line">    workInProgress.memoizedProps = workInProgress.pendingProps;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (workInProgress.mode &amp; ProfileMode) &#123;</span><br><span class="line">      stopProfilerTimerIfRunningAndRecordDelta(workInProgress, <span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    next = beginWork(current, workInProgress, nextRenderExpirationTime);</span><br><span class="line">    workInProgress.memoizedProps = workInProgress.pendingProps;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">	...</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (next === <span class="literal">null</span>) &#123;<span class="comment">//说明更新完了当前层级的全部</span></span><br><span class="line">    next = completeUnitOfWork(workInProgress);<span class="comment">//具体更新节点渲染到DOM里</span></span><br><span class="line">  &#125;</span><br><span class="line">  ReactCurrentOwner.current = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">return</span> next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>beginWork</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">beginWork</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  current: Fiber | null,</span></span></span><br><span class="line"><span class="function"><span class="params">  workInProgress: Fiber,</span></span></span><br><span class="line"><span class="function"><span class="params">  renderExpirationTime: ExpirationTime</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">Fiber</span> | <span class="title">null</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> updateExpirationTime = workInProgress.expirationTime <span class="comment">//Fiber节点上的expirationTime</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (current !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> oldProps = current.memoizedProps</span><br><span class="line">    <span class="keyword">const</span> newProps = workInProgress.pendingProps</span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">      oldProps === newProps &amp;&amp;</span><br><span class="line">      !hasLegacyContextChanged() &amp;&amp;</span><br><span class="line">      updateExpirationTime &lt; renderExpirationTime</span><br><span class="line">    ) &#123;</span><br><span class="line">      <span class="comment">//无更新或者优先级不高</span></span><br><span class="line">      <span class="keyword">switch</span> (workInProgress.tag) &#123;</span><br><span class="line">        <span class="keyword">case</span> HostRoot:</span><br><span class="line">          pushHostRootContext(workInProgress)</span><br><span class="line">          resetHydrationState()</span><br><span class="line">          <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">case</span> HostComponent:</span><br><span class="line">          pushHostContext(workInProgress)</span><br><span class="line">          <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">case</span> ClassComponent: &#123;</span><br><span class="line">          <span class="keyword">const</span> Component = workInProgress.type</span><br><span class="line">          <span class="keyword">if</span> (isLegacyContextProvider(Component)) &#123;</span><br><span class="line">            pushLegacyContextProvider(workInProgress)</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> HostPortal:</span><br><span class="line">          pushHostContainer(</span><br><span class="line">            workInProgress,</span><br><span class="line">            workInProgress.stateNode.containerInfo</span><br><span class="line">          )</span><br><span class="line">          <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">case</span> ContextProvider: &#123;</span><br><span class="line">          <span class="keyword">const</span> newValue = workInProgress.memoizedProps.value</span><br><span class="line">          pushProvider(workInProgress, newValue)</span><br><span class="line">          <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> Profiler:</span><br><span class="line">          <span class="keyword">if</span> (enableProfilerTimer) &#123;</span><br><span class="line">            workInProgress.effectTag |= Update</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">case</span> SuspenseComponent: &#123;</span><br><span class="line">          <span class="keyword">const</span> state: SuspenseState | <span class="literal">null</span> = workInProgress.memoizedState</span><br><span class="line">          <span class="keyword">const</span> didTimeout = state !== <span class="literal">null</span></span><br><span class="line">          <span class="keyword">if</span> (didTimeout) &#123;</span><br><span class="line">            <span class="keyword">const</span> primaryChildFragment: Fiber = (workInProgress.child: any)</span><br><span class="line">            <span class="keyword">const</span> primaryChildExpirationTime =</span><br><span class="line">              primaryChildFragment.childExpirationTime</span><br><span class="line">            <span class="keyword">if</span> (</span><br><span class="line">              primaryChildExpirationTime !== NoWork &amp;&amp;</span><br><span class="line">              primaryChildExpirationTime &gt;= renderExpirationTime</span><br><span class="line">            ) &#123;</span><br><span class="line">              <span class="keyword">return</span> updateSuspenseComponent(</span><br><span class="line">                current,</span><br><span class="line">                workInProgress,</span><br><span class="line">                renderExpirationTime</span><br><span class="line">              )</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              <span class="keyword">const</span> child = bailoutOnAlreadyFinishedWork(</span><br><span class="line">                current,</span><br><span class="line">                workInProgress,</span><br><span class="line">                renderExpirationTime</span><br><span class="line">              )</span><br><span class="line">              <span class="keyword">if</span> (child !== <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> child.sibling</span><br><span class="line">              &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> bailoutOnAlreadyFinishedWork(</span><br><span class="line">        current,</span><br><span class="line">        workInProgress,</span><br><span class="line">        renderExpirationTime</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  workInProgress.expirationTime = NoWork</span><br><span class="line"></span><br><span class="line">  <span class="keyword">switch</span> (workInProgress.tag) &#123;</span><br><span class="line">    <span class="keyword">case</span> IndeterminateComponent: &#123;</span><br><span class="line">      <span class="keyword">const</span> elementType = workInProgress.elementType</span><br><span class="line">      <span class="keyword">return</span> mountIndeterminateComponent(</span><br><span class="line">        current,</span><br><span class="line">        workInProgress,</span><br><span class="line">        elementType,</span><br><span class="line">        renderExpirationTime</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> LazyComponent: &#123;</span><br><span class="line">      <span class="keyword">const</span> elementType = workInProgress.elementType</span><br><span class="line">      <span class="keyword">return</span> mountLazyComponent(</span><br><span class="line">        current,</span><br><span class="line">        workInProgress,</span><br><span class="line">        elementType,</span><br><span class="line">        updateExpirationTime,</span><br><span class="line">        renderExpirationTime</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> FunctionComponent: &#123;</span><br><span class="line">      <span class="keyword">const</span> Component = workInProgress.type</span><br><span class="line">      <span class="keyword">const</span> unresolvedProps = workInProgress.pendingProps</span><br><span class="line">      <span class="keyword">const</span> resolvedProps =</span><br><span class="line">        workInProgress.elementType === Component</span><br><span class="line">          ? unresolvedProps</span><br><span class="line">          : resolveDefaultProps(Component, unresolvedProps)</span><br><span class="line">      <span class="keyword">return</span> updateFunctionComponent(</span><br><span class="line">        current,</span><br><span class="line">        workInProgress,</span><br><span class="line">        Component,</span><br><span class="line">        resolvedProps,</span><br><span class="line">        renderExpirationTime</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> ClassComponent: &#123;</span><br><span class="line">      <span class="keyword">const</span> Component = workInProgress.type</span><br><span class="line">      <span class="keyword">const</span> unresolvedProps = workInProgress.pendingProps</span><br><span class="line">      <span class="keyword">const</span> resolvedProps =</span><br><span class="line">        workInProgress.elementType === Component</span><br><span class="line">          ? unresolvedProps</span><br><span class="line">          : resolveDefaultProps(Component, unresolvedProps)</span><br><span class="line">      <span class="keyword">return</span> updateClassComponent(</span><br><span class="line">        current,</span><br><span class="line">        workInProgress,</span><br><span class="line">        Component,</span><br><span class="line">        resolvedProps,</span><br><span class="line">        renderExpirationTime</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> HostRoot:</span><br><span class="line">      <span class="keyword">return</span> updateHostRoot(current, workInProgress, renderExpirationTime)</span><br><span class="line">    <span class="keyword">case</span> HostComponent:</span><br><span class="line">      <span class="keyword">return</span> updateHostComponent(current, workInProgress, renderExpirationTime)</span><br><span class="line">    <span class="keyword">case</span> HostText:</span><br><span class="line">      <span class="keyword">return</span> updateHostText(current, workInProgress)</span><br><span class="line">    <span class="keyword">case</span> SuspenseComponent:</span><br><span class="line">      <span class="keyword">return</span> updateSuspenseComponent(</span><br><span class="line">        current,</span><br><span class="line">        workInProgress,</span><br><span class="line">        renderExpirationTime</span><br><span class="line">      )</span><br><span class="line">    <span class="keyword">case</span> HostPortal:</span><br><span class="line">      <span class="keyword">return</span> updatePortalComponent(</span><br><span class="line">        current,</span><br><span class="line">        workInProgress,</span><br><span class="line">        renderExpirationTime</span><br><span class="line">      )</span><br><span class="line">    <span class="keyword">case</span> ForwardRef: &#123;</span><br><span class="line">      <span class="keyword">const</span> type = workInProgress.type</span><br><span class="line">      <span class="keyword">const</span> unresolvedProps = workInProgress.pendingProps</span><br><span class="line">      <span class="keyword">const</span> resolvedProps =</span><br><span class="line">        workInProgress.elementType === type</span><br><span class="line">          ? unresolvedProps</span><br><span class="line">          : resolveDefaultProps(type, unresolvedProps)</span><br><span class="line">      <span class="keyword">return</span> updateForwardRef(</span><br><span class="line">        current,</span><br><span class="line">        workInProgress,</span><br><span class="line">        type,</span><br><span class="line">        resolvedProps,</span><br><span class="line">        renderExpirationTime</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> Fragment:</span><br><span class="line">      <span class="keyword">return</span> updateFragment(current, workInProgress, renderExpirationTime)</span><br><span class="line">    <span class="keyword">case</span> Mode:</span><br><span class="line">      <span class="keyword">return</span> updateMode(current, workInProgress, renderExpirationTime)</span><br><span class="line">    <span class="keyword">case</span> Profiler:</span><br><span class="line">      <span class="keyword">return</span> updateProfiler(current, workInProgress, renderExpirationTime)</span><br><span class="line">    <span class="keyword">case</span> ContextProvider:</span><br><span class="line">      <span class="keyword">return</span> updateContextProvider(</span><br><span class="line">        current,</span><br><span class="line">        workInProgress,</span><br><span class="line">        renderExpirationTime</span><br><span class="line">      )</span><br><span class="line">    <span class="keyword">case</span> ContextConsumer:</span><br><span class="line">      <span class="keyword">return</span> updateContextConsumer(</span><br><span class="line">        current,</span><br><span class="line">        workInProgress,</span><br><span class="line">        renderExpirationTime</span><br><span class="line">      )</span><br><span class="line">    <span class="keyword">case</span> MemoComponent: &#123;</span><br><span class="line">      <span class="keyword">const</span> type = workInProgress.type</span><br><span class="line">      <span class="keyword">const</span> unresolvedProps = workInProgress.pendingProps</span><br><span class="line">      <span class="keyword">const</span> resolvedProps = resolveDefaultProps(type.type, unresolvedProps)</span><br><span class="line">      <span class="keyword">return</span> updateMemoComponent(</span><br><span class="line">        current,</span><br><span class="line">        workInProgress,</span><br><span class="line">        type,</span><br><span class="line">        resolvedProps,</span><br><span class="line">        updateExpirationTime,</span><br><span class="line">        renderExpirationTime</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> SimpleMemoComponent: &#123;</span><br><span class="line">      <span class="keyword">return</span> updateSimpleMemoComponent(</span><br><span class="line">        current,</span><br><span class="line">        workInProgress,</span><br><span class="line">        workInProgress.type,</span><br><span class="line">        workInProgress.pendingProps,</span><br><span class="line">        updateExpirationTime,</span><br><span class="line">        renderExpirationTime</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> IncompleteClassComponent: &#123;</span><br><span class="line">      <span class="keyword">const</span> Component = workInProgress.type</span><br><span class="line">      <span class="keyword">const</span> unresolvedProps = workInProgress.pendingProps</span><br><span class="line">      <span class="keyword">const</span> resolvedProps =</span><br><span class="line">        workInProgress.elementType === Component</span><br><span class="line">          ? unresolvedProps</span><br><span class="line">          : resolveDefaultProps(Component, unresolvedProps)</span><br><span class="line">      <span class="keyword">return</span> mountIncompleteClassComponent(</span><br><span class="line">        current,</span><br><span class="line">        workInProgress,</span><br><span class="line">        Component,</span><br><span class="line">        resolvedProps,</span><br><span class="line">        renderExpirationTime</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      invariant(</span><br><span class="line">        <span class="literal">false</span>,</span><br><span class="line">        <span class="string">'Unknown unit of work tag. This error is likely caused by a bug in '</span> +</span><br><span class="line">          <span class="string">'React. Please file an issue.'</span></span><br><span class="line">      )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>bailoutOnAlreadyFinishedWork</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bailoutOnAlreadyFinishedWork</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  current: Fiber | null,</span></span></span><br><span class="line"><span class="function"><span class="params">  workInProgress: Fiber,</span></span></span><br><span class="line"><span class="function"><span class="params">  renderExpirationTime: ExpirationTime</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">Fiber</span> | <span class="title">null</span> </span>&#123;</span><br><span class="line">  cancelWorkTimer(workInProgress)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (current !== <span class="literal">null</span>) &#123;</span><br><span class="line">    workInProgress.firstContextDependency = current.firstContextDependency</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (enableProfilerTimer) &#123;</span><br><span class="line">    stopProfilerTimerIfRunning(workInProgress)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> childExpirationTime = workInProgress.childExpirationTime</span><br><span class="line">  <span class="keyword">if</span> (childExpirationTime &lt; renderExpirationTime) &#123;</span><br><span class="line">    <span class="comment">//说明无更新</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    cloneChildFibers(current, workInProgress) <span class="comment">//自己无更新，子节点也无更新，拷贝子节点就好了</span></span><br><span class="line">    <span class="keyword">return</span> workInProgress.child</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="mountChildFibers-和-reconcileChildFibers"><a href="#mountChildFibers-和-reconcileChildFibers" class="headerlink" title="mountChildFibers 和 reconcileChildFibers"></a>mountChildFibers 和 reconcileChildFibers</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reconcileChildFibers = ChildReconciler(<span class="literal">true</span>);</span><br><span class="line"><span class="keyword">var</span> mountChildFibers = ChildReconciler(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ChildReconciler</span>(<span class="params">shouldTrackSideEffects</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">reconcileChildFibers</span>(<span class="params">returnFiber, currentFirstChild, newChild, expirationTime</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">var</span> isUnkeyedTopLevelFragment = <span class="keyword">typeof</span> newChild === <span class="string">'object'</span> &amp;&amp; newChild !== <span class="literal">null</span> &amp;&amp; newChild.type === REACT_FRAGMENT_TYPE &amp;&amp; newChild.key === <span class="literal">null</span>;</span><br><span class="line">      <span class="keyword">if</span> (isUnkeyedTopLevelFragment) &#123;</span><br><span class="line">        newChild = newChild.props.children;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Handle object types</span></span><br><span class="line">      <span class="keyword">var</span> isObject = <span class="keyword">typeof</span> newChild === <span class="string">'object'</span> &amp;&amp; newChild !== <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (isObject) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (newChild.$$<span class="keyword">typeof</span>) &#123;</span><br><span class="line">          <span class="keyword">case</span> REACT_ELEMENT_TYPE:</span><br><span class="line">            <span class="keyword">return</span> placeSingleChild(reconcileSingleElement(returnFiber, currentFirstChild, newChild, expirationTime));</span><br><span class="line">          <span class="keyword">case</span> REACT_PORTAL_TYPE:</span><br><span class="line">            <span class="keyword">return</span> placeSingleChild(reconcileSinglePortal(returnFiber, currentFirstChild, newChild, expirationTime));</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> newChild === <span class="string">'string'</span> || <span class="keyword">typeof</span> newChild === <span class="string">'number'</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> placeSingleChild(reconcileSingleTextNode(returnFiber, currentFirstChild, <span class="string">''</span> + newChild, expirationTime));</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (isArray(newChild)) &#123;</span><br><span class="line">        <span class="keyword">return</span> reconcileChildrenArray(returnFiber, currentFirstChild, newChild, expirationTime);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (getIteratorFn(newChild)) &#123;</span><br><span class="line">        <span class="keyword">return</span> reconcileChildrenIterator(returnFiber, currentFirstChild, newChild, expirationTime);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (isObject) &#123;</span><br><span class="line">        throwOnInvalidObjectType(returnFiber, newChild);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> newChild === <span class="string">'function'</span>) &#123;</span><br><span class="line">          warnOnFunctionType();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> newChild === <span class="string">'undefined'</span> &amp;&amp; !isUnkeyedTopLevelFragment) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (returnFiber.tag) &#123;</span><br><span class="line">          <span class="keyword">case</span> ClassComponent:</span><br><span class="line">            &#123;</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="keyword">var</span> instance = returnFiber.stateNode;</span><br><span class="line">                <span class="keyword">if</span> (instance.render._isMockFunction) &#123;</span><br><span class="line">                  <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          <span class="keyword">case</span> FunctionComponent:</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="keyword">var</span> Component = returnFiber.type;</span><br><span class="line">              invariant(<span class="literal">false</span>, <span class="string">'%s(...): Nothing was returned from render. This usually means a return statement is missing. Or, to render nothing, return null.'</span>, Component.displayName || Component.name || <span class="string">'Component'</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> deleteRemainingChildren(returnFiber, currentFirstChild);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> reconcileChildFibers;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="updateSlot"><a href="#updateSlot" class="headerlink" title="updateSlot"></a>updateSlot</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateSlot</span>(<span class="params">returnFiber, oldFiber, newChild, expirationTime</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> key = oldFiber !== <span class="literal">null</span> ? oldFiber.key : <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> newChild === <span class="string">'string'</span> || <span class="keyword">typeof</span> newChild === <span class="string">'number'</span>) &#123;</span><br><span class="line">    <span class="comment">//如果是string或者number</span></span><br><span class="line">    <span class="keyword">if</span> (key !== <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="comment">//老的节点是有key</span></span><br><span class="line">      <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> updateTextNode(returnFiber, oldFiber, <span class="string">''</span> + newChild, expirationTime) <span class="comment">//直接复用</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> newChild === <span class="string">'object'</span> &amp;&amp; newChild !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">switch</span> (newChild.$$<span class="keyword">typeof</span>) &#123;</span><br><span class="line">      <span class="keyword">case</span> REACT_ELEMENT_TYPE: &#123;</span><br><span class="line">        <span class="keyword">if</span> (newChild.key === key) &#123;</span><br><span class="line">          <span class="comment">//key一样复用</span></span><br><span class="line">          <span class="keyword">if</span> (newChild.type === REACT_FRAGMENT_TYPE) &#123;</span><br><span class="line">            <span class="keyword">return</span> updateFragment(</span><br><span class="line">              returnFiber,</span><br><span class="line">              oldFiber,</span><br><span class="line">              newChild.props.children,</span><br><span class="line">              expirationTime,</span><br><span class="line">              key</span><br><span class="line">            )</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">return</span> updateElement(returnFiber, oldFiber, newChild, expirationTime)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">case</span> REACT_PORTAL_TYPE: &#123;</span><br><span class="line">        <span class="keyword">if</span> (newChild.key === key) &#123;</span><br><span class="line">          <span class="comment">//key一样复用</span></span><br><span class="line">          <span class="keyword">return</span> updatePortal(returnFiber, oldFiber, newChild, expirationTime)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isArray(newChild) || getIteratorFn(newChild)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (key !== <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> updateFragment(</span><br><span class="line">        returnFiber,</span><br><span class="line">        oldFiber,</span><br><span class="line">        newChild,</span><br><span class="line">        expirationTime,</span><br><span class="line">        <span class="literal">null</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    throwOnInvalidObjectType(returnFiber, newChild)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> newChild === <span class="string">'function'</span>) &#123;</span><br><span class="line">      warnOnFunctionType()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>updateClassComponent</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateClassComponent</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  current: Fiber | null,</span></span></span><br><span class="line"><span class="function"><span class="params">  workInProgress: Fiber,</span></span></span><br><span class="line"><span class="function"><span class="params">  Component: any,</span></span></span><br><span class="line"><span class="function"><span class="params">  nextProps,</span></span></span><br><span class="line"><span class="function"><span class="params">  renderExpirationTime: ExpirationTime</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> hasContext</span><br><span class="line">  <span class="keyword">if</span> (isLegacyContextProvider(Component)) &#123;</span><br><span class="line">    hasContext = <span class="literal">true</span></span><br><span class="line">    pushLegacyContextProvider(workInProgress)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    hasContext = <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">  prepareToReadContext(workInProgress, renderExpirationTime)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> instance = workInProgress.stateNode</span><br><span class="line">  <span class="keyword">let</span> shouldUpdate</span><br><span class="line">  <span class="keyword">if</span> (instance === <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="comment">//没被创建为null</span></span><br><span class="line">    <span class="keyword">if</span> (current !== <span class="literal">null</span>) &#123;</span><br><span class="line">      current.alternate = <span class="literal">null</span></span><br><span class="line">      workInProgress.alternate = <span class="literal">null</span></span><br><span class="line">      workInProgress.effectTag |= Placement</span><br><span class="line">    &#125;</span><br><span class="line">    constructClassInstance(</span><br><span class="line">      workInProgress,</span><br><span class="line">      Component,</span><br><span class="line">      nextProps,</span><br><span class="line">      renderExpirationTime</span><br><span class="line">    )</span><br><span class="line">    mountClassInstance(</span><br><span class="line">      workInProgress,</span><br><span class="line">      Component,</span><br><span class="line">      nextProps,</span><br><span class="line">      renderExpirationTime</span><br><span class="line">    )</span><br><span class="line">    shouldUpdate = <span class="literal">true</span></span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (current === <span class="literal">null</span>) &#123;</span><br><span class="line">    shouldUpdate = resumeMountClassInstance(</span><br><span class="line">      workInProgress,</span><br><span class="line">      Component,</span><br><span class="line">      nextProps,</span><br><span class="line">      renderExpirationTime</span><br><span class="line">    )</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    shouldUpdate = updateClassInstance(</span><br><span class="line">      current,</span><br><span class="line">      workInProgress,</span><br><span class="line">      Component,</span><br><span class="line">      nextProps,</span><br><span class="line">      renderExpirationTime</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> finishClassComponent(</span><br><span class="line">    current,</span><br><span class="line">    workInProgress,</span><br><span class="line">    Component,</span><br><span class="line">    shouldUpdate,</span><br><span class="line">    hasContext,</span><br><span class="line">    renderExpirationTime</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://juejin.im/post/5ad71f39f265da239f07e862" target="_blank" rel="noopener">requestIdleCallback</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/react源码过程/" rel="tag"># react源码过程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/31/react源码过程（3）-更新/" rel="next" title="react源码过程（3）- 更新">
+                <i class="fa fa-chevron-left"></i> react源码过程（3）- 更新
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/10/webpack4-babel7项目构建/" rel="prev" title="webpack4 + babel7 + Vue2.x">
+                webpack4 + babel7 + Vue2.x <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">139</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#任务调度"><span class="nav-number">1.</span> <span class="nav-text">任务调度</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#scheduleWork"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">scheduleWork</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#requestWork"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">requestWork</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#batchedUpdates"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">batchedUpdates</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#React-Scheduler"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">React Scheduler</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#renderRoot"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">renderRoot</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#mountChildFibers-和-reconcileChildFibers"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">mountChildFibers 和 reconcileChildFibers</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#updateSlot"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">updateSlot</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">2.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

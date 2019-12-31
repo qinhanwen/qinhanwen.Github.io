@@ -102,12 +102,12 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="定义发布订阅模式理念和观察者模式相同，但是处理方式上不同：订阅者把自己想订阅的事件注册到调度中心，当该事件触发时候，发布者发布该事件到调度中心（顺带上下文），由调度中心统一调度订阅者注册到调度中心的处理代码。  双向解耦，发布者和订阅者都不用清楚对方，全部由订阅中心做处理。 实现123456789101112131415161718192021222324252627282930313233343">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190825-011607@2x.png">
-<meta property="og:updated_time" content="2019-09-08T14:53:36.639Z">
+<meta property="og:image" content="http://118.24.241.76/WX20190825-011607@2x.png">
+<meta property="og:updated_time" content="2019-12-30T03:32:10.199Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript设计模式-发布订阅模式">
 <meta name="twitter:description" content="定义发布订阅模式理念和观察者模式相同，但是处理方式上不同：订阅者把自己想订阅的事件注册到调度中心，当该事件触发时候，发布者发布该事件到调度中心（顺带上下文），由调度中心统一调度订阅者注册到调度中心的处理代码。  双向解耦，发布者和订阅者都不用清楚对方，全部由订阅中心做处理。 实现123456789101112131415161718192021222324252627282930313233343">
-<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20190825-011607@2x.png">
+<meta name="twitter:image" content="http://118.24.241.76/WX20190825-011607@2x.png">
 
 
 
@@ -375,7 +375,7 @@
 
       
         <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>发布订阅模式理念和观察者模式相同，但是处理方式上不同：订阅者把自己想订阅的事件注册到调度中心，当该事件触发时候，发布者发布该事件到调度中心（顺带上下文），由调度中心统一调度订阅者注册到调度中心的处理代码。</p>
-<p><img src="http://www.qinhanwen.xyz/WX20190825-011607@2x.png" alt="WX20190825-011607@2x"></p>
+<p><img src="http://118.24.241.76/WX20190825-011607@2x.png" alt="WX20190825-011607@2x"></p>
 <p>双向解耦，发布者和订阅者都不用清楚对方，全部由订阅中心做处理。</p>
 <h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Event = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> clientList = &#123;&#125;, listen, trigger, remove;</span><br><span class="line">    listen = <span class="function"><span class="keyword">function</span> (<span class="params">key, fn</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!clientList[key]) &#123;</span><br><span class="line">            clientList[key] = [];</span><br><span class="line">        &#125;</span><br><span class="line">        clientList[key].push(fn);</span><br><span class="line">    &#125;</span><br><span class="line">    trigger = <span class="function"><span class="keyword">function</span> (<span class="params">key, ...args</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> key = <span class="built_in">Array</span>.prototype.shift.call(<span class="built_in">arguments</span>);</span><br><span class="line">        <span class="keyword">var</span> fns = clientList[key];</span><br><span class="line">        <span class="keyword">if</span> (fns &amp;&amp; fns.length) &#123;</span><br><span class="line">            fns.forEach(<span class="function"><span class="params">fn</span> =&gt;</span> &#123;</span><br><span class="line">                fn(...args);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    remove = <span class="function"><span class="keyword">function</span> (<span class="params">key, fn</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> fns = clientList[key];</span><br><span class="line">        <span class="keyword">if</span> (fns &amp;&amp; fns.length) &#123;</span><br><span class="line">            <span class="keyword">var</span> index = fns.findIndex(<span class="function"><span class="params">_fn</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> _fn !== fn</span><br><span class="line">            &#125;);</span><br><span class="line">            fns.splice(index, <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        listen,</span><br><span class="line">        trigger,</span><br><span class="line">        remove</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getSalary</span>(<span class="params">salary</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(salary);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Event.listen(<span class="string">'A'</span>, getSalary);</span><br><span class="line">Event.trigger(<span class="string">'A'</span>, <span class="number">1000</span>);</span><br><span class="line">Event.remove(<span class="string">'A'</span>, getSalary);</span><br><span class="line">Event.trigger(<span class="string">'A'</span>, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
 <p><code>ionic</code>中的<code>Events</code>实现</p>
@@ -645,7 +645,7 @@ exports.setupProvideEvents = setupProvideEvents;
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">132</span>
+                <span class="site-state-item-count">139</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -656,7 +656,7 @@ exports.setupProvideEvents = setupProvideEvents;
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -667,7 +667,7 @@ exports.setupProvideEvents = setupProvideEvents;
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

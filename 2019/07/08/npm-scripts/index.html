@@ -102,14 +102,14 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="npm scripts https://blog.51cto.com/sunspot/1265650 Node.js process  npm脚本npm 允许在package.json文件里面，使用scripts字段定义脚本命令。 12345... &quot;scripts&quot;: &amp;#123;    &quot;build&quot;: &quot;node build.js&quot;  &amp;#125;... 通过npm run &amp;lt;com">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190701-125659@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190710-095011@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190710-110522@2x.png">
-<meta property="og:updated_time" content="2019-09-08T14:53:36.478Z">
+<meta property="og:image" content="http://118.24.241.76/WX20190701-125659@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190710-095011@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190710-110522@2x.png">
+<meta property="og:updated_time" content="2019-12-30T03:32:10.105Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="npm scripts">
 <meta name="twitter:description" content="npm scripts https://blog.51cto.com/sunspot/1265650 Node.js process  npm脚本npm 允许在package.json文件里面，使用scripts字段定义脚本命令。 12345... &quot;scripts&quot;: &amp;#123;    &quot;build&quot;: &quot;node build.js&quot;  &amp;#125;... 通过npm run &amp;lt;com">
-<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20190701-125659@2x.png">
+<meta name="twitter:image" content="http://118.24.241.76/WX20190701-125659@2x.png">
 
 
 
@@ -387,7 +387,7 @@
 <p>为什么将当前目录的<code>node_modules/.bin</code>子目录加入<code>PATH</code>变量？</p>
 <p>因为命令执行的时候会在PATH环境变量里包含的路径中去寻找相同名字的可执行文件。局部安装的包只在<code>./node_modules/.bin</code>目录下注册了它们的可执行文件，不会被包含在<code>PATH</code>环境变量中，例如：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> webpack </span><br><span class="line"><span class="meta">#</span>zsh: command not found: webpack</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> node_modules/.bin/webpack</span><br></pre></td></tr></table></figure>
-<p><img src="http://www.qinhanwen.xyz/WX20190701-125659@2x.png" alt="WX20190701-125659@2x"></p>
+<p><img src="http://118.24.241.76/WX20190701-125659@2x.png" alt="WX20190701-125659@2x"></p>
 <p>两种方式运行env（查询环境变量）</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> env</span><br><span class="line"><span class="meta">#</span>PATH=/Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/qinhanwen/.nvm/versions/node/v6.11.2/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin</span><br></pre></td></tr></table></figure>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm run env</span><br><span class="line"><span class="meta">#</span>PATH=/Users/qinhanwen/.nvm/versions/node/v6.11.2/lib/node_modules/npm/bin/node-gyp-bin:/Users/qinhanwen/npm-study-qhw/node_modules/.bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/qinhanwen/.nvm/versions/node/v6.11.2/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin</span><br></pre></td></tr></table></figure>
@@ -395,12 +395,12 @@
 <h2 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h2><p>由于 npm 脚本就是 Shell 脚本，因为可以使用 Shell 通配符。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">"scripts": &#123;</span><br><span class="line">  "lint": "jshint *.js"</span><br><span class="line">&#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>jshint：代码检查工具，<code>npm run lint</code>执行脚本，会检查根目录下的js文件 </p>
-<p><img src="http://www.qinhanwen.xyz/WX20190710-095011@2x.png" alt="WX20190710-095011@2x"></p>
+<p><img src="http://118.24.241.76/WX20190710-095011@2x.png" alt="WX20190710-095011@2x"></p>
 <h2 id="传参"><a href="#传参" class="headerlink" title="传参"></a>传参</h2><p>向 npm 脚本传入参数，要使用<code>--</code>标明。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">"scripts": &#123;</span><br><span class="line">   "argv": "node index.js --qinhanwen"</span><br><span class="line"> &#125;,</span><br><span class="line"> ...</span><br></pre></td></tr></table></figure>
 <p>index.js</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(process.argv);</span><br></pre></td></tr></table></figure>
-<p><img src="http://www.qinhanwen.xyz/WX20190710-110522@2x.png" alt="WX20190710-110522@2x"></p>
+<p><img src="http://118.24.241.76/WX20190710-110522@2x.png" alt="WX20190710-110522@2x"></p>
 <p><strong>process </strong>是一个全局变量，即 global 对象的属性。它用于描述当前 Node.js 进程状态的对象，提供了一个与操作系统的简单接口。</p>
 <p><strong>process.argv</strong>： 读取命令行参数。第一个元素是’node’，第二个元素是JavaScript文件的文件名。接下来的元素则是附加的命令行参数</p>
 <h2 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h2><p>如果 npm 脚本里面需要执行多个任务，那么需要明确它们的执行顺序。</p>
@@ -550,7 +550,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">132</span>
+                <span class="site-state-item-count">139</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -561,7 +561,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -572,7 +572,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

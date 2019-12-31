@@ -102,13 +102,13 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="在了解了事件循环与Promise之后，觉得有必要了解一下async与await。 https://juejin.im/post/5c0dcf70518825765548502b 描述​    当调用一个 async 函数时，会返回一个 Promise 对象。当这个 async 函数返回一个值时，Promise 的 resolve 方法会负责传递这个值；当 async 函数抛出异常时，Promise">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190220-181141@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190220-182856@2x.png">
-<meta property="og:updated_time" content="2019-11-05T03:08:57.916Z">
+<meta property="og:image" content="http://118.24.241.76/WX20190220-181141@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190220-182856@2x.png">
+<meta property="og:updated_time" content="2019-12-30T03:32:10.192Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="async与await">
 <meta name="twitter:description" content="在了解了事件循环与Promise之后，觉得有必要了解一下async与await。 https://juejin.im/post/5c0dcf70518825765548502b 描述​    当调用一个 async 函数时，会返回一个 Promise 对象。当这个 async 函数返回一个值时，Promise 的 resolve 方法会负责传递这个值；当 async 函数抛出异常时，Promise">
-<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20190220-181141@2x.png">
+<meta name="twitter:image" content="http://118.24.241.76/WX20190220-181141@2x.png">
 
 
 
@@ -382,12 +382,12 @@
 <h3 id="async"><a href="#async" class="headerlink" title="async"></a>async</h3><h4 id="定义一个异步函数"><a href="#定义一个异步函数" class="headerlink" title="定义一个异步函数"></a>定义一个异步函数</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'qinhanwen'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'qinhanwen'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> name = getName();</span><br><span class="line"><span class="built_in">console</span>.log(name);</span><br><span class="line">name.then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;<span class="built_in">console</span>.log(data)&#125;)<span class="comment">//qinhanwen</span></span><br></pre></td></tr></table></figure>
 <p>打印的name如图：</p>
-<p><img src="http://www.qinhanwen.xyz/WX20190220-181141@2x.png" alt="WX20190220-181141@2x"></p>
+<p><img src="http://118.24.241.76/WX20190220-181141@2x.png" alt="WX20190220-181141@2x"></p>
 <p>可以看到返回的是一个Promise对象（async函数默认返回就是一个Promise对象），它的<code>status</code>是<code>resolved</code>，<code>value</code>是<code>qinhanwen</code>。当<code>status</code>为<code>resolved</code>的时候，<code>value</code>是会往下传递的，下一个<code>.then(onfullfiled)</code>的中的<code>onfullfiled</code>的参数。</p>
 <p>如果异步函数体内报错，则会返回一个<code>status</code>为<code>rejected</code>的Promise对象</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">   	<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> name = getName();</span><br><span class="line"><span class="built_in">console</span>.log(name);</span><br><span class="line">name.catch(<span class="function"><span class="params">reason</span> =&gt;</span> <span class="built_in">console</span>.log(reason));</span><br><span class="line">	<span class="comment">//Error</span></span><br><span class="line">    <span class="comment">//at getName (VM25244 Script snippet %232:2)</span></span><br><span class="line">	<span class="comment">//at VM25244 Script snippet %232:6</span></span><br></pre></td></tr></table></figure>
 <p>打印的name如图：</p>
-<p><img src="http://www.qinhanwen.xyz/WX20190220-182856@2x.png" alt="WX20190220-182856@2x"></p>
+<p><img src="http://118.24.241.76/WX20190220-182856@2x.png" alt="WX20190220-182856@2x"></p>
 <p>抛出的错误会被catch方法的回调接收到</p>
 <h3 id="await"><a href="#await" class="headerlink" title="await"></a>await</h3><p>1.await只能在async函数内使用</p>
 <p>2.所有的await的函数执行完之后，才能知道async函数返回的Promise对象的<code>status</code>是<code>resolved</code>还是<code>rejected</code></p>
@@ -512,7 +512,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">132</span>
+                <span class="site-state-item-count">139</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -523,7 +523,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -534,7 +534,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

@@ -102,18 +102,18 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="1️⃣、请选择一个你比较熟悉的 cordova 插件，介绍其功能、使用方式及运行原理。 插件：cordova-plugin-camera 功能：供照相机API与设备相机进行交互 调用示例和参数： 1navigator.camera.getPicture(cameraSuccess, cameraError, cameraOptions);    Name Type Default Descript">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190128-183902@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190128-184112@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190130-185249@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190129-124901@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190129-125233@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190714-224039@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190714-224654@2x.png">
-<meta property="og:updated_time" content="2019-09-08T14:53:36.478Z">
+<meta property="og:image" content="http://118.24.241.76/WX20190128-183902@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190128-184112@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190130-185249@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190129-124901@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190129-125233@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190714-224039@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190714-224654@2x.png">
+<meta property="og:updated_time" content="2019-12-30T03:32:10.197Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大前端混合应用专题篇(4)">
 <meta name="twitter:description" content="1️⃣、请选择一个你比较熟悉的 cordova 插件，介绍其功能、使用方式及运行原理。 插件：cordova-plugin-camera 功能：供照相机API与设备相机进行交互 调用示例和参数： 1navigator.camera.getPicture(cameraSuccess, cameraError, cameraOptions);    Name Type Default Descript">
-<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20190128-183902@2x.png">
+<meta name="twitter:image" content="http://118.24.241.76/WX20190128-183902@2x.png">
 
 
 
@@ -475,17 +475,17 @@
 <p>2.安装<code>ngCordova</code>（也可以忽略），这个其实就是多封装了一层promise的</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#安装ngCordova</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> bower install ngCordova</span></span><br></pre></td></tr></table></figure>
 <p>3.引入js文件，同时引入了cordova.js</p>
-<p><img src="http://www.qinhanwen.xyz/WX20190128-183902@2x.png" alt="WX20190128-183902@2x"></p>
+<p><img src="http://118.24.241.76/WX20190128-183902@2x.png" alt="WX20190128-183902@2x"></p>
 <p>4.注入</p>
-<p><img src="http://www.qinhanwen.xyz/WX20190128-184112@2x.png" alt="WX20190128-184112@2x"></p>
+<p><img src="http://118.24.241.76/WX20190128-184112@2x.png" alt="WX20190128-184112@2x"></p>
 <p>5.添加平台并且安装插件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#添加平台</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ionic cordova platform add ios</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#安装插件</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cordova plugin add cordova-plugin-camera</span></span><br></pre></td></tr></table></figure>
 <p>6.真机调试（调试前可以修改使用UIWebView还是WkWebView）</p>
-<p><img src="http://www.qinhanwen.xyz/WX20190130-185249@2x.png" alt="WX20190130-185249@2x"></p>
+<p><img src="http://118.24.241.76/WX20190130-185249@2x.png" alt="WX20190130-185249@2x"></p>
 <p>使用xcode安装到手机上，接着碰到一个问题导致调用插件的时候app直接闪退</p>
-<p><img src="http://www.qinhanwen.xyz/WX20190129-124901@2x.png" alt="WX20190129-124901@2x"></p>
+<p><img src="http://118.24.241.76/WX20190129-124901@2x.png" alt="WX20190129-124901@2x"></p>
 <p>解决方案：</p>
-<p><img src="http://www.qinhanwen.xyz/WX20190129-125233@2x.png" alt="WX20190129-125233@2x"></p>
+<p><img src="http://118.24.241.76/WX20190129-125233@2x.png" alt="WX20190129-125233@2x"></p>
 <p>7.在要使用插件的模块注入。</p>
 <p>8.启动执行过程</p>
 <p>1）前端加载 <code>cordova.js</code></p>
@@ -504,7 +504,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install -g plugman</span></span><br></pre></td></tr></table></figure>
 <p>2.创建插件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> plugman create --name EchoPlugin --plugin_id com.joker.cordova --plugin_version 1.0.0</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://www.qinhanwen.xyz/WX20190714-224039@2x.png" alt="WX20190714-224039@2x"></p>
+<p><img src="http://118.24.241.76/WX20190714-224039@2x.png" alt="WX20190714-224039@2x"></p>
 <p>3.<code>plugin.xml</code>内容</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version='1.0' encoding='utf-8'?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">plugin</span> <span class="attr">id</span>=<span class="string">"com.joker.cordova"</span> <span class="attr">version</span>=<span class="string">"1.0.0"</span> <span class="attr">xmlns</span>=<span class="string">"http://apache.org/cordova/ns/plugins/1.0"</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>EchoPlugin<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">js-module</span> <span class="attr">name</span>=<span class="string">"EchoPlugin"</span> <span class="attr">src</span>=<span class="string">"www/EchoPlugin.js"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">clobbers</span> <span class="attr">target</span>=<span class="string">"cordova.plugins.EchoPlugin"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">js-module</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p><code>id</code>为plugman创建命令使用的–plugin_id<br><code>version</code>为创建命令使用的–plugin_version</p>
@@ -517,7 +517,7 @@
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"cordova-plugin-echo"</span>,</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">    <span class="attr">"description"</span>: <span class="string">"A sample Apache Cordova application that responds to the deviceready event."</span>,</span><br><span class="line">    <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">        <span class="attr">"test"</span>: <span class="string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"author"</span>: <span class="string">"Apache Cordova Team"</span>,</span><br><span class="line">    <span class="attr">"license"</span>: <span class="string">"Apache-2.0"</span>,</span><br><span class="line">    <span class="attr">"cordova"</span>: &#123;</span><br><span class="line">        <span class="attr">"id"</span>: <span class="string">"cordova-plugin-echo"</span>,</span><br><span class="line">        <span class="attr">"platforms"</span>: [</span><br><span class="line">            <span class="string">"android"</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>6.修改插件配置文件<code>plugin.xml</code></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version='1.0' encoding='utf-8'?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">plugin</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">id</span>=<span class="string">"cordova-plugin-echo"</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">version</span>=<span class="string">"1.0.0"</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns</span>=<span class="string">"http://apache.org/cordova/ns/plugins/1.0"</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>EchoPlugin<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">js-module</span> <span class="attr">name</span>=<span class="string">"EchoPlugin"</span> <span class="attr">src</span>=<span class="string">"www/EchoPlugin.js"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">clobbers</span> <span class="attr">target</span>=<span class="string">"EchoPlugin"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">js-module</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">platform</span> <span class="attr">name</span>=<span class="string">"android"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">config-file</span> <span class="attr">parent</span>=<span class="string">"/*"</span> <span class="attr">target</span>=<span class="string">"res/xml/config.xml"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">feature</span> <span class="attr">name</span>=<span class="string">"EchoPlugin"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">"android-package"</span> <span class="attr">value</span>=<span class="string">"com.joker.cordova.EchoPlugin"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">feature</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">config-file</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">config-file</span> <span class="attr">parent</span>=<span class="string">"/*"</span> <span class="attr">target</span>=<span class="string">"AndroidManifest.xml"</span>&gt;</span><span class="tag">&lt;/<span class="name">config-file</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">source-file</span> <span class="attr">src</span>=<span class="string">"src/android/EchoPlugin.java"</span> <span class="attr">target-dir</span>=<span class="string">"src/com/joker/cordova"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">platform</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://www.qinhanwen.xyz/WX20190714-224654@2x.png" alt="WX20190714-224654@2x"></p>
+<p><img src="http://118.24.241.76/WX20190714-224654@2x.png" alt="WX20190714-224654@2x"></p>
 <p>3️⃣、 请选择一个你比较熟悉的 ionic-native 插件，介绍其功能、使用方式及运行原理。</p>
 <p><a href="https://www.jianshu.com/p/4710cac028e5" target="_blank" rel="noopener">ionic探索之路-ionic-native插件使用，调试</a></p>
 <p>Ionic Native是Cordova / PhoneGap插件的一个TypeScript包装器</p>
@@ -662,7 +662,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">132</span>
+                <span class="site-state-item-count">139</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -673,7 +673,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -684,7 +684,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

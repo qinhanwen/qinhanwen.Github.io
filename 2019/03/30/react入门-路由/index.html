@@ -102,15 +102,15 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="单页应用与多页应用单页应用 1）一次性载入公共资源（js，css） 2）页面局部更新 3）页面间传递数据比较容易 多页应用 1）每次都重新载入公共资源 2）页面刷新 3）页面间传递数据比较不方便（url，本地存储等） ​    没有太多的介绍区别，反正就是多页应用每次都请求一个页面的地址，加载这个页面以及有关的所有资源，服务器压力比较大，而单页应用首次加载的时候比较久，之后变换URL只是更新视图。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190116-233425@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190116-233621@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190331-120145@2x.png">
-<meta property="og:image" content="http://www.qinhanwen.xyz/WX20190331-230234@2x.png">
-<meta property="og:updated_time" content="2019-09-08T14:53:36.486Z">
+<meta property="og:image" content="http://118.24.241.76/WX20190116-233425@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190116-233621@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190331-120145@2x.png">
+<meta property="og:image" content="http://118.24.241.76/WX20190331-230234@2x.png">
+<meta property="og:updated_time" content="2019-12-30T03:32:10.199Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="react入门-路由">
 <meta name="twitter:description" content="单页应用与多页应用单页应用 1）一次性载入公共资源（js，css） 2）页面局部更新 3）页面间传递数据比较容易 多页应用 1）每次都重新载入公共资源 2）页面刷新 3）页面间传递数据比较不方便（url，本地存储等） ​    没有太多的介绍区别，反正就是多页应用每次都请求一个页面的地址，加载这个页面以及有关的所有资源，服务器压力比较大，而单页应用首次加载的时候比较久，之后变换URL只是更新视图。">
-<meta name="twitter:image" content="http://www.qinhanwen.xyz/WX20190116-233425@2x.png">
+<meta name="twitter:image" content="http://118.24.241.76/WX20190116-233425@2x.png">
 
 
 
@@ -377,11 +377,11 @@
       
 
       
-        <h2 id="单页应用与多页应用"><a href="#单页应用与多页应用" class="headerlink" title="单页应用与多页应用"></a>单页应用与多页应用</h2><h5 id="单页应用"><a href="#单页应用" class="headerlink" title="单页应用"></a>单页应用</h5><p><img src="http://www.qinhanwen.xyz/WX20190116-233425@2x.png" alt="WX20190116-233425@2x"></p>
+        <h2 id="单页应用与多页应用"><a href="#单页应用与多页应用" class="headerlink" title="单页应用与多页应用"></a>单页应用与多页应用</h2><h5 id="单页应用"><a href="#单页应用" class="headerlink" title="单页应用"></a>单页应用</h5><p><img src="http://118.24.241.76/WX20190116-233425@2x.png" alt="WX20190116-233425@2x"></p>
 <p>1）一次性载入公共资源（js，css）</p>
 <p>2）页面局部更新</p>
 <p>3）页面间传递数据比较容易</p>
-<h5 id="多页应用"><a href="#多页应用" class="headerlink" title="多页应用"></a>多页应用</h5><p><img src="http://www.qinhanwen.xyz/WX20190116-233621@2x.png" alt="WX20190116-233621@2x"></p>
+<h5 id="多页应用"><a href="#多页应用" class="headerlink" title="多页应用"></a>多页应用</h5><p><img src="http://118.24.241.76/WX20190116-233621@2x.png" alt="WX20190116-233621@2x"></p>
 <p>1）每次都重新载入公共资源</p>
 <p>2）页面刷新</p>
 <p>3）页面间传递数据比较不方便（url，本地存储等）</p>
@@ -389,9 +389,9 @@
 <h2 id="react-Router安装"><a href="#react-Router安装" class="headerlink" title="react Router安装"></a>react Router安装</h2><p>有多个库，这里安装react-router-dom</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install react-router-dom</span></span><br></pre></td></tr></table></figure>
 <h2 id="react路由"><a href="#react路由" class="headerlink" title="react路由"></a>react路由</h2><p>两种方式：</p>
-<h5 id="1）HashRouter：利用hash实现路由切换"><a href="#1）HashRouter：利用hash实现路由切换" class="headerlink" title="1）HashRouter：利用hash实现路由切换"></a>1）HashRouter：利用hash实现路由切换</h5><h5 id="2）BrowserRouter：利用h5-api实现路由切换"><a href="#2）BrowserRouter：利用h5-api实现路由切换" class="headerlink" title="2）BrowserRouter：利用h5 api实现路由切换"></a>2）BrowserRouter：利用h5 api实现路由切换</h5><h5 id="实现一个简单的路由切换，三个分类，切换对应的视图。"><a href="#实现一个简单的路由切换，三个分类，切换对应的视图。" class="headerlink" title="实现一个简单的路由切换，三个分类，切换对应的视图。"></a>实现一个简单的路由切换，三个分类，切换对应的视图。</h5><p><img src="http://www.qinhanwen.xyz/WX20190331-120145@2x.png" alt="WX20190331-120145@2x"></p>
+<h5 id="1）HashRouter：利用hash实现路由切换"><a href="#1）HashRouter：利用hash实现路由切换" class="headerlink" title="1）HashRouter：利用hash实现路由切换"></a>1）HashRouter：利用hash实现路由切换</h5><h5 id="2）BrowserRouter：利用h5-api实现路由切换"><a href="#2）BrowserRouter：利用h5-api实现路由切换" class="headerlink" title="2）BrowserRouter：利用h5 api实现路由切换"></a>2）BrowserRouter：利用h5 api实现路由切换</h5><h5 id="实现一个简单的路由切换，三个分类，切换对应的视图。"><a href="#实现一个简单的路由切换，三个分类，切换对应的视图。" class="headerlink" title="实现一个简单的路由切换，三个分类，切换对应的视图。"></a>实现一个简单的路由切换，三个分类，切换对应的视图。</h5><p><img src="http://118.24.241.76/WX20190331-120145@2x.png" alt="WX20190331-120145@2x"></p>
 <p>目录结构：</p>
-<p><img src="http://www.qinhanwen.xyz/WX20190331-230234@2x.png" alt="WX20190331-230234@2x"></p>
+<p><img src="http://118.24.241.76/WX20190331-230234@2x.png" alt="WX20190331-230234@2x"></p>
 <p>index.js</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; render &#125; <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; HashRouter <span class="keyword">as</span> Router, Route, Link, Redirect, Switch &#125; <span class="keyword">from</span> <span class="string">'./react-router-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> Home <span class="keyword">from</span> <span class="string">'./home'</span>;</span><br><span class="line"><span class="keyword">import</span> My <span class="keyword">from</span> <span class="string">'./my'</span>;</span><br><span class="line"><span class="keyword">import</span> List <span class="keyword">from</span> <span class="string">'./list'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;Router&gt;</span><br><span class="line">                &lt;div&gt;</span><br><span class="line">                    &lt;Link to=<span class="string">"/home"</span>&gt;首页&lt;<span class="regexp">/Link&gt;</span></span><br><span class="line"><span class="regexp">                    &lt;Link to="/</span>list<span class="string">"&gt;列表&lt;/Link&gt;</span></span><br><span class="line"><span class="string">                    &lt;Link to="</span>/my<span class="string">"&gt;我的&lt;/Link&gt;</span></span><br><span class="line"><span class="string">                &lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;Switch&gt;</span></span><br><span class="line"><span class="string">                    &#123;/* extract严格匹配 */&#125;</span></span><br><span class="line"><span class="string">                    &lt;Route path="</span>/home<span class="string">" extract=&#123;true&#125; component=&#123;Home&#125;&gt;&lt;/Route&gt;</span></span><br><span class="line"><span class="string">                    &lt;Route path="</span>/list<span class="string">" component=&#123;List&#125;&gt;&lt;/Route&gt;</span></span><br><span class="line"><span class="string">                    &lt;Route path="</span>/my<span class="string">" component=&#123;My&#125;&gt;&lt;/Route&gt;</span></span><br><span class="line"><span class="string">                    &lt;Redirect to="</span>/home<span class="string">"&gt;&lt;/Redirect&gt;</span></span><br><span class="line"><span class="string">                &lt;/Switch&gt;</span></span><br><span class="line"><span class="string">            &lt;/Router&gt;</span></span><br><span class="line"><span class="string">        )</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">render(&lt;App /&gt;, document.getElementById('root'));</span></span><br></pre></td></tr></table></figure>
 <p>my.js</p>
@@ -543,7 +543,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">132</span>
+                <span class="site-state-item-count">139</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -554,7 +554,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -565,7 +565,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

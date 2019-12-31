@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="tua-body-scroll-lock解决模态窗滑动时候，穿透到背景，背景被滑动的问题  示例：使用的 vue 123456789101112import &amp;#123; lock, unlock &amp;#125; from &quot;tua-body-scroll-lock&quot;;...		mounted() &amp;#123;        // 禁止滑动后还需要内部可以滚动的元素        console.w">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解决模态窗穿透,整个页面内容区域滑动问题">
+<meta property="og:url" content="http://yoursite.com/2019/12/27/解决模态窗穿透-整个页面内容区域滑动问题/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="tua-body-scroll-lock解决模态窗滑动时候，穿透到背景，背景被滑动的问题  示例：使用的 vue 123456789101112import &amp;#123; lock, unlock &amp;#125; from &quot;tua-body-scroll-lock&quot;;...		mounted() &amp;#123;        // 禁止滑动后还需要内部可以滚动的元素        console.w">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://118.24.241.76/WX20191227-123602.png">
+<meta property="og:updated_time" content="2019-12-30T03:32:09.880Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="解决模态窗穿透,整个页面内容区域滑动问题">
+<meta name="twitter:description" content="tua-body-scroll-lock解决模态窗滑动时候，穿透到背景，背景被滑动的问题  示例：使用的 vue 123456789101112import &amp;#123; lock, unlock &amp;#125; from &quot;tua-body-scroll-lock&quot;;...		mounted() &amp;#123;        // 禁止滑动后还需要内部可以滚动的元素        console.w">
+<meta name="twitter:image" content="http://118.24.241.76/WX20191227-123602.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/12/27/解决模态窗穿透-整个页面内容区域滑动问题/"/>
+
+
+
+
+
+  <title>解决模态窗穿透,整个页面内容区域滑动问题 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/27/解决模态窗穿透-整个页面内容区域滑动问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">解决模态窗穿透,整个页面内容区域滑动问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-27T11:29:20+08:00">
+                2019-12-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="tua-body-scroll-lock"><a href="#tua-body-scroll-lock" class="headerlink" title="tua-body-scroll-lock"></a>tua-body-scroll-lock</h2><p>解决模态窗滑动时候，穿透到背景，背景被滑动的问题</p>
+<p><img src="http://118.24.241.76/WX20191227-123602.png" alt="WX20191227-123602"></p>
+<p>示例：使用的 vue</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; lock, unlock &#125; <span class="keyword">from</span> <span class="string">"tua-body-scroll-lock"</span>;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">		mounted() &#123;</span><br><span class="line">        <span class="comment">// 禁止滑动后还需要内部可以滚动的元素</span></span><br><span class="line">        <span class="built_in">console</span>.warn(<span class="keyword">this</span>.$refs[<span class="string">"rule-list"</span>]);</span><br><span class="line">        lock(<span class="keyword">this</span>.$refs[<span class="string">"rule-list"</span>]);</span><br><span class="line">    &#125;,</span><br><span class="line">    beforeDestroy() &#123;</span><br><span class="line">        unlock(<span class="keyword">this</span>.$refs[<span class="string">"rule-list"</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>看一下 <strong>tua-body-scroll-lock</strong> 库做了什么</p>
+<p>首先是 lock 方法</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> lock = <span class="function">(<span class="params">targetElement?: HTMLElement</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (isServer()) <span class="keyword">return</span> <span class="comment">// typeof window === 'undefined' 判断是否在浏览器环境</span></span><br><span class="line"></span><br><span class="line">  checkTargetElement(targetElement) <span class="comment">// 看起来没做什么事情</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (detectOS().ios) &#123;</span><br><span class="line">    <span class="comment">// 判断 ua 是否是 ios</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (targetElement &amp;&amp; lockedElements.indexOf(targetElement) === <span class="number">-1</span>) &#123;</span><br><span class="line">      <span class="comment">// 如果有不想被锁定的元素，则为元素添加 touchstart 和 touchmove 事件</span></span><br><span class="line">      targetElement.ontouchstart = <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">        initialClientY = event.targetTouches[<span class="number">0</span>].clientY</span><br><span class="line">        initialClientX = event.targetTouches[<span class="number">0</span>].clientX</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      targetElement.ontouchmove = <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (event.targetTouches.length !== <span class="number">1</span>) <span class="keyword">return</span></span><br><span class="line">        <span class="comment">// 其实就是更新位置信息，并且阻止默认行为</span></span><br><span class="line">        handleScroll(event, targetElement)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 添加到 lock 数组里，表示处理完了</span></span><br><span class="line">      lockedElements.push(targetElement)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!documentListenerAdded) &#123;</span><br><span class="line">      <span class="comment">// 为 document 添加 touchmove 阻止默认行为，参数有 passive: false ，就禁止了 touchmove 的默认行为了</span></span><br><span class="line">      <span class="built_in">document</span>.addEventListener(</span><br><span class="line">        <span class="string">'touchmove'</span>,</span><br><span class="line">        preventDefault,</span><br><span class="line">        eventListenerOptions</span><br><span class="line">      )</span><br><span class="line">      documentListenerAdded = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (lockedNum &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">    unLockCallback = detectOS().android</span><br><span class="line">      ? setOverflowHiddenMobile()</span><br><span class="line">      : setOverflowHiddenPc()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  lockedNum += <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看一下 unlock 方法</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> unlock = <span class="function">(<span class="params">targetElement?: HTMLElement</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (isServer()) <span class="keyword">return</span> <span class="comment">// typeof window === 'undefined' 判断是否在浏览器环境</span></span><br><span class="line"></span><br><span class="line">  checkTargetElement(targetElement)</span><br><span class="line">  lockedNum -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (lockedNum &gt; <span class="number">0</span>) <span class="keyword">return</span></span><br><span class="line">  <span class="keyword">if</span> (!detectOS().ios &amp;&amp; <span class="keyword">typeof</span> unLockCallback === <span class="string">'function'</span>) &#123;</span><br><span class="line">    unLockCallback()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 移除元素的 touchmove 和 touchstart</span></span><br><span class="line">  <span class="keyword">if</span> (targetElement) &#123;</span><br><span class="line">    <span class="keyword">const</span> index = lockedElements.indexOf(targetElement)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (index !== <span class="number">-1</span>) &#123;</span><br><span class="line">      targetElement.ontouchmove = <span class="literal">null</span></span><br><span class="line">      targetElement.ontouchstart = <span class="literal">null</span></span><br><span class="line">      lockedElements.splice(index, <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (documentListenerAdded) &#123;</span><br><span class="line">    <span class="comment">// 移除 document 的监听</span></span><br><span class="line">    <span class="built_in">document</span>.removeEventListener(</span><br><span class="line">      <span class="string">'touchmove'</span>,</span><br><span class="line">      preventDefault,</span><br><span class="line">      eventListenerOptions</span><br><span class="line">    )</span><br><span class="line">    documentListenerAdded = <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>##参考资料</p>
+<p><a href="https://www.jb51.net/article/159786.htm" target="_blank" rel="noopener">详解滑动穿透(锁 body)终极探索</a></p>
+<p><a href="https://blog.csdn.net/lijingshan34/article/details/88350456" target="_blank" rel="noopener">Unable to preventDefault inside passive event listener due to target being treated as passive 报错</a></p>
+<p>翻译一下：chrome 监听 touch 类事件报错：无法被动侦听事件 preventDefault，是新版本 chrome 浏览器报错。<br>说明：说一下这个 preventDefault()是个什么鬼，这个是取消默认事件的，如果这个函数起作用的，比如默认的表单提交，a 链接的点击跳转，就不好用了。<br>原因：google 浏览器为了最快速的相应 touch 事件，做出的改变。<br>历史：当浏览器首先对默认的事件进行响应的时候，要检查一下是否进行了默认事件的取消。这样就在响应滑动操作之前有那么一丝丝的耽误时间。<br>现在：google 就决定默认取消了对这个事件的检查，默认时间就取消了。直接执行滑动操作。这样就更加的顺滑了。<br>解决方案：</p>
+<p>1、注册处理函数时，用如下方式，明确声明为不是被动的<br>window.addEventListener(‘touchmove’, func, { passive: false })</p>
+<p>2、应用 CSS 属性 touch-action: none; 这样任何触摸事件都不会产生默认行为，但是 touch 事件照样触发。<br>touch-action 还有很多选项，</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/23/react源码过程（5）-demo/" rel="next" title="react源码过程（5）- Fiber 与 渲染">
+                <i class="fa fa-chevron-left"></i> react源码过程（5）- Fiber 与 渲染
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">139</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tua-body-scroll-lock"><span class="nav-number">1.</span> <span class="nav-text">tua-body-scroll-lock</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
