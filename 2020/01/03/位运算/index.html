@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法与数据结构," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="基础程序中的数在计算机内存中都是以二进制的形式存在的，位运算就是直接对整数在内存中对应的二进制位进行操作。 二进制 十进制转二进制时，采用“除 2 取余，逆序排列”法  用 2 整除十进制数，得到商和余数; 再用 2 整除商，得到新的商和余数; 重复第 1 和第 2 步，直到商为 0; 将先得到的余数作为二进制数的高位，后得到的余数作为二进制数的低位，依次排序;  1234567101 % 2 =">
+<meta name="keywords" content="算法与数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="位运算">
+<meta property="og:url" content="http://yoursite.com/2020/01/03/位运算/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="基础程序中的数在计算机内存中都是以二进制的形式存在的，位运算就是直接对整数在内存中对应的二进制位进行操作。 二进制 十进制转二进制时，采用“除 2 取余，逆序排列”法  用 2 整除十进制数，得到商和余数; 再用 2 整除商，得到新的商和余数; 重复第 1 和第 2 步，直到商为 0; 将先得到的余数作为二进制数的高位，后得到的余数作为二进制数的低位，依次排序;  1234567101 % 2 =">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://118.24.241.76/WX20200103-183342@2x.png">
+<meta property="og:updated_time" content="2020-01-06T03:17:12.195Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="位运算">
+<meta name="twitter:description" content="基础程序中的数在计算机内存中都是以二进制的形式存在的，位运算就是直接对整数在内存中对应的二进制位进行操作。 二进制 十进制转二进制时，采用“除 2 取余，逆序排列”法  用 2 整除十进制数，得到商和余数; 再用 2 整除商，得到新的商和余数; 重复第 1 和第 2 步，直到商为 0; 将先得到的余数作为二进制数的高位，后得到的余数作为二进制数的低位，依次排序;  1234567101 % 2 =">
+<meta name="twitter:image" content="http://118.24.241.76/WX20200103-183342@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/01/03/位运算/"/>
+
+
+
+
+
+  <title>位运算 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/03/位运算/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">位运算</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-03T13:19:03+08:00">
+                2020-01-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法与数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">算法与数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><p>程序中的数在计算机内存中都是以二进制的形式存在的，位运算就是直接对整数在内存中对应的二进制位进行操作。</p>
+<p><strong>二进制</strong></p>
+<p>十进制转二进制时，采用“除 2 取余，逆序排列”法</p>
+<ol>
+<li>用 2 整除十进制数，得到商和余数;</li>
+<li>再用 2 整除商，得到新的商和余数;</li>
+<li>重复第 1 和第 2 步，直到商为 0;</li>
+<li>将先得到的余数作为二进制数的高位，后得到的余数作为二进制数的低位，依次排序;</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">101 % 2 = 50 余 1</span><br><span class="line">50 % 2 = 25 余 0</span><br><span class="line">25 % 2 = 12 余 1</span><br><span class="line">12 % 2 = 6 余 0</span><br><span class="line">6 % 2 = 3 余 0</span><br><span class="line">3 % 2 = 1 余 1</span><br><span class="line">1 % 2 = 0 余 1</span><br></pre></td></tr></table></figure>
+<p>逆序排列即二进制中的从高位到低位排序，得到 <code>7</code> 位二进制数为 <code>1100101</code>，如果要转换为 <code>8</code> 位二进制数，就需要在最高位补 <code>0</code>。即十进制数的 <code>8</code> 位二进制数为 <code>01100101</code>。</p>
+<p><strong>预备知识</strong></p>
+<p>根据冯~诺依曼提出的经典计算机体系结构框架。一台计算机由运算器，控制器，存储器，输入和输出设备组成。其中运算器，只有加法运算器，没有减法运算器（据说一开始是有的，后来由于减法器硬件开销太大，被废了 ）</p>
+<p>所以，<code>计算机中的没法直接做减法的，它的减法是通过加法来实现的。</code>你也许会说，现实世界中所有的减法也可以当成加法的，减去一个数，可以看作加上这个数的相反数。当然没错，但是前提是要先有负数的概念。这就为什么不得不引入一个该死的符号位。</p>
+<blockquote>
+<p>原码，反码，补码的产生过程，就是为了解决，计算机做减法和引入符号位（正号和负号）的问题。</p>
+</blockquote>
+<p><strong>原码</strong></p>
+<blockquote>
+<p>最简单的机器数表示法。用最高位表示符号位，‘1’表示负号，‘0’表示正号。其他位存放该数的二进制的绝对值。</p>
+</blockquote>
+<p><strong>反码</strong></p>
+<p>原码最大的问题就在于一个数加上他的相反数不等于零</p>
+<p>例如：<code>0001+1001=1010 (1+(-1)=-2)</code> <code>0010+1010=1100 (2+(-2)=-4)</code></p>
+<p>于是反码的设计思想就是冲着解决这一点，既然一个负数是一个正数的相反数，那我们干脆用一个正数按位取反来表示负数试试</p>
+<blockquote>
+<p><strong>反码：</strong>正数的反码还是等于原码</p>
+<p>负数的反码就是他的原码除符号位外，按位取反。</p>
+</blockquote>
+<p>用反码解决原码问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0001+1110=1111 （1+（-1）= - 0）</span><br><span class="line">互为相反数相加等于0，解决。虽然是得到的结果是1111也就是-0</span><br></pre></td></tr></table></figure>
+<p>做一下两个负数相加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1110（-1）+1101（-2）=1011（-4）</span><br><span class="line">1011 原码是 -3，反码是 -4</span><br></pre></td></tr></table></figure>
+<p>它解决了相反数相加的问题，但是让负数相加出错了</p>
+<p><strong>补码</strong></p>
+<p>所有数据的运算都是使用补码</p>
+<blockquote>
+<p><strong>补码：</strong>正数的补码等于他的原码<br>负数的补码等于反码+1。<br>（这只是一种算补码的方式，多数书对于补码就是这句话）</p>
+</blockquote>
+<p>并不是反码+1就定义为补码。<code>只不过是补码正好就等于反码加1罢了</code></p>
+<p><strong>原码反码补码的相互转换</strong></p>
+<p>　　首先，正数的原码，反码，补码都是相同的。</p>
+<p>　　所以，这里讨论负数的原码，反码，补码的相互转化问题。</p>
+<ul>
+<li>负数原码和反码的相互转化</li>
+</ul>
+<p>　　负数原码转化为反码：符号位不变，数值位按位取反。</p>
+<p>　　如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">原码 1100 0010</span><br><span class="line">反码 1011 1101</span><br></pre></td></tr></table></figure>
+<p>　　负数反码转化为原码：符号位不变，数值位按位取反。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">反码 1011 1101</span><br><span class="line">原码 1100 0010</span><br></pre></td></tr></table></figure>
+<ul>
+<li>负数原码和补码的相互转化</li>
+</ul>
+<p>　　负数原码转化为补码：符号位不变，数值位按位取反，末尾加一。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">原码 1100 0010</span><br><span class="line">反码 1011 1101 //符号位不变，数值位按位取反</span><br><span class="line">补码 1011 1110 //末尾加1</span><br></pre></td></tr></table></figure>
+<p>　　负数补码转化为原码：符号位不变，数值位按位取反，末尾加1。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">补码 1011 1110</span><br><span class="line">       1100 0001 //符号位不变，数值位按位取反</span><br><span class="line">原码 1100 0010 //末尾加1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>负数反码和补码的相互转化</li>
+</ul>
+<p>　　负数反码转化为补码：末尾加1。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">反码 1011 1101</span><br><span class="line">补码 1011 1110</span><br></pre></td></tr></table></figure>
+<p>　　负数补码转化为反码：末尾减1（注意，此处的反码是指原码的反码）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">补码         1011 1110</span><br><span class="line">原码的反码 　　1011 1101</span><br><span class="line">//减法 借位</span><br></pre></td></tr></table></figure>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><p><strong>概览</strong></p>
+<p><img src="http://118.24.241.76/WX20200103-183342@2x.png" alt="WX20200103-183342@2x"></p>
+<p><strong>按位与运算 &amp;</strong></p>
+<p>定义：参加运算的两个数据，按二进制位进行“与”运算。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0&amp;0=0  0&amp;1=0  1&amp;0=0  1&amp;1=1</span><br></pre></td></tr></table></figure>
+<p>总结：两位同时为1，结果才为1，否则结果为0。</p>
+<p><strong>按位或运算 |</strong></p>
+<p>定义：参加运算的两个对象，按二进制位进行“或”运算。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0|0=0  0|1=1  1|0=1  1|1=1</span><br></pre></td></tr></table></figure>
+<p>总结：参加运算的两个对象只要有一个为1，其值为1。</p>
+<p><strong>异或运算符 ^</strong></p>
+<p>定义：参加运算的两个数据，按二进制位进行“异或”运算。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0^0=0  0^1=1  1^0=1  1^1=0</span><br></pre></td></tr></table></figure>
+<p><strong>取反运算符 ~</strong></p>
+<p>定义：参加运算的一个数据，按二进制进行“取反”运算。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~1=0 ~0=1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">~5</span><br><span class="line">看原码</span><br><span class="line">0 0000101</span><br><span class="line"></span><br><span class="line">所有运算都是使用补码，所以得到它的补码(正数的原码、反码、补码都一样)</span><br><span class="line">0 0000101</span><br><span class="line"></span><br><span class="line">按位取反</span><br><span class="line">1 1111010</span><br><span class="line"></span><br><span class="line">补码转原码，按照上面的规则</span><br><span class="line">符号位不变，数值位按位取反</span><br><span class="line">1 0000101</span><br><span class="line">末尾加1</span><br><span class="line">1 0000110</span><br><span class="line"></span><br><span class="line">得到 </span><br><span class="line">-6</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">~-6</span><br><span class="line">先看原码</span><br><span class="line">1 0000110</span><br><span class="line"></span><br><span class="line">得到补码</span><br><span class="line">符号位不变，数值位按位取反</span><br><span class="line">1 1111001</span><br><span class="line">末尾加1</span><br><span class="line">1 1111010</span><br><span class="line"></span><br><span class="line">按位取反</span><br><span class="line">0 0000101</span><br><span class="line"></span><br><span class="line">补码转原码</span><br><span class="line">0 0000101</span><br><span class="line"></span><br><span class="line">得到</span><br><span class="line">5</span><br></pre></td></tr></table></figure>
+<p><strong>左移运算符 &lt;&lt;</strong></p>
+<p>定义：将一个运算对象的各二进制位全部左移若干位（左边的二进制位丢弃，右边补0）</p>
+<p>设 a=1010 1110，<code>a = a&lt;&lt; 2</code> 将a的二进制位左移2位、右补0，即得a=1011 1000。</p>
+<p><strong>右移运算符 &gt;&gt;</strong></p>
+<p>定义：将一个数的各二进制位全部右移若干位，正数左补0，负数左补1，右边丢弃。</p>
+<p>例如：a=a&gt;&gt;2 将a的二进制位右移2位，左补0 或者 左补1得看被移数是正还是负。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://juejin.im/post/5d27faeaf265da1bd424ac74" target="_blank" rel="noopener">7 分钟全面了解位运算</a></p>
+<p><a href="https://blog.csdn.net/zhiwen_a/article/details/81192087" target="_blank" rel="noopener">https://blog.csdn.net/zhiwen_a/article/details/81192087</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法与数据结构/" rel="tag"># 算法与数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/31/react源码过程（9）-事件/" rel="next" title="react源码过程（9）- 事件">
+                <i class="fa fa-chevron-left"></i> react源码过程（9）- 事件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">144</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础"><span class="nav-number">1.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运算符"><span class="nav-number">2.</span> <span class="nav-text">运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

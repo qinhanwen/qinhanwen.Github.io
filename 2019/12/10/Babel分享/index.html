@@ -115,7 +115,7 @@
 <meta property="og:image" content="http://118.24.241.76/WX20191211-171728@2x.png">
 <meta property="og:image" content="http://118.24.241.76/WX20191211-175602@2x.png">
 <meta property="og:image" content="http://118.24.241.76/WX20191211-172510@2x.png">
-<meta property="og:updated_time" content="2019-12-30T03:32:10.105Z">
+<meta property="og:updated_time" content="2019-12-30T03:32:10.106Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Babel分享">
 <meta name="twitter:description" content="Babel Babel 是什么 AST 是什么 访问者模式 charCodeAt   其他内容简单介绍 cli plugin presets polyfill babel-runtime &amp;amp; babel-plugin-transform-runtime .babelrc、babel.config.js、package.json 等配置   插件 @babel/parser 7.x（ba">
@@ -457,7 +457,7 @@
 <p><a href="http://www.52unicode.com/" target="_blank" rel="noopener">unicode 字符列表</a></p>
 <h2 id="其他内容简单介绍"><a href="#其他内容简单介绍" class="headerlink" title="其他内容简单介绍"></a>其他内容简单介绍</h2><p><strong><a href="">cli</a></strong></p>
 <p>命令行工具，可通过命令行编译文件。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 安装</span><br><span class="line"><span class="meta">$</span> npm install @babel/core @babel/cli -D</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 编译 script.js 文件并 输出到标准输出设备（stdout）。</span><br><span class="line"><span class="meta">$</span> npx babel script.js</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 如果你希望 输出到文件 ，可以使用 --out-file 或 -o 参数。</span><br><span class="line"><span class="meta">$</span> npx babel script.js --out-file script-compiled.js</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 要在 每次文件修改后 编译该文件，请使用 --watch 或 -w 参数：</span><br><span class="line"><span class="meta">$</span> npx babel script.js --watch --out-file script-compiled.js</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 如果你希望输出 源码映射表（source map）文件 ，你可以使用 --source-maps 或 -s 参数。</span><br><span class="line"><span class="meta">$</span> npx babel script.js --out-file script-compiled.js --source-maps</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 编译整个 src 目录下的文件并输出到 lib 目录，输出目录可以通过 --out-dir 或 -d 指定。这不会覆盖 lib 目录下的任何其他文件或目录。</span><br><span class="line"><span class="meta">$</span> npx babel src --out-dir lib</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 编译整个 src 目录下的文件并将输出合并为一个文件。</span><br><span class="line"><span class="meta">$</span> npx babel src --out-file script-compiled.js</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install @babel/core @babel/cli -D</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 编译 script.js 文件并 输出到标准输出设备（stdout）。</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npx babel script.js</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果你希望 输出到文件 ，可以使用 --out-file 或 -o 参数。</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npx babel script.js --out-file script-compiled.js</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 要在 每次文件修改后 编译该文件，请使用 --watch 或 -w 参数：</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npx babel script.js --watch --out-file script-compiled.js</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果你希望输出 源码映射表（<span class="built_in">source</span> map）文件 ，你可以使用 --<span class="built_in">source</span>-maps 或 -s 参数。</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npx babel script.js --out-file script-compiled.js --<span class="built_in">source</span>-maps</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 编译整个 src 目录下的文件并输出到 lib 目录，输出目录可以通过 --out-dir 或 -d 指定。这不会覆盖 lib 目录下的任何其他文件或目录。</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npx babel src --out-dir lib</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 编译整个 src 目录下的文件并将输出合并为一个文件。</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npx babel src --out-file script-compiled.js</span></span><br></pre></td></tr></table></figure>
 <p><strong><a href="https://www.babeljs.cn/docs/plugins" target="_blank" rel="noopener">plugin</a></strong></p>
 <p>Babel 作为 JavaScript 编译器，有三个过程：解析、转换、生成。如果什么都不做。它基本上只是将代码解析之后再输出同样的代码。如果想要 Babel 做一些实际的工作，就需要为其添加插件。</p>
 <p>插件的作用：用于转换代码</p>
@@ -731,7 +731,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">139</span>
+                <span class="site-state-item-count">144</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -742,7 +742,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -753,7 +753,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -811,7 +811,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

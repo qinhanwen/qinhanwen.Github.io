@@ -105,7 +105,7 @@
 <meta property="og:image" content="http://118.24.241.76/WX20190817-000855@2x.png">
 <meta property="og:image" content="http://118.24.241.76/WX20190818-000319@2x.png">
 <meta property="og:image" content="http://118.24.241.76/WX20190818-000811@2x.png">
-<meta property="og:updated_time" content="2019-12-30T03:32:10.196Z">
+<meta property="og:updated_time" content="2019-12-30T03:32:10.197Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TypeScript-2">
 <meta name="twitter:description" content="TypeScript面向对象编程SOLID（下面的首字母简写）原则 职责单一原则（SRP）：组件（函数、类、模块）专注于单一任务，这样容易看出类做了哪些事情。类的属性通常描述对象的特征，方法通常描述对象行为。如果拥有过多属性和方法，就要考虑是否职责单一（比如Person类有名字、性别、电话、说hello的方法。那么验证电话号码正确性的方法，应该抽成另外一个类里。） 开/闭原则（OCP）：时刻考虑到">
@@ -383,18 +383,18 @@
 <li><strong>接口隔离原则（ISP）</strong>：将特别大的接口，拆分成小的。</li>
 <li><strong>依赖反转原则（DIP）</strong>：一个方法遵从依赖于抽象而不是实例。</li>
 </ul>
-<h2 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm init</span><br><span class="line"><span class="meta">$</span> npm install gulp gulp-typescript -S</span><br></pre></td></tr></table></figure>
+<h2 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm init</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install gulp gulp-typescript -S</span></span><br></pre></td></tr></table></figure>
 <p>目录结构，这里选择了比较熟悉的<code>gulp</code>，而没使用<code>webpack</code>。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">├── gulpfile.js</span><br><span class="line">├── package-lock.json</span><br><span class="line">├── package.json</span><br><span class="line">├── src</span><br><span class="line">│   └── main.ts</span><br><span class="line">└── tsconfig.json</span><br></pre></td></tr></table></figure>
 <p>tsconfig.json</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>可以通过这种方式创建</span><br><span class="line"><span class="meta">$</span> tsc —init</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">可以通过这种方式创建</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> tsc —init</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"files"</span>: [</span><br><span class="line">        <span class="string">"src/main.ts"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line">        <span class="attr">"noImplicitAny"</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">"target"</span>: <span class="string">"es5"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>gulpfile.js</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> gulp = <span class="built_in">require</span>(<span class="string">"gulp"</span>);</span><br><span class="line"><span class="keyword">const</span> ts = <span class="built_in">require</span>(<span class="string">"gulp-typescript"</span>);</span><br><span class="line"><span class="keyword">const</span> tsProject = ts.createProject(<span class="string">"tsconfig.json"</span>);</span><br><span class="line"></span><br><span class="line">gulp.task(<span class="string">"default"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> tsProject.src()</span><br><span class="line">        .pipe(tsProject())</span><br><span class="line">        .js.pipe(gulp.dest(<span class="string">"dist"</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>main.ts</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Test &#123;</span><br><span class="line">    name: <span class="built_in">string</span> = <span class="string">'qinhanwen'</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>编译一下试试</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npx gulp</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npx gulp</span></span><br></pre></td></tr></table></figure>
 <p>编译出来文件在<code>dist/main.js</code></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Test = <span class="comment">/** @class */</span> (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = <span class="string">'qinhanwen'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Test;</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
 <h2 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h2><p>装饰器有<code>类装饰器</code>、<code>参数装饰器</code>、<code>方法装饰器</code>和<code>属性装饰器</code>。它们的作用就是在不修改原有对象（接口）的情况下，对类及其方法、入参、属性行为的修改。</p>
@@ -478,7 +478,7 @@
 <p>这个文件是对第三方库类型API的类型声明，<code>JavaScript</code>和<code>TypeScript</code>能集成在一起依赖于它。</p>
 <p><strong>@types</strong></p>
 <p>使用 <code>@types</code> 统一管理第三方库的声明文件，可以使用<code>npm</code>直接安装对应依赖包的声明模块</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm install @types/jquery -S</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install @types/jquery -S</span></span><br></pre></td></tr></table></figure>
 <p><strong>书写声明文件</strong></p>
 <p>不同场景下，声明文件的内容和使用方式也不同。</p>
 <h2 id="npm包"><a href="#npm包" class="headerlink" title="npm包"></a>npm包</h2><p>npm包的声明文件可能存在两个地方</p>
@@ -623,7 +623,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">139</span>
+                <span class="site-state-item-count">144</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -634,7 +634,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -645,7 +645,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -703,7 +703,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

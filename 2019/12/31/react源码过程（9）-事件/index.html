@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="react源码过程," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="事件React组件上声明的事件没有绑定在React组件对应的原生DOM节点上，而是绑定在document节点上，触发的事件是对原生事件的包装。 例子123456789101112131415161718192021222324252627282930313233&amp;lt;html&amp;gt;&amp;lt;body&amp;gt;  &amp;lt;script src=&quot;../../../build/dist/react.d">
+<meta name="keywords" content="react源码过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react源码过程（9）- 事件">
+<meta property="og:url" content="http://yoursite.com/2019/12/31/react源码过程（9）-事件/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="事件React组件上声明的事件没有绑定在React组件对应的原生DOM节点上，而是绑定在document节点上，触发的事件是对原生事件的包装。 例子123456789101112131415161718192021222324252627282930313233&amp;lt;html&amp;gt;&amp;lt;body&amp;gt;  &amp;lt;script src=&quot;../../../build/dist/react.d">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://118.24.241.76/WX20191231-142031.png">
+<meta property="og:updated_time" content="2020-01-06T03:17:12.195Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="react源码过程（9）- 事件">
+<meta name="twitter:description" content="事件React组件上声明的事件没有绑定在React组件对应的原生DOM节点上，而是绑定在document节点上，触发的事件是对原生事件的包装。 例子123456789101112131415161718192021222324252627282930313233&amp;lt;html&amp;gt;&amp;lt;body&amp;gt;  &amp;lt;script src=&quot;../../../build/dist/react.d">
+<meta name="twitter:image" content="http://118.24.241.76/WX20191231-142031.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/12/31/react源码过程（9）-事件/"/>
+
+
+
+
+
+  <title>react源码过程（9）- 事件 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/31/react源码过程（9）-事件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">react源码过程（9）- 事件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-31T13:56:08+08:00">
+                2019-12-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/react源码过程/" itemprop="url" rel="index">
+                    <span itemprop="name">react源码过程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2><p>React组件上声明的事件没有绑定在React组件对应的原生DOM节点上，而是绑定在document节点上，触发的事件是对原生事件的包装。</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../../../build/dist/react.development.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../../../build/dist/react-dom.development.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/babel-standalone@6/babel.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"container"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/babel"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span></span><br><span class="line"><span class="undefined">      state = &#123;</span></span><br><span class="line"><span class="undefined">        count: 1</span></span><br><span class="line"><span class="undefined">      &#125;;</span></span><br><span class="line"><span class="javascript">      imcrement = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">debugger</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">this</span>.setState(&#123; <span class="attr">count</span>: ++<span class="keyword">this</span>.state.count &#125;);</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">      render() &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> &#123; count &#125; = <span class="keyword">this</span>.state;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> (</span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;this.imcrement&#125;</span>&gt;</span></span></span><br><span class="line"><span class="undefined">            &#123;count&#125;</span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="undefined">        )</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    ReactDOM.render(</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">App</span> /&gt;</span>,</span></span><br><span class="line"><span class="javascript">      <span class="built_in">document</span>.getElementById(<span class="string">'container'</span>)</span></span><br><span class="line"><span class="undefined">    );</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>组件在创建的时候会调用实例的 render方法，通过 createElement 创建 ReactConponent ，得到组件上的属性</p>
+<p><img src="http://118.24.241.76/WX20191231-142031.png" alt="WX20191231-142031"></p>
+<p>在 <strong>workLoop</strong> 方法创建完整的 <strong>Fiber</strong> 树的链接关系。后在 <strong>completeWork</strong> 方法里的 <strong>createInstance</strong>方法 生成 stateNode后，添加绑定事件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setInitialDOMProperties</span>(<span class="params">tag, domElement, rootContainerElement, nextProps, isCustomComponentTag</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// nextProps 就是 上面图里的 props</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> propKey <span class="keyword">in</span> nextProps) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!nextProps.hasOwnProperty(propKey)) &#123;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> nextProp = nextProps[propKey];</span><br><span class="line">   </span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (registrationNameModules.hasOwnProperty(propKey)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (nextProp != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="literal">true</span> &amp;&amp; <span class="keyword">typeof</span> nextProp !== <span class="string">'function'</span>) &#123;</span><br><span class="line">          warnForInvalidEventListener(propKey, nextProp);</span><br><span class="line">        &#125;</span><br><span class="line">        ensureListeningTo(rootContainerElement, propKey);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nextProp != <span class="literal">null</span>) &#123;</span><br><span class="line">      setValueForProperty(domElement, propKey, nextProp, isCustomComponentTag);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 进入 ensureListeningTo</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ensureListeningTo</span>(<span class="params">rootContainerElement, registrationName</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// rootContainerElement 是 document.getElementById('container')，registrationName 是 onClick</span></span><br><span class="line">  <span class="keyword">var</span> isDocumentOrFragment = rootContainerElement.nodeType === DOCUMENT_NODE || rootContainerElement.nodeType === DOCUMENT_FRAGMENT_NODE;</span><br><span class="line">  <span class="keyword">var</span> doc = isDocumentOrFragment ? rootContainerElement : rootContainerElement.ownerDocument;</span><br><span class="line">  listenTo(registrationName, doc);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 进入 listenTo</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">listenTo</span>(<span class="params">registrationName, mountAt</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// registrationName 是 onClick，mountAt 是 document</span></span><br><span class="line">  <span class="keyword">var</span> isListening = getListeningForDocument(mountAt);</span><br><span class="line">  <span class="keyword">var</span> dependencies = registrationNameDependencies[registrationName];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; dependencies.length; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> dependency = dependencies[i];</span><br><span class="line">    <span class="keyword">if</span> (!(isListening.hasOwnProperty(dependency) &amp;&amp; isListening[dependency])) &#123;</span><br><span class="line">      <span class="keyword">switch</span> (dependency) &#123;</span><br><span class="line">       </span><br><span class="line">        ...  </span><br><span class="line">          </span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">          <span class="keyword">var</span> isMediaEvent = mediaEventTypes.indexOf(dependency) !== <span class="number">-1</span>;</span><br><span class="line">          <span class="keyword">if</span> (!isMediaEvent) &#123;</span><br><span class="line">            trapBubbledEvent(dependency, mountAt);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      isListening[dependency] = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 进入 trapBubbledEvent</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">trapBubbledEvent</span>(<span class="params">topLevelType, element</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// topLevelType 是 click ， element 是document</span></span><br><span class="line">  <span class="keyword">if</span> (!element) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> dispatch = isInteractiveTopLevelEventType(topLevelType) ? dispatchInteractiveEvent : dispatchEvent;</span><br><span class="line"></span><br><span class="line">  addEventBubbleListener(element, getRawEventName(topLevelType),</span><br><span class="line">  dispatch.bind(<span class="literal">null</span>, topLevelType));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 进入 addEventBubbleListener</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addEventBubbleListener</span>(<span class="params">element, eventType, listener</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 为 document 添加绑定事件，点击的时候 触发 dispatchInteractiveEvent 方法</span></span><br><span class="line">  element.addEventListener(eventType, listener, <span class="literal">false</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>触发点击事件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dispatchInteractiveEvent</span>(<span class="params">topLevelType, nativeEvent</span>) </span>&#123;</span><br><span class="line">  interactiveUpdates(dispatchEvent, topLevelType, nativeEvent);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 进入interactiveUpdates</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">interactiveUpdates</span>(<span class="params">fn, a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> _interactiveUpdatesImpl(fn, a, b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 进入 interactiveUpdates$1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">interactiveUpdates$1</span>(<span class="params">fn, a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (isBatchingInteractiveUpdates) &#123;</span><br><span class="line">    <span class="keyword">return</span> fn(a, b);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (!isBatchingUpdates &amp;&amp; !isRendering &amp;&amp; lowestPriorityPendingInteractiveExpirationTime !== NoWork) &#123;</span><br><span class="line">    performWork(lowestPriorityPendingInteractiveExpirationTime, <span class="literal">false</span>);</span><br><span class="line">    lowestPriorityPendingInteractiveExpirationTime = NoWork;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> previousIsBatchingInteractiveUpdates = isBatchingInteractiveUpdates;</span><br><span class="line">  <span class="keyword">var</span> previousIsBatchingUpdates = isBatchingUpdates;</span><br><span class="line">  isBatchingInteractiveUpdates = <span class="literal">true</span>;</span><br><span class="line">  isBatchingUpdates = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> fn(a, b);</span><br><span class="line">  &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    isBatchingInteractiveUpdates = previousIsBatchingInteractiveUpdates;</span><br><span class="line">    isBatchingUpdates = previousIsBatchingUpdates;</span><br><span class="line">    <span class="keyword">if</span> (!isBatchingUpdates &amp;&amp; !isRendering) &#123;</span><br><span class="line">      performSyncWork();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 进入 dispatchEvent</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dispatchEvent</span>(<span class="params">topLevelType, nativeEvent</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!_enabled) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 获得点击事件的target</span></span><br><span class="line">  <span class="keyword">var</span> nativeEventTarget = getEventTarget(nativeEvent);</span><br><span class="line">  <span class="comment">// 获得节点的 FiberNode</span></span><br><span class="line">  <span class="keyword">var</span> targetInst = getClosestInstanceFromNode(nativeEventTarget);</span><br><span class="line">  <span class="keyword">if</span> (targetInst !== <span class="literal">null</span> &amp;&amp; <span class="keyword">typeof</span> targetInst.tag === <span class="string">'number'</span> &amp;&amp; !isFiberMounted(targetInst)) &#123;</span><br><span class="line">    targetInst = <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> bookKeeping = getTopLevelCallbackBookKeeping(topLevelType, nativeEvent, targetInst);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    batchedUpdates(handleTopLevel, bookKeeping);</span><br><span class="line">  &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    releaseTopLevelCallbackBookKeeping(bookKeeping);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 进入 batchedUpdates</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">batchedUpdates</span>(<span class="params">fn, bookkeeping</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (isBatching) &#123;</span><br><span class="line">    <span class="keyword">return</span> fn(bookkeeping);</span><br><span class="line">  &#125;</span><br><span class="line">  isBatching = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> _batchedUpdatesImpl(fn, bookkeeping);</span><br><span class="line">  &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    isBatching = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> controlledComponentsHavePendingUpdates = needsStateRestore();</span><br><span class="line">    <span class="keyword">if</span> (controlledComponentsHavePendingUpdates) &#123;</span><br><span class="line">      _flushInteractiveUpdatesImpl();</span><br><span class="line">      restoreStateIfNeeded();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 进入 _batchedUpdatesImpl</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">batchedUpdates$1</span>(<span class="params">fn, a</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> previousIsBatchingUpdates = isBatchingUpdates;</span><br><span class="line">  isBatchingUpdates = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> fn(a);</span><br><span class="line">  &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    isBatchingUpdates = previousIsBatchingUpdates;</span><br><span class="line">    <span class="keyword">if</span> (!isBatchingUpdates &amp;&amp; !isRendering) &#123;</span><br><span class="line">      performSyncWork();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 进入 handleTopLevel</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleTopLevel</span>(<span class="params">bookKeeping</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> targetInst = bookKeeping.targetInst;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> ancestor = targetInst;</span><br><span class="line">  <span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!ancestor) &#123;</span><br><span class="line">      bookKeeping.ancestors.push(ancestor);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> root = findRootContainerNode(ancestor);</span><br><span class="line">    <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    bookKeeping.ancestors.push(ancestor);</span><br><span class="line">    ancestor = getClosestInstanceFromNode(root);</span><br><span class="line">  &#125; <span class="keyword">while</span> (ancestor);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; bookKeeping.ancestors.length; i++) &#123;</span><br><span class="line">    targetInst = bookKeeping.ancestors[i];</span><br><span class="line">    runExtractedEventsInBatch(bookKeeping.topLevelType, targetInst, bookKeeping.nativeEvent, getEventTarget(bookKeeping.nativeEvent));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 进入 runExtractedEventsInBatch</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">runExtractedEventsInBatch</span>(<span class="params">topLevelType, targetInst, nativeEvent, nativeEventTarget</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 在这里为 events 添加 _dispatchListeners(事件回调) 与 _dispatchInstances(FiberNode) 属性</span></span><br><span class="line">  <span class="keyword">var</span> events = extractEvents(topLevelType, targetInst, nativeEvent, nativeEventTarget);</span><br><span class="line">  runEventsInBatch(events);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 补充一下 traverseTwoPhase， 从 extractEvents 方法进入后，为 events 添加属性</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">traverseTwoPhase</span>(<span class="params">inst, fn, arg</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> path = [];</span><br><span class="line">  <span class="keyword">while</span> (inst) &#123;</span><br><span class="line">    path.push(inst);</span><br><span class="line">    inst = getParent(inst);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> i = <span class="keyword">void</span> <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (i = path.length; i-- &gt; <span class="number">0</span>;) &#123;</span><br><span class="line">    fn(path[i], <span class="string">'captured'</span>, arg);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; path.length; i++) &#123;</span><br><span class="line">    fn(path[i], <span class="string">'bubbled'</span>, arg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 进入 runEventsInBatch</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">runEventsInBatch</span>(<span class="params">events</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (events !== <span class="literal">null</span>) &#123;</span><br><span class="line">    eventQueue = accumulateInto(eventQueue, events);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> processingEventQueue = eventQueue;</span><br><span class="line">  eventQueue = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!processingEventQueue) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  forEachAccumulated(processingEventQueue, executeDispatchesAndReleaseTopLevel);</span><br><span class="line">  !!eventQueue ? invariant(<span class="literal">false</span>, <span class="string">'processEventQueue(): Additional events were enqueued while processing an event queue. Support for this has not yet been implemented.'</span>) : <span class="keyword">void</span> <span class="number">0</span>;</span><br><span class="line">  rethrowCaughtError();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 进入 forEachAccumulated</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">forEachAccumulated</span>(<span class="params">arr, cb, scope</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(arr)) &#123;</span><br><span class="line">    arr.forEach(cb, scope);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (arr) &#123;</span><br><span class="line">    cb.call(scope, arr);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 进入 executeDispatchesAndReleaseTopLevel</span></span><br><span class="line"><span class="keyword">var</span> executeDispatchesAndReleaseTopLevel = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> executeDispatchesAndRelease(e);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 进入 executeDispatchesAndRelease</span></span><br><span class="line"><span class="keyword">var</span> executeDispatchesAndRelease = <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (event) &#123;</span><br><span class="line">    executeDispatchesInOrder(event);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!event.isPersistent()) &#123;</span><br><span class="line">      event.constructor.release(event);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 进入 executeDispatchesInOrder</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">executeDispatchesInOrder</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 拿到事件回调</span></span><br><span class="line">  <span class="keyword">var</span> dispatchListeners = event._dispatchListeners;</span><br><span class="line">  <span class="comment">// 拿到FiberNode</span></span><br><span class="line">  <span class="keyword">var</span> dispatchInstances = event._dispatchInstances;</span><br><span class="line">  &#123;</span><br><span class="line">    validateEventDispatches(event);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(dispatchListeners)) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; dispatchListeners.length; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (event.isPropagationStopped()) &#123;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      executeDispatch(event, dispatchListeners[i], dispatchInstances[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (dispatchListeners) &#123;</span><br><span class="line">    executeDispatch(event, dispatchListeners, dispatchInstances);</span><br><span class="line">  &#125;</span><br><span class="line">  event._dispatchListeners = <span class="literal">null</span>;</span><br><span class="line">  event._dispatchInstances = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 进入 executeDispatch</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">executeDispatch</span>(<span class="params">event, listener, inst</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> type = event.type || <span class="string">'unknown-event'</span>;</span><br><span class="line">  event.currentTarget = getNodeFromInstance(inst);</span><br><span class="line">  invokeGuardedCallbackAndCatchFirstError(type, listener, <span class="literal">undefined</span>, event);</span><br><span class="line">  event.currentTarget = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 进入 invokeGuardedCallbackAndCatchFirstError</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">invokeGuardedCallbackAndCatchFirstError</span>(<span class="params">name, func, context, a, b, c, d, e, f</span>) </span>&#123;</span><br><span class="line">  invokeGuardedCallback.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">  <span class="keyword">if</span> (hasError) &#123;</span><br><span class="line">    <span class="keyword">var</span> error = clearCaughtError();</span><br><span class="line">    <span class="keyword">if</span> (!hasRethrowError) &#123;</span><br><span class="line">      hasRethrowError = <span class="literal">true</span>;</span><br><span class="line">      rethrowError = error;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 进入 invokeGuardedCallback</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">invokeGuardedCallback</span>(<span class="params">name, func, context, a, b, c, d, e, f</span>) </span>&#123;</span><br><span class="line">  hasError = <span class="literal">false</span>;</span><br><span class="line">  caughtError = <span class="literal">null</span>;</span><br><span class="line">  invokeGuardedCallbackImpl$<span class="number">1.</span>apply(reporter, <span class="built_in">arguments</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 最后进入 invokeGuardedCallbackDev</span></span><br><span class="line"><span class="comment">// 就是调用了传入的 func</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/react源码过程/" rel="tag"># react源码过程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/31/react源码过程（6）-setState/" rel="next" title="react源码过程（6）- setState">
+                <i class="fa fa-chevron-left"></i> react源码过程（6）- setState
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/03/位运算/" rel="prev" title="位运算">
+                位运算 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">144</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#事件"><span class="nav-number">1.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例子"><span class="nav-number">2.</span> <span class="nav-text">例子</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
