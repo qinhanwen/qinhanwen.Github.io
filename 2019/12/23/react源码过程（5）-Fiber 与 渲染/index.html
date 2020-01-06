@@ -105,7 +105,7 @@
 <meta property="og:image" content="http://118.24.241.76/WX20191225-131528.png">
 <meta property="og:image" content="http://118.24.241.76/WX20191226-140330.png">
 <meta property="og:image" content="http://118.24.241.76/WX20191225-233334@2x.png">
-<meta property="og:updated_time" content="2020-01-06T03:16:02.057Z">
+<meta property="og:updated_time" content="2020-01-06T04:39:02.778Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="react源码过程（5）- Fiber 与 渲染">
 <meta name="twitter:description" content="例子需要先了解的内容 挂载 1ReactDOM.render(&amp;lt;App /&amp;gt;, document.getElementById(&apos;container&apos;)) 这段代码的含义是想在容器中渲染出一个组件。 fiber 对象 在 createFiberRoot 函数内部，分别创建了两个 root，一个 root 叫做 FiberRoot，另一个 root 叫做 RootFiber，并且它们两者">
@@ -422,7 +422,7 @@
 <li>从 RootFiber 开始生成 Fiber 树，遇到组件会调用 render 方法生成新的 ReactComponent（从上到下）</li>
 <li>当完成 Fiber 树结构之后，开始生成实例（stateNode）（从下到上，儿子实例被添加到父亲实例里）</li>
 <li>提交阶段</li>
-<li></li>
+<li>把 DomElement 实例（就是stateNode）添加到模板插槽的位置</li>
 </ul>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/createEvent" target="_blank" rel="noopener">Document.createEvent()</a></p>
 <p>语法：</p>
