@@ -466,8 +466,8 @@ WebView URL Scheme 跳转拦截；
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/chrome调试/" itemprop="url" rel="index">
-                    <span itemprop="name">chrome调试</span>
+                  <a href="/categories/性能监控/" itemprop="url" rel="index">
+                    <span itemprop="name">性能监控</span>
                   </a>
                 </span>
 
@@ -505,8 +505,18 @@ WebView URL Scheme 跳转拦截；
       
         
           
-          performance api 简单应用
-          
+          ##主要监控指标
+
+DNS查询时间——DNS查询的开始到结束所花费的时间；
+
+TCP连接时间——TCP建立连接到连接成功的所花费的时间；
+
+首屏时间——用户浏览器首屏内所有内容都呈现出来所花费的时间；
+
+用户可操作时间(dom Interactive)——用户可以进行正常的点击、输入等操作，默认可以统计domready时间，因为通常会在这时候绑定事件操作；
+
+DOM渲染完成时间——代表DOMContentLoaded事件完成的时间节点，此刻用户可以对页面进行操作，也就是页面中的domready时
+          ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2020/01/09/前端性能统计-首屏时间，白屏时间，用户可操作时间，总下载时间/#more" rel="contents">
