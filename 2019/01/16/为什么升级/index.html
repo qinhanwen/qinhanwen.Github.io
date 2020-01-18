@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="angularjs与angularts方面: 强类型语言约束，来减少运行时错误，在编写的时候就能发现 框架方面：  编译器支持 AOT 模式，大大减少了包的大小和提高了应用的性能，之前是JIT模式，运行时编译 重新设计的DI系统 angular1 应用程序中所有的依赖项都是单例，我们不能控制是否使用新的实例。状态不好维护 命名空间冲突 不能和模块加载器一起使用 DI 耦合度太高：angular1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="说！你为什么升级">
+<meta property="og:url" content="http://yoursite.com/2019/01/16/为什么升级/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="angularjs与angularts方面: 强类型语言约束，来减少运行时错误，在编写的时候就能发现 框架方面：  编译器支持 AOT 模式，大大减少了包的大小和提高了应用的性能，之前是JIT模式，运行时编译 重新设计的DI系统 angular1 应用程序中所有的依赖项都是单例，我们不能控制是否使用新的实例。状态不好维护 命名空间冲突 不能和模块加载器一起使用 DI 耦合度太高：angular1">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://118.24.241.76/2639567102-58cd4c537232d_articlex.png">
+<meta property="og:updated_time" content="2020-01-18T10:04:03.767Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="说！你为什么升级">
+<meta name="twitter:description" content="angularjs与angularts方面: 强类型语言约束，来减少运行时错误，在编写的时候就能发现 框架方面：  编译器支持 AOT 模式，大大减少了包的大小和提高了应用的性能，之前是JIT模式，运行时编译 重新设计的DI系统 angular1 应用程序中所有的依赖项都是单例，我们不能控制是否使用新的实例。状态不好维护 命名空间冲突 不能和模块加载器一起使用 DI 耦合度太高：angular1">
+<meta name="twitter:image" content="http://118.24.241.76/2639567102-58cd4c537232d_articlex.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/16/为什么升级/"/>
+
+
+
+
+
+  <title>说！你为什么升级 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/16/为什么升级/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">说！你为什么升级</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-16T21:17:43+08:00">
+                2019-01-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="angularjs与angular"><a href="#angularjs与angular" class="headerlink" title="angularjs与angular"></a>angularjs与angular</h2><p><strong>ts方面:</strong></p>
+<p>强类型语言约束，来减少运行时错误，在编写的时候就能发现</p>
+<p><strong>框架方面：</strong></p>
+<ul>
+<li>编译器支持 AOT 模式，大大减少了包的大小和提高了应用的性能，之前是JIT模式，运行时编译</li>
+<li>重新设计的DI系统<ul>
+<li>angular1 应用程序中所有的依赖项都是单例，我们不能控制是否使用新的实例。状态不好维护</li>
+<li>命名空间冲突</li>
+<li>不能和模块加载器一起使用</li>
+<li>DI 耦合度太高：angular1 中 DI 功能已经被框架集成了，我们不能单独使用它的 DI 特性</li>
+</ul>
+</li>
+<li>新的组件和模块化方案，支持组件继承</li>
+<li>去除了scope，变化检测不再使用\$scope.\$watch()、\$scope.\$apply()、\$timeout() 等</li>
+<li>路由支持懒加载和预加载</li>
+<li>跨平台能力：为了能够支持跨平台，Angular 通过抽象层封装了不同平台的差异，统一了 API 接口<ul>
+<li>ELementRef：</li>
+<li>等等</li>
+</ul>
+</li>
+<li>并且angularjs 不再维护了，业务代码也不容易维护了</li>
+</ul>
+<h5 id="DI与IoC"><a href="#DI与IoC" class="headerlink" title="DI与IoC"></a><a href="https://segmentfault.com/a/1190000008626680" target="_blank" rel="noopener">DI与IoC</a></h5><p><strong>IoC 是什么</strong></p>
+<p>Ioc - Inversion of Control , 即”控制反转”。在开发中， IoC 意味着你设计好的对象交给容器控制，而不是使用传统的方式，在对象内部直接控制。　　</p>
+<p>如何理解好 IoC 呢？理解好 IoC的关键是要明确”谁控制谁，控制什么，为何是反转(有反转就应该有正转)，哪些方面反转了”，我们来深入分析一下。　　</p>
+<ul>
+<li>谁控制谁，控制什么：　在传统的程序设计中，我们直接在对象内部通过 new 的方式创建对象，是程序主动创建依赖对象；而 IoC 是有专门一个容器来创建这些对象，即由 IoC 容器控制对象的创建；谁控制谁？当然是 IoC 容器控制了对象；控制什么？主要是控制外部资源获取。</li>
+<li>为何是反转了，哪些方面反转了：　有反转就有正转，传统应用程序是由我们自己在对象中主动控制去获取依赖对象，也就是正转；而反转则是由容器来帮忙创建及注入依赖对象；为何是反转？因为由容器帮我们查找及注入依赖对象，对象只是被动的接受依赖对象，所以是反转了；哪些方面反转了？依赖对象的获取被反转了。</li>
+</ul>
+<p><strong>DI是什么</strong></p>
+<p>DI - Dependency Injection，即”依赖注入”：组件之间的依赖关系由容器在运行期决定，形象的说，即由容器动态的将某个依赖关系注入到组件之中。依赖注入的目的并非为软件系统带来更多功能，而是为了提升组件重用的频率，并为系统搭建一个灵活、可扩展的平台。通过依赖注入机制，我们只需要通过简单的配置，而无需任何代码就可指定目标需要的资源，完成自身的业务逻辑，而不需要关心具体的资源来自何处，由谁实现。</p>
+<p><strong>IoC 和 DI 有什么关系？</strong></p>
+<p>其实它们是同一个概念的不同角度描述</p>
+<p><strong>angularjs中的应用</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> INSTANTIATING = &#123;&#125;，　<span class="comment">// 是否实例化中</span></span><br><span class="line">    providerSuffix = <span class="string">'Provider'</span>,　<span class="comment">// provider后缀</span></span><br><span class="line">    path = [];　<span class="comment">// 依赖路径</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> factory = <span class="function"><span class="keyword">function</span>(<span class="params">serviceName, caller</span>) </span>&#123; <span class="comment">// 实例工厂</span></span><br><span class="line">   <span class="keyword">var</span> provider = providerInjector.get(serviceName + providerSuffix, caller);</span><br><span class="line">   <span class="keyword">return</span> instanceInjector.invoke(provider.$get, provider, <span class="literal">undefined</span>, </span><br><span class="line">        serviceName);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getService</span>(<span class="params">serviceName, caller</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (cache.hasOwnProperty(serviceName)) &#123; <span class="comment">// 依赖对象已创建</span></span><br><span class="line">        <span class="keyword">if</span> (cache[serviceName] === INSTANTIATING) &#123;<span class="comment">// 判断是否存在循环依赖</span></span><br><span class="line">          <span class="keyword">throw</span> $injectorMinErr(<span class="string">'cdep'</span>, <span class="string">'Circular dependency found:   </span></span><br><span class="line"><span class="string">              &#123;0&#125;'</span>,serviceName + <span class="string">' &lt;- '</span> + path.join(<span class="string">' &lt;- '</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cache[serviceName];</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;　<span class="comment">// 依赖对象未创建</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          path.unshift(serviceName); <span class="comment">// 用于跟踪依赖路径</span></span><br><span class="line">          cache[serviceName] = INSTANTIATING;</span><br><span class="line">          <span class="comment">// 实例化 serviceName 对应的依赖对象并存储</span></span><br><span class="line">          <span class="keyword">return</span> cache[serviceName] = factory(serviceName, caller);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">          <span class="keyword">if</span> (cache[serviceName] === INSTANTIATING) &#123;</span><br><span class="line">            <span class="keyword">delete</span> cache[serviceName];　<span class="comment">// 实例化失败，从缓存中移除</span></span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">throw</span> err;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">          path.shift();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>getService 方法，如果实例存在，直接从缓存中拿出来。如果不存在就创建并缓存</p>
+<p><strong>angularjs实现DI的方式和缺点</strong></p>
+<ul>
+<li><strong>单例</strong>：由它的创建方式可以知道</li>
+<li><strong>命名空间冲突</strong>：在系统中我们使用字符串来标识 service 的名称，假设我们在项目中已有一个 CarService，然而第三方库中也引入了同样的服务，这样的话就容易出现混淆</li>
+<li><strong>未能和模块加载器结合</strong>： 在浏览器环境中，很多场景都是异步的过程，我们需要的依赖模块并不是一开始就加载好的，或许我们在创建的时候才会去加载依赖模块，再进行依赖创建，而 angualr 的 IoC 容器没法做到这点。</li>
+</ul>
+<p><strong>angular中的DI</strong></p>
+<p>虽然也是单例的，但是Angular 中注入器是有层级结构的，即创建完注入器，我们可以基于它创建它的子注入器。</p>
+<ul>
+<li>resolveAndCreate() - 根据设置的 provider 数组创建注入器</li>
+<li>resolveAndCreateChild() - 调用已有注入器对象上的该方法，创建子注入器</li>
+</ul>
+<h5 id="脏值检查"><a href="#脏值检查" class="headerlink" title="脏值检查"></a><a href="https://segmentfault.com/a/1190000008747225" target="_blank" rel="noopener">脏值检查</a></h5><p><strong>Zones</strong></p>
+<p><a href="https://domenic.github.io/zones/" target="_blank" rel="noopener">Zone</a> 是下一个 ECMAScript 规范的建议之一。Angular 团队实现了 JavaScript 版本的 <a href="https://github.com/angular/zone.js/" target="_blank" rel="noopener">zone.js</a> ，它是用于拦截和跟踪异步工作的机制。</p>
+<p>Zone 是一个全局的对象，用来配置有关如何拦截和跟踪异步回调的规则。Zone 有以下能力：</p>
+<ul>
+<li>拦截异步任务调度</li>
+<li>提供了将数据附加到 zones 的方法</li>
+<li>为异常处理函数提供正确的上下文</li>
+<li>拦截阻塞的方法，如 alert、confirm 方法</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Zone.current.fork(&#123;&#125;).run(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    Zone.current.inTheZone = <span class="literal">true</span>;</span><br><span class="line">  </span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'in the zone: '</span> + !!Zone.current.inTheZone); </span><br><span class="line">    &#125;, <span class="number">0</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'in the zone: '</span> + !!Zone.current.inTheZone);</span><br><span class="line"></span><br><span class="line"><span class="comment">//in the zone: false</span></span><br><span class="line"><span class="comment">//in the zone: true</span></span><br></pre></td></tr></table></figure>
+<p><strong>在angularjs中</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Angular 1.x Demo<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//cdn.bootcss.com/angular.js/1.6.3/angular.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"exeApp"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"MainCtrl"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h4</span>&gt;</span>Hello &#123;&#123; name &#125;&#125;<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    angular.module(<span class="string">'exeApp'</span>, [])</span></span><br><span class="line"><span class="javascript">            .controller(<span class="string">'MainCtrl'</span>, [<span class="string">'$scope'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                $scope.name = <span class="string">'Angular'</span>;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">                setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    $scope.name = <span class="string">'Angular 2'</span>;</span></span><br><span class="line"><span class="undefined">                &#125;, 2000);</span></span><br><span class="line"><span class="undefined">            &#125;]);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://118.24.241.76/2639567102-58cd4c537232d_articlex.png" alt="2639567102-58cd4c537232d_articlex"></p>
+<p>在angularjs中必须使用\$timeout或者$scope.\$digest()的方式来触发更新</p>
+<p><strong>在angular中</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 浏览器环境</span></span><br><span class="line"><span class="built_in">window</span>.setTimeout.toString() </span><br><span class="line"><span class="string">"function setTimeout() &#123; [native code] &#125;"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// angular 环境</span></span><br><span class="line"><span class="built_in">window</span>.setTimeout.toString()</span><br><span class="line"><span class="string">"function setTimeout()&#123;return f(this, arguments)&#125;"</span></span><br></pre></td></tr></table></figure>
+<p>其实在 Angular 2 应用程序启动之前，Zone 采用猴子补丁 (Monkey-patched) 的方式，将 JavaScript 中的异步任务都进行了包装，这使得这些异步任务都能运行在 Zone 的执行上下文中，每个异步任务在 Zone 中都是一个任务，除了提供了一些供开发者使用的钩子外，默认情况下 Zone 重写了以下方法：</p>
+<ul>
+<li>setInterval、clearInterval、setTimeout、clearTimeout</li>
+<li>alert、prompt、confirm</li>
+<li>requestAnimationFrame、cancelAnimationFrame</li>
+<li>addEventListener、removeEventListener</li>
+</ul>
+<p><strong>NgZone</strong></p>
+<p>NgZone 是基于 Zone 实现的，它是Zone派生出来的一个子Zone，在 Angular 环境内注册的异步事件都运行在这个子 Zone 内 (因为NgZone拥有整个运行环境的执行上下文)，它扩展了自有的一些 API 并添加了一些功能性的方法到它的执行上下文中。</p>
+<p>在 Angular 源码中，有一个 <code>ApplicationRef_</code> 类，其作用是用来监听 NgZone 中的 <code>onMicrotaskEmpty</code> 事件，无论何时只要触发这个事件，那么将会执行一个 <code>tick</code> 方法用来告诉 Angular 去执行变化检测，简化版的代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ApplicationRef</span> </span>&#123; </span><br><span class="line">  private _views: InternalViewRef[] = [];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(private zone: NgZone) &#123;</span><br><span class="line">        <span class="keyword">this</span>.zone.onMicrotaskEmpty.subscribe(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.zone.run(<span class="function"><span class="params">()</span> =&gt;</span> &#123; </span><br><span class="line">              <span class="keyword">this</span>.tick();</span><br><span class="line">            &#125;); </span><br><span class="line">        &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  tick() &#123; </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>._runningTick) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'ApplicationRef.tick is called recursively'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>._views.forEach(<span class="function">(<span class="params">view</span>) =&gt;</span> view.detectChanges());</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在我们先来总结一下前面所讲的内容：</p>
+<ul>
+<li>异步操作被安排为任务</li>
+<li>Zones 跟踪任务的执行</li>
+<li>Angular 处理由执行异步操作引起的事件</li>
+<li>Angular 对所有组件执行变化检测，若发生变化则更新视图</li>
+</ul>
+<h5 id="JIT与AOT"><a href="#JIT与AOT" class="headerlink" title="JIT与AOT"></a>JIT与AOT</h5><p>在 Angular 应用程序中，包含了我们通过 Angular 提供的 API 实现的自定义指令。这些自定义指令对浏览器来说，都是无法识别的，因此每个 Angular 应用程序在运行前，都需要经历一个编译的阶段。</p>
+<p><strong>Just-in-Time 编译模式开发流程</strong></p>
+<ul>
+<li>使用 TypeScript 开发 Angular 应用</li>
+<li>运行 tsc 编译 TypeScript 代码</li>
+<li>使用 Webpack 或 Gulp 等其他工具构建项目，如代码压缩、合并等</li>
+<li>部署应用</li>
+</ul>
+<p>应用部署后，当用户通过浏览器访问我们应用的时候，她将经历以下步骤(非严格 <a href="https://developer.mozilla.org/zh-CN/docs/Web/Security/CSP" target="_blank" rel="noopener">CSP</a>)：</p>
+<ul>
+<li>下载应用相关的资源，如 JavaScript 文件、图片、样式资源</li>
+<li>Angular 启动</li>
+<li>Angular 进入 JiT 编译模式，开始编译我们应用中的指令或组件，生成相应的 JavaScript 代码</li>
+<li>应用完成渲染</li>
+</ul>
+<p><strong>Ahead-Of-Time 编译模式开发流程</strong></p>
+<ul>
+<li>使用 TypeScript 开发 Angular 应用</li>
+<li>运行 ngc 编译应用程序<ul>
+<li>使用 Angular Compiler 编译模板，一般输出 TypeScript 代码</li>
+<li>运行 tsc 编译 TypeScript 代码</li>
+</ul>
+</li>
+<li>使用 Webpack 或 Gulp 等其他工具构建项目，如代码压缩、合并等</li>
+<li>部署应用</li>
+</ul>
+<p>应用部署后，相比于 JIT 编译模式，在 AOT 模式下用户访问我们的应用，只需经历以下步骤：</p>
+<ul>
+<li>下载应用相关的资源，如 JavaScript 文件、图片、样式资源</li>
+<li>Angular 启动</li>
+<li>应用完成渲染</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">特性</th>
+<th style="text-align:center">JIT</th>
+<th style="text-align:center">AOT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">编译平台</td>
+<td style="text-align:center">(Browser) 浏览器</td>
+<td style="text-align:center">(Server) 服务器</td>
+</tr>
+<tr>
+<td style="text-align:center">编译时机</td>
+<td style="text-align:center">Runtime (运行时)</td>
+<td style="text-align:center">Build (构建阶段)</td>
+</tr>
+<tr>
+<td style="text-align:center">包大小</td>
+<td style="text-align:center">较大</td>
+<td style="text-align:center">较小</td>
+</tr>
+<tr>
+<td style="text-align:center">执行性能</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">更好</td>
+</tr>
+<tr>
+<td style="text-align:center">启动时间</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">更短</td>
+</tr>
+</tbody>
+</table>
+<p>除此之外 AOT 还有以下优点：</p>
+<ul>
+<li>在客户端我们不需要导入体积庞大的 angular 编译器，这样可以减少我们 JS 脚本库的大小</li>
+<li>使用 AOT 编译后的应用，不再包含任何 HTML 片段，取而代之的是编译生成的 TypeScript 代码，这样的话 TypeScript 编译器就能提前发现错误。总而言之，采用 AOT 编译模式，我们的模板是类型安全的。</li>
+</ul>
+<h5 id="ELementRef"><a href="#ELementRef" class="headerlink" title="ELementRef"></a>ELementRef</h5><p>在应用层直接操作 DOM，就会造成应用层与渲染层之间强耦合，导致我们的应用无法运行在不同环境。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://segmentfault.com/a/1190000008754631" target="_blank" rel="noopener">https://segmentfault.com/a/1190000008754631</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/13/linear-gradient/" rel="next" title="linear-gradient">
+                <i class="fa fa-chevron-left"></i> linear-gradient
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/18/下载网页请求的图片资源/" rel="prev" title="下载网页的所有图片资源">
+                下载网页的所有图片资源 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">151</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#angularjs与angular"><span class="nav-number">1.</span> <span class="nav-text">angularjs与angular</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#DI与IoC"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">DI与IoC</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#脏值检查"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">脏值检查</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JIT与AOT"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">JIT与AOT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ELementRef"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">ELementRef</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">2.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
