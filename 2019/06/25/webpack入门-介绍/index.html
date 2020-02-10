@@ -102,14 +102,14 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="介绍webpack 是一个前端模块打包工具。它将根据模块的依赖关系进行静态分析，然后将这些模块按照指定的规则生成对应的静态资源。 安装先初始化一个npm项目 1$ npm init 4.X之后需要安装webpack和webpack-cli两个模块 1）项目里安装 1$ npm install webpack webpack-cli  --save-dev 2）全局安装 1$ npm install">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://118.24.241.76/WX20190625-200220@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190625-220157@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190625-222729@2x.png">
-<meta property="og:updated_time" content="2019-12-30T03:32:09.994Z">
+<meta property="og:image" content="http://114.55.30.96/WX20190625-200220@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190625-220157@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190625-222729@2x.png">
+<meta property="og:updated_time" content="2020-02-10T13:01:14.296Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack入门（1）-介绍">
 <meta name="twitter:description" content="介绍webpack 是一个前端模块打包工具。它将根据模块的依赖关系进行静态分析，然后将这些模块按照指定的规则生成对应的静态资源。 安装先初始化一个npm项目 1$ npm init 4.X之后需要安装webpack和webpack-cli两个模块 1）项目里安装 1$ npm install webpack webpack-cli  --save-dev 2）全局安装 1$ npm install">
-<meta name="twitter:image" content="http://118.24.241.76/WX20190625-200220@2x.png">
+<meta name="twitter:image" content="http://114.55.30.96/WX20190625-200220@2x.png">
 
 
 
@@ -397,14 +397,14 @@
 <p>index.html</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    index.html</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./index.js"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>打开页面的时候会看到报错，（uncaught SyntaxError: Unexpected identifier）意外的标识符，浏览器不认识ES模块引入和导出的方式。</p>
-<p><img src="http://118.24.241.76/WX20190625-200220@2x.png" alt="WX20190625-200220@2x"></p>
+<p><img src="http://114.55.30.96/WX20190625-200220@2x.png" alt="WX20190625-200220@2x"></p>
 <p>使用webpack打包</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npx webpack index.js</span></span><br></pre></td></tr></table></figure>
 <p><a href="http://www.ruanyifeng.com/blog/2019/02/npx.html" target="_blank" rel="noopener">npx</a>运行的时候会自动查找当前依赖包中的可执行文件，会到<code>node_modules/.bin</code>路径和环境变量<code>$PATH</code>里面，检查命令是否存在。由于 npx 会检查环境变量<code>$PATH</code>，所以系统命令也可以调用。</p>
 <p>打包后的文件在dist/main.js里</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">|—— a.js</span><br><span class="line">|—— b.js</span><br><span class="line">|—— c.js</span><br><span class="line">|—— dist</span><br><span class="line">  |—— main.js</span><br><span class="line">|—— index.html</span><br><span class="line">|—— index.js</span><br></pre></td></tr></table></figure>
 <p>在index.html页面中引入dist/main.js</p>
-<p><img src="http://118.24.241.76/WX20190625-220157@2x.png" alt="WX20190625-220157@2x"></p>
+<p><img src="http://114.55.30.96/WX20190625-220157@2x.png" alt="WX20190625-220157@2x"></p>
 <p>webpack也可以打包使用其他模块的规范的文件，比如commonJs，AMD，CMD。webpack它将根据模块的依赖关系进行静态分析，最后生成一个最终的js文件。（它也可以处理其他类型文件）</p>
 <p>修改a.js，b.js，c.jx和index.js</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"module A"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -414,7 +414,7 @@
 <p>重新打包</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm webpack index.js</span></span><br></pre></td></tr></table></figure>
 <p>打开页面</p>
-<p><img src="http://118.24.241.76/WX20190625-222729@2x.png" alt="WX20190625-222729@2x"></p>
+<p><img src="http://114.55.30.96/WX20190625-222729@2x.png" alt="WX20190625-222729@2x"></p>
 
       
     </div>
@@ -534,7 +534,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">151</span>
+                <span class="site-state-item-count">155</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

@@ -102,12 +102,12 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="1️⃣、iOS 平台中 UIWebView 与 WKWebView 有什么区别？ UIWebView特点: 加载速度慢； 内存占用多，内存优化困难； 如果内存占用过多，还可能因为占用过多被系统kill掉。 UIWebView的内存占用不会在关闭WebView时主动回收，每次新开WebView都会消耗额外内存。  WKWebView的特性： 在性能、稳定性、功能方面有很大提升，内存占用是UIWebV">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://118.24.241.76/WX20190630-232851@2x.png">
-<meta property="og:updated_time" content="2019-12-30T03:32:10.065Z">
+<meta property="og:image" content="http://114.55.30.96/WX20190630-232851@2x.png">
+<meta property="og:updated_time" content="2020-02-10T13:01:14.296Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大前端混合应用专题篇(2)">
 <meta name="twitter:description" content="1️⃣、iOS 平台中 UIWebView 与 WKWebView 有什么区别？ UIWebView特点: 加载速度慢； 内存占用多，内存优化困难； 如果内存占用过多，还可能因为占用过多被系统kill掉。 UIWebView的内存占用不会在关闭WebView时主动回收，每次新开WebView都会消耗额外内存。  WKWebView的特性： 在性能、稳定性、功能方面有很大提升，内存占用是UIWebV">
-<meta name="twitter:image" content="http://118.24.241.76/WX20190630-232851@2x.png">
+<meta name="twitter:image" content="http://114.55.30.96/WX20190630-232851@2x.png">
 
 
 
@@ -418,7 +418,7 @@
 <p>3.页面基本框架出现，但是没有数据；页面处于loading状态</p>
 <p>4.出现所需的数据</p>
 <p>从程序上观察，WebView启动过程大概分为以下几个阶段：</p>
-<p><img src="http://118.24.241.76/WX20190630-232851@2x.png" alt="WX20190630-232851@2x"></p>
+<p><img src="http://114.55.30.96/WX20190630-232851@2x.png" alt="WX20190630-232851@2x"></p>
 <p>当App首次打开时，默认是并不初始化浏览器内核的；只有当创建<code>WebView</code>实例的时候，才会创建<code>WebView</code>的基础框架。<br>所以与浏览器不同，App中打开<code>WebView</code>的第一步并不是建立连接，而是启动浏览器内核。</p>
 <p>由于这段过程发生在native的代码中，单纯靠前端代码是无法优化的；大部分的方案都是前端和客户端协作完成，以下是几个业界采用过的方案：</p>
 <p><strong>1）全局WebView</strong>：在客户端刚启动时，就初始化一个全局的WebView待用，并隐藏，当用户访问了WebView时，直接使用这个WebView加载对应网页，并展示。</p>
@@ -554,7 +554,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">151</span>
+                <span class="site-state-item-count">155</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

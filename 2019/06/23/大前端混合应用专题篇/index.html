@@ -102,20 +102,20 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="1️⃣、什么是 Hybird App，与 Native App 及 Web App 有什么区别 ​ 介绍：在 Google 推出 Android，Apple 推出 iOS 后，有了原生 App，在 H5 广泛流行之后出现了一种效率更高的混合 App 开发(Hybird App)，原生 APP 开发中有一个 webview 的组件(Android 中是 webview,iOS7 以下有 UIWebv">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://118.24.241.76/WX20190623-212952@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190623-221940@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190129-173750@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WechatIMG174.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190130-213640@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190130-212710@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190130-232029@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20200107-131432@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20200107-131503@2x.png">
-<meta property="og:updated_time" content="2020-01-09T02:31:32.995Z">
+<meta property="og:image" content="http://114.55.30.96/WX20190623-212952@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190623-221940@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190129-173750@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WechatIMG174.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190130-213640@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190130-212710@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190130-232029@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20200107-131432@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20200107-131503@2x.png">
+<meta property="og:updated_time" content="2020-02-10T13:01:14.296Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大前端混合应用专题篇">
 <meta name="twitter:description" content="1️⃣、什么是 Hybird App，与 Native App 及 Web App 有什么区别 ​ 介绍：在 Google 推出 Android，Apple 推出 iOS 后，有了原生 App，在 H5 广泛流行之后出现了一种效率更高的混合 App 开发(Hybird App)，原生 APP 开发中有一个 webview 的组件(Android 中是 webview,iOS7 以下有 UIWebv">
-<meta name="twitter:image" content="http://118.24.241.76/WX20190623-212952@2x.png">
+<meta name="twitter:image" content="http://114.55.30.96/WX20190623-212952@2x.png">
 
 
 
@@ -426,8 +426,8 @@
 <p>优点：开源，容易开发，灵活性高，开发人员不用学习其他语言，兼容多平台，可以直接调用本机的设备的硬件功能，例如摄像头，地理位置，加速度计等等。</p>
 <p>缺点：性能较差，功能开发受 webview 限制。</p>
 <p>3️⃣、Cordova 插件的原理是什么</p>
-<p><img src="http://118.24.241.76/WX20190623-212952@2x.png" alt="WX20190623-212952@2x"></p>
-<p><img src="http://118.24.241.76/WX20190623-221940@2x.png" alt="WX20190623-221940@2x"></p>
+<p><img src="http://114.55.30.96/WX20190623-212952@2x.png" alt="WX20190623-212952@2x"></p>
+<p><img src="http://114.55.30.96/WX20190623-221940@2x.png" alt="WX20190623-221940@2x"></p>
 <p>4️⃣、什么是 JSBridge，它的作用是什么</p>
 <p>JSbridge：在 Hybrid App 开发中，H5 应用是内嵌到原生的 WebView 组件中，纯 H5 在很多功能使用都受到限制，而且功能的使用存在很多的兼容性问题，所以使用一些受限的功能时候需要依赖原生，而 JSbridge 就是 JS 与原生之间通信的桥梁。</p>
 <p>作用：web 端唤起使用 Native 功能，通知 Native，并且使用之后将结果返回给 web 端。</p>
@@ -436,21 +436,21 @@
 <p>IOS：</p>
 <p>1）首先 cordova.js 执行过程中，会获取了页面中所有<code>script</code>标签的<code>src</code>，并且找出了<code>cordova.js</code>的前缀，保存文件路径并且存为<code>pathPrefix</code>字段，拼接<code>pathPrefix</code>+<code>cordova_plugins.js</code>得到一个<code>url</code>，这个<code>url</code>也就是<code>cordova_plugins.js</code>文件的地址。</p>
 <p>2）接着动态创建<code>script</code>标签，<code>src</code>设置为<code>url</code>，之后把<code>script</code>标签加入<code>head</code>内。</p>
-<p><img src="http://118.24.241.76/WX20190129-173750@2x.png" alt="http://118.24.241.76/WX20190129-173750@2x.png"></p>
-<p><img src="http://118.24.241.76/WechatIMG174.png" alt=""></p>
+<p><img src="http://114.55.30.96/WX20190129-173750@2x.png" alt="http://114.55.30.96/WX20190129-173750@2x.png"></p>
+<p><img src="http://114.55.30.96/WechatIMG174.png" alt=""></p>
 <p>3）调用的时候，会先将成功回调失败回调，存进 cordova.callbacks[callbackId]，将 callbackId 等参数，push 进 commandQueue 数组。</p>
-<p><img src="http://118.24.241.76/WX20190130-213640@2x.png" alt=""></p>
+<p><img src="http://114.55.30.96/WX20190130-213640@2x.png" alt=""></p>
 <p>4）pokeNative 函数是在做轮训，这个函数判断是否有 execIframe 存在，有的话就设置 exeIframe.contentWindow.location = ‘gap://ready’；否则创建一个新的 iframe，diplay 为 none，并且 src 设置为’gap://ready’，这里是为了通知原生。</p>
-<p><img src="http://118.24.241.76/WX20190130-212710@2x.png" alt=""></p>
+<p><img src="http://114.55.30.96/WX20190130-212710@2x.png" alt=""></p>
 <p>5）Native 接收到消息，就可以取得这些数据。然后通过 callbackId 回调。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">callbackFromNative: <span class="function"><span class="keyword">function</span>(<span class="params">callbackId, success, status, args, keepCallback</span>) </span>&#123;</span><br><span class="line">       <span class="keyword">var</span> callback = cordova.callbacks[callbackId];</span><br><span class="line">       <span class="keyword">if</span> (callback) &#123;</span><br><span class="line">           <span class="keyword">if</span> (success &amp;&amp; status == cordova.callbackStatus.OK) &#123;</span><br><span class="line">               callback.success &amp;&amp; callback.success.apply(<span class="literal">null</span>, args);</span><br><span class="line">           &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!success) &#123;</span><br><span class="line">               callback.fail &amp;&amp; callback.fail.apply(<span class="literal">null</span>, args);</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           <span class="comment">// Clear callback if not expecting any more results</span></span><br><span class="line">           <span class="keyword">if</span> (!keepCallback) &#123;</span><br><span class="line">               <span class="keyword">delete</span> cordova.callbacks[callbackId];</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <p>Android（UIWebView）：重写了 prompt 方法</p>
 <p>IOS 和 Android(WKWebview)：使用 postMessage 方法</p>
-<p><img src="http://118.24.241.76/WX20190130-232029@2x.png" alt=""></p>
+<p><img src="http://114.55.30.96/WX20190130-232029@2x.png" alt=""></p>
 <h5 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h5><p><strong>H5 调用 native 方法梳理</strong></p>
-<p><img src="http://118.24.241.76/WX20200107-131432@2x.png" alt="WX20200107-131432@2x"></p>
+<p><img src="http://114.55.30.96/WX20200107-131432@2x.png" alt="WX20200107-131432@2x"></p>
 <p><strong>native 调用 h5</strong></p>
-<p><img src="http://118.24.241.76/WX20200107-131503@2x.png" alt="WX20200107-131503@2x"></p>
+<p><img src="http://114.55.30.96/WX20200107-131503@2x.png" alt="WX20200107-131503@2x"></p>
 <p><strong>ios：</strong></p>
 <p>1.注入</p>
 <p>2.localtion.href 与 iframe 方式：<br>通过 location.href 有个问题，就是如果我们连续多次修改 window.location.href 的值，在 Native 层只能接收到最后一次请求，前面的请求都会被忽略掉。</p>
@@ -577,7 +577,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">151</span>
+                <span class="site-state-item-count">155</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

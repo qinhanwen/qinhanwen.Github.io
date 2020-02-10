@@ -102,17 +102,17 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="angularInit方法属性选择器选中[ng-app]作为appElement的值   然后进去compileNodes，深度优先遍历子节点获取子节点的directive（比如p标签的ng-click，和input的ng-model）  之后先做watchers的收集，后面更新变化用的  之后为input添加input事件，为div添加点击事件，比如添加点击事件的地方，先获取调用的事件，封装了一">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://118.24.241.76/WX20191023-172022@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20191023-172049@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20191023-172650@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20191023-233311@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20191023-173812@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20191023-214405@2x.png">
-<meta property="og:updated_time" content="2019-12-30T03:32:10.197Z">
+<meta property="og:image" content="http://114.55.30.96/WX20191023-172022@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20191023-172049@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20191023-172650@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20191023-233311@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20191023-173812@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20191023-214405@2x.png">
+<meta property="og:updated_time" content="2020-02-10T13:01:14.297Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="angularjs">
 <meta name="twitter:description" content="angularInit方法属性选择器选中[ng-app]作为appElement的值   然后进去compileNodes，深度优先遍历子节点获取子节点的directive（比如p标签的ng-click，和input的ng-model）  之后先做watchers的收集，后面更新变化用的  之后为input添加input事件，为div添加点击事件，比如添加点击事件的地方，先获取调用的事件，封装了一">
-<meta name="twitter:image" content="http://118.24.241.76/WX20191023-172022@2x.png">
+<meta name="twitter:image" content="http://114.55.30.96/WX20191023-172022@2x.png">
 
 
 
@@ -380,16 +380,16 @@
 
       
         <h2 id="angularInit方法"><a href="#angularInit方法" class="headerlink" title="angularInit方法"></a>angularInit方法</h2><p>属性选择器选中[ng-app]作为appElement的值</p>
-<p><img src="http://118.24.241.76/WX20191023-172022@2x.png" alt="WX20191023-172022@2x"></p>
-<p><img src="http://118.24.241.76/WX20191023-172049@2x.png" alt="WX20191023-172049@2x"></p>
+<p><img src="http://114.55.30.96/WX20191023-172022@2x.png" alt="WX20191023-172022@2x"></p>
+<p><img src="http://114.55.30.96/WX20191023-172049@2x.png" alt="WX20191023-172049@2x"></p>
 <p>然后进去compileNodes，深度优先遍历子节点获取子节点的directive（比如p标签的ng-click，和input的ng-model）</p>
-<p><img src="http://118.24.241.76/WX20191023-172650@2x.png" alt="WX20191023-172650@2x"></p>
+<p><img src="http://114.55.30.96/WX20191023-172650@2x.png" alt="WX20191023-172650@2x"></p>
 <p>之后先做watchers的收集，后面更新变化用的</p>
-<p><img src="http://118.24.241.76/WX20191023-233311@2x.png" alt="WX20191023-233311@2x"></p>
+<p><img src="http://114.55.30.96/WX20191023-233311@2x.png" alt="WX20191023-233311@2x"></p>
 <p>之后为input添加input事件，为div添加点击事件，比如添加点击事件的地方，先获取调用的事件，封装了一下</p>
-<p><img src="http://118.24.241.76/WX20191023-173812@2x.png" alt="WX20191023-173812@2x"></p>
+<p><img src="http://114.55.30.96/WX20191023-173812@2x.png" alt="WX20191023-173812@2x"></p>
 <p>再添加事件</p>
-<p><img src="http://118.24.241.76/WX20191023-214405@2x.png" alt="WX20191023-214405@2x"></p>
+<p><img src="http://114.55.30.96/WX20191023-214405@2x.png" alt="WX20191023-214405@2x"></p>
 <h2 id="angularjs双向绑定原理"><a href="#angularjs双向绑定原理" class="headerlink" title="angularjs双向绑定原理"></a>angularjs双向绑定原理</h2><p>1.构造函数</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Scope</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.$id = nextUid();</span><br><span class="line">  <span class="keyword">this</span>.$$phase = <span class="keyword">this</span>.$parent = <span class="keyword">this</span>.$$watchers =</span><br><span class="line">                 <span class="keyword">this</span>.$$nextSibling = <span class="keyword">this</span>.$$prevSibling =</span><br><span class="line">                 <span class="keyword">this</span>.$$childHead = <span class="keyword">this</span>.$$childTail = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">this</span>.$root = <span class="keyword">this</span>;</span><br><span class="line">  <span class="keyword">this</span>.$$destroyed = <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">this</span>.$$listeners = &#123;&#125;;</span><br><span class="line">  <span class="keyword">this</span>.$$listenerCount = &#123;&#125;;</span><br><span class="line">  <span class="keyword">this</span>.$$watchersCount = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">this</span>.$$isolateBindings = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>2.属性挂载到Scope实例，也就是\$scope上</p>
@@ -515,7 +515,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">151</span>
+                <span class="site-state-item-count">155</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

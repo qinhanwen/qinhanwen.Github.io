@@ -102,17 +102,17 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="参考资料    图解HTTP  只写了一些常见的（我常见），没有区分HTTP不同版本的头部 为什么需要头部http头部字段主要是给客户端还有服务器端提供报文主体大小，所用语言，以及认证信息等。 头部字段结构1头部字段名 : 字段值 头部字段类型1）通用头部字段：请求报文和响应报文都会使用的字段2）请求头部字段：客户端向服务端发送请求报文时使用的字段3）响应头部字段：服务端向客户端返回响应报文时使">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://118.24.241.76/WX20190227-184022@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190227-222137@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190227-223306@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190227-235752@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190227-235514@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190301-105530@2x.png">
-<meta property="og:updated_time" content="2019-12-30T03:32:10.046Z">
+<meta property="og:image" content="http://114.55.30.96/WX20190227-184022@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190227-222137@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190227-223306@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190227-235752@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190227-235514@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190301-105530@2x.png">
+<meta property="og:updated_time" content="2020-02-10T13:01:14.296Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见HTTP头部">
 <meta name="twitter:description" content="参考资料    图解HTTP  只写了一些常见的（我常见），没有区分HTTP不同版本的头部 为什么需要头部http头部字段主要是给客户端还有服务器端提供报文主体大小，所用语言，以及认证信息等。 头部字段结构1头部字段名 : 字段值 头部字段类型1）通用头部字段：请求报文和响应报文都会使用的字段2）请求头部字段：客户端向服务端发送请求报文时使用的字段3）响应头部字段：服务端向客户端返回响应报文时使">
-<meta name="twitter:image" content="http://118.24.241.76/WX20190227-184022@2x.png">
+<meta name="twitter:image" content="http://114.55.30.96/WX20190227-184022@2x.png">
 
 
 
@@ -397,7 +397,7 @@
 <p>2）在响应报文中的时候，表示不超过这段时间内，<code>缓存服务器</code>就不会发送请求给<code>源服务器</code>。</p>
 <h4 id="Connection"><a href="#Connection" class="headerlink" title="Connection"></a>Connection</h4><h5 id="1）控制不再转发给代理服务器的头部字段"><a href="#1）控制不再转发给代理服务器的头部字段" class="headerlink" title="1）控制不再转发给代理服务器的头部字段"></a>1）控制不再转发给代理服务器的头部字段</h5><h5 id="2）管理持久链接"><a href="#2）管理持久链接" class="headerlink" title="2）管理持久链接"></a>2）管理持久链接</h5><p>属性值：</p>
 <p><strong>不再转发的属性值</strong></p>
-<p><img src="http://118.24.241.76/WX20190227-184022@2x.png" alt="WX20190227-184022@2x"></p>
+<p><img src="http://114.55.30.96/WX20190227-184022@2x.png" alt="WX20190227-184022@2x"></p>
 <p><strong>Close</strong>：当服务端想断开链接的时候的值。</p>
 <p><strong>Keep-Alive</strong>：HTTP1.1默认支持长链接，之前的版本需要加上才支持长链接。</p>
 <h4 id="Date"><a href="#Date" class="headerlink" title="Date"></a>Date</h4><p>表示报文创建的时间</p>
@@ -408,22 +408,22 @@
 <h4 id="Upgrade"><a href="#Upgrade" class="headerlink" title="Upgrade"></a>Upgrade</h4><p>用于检测是否可以使用更高版本的HTTP协议或其他协议</p>
 <p>属性值：</p>
 <p>可以设置为一个完全不同的协议</p>
-<p><img src="http://118.24.241.76/WX20190227-222137@2x.png" alt="WX20190227-222137@2x"></p>
+<p><img src="http://114.55.30.96/WX20190227-222137@2x.png" alt="WX20190227-222137@2x"></p>
 <h2 id="请求头部字段"><a href="#请求头部字段" class="headerlink" title="请求头部字段"></a>请求头部字段</h2><p>下面所有的<code>q=</code>后面跟随一个数值从0到1，表示优先级。</p>
 <h4 id="Accept"><a href="#Accept" class="headerlink" title="Accept"></a>Accept</h4><p>告知服务器，客户端能够接受的文件类型。</p>
 <p>属性值之间<code>;</code>隔开，<code>q=</code>表示优先级。</p>
 <h4 id="Accept-Encoding"><a href="#Accept-Encoding" class="headerlink" title="Accept-Encoding"></a>Accept-Encoding</h4><p>告知服务器，客户端所支持的内容编码，以及内容编码优先级。</p>
-<p><img src="http://118.24.241.76/WX20190227-223306@2x.png" alt="WX20190227-223306@2x"></p>
+<p><img src="http://114.55.30.96/WX20190227-223306@2x.png" alt="WX20190227-223306@2x"></p>
 <h4 id="Accept-Language"><a href="#Accept-Language" class="headerlink" title="Accept-Language"></a>Accept-Language</h4><p>告知服务器，客户端能够处理的自然语言集，以及优先级<code>q=</code>表示。</p>
 <h4 id="Authorization"><a href="#Authorization" class="headerlink" title="Authorization"></a>Authorization</h4><p>一般用来放一些认证信息，使用JWT的时候，也是放在这个字段传递。</p>
 <h4 id="Host"><a href="#Host" class="headerlink" title="Host"></a>Host</h4><p>告诉服务器请求的资源的主机名</p>
 <p>#### </p>
 <h4 id="If-None-Match"><a href="#If-None-Match" class="headerlink" title="If-None-Match"></a>If-None-Match</h4><p>其实是上一次请求返回的ETag字段（文件在服务器上的唯一标识）的值。(可以根据文件内容hash运算生成)</p>
-<p><img src="http://118.24.241.76/WX20190227-235752@2x.png" alt="WX20190227-235752@2x"></p>
+<p><img src="http://114.55.30.96/WX20190227-235752@2x.png" alt="WX20190227-235752@2x"></p>
 <h4 id="If-Modified-Since"><a href="#If-Modified-Since" class="headerlink" title="If-Modified-Since"></a>If-Modified-Since</h4><p>服务器上文件的最后修改时间，其实就是上一次请求返回的Last-Modified的值。优先级小于<code>If-None-Match</code>。</p>
-<p><img src="http://118.24.241.76/WX20190227-235514@2x.png" alt="WX20190227-235514@2x"></p>
+<p><img src="http://114.55.30.96/WX20190227-235514@2x.png" alt="WX20190227-235514@2x"></p>
 <h4 id="If-Match"><a href="#If-Match" class="headerlink" title="If-Match"></a>If-Match</h4><p>与<code>If-None-Match</code>相反，如果一样才返回200。</p>
-<p><img src="http://118.24.241.76/WX20190301-105530@2x.png" alt="WX20190301-105530@2x"></p>
+<p><img src="http://114.55.30.96/WX20190301-105530@2x.png" alt="WX20190301-105530@2x"></p>
 <h4 id="If-Unmodified-Since"><a href="#If-Unmodified-Since" class="headerlink" title="If-Unmodified-Since"></a>If-Unmodified-Since</h4><p>与<code>If-Modified-Since</code>相反，如果一样的话返回200。不一样的话返回412。</p>
 <h4 id="Referer"><a href="#Referer" class="headerlink" title="Referer"></a>Referer</h4><p>请求发出的URI</p>
 <h4 id="User-Agent"><a href="#User-Agent" class="headerlink" title="User-Agent"></a>User-Agent</h4><p>浏览器以及用户代理等信息</p>
@@ -563,7 +563,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">151</span>
+                <span class="site-state-item-count">155</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

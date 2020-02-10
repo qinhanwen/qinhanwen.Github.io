@@ -102,12 +102,12 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="一.栈数据结构，生活中有什么例子? 栈的特点。栈是一种遵从后进先出(LIFO)原则的有序集合，新增加和待删除的元素都会保存在栈的同一端， 叫做栈顶，另一端叫做栈底。    生活中的例子。一桶薯片，最上面的最后放进去，吃的时候先拿上面的。   二、请实现一个栈，并实现以下方法： push(element)：添加一个新元素到栈顶。 pop()：移除栈顶的元素，同时返回被移除的元素。 peek()：返回">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://118.24.241.76/WX20190721-003054@2x.png">
-<meta property="og:updated_time" content="2019-12-30T03:32:10.199Z">
+<meta property="og:image" content="http://114.55.30.96/WX20190721-003054@2x.png">
+<meta property="og:updated_time" content="2020-02-10T13:01:14.649Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="栈">
 <meta name="twitter:description" content="一.栈数据结构，生活中有什么例子? 栈的特点。栈是一种遵从后进先出(LIFO)原则的有序集合，新增加和待删除的元素都会保存在栈的同一端， 叫做栈顶，另一端叫做栈底。    生活中的例子。一桶薯片，最上面的最后放进去，吃的时候先拿上面的。   二、请实现一个栈，并实现以下方法： push(element)：添加一个新元素到栈顶。 pop()：移除栈顶的元素，同时返回被移除的元素。 peek()：返回">
-<meta name="twitter:image" content="http://118.24.241.76/WX20190721-003054@2x.png">
+<meta name="twitter:image" content="http://114.55.30.96/WX20190721-003054@2x.png">
 
 
 
@@ -399,7 +399,7 @@
 <p>那么这样有什么好处呢，主要是让item成为一个私有属性，外部无法进行访问和修改。</p>
 <h2 id="三、编写一个函数，实现十进制转换为二进制。"><a href="#三、编写一个函数，实现十进制转换为二进制。" class="headerlink" title="三、编写一个函数，实现十进制转换为二进制。"></a>三、编写一个函数，实现十进制转换为二进制。</h2><h5 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bitset(<span class="number">10</span>)   --&gt; <span class="string">"1010"</span></span><br><span class="line">bitset(<span class="number">100</span>)  --&gt; <span class="string">"1100100"</span></span><br><span class="line">bitset(<span class="number">1000</span>) --&gt; <span class="string">"1111101000"</span></span><br></pre></td></tr></table></figure>
 <p><strong>使用栈来实现</strong></p>
-<p><img src="http://118.24.241.76/WX20190721-003054@2x.png" alt="WX20190721-003054@2x"></p>
+<p><img src="http://114.55.30.96/WX20190721-003054@2x.png" alt="WX20190721-003054@2x"></p>
 <h5 id="实现："><a href="#实现：" class="headerlink" title="实现："></a>实现：</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bitset</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="regexp">/^[1-9]+[0-9]*$/</span>.test(num)) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'num is not a number, or a number starting with 0'</span>);</span><br><span class="line">    <span class="keyword">let</span> stack = <span class="keyword">new</span> Stack();</span><br><span class="line">    <span class="keyword">let</span> bit = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">while</span> (num) &#123;</span><br><span class="line">        stack.push(num % <span class="number">2</span>);</span><br><span class="line">        num = <span class="built_in">Math</span>.floor(num / <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (!stack.isEmpty()) &#123;</span><br><span class="line">        bit += stack.pop().toString();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> bit;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="四、编写一个函数，该函数接受一个括号字符串，并确定括号的顺序是否有效。如果字符串有效，函数应返回-true；如果字符串无效，则返回-false。"><a href="#四、编写一个函数，该函数接受一个括号字符串，并确定括号的顺序是否有效。如果字符串有效，函数应返回-true；如果字符串无效，则返回-false。" class="headerlink" title="四、编写一个函数，该函数接受一个括号字符串，并确定括号的顺序是否有效。如果字符串有效，函数应返回 true；如果字符串无效，则返回 false。"></a>四、编写一个函数，该函数接受一个括号字符串，并确定括号的顺序是否有效。如果字符串有效，函数应返回 true；如果字符串无效，则返回 false。</h2><h5 id="示例：-1"><a href="#示例：-1" class="headerlink" title="示例："></a>示例：</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">validParentheses(<span class="string">"()"</span> )             --&gt; <span class="literal">true</span></span><br><span class="line">validParentheses(<span class="string">")(()))"</span>)          --&gt;  <span class="literal">false</span></span><br><span class="line">validParentheses(<span class="string">"("</span>)               --&gt; <span class="literal">false</span></span><br><span class="line">validParentheses(<span class="string">"(())((()())())"</span>)  --&gt;  <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 <p><strong>使用栈来实现</strong></p>
@@ -524,7 +524,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">151</span>
+                <span class="site-state-item-count">155</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

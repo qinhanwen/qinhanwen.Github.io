@@ -102,23 +102,23 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="补充添加了一个简单的 loader，替换 const 为 var 123module.exports = function loader(source) &amp;#123;    return source.replace(&apos;const&apos;,&apos;var&apos;);&amp;#125;; 123456789101112131415161718192021222324252627const path = require(&apos;p">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://118.24.241.76/WX20200117-141124@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20200117-142045@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20200117-143820@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20200117-144310@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20200117-145652@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20200117-145844@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20200117-165529@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20200117-165942@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20200117-165847@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20200117-172244@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20200117-175056@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20200117-174845@2x.png">
-<meta property="og:updated_time" content="2020-01-18T10:04:03.768Z">
+<meta property="og:image" content="http://114.55.30.96/WX20200117-141124@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20200117-142045@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20200117-143820@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20200117-144310@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20200117-145652@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20200117-145844@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20200117-165529@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20200117-165942@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20200117-165847@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20200117-172244@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20200117-175056@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20200117-174845@2x.png">
+<meta property="og:updated_time" content="2020-02-10T13:01:14.499Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack构建过程-补充">
 <meta name="twitter:description" content="补充添加了一个简单的 loader，替换 const 为 var 123module.exports = function loader(source) &amp;#123;    return source.replace(&apos;const&apos;,&apos;var&apos;);&amp;#125;; 123456789101112131415161718192021222324252627const path = require(&apos;p">
-<meta name="twitter:image" content="http://118.24.241.76/WX20200117-141124@2x.png">
+<meta name="twitter:image" content="http://114.55.30.96/WX20200117-141124@2x.png">
 
 
 
@@ -394,34 +394,34 @@
 <li>进入 compiler.run 开始执行编译</li>
 <li>拿到 loaders 数组，进入 runloader 方法，之后 loadLoader，也就是用 require 加载 loader 的文件。之后读入口文件，转成 Buffer。</li>
 </ul>
-<p><img src="http://118.24.241.76/WX20200117-141124@2x.png" alt="WX20200117-141124@2x"></p>
+<p><img src="http://114.55.30.96/WX20200117-141124@2x.png" alt="WX20200117-141124@2x"></p>
 <p>在调用loader处理的时候，又调用 utf8BufferToString，把 Buffer 转成字符串</p>
-<p><img src="http://118.24.241.76/WX20200117-142045@2x.png" alt="WX20200117-142045@2x"></p>
+<p><img src="http://114.55.30.96/WX20200117-142045@2x.png" alt="WX20200117-142045@2x"></p>
 <p>进入 loader 的调用</p>
-<p><img src="http://118.24.241.76/WX20200117-143820@2x.png" alt="WX20200117-143820@2x"></p>
+<p><img src="http://114.55.30.96/WX20200117-143820@2x.png" alt="WX20200117-143820@2x"></p>
 <ul>
 <li>进入解析阶段，对 loader 处理完的数据进行解析，解析成 ast</li>
 </ul>
-<p><img src="http://118.24.241.76/WX20200117-144310@2x.png" alt="WX20200117-144310@2x"></p>
+<p><img src="http://114.55.30.96/WX20200117-144310@2x.png" alt="WX20200117-144310@2x"></p>
 <p>如果例子改成这样，也就是依赖其他模块的话</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> a <span class="keyword">from</span> <span class="string">'./index1'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a)</span><br></pre></td></tr></table></figure>
 <p>在解析的时候是这样的过程</p>
-<p><img src="http://118.24.241.76/WX20200117-145652@2x.png" alt="WX20200117-145652@2x"></p>
+<p><img src="http://114.55.30.96/WX20200117-145652@2x.png" alt="WX20200117-145652@2x"></p>
 <p>添加依赖模块，之后再解析到这个依赖的模块里</p>
-<p><img src="http://118.24.241.76/WX20200117-145844@2x.png" alt="WX20200117-145844@2x"></p>
+<p><img src="http://114.55.30.96/WX20200117-145844@2x.png" alt="WX20200117-145844@2x"></p>
 <ul>
 <li>进入 seal 阶段， 遍历 entrys，生成对应的 chunk</li>
 </ul>
-<p><img src="http://118.24.241.76/WX20200117-165529@2x.png" alt="WX20200117-165529@2x"></p>
+<p><img src="http://114.55.30.96/WX20200117-165529@2x.png" alt="WX20200117-165529@2x"></p>
 <p>之后在 createChunkAssets 方法里遍历 chunk 数组。在配置文件中输出的名字使用的是  <strong>[hash].js</strong>，它在这生成的。就是 replace 正则匹配替换</p>
-<p><img src="http://118.24.241.76/WX20200117-165942@2x.png" alt="WX20200117-165942@2x"></p>
-<p><img src="http://118.24.241.76/WX20200117-165847@2x.png" alt="WX20200117-165847@2x"></p>
+<p><img src="http://114.55.30.96/WX20200117-165942@2x.png" alt="WX20200117-165942@2x"></p>
+<p><img src="http://114.55.30.96/WX20200117-165847@2x.png" alt="WX20200117-165847@2x"></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> replacePathVariables = <span class="function">(<span class="params">path, data, assetInfo</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">const</span> chunk = data.chunk;</span><br><span class="line">	<span class="keyword">const</span> chunkId = chunk &amp;&amp; chunk.id;</span><br><span class="line">	<span class="keyword">const</span> chunkName = chunk &amp;&amp; (chunk.name || chunk.id);</span><br><span class="line">	<span class="keyword">const</span> chunkHash = chunk &amp;&amp; (chunk.renderedHash || chunk.hash);</span><br><span class="line">	<span class="keyword">const</span> chunkHashWithLength = chunk &amp;&amp; chunk.hashWithLength;</span><br><span class="line">	<span class="keyword">const</span> contentHashType = data.contentHashType;</span><br><span class="line">	<span class="keyword">const</span> contentHash =</span><br><span class="line">		(chunk &amp;&amp; chunk.contentHash &amp;&amp; chunk.contentHash[contentHashType]) ||</span><br><span class="line">		data.contentHash;</span><br><span class="line">	<span class="keyword">const</span> contentHashWithLength =</span><br><span class="line">		(chunk &amp;&amp;</span><br><span class="line">			chunk.contentHashWithLength &amp;&amp;</span><br><span class="line">			chunk.contentHashWithLength[contentHashType]) ||</span><br><span class="line">		data.contentHashWithLength;</span><br><span class="line">	<span class="keyword">const</span> <span class="built_in">module</span> = data.module;</span><br><span class="line">	<span class="keyword">const</span> moduleId = <span class="built_in">module</span> &amp;&amp; <span class="built_in">module</span>.id;</span><br><span class="line">	<span class="keyword">const</span> moduleHash = <span class="built_in">module</span> &amp;&amp; (<span class="built_in">module</span>.renderedHash || <span class="built_in">module</span>.hash);</span><br><span class="line">	<span class="keyword">const</span> moduleHashWithLength = <span class="built_in">module</span> &amp;&amp; <span class="built_in">module</span>.hashWithLength;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">typeof</span> path === <span class="string">"function"</span>) &#123;</span><br><span class="line">		path = path(data);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (</span><br><span class="line">		data.noChunkHash &amp;&amp;</span><br><span class="line">		(REGEXP_CHUNKHASH_FOR_TEST.test(path) ||</span><br><span class="line">			REGEXP_CONTENTHASH_FOR_TEST.test(path))</span><br><span class="line">	) &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">			<span class="string">`Cannot use [chunkhash] or [contenthash] for chunk in '<span class="subst">$&#123;path&#125;</span>' (use [hash] instead)`</span></span><br><span class="line">		);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">		path</span><br><span class="line">			.replace(</span><br><span class="line">				REGEXP_HASH,</span><br><span class="line">				withHashLength(getReplacer(data.hash), data.hashWithLength, assetInfo)</span><br><span class="line">			)</span><br><span class="line">			.replace(</span><br><span class="line">				REGEXP_CHUNKHASH,</span><br><span class="line">				withHashLength(getReplacer(chunkHash), chunkHashWithLength, assetInfo)</span><br><span class="line">			)</span><br><span class="line">			.replace(</span><br><span class="line">				REGEXP_CONTENTHASH,</span><br><span class="line">				withHashLength(</span><br><span class="line">					getReplacer(contentHash),</span><br><span class="line">					contentHashWithLength,</span><br><span class="line">					assetInfo</span><br><span class="line">				)</span><br><span class="line">			)</span><br><span class="line">			.replace(</span><br><span class="line">				REGEXP_MODULEHASH,</span><br><span class="line">				withHashLength(getReplacer(moduleHash), moduleHashWithLength, assetInfo)</span><br><span class="line">			)</span><br><span class="line">			.replace(REGEXP_ID, getReplacer(chunkId))</span><br><span class="line">			.replace(REGEXP_MODULEID, getReplacer(moduleId))</span><br><span class="line">			.replace(REGEXP_NAME, getReplacer(chunkName))</span><br><span class="line">			.replace(REGEXP_FILE, getReplacer(data.filename))</span><br><span class="line">			.replace(REGEXP_FILEBASE, getReplacer(data.basename))</span><br><span class="line">			<span class="comment">// query is optional, it's OK if it's in a path but there's nothing to replace it with</span></span><br><span class="line">			.replace(REGEXP_QUERY, getReplacer(data.query, <span class="literal">true</span>))</span><br><span class="line">			<span class="comment">// only available in sourceMappingURLComment</span></span><br><span class="line">			.replace(REGEXP_URL, getReplacer(data.url))</span><br><span class="line">			.replace(<span class="regexp">/\[\\(\\*[\w:]+\\*)\\\]/gi</span>, <span class="string">"[$1]"</span>)</span><br><span class="line">	);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>之后进入 manifest 模板的 render，一个数组用来存一些固定字符串</p>
-<p><img src="http://118.24.241.76/WX20200117-172244@2x.png" alt="WX20200117-172244@2x"></p>
+<p><img src="http://114.55.30.96/WX20200117-172244@2x.png" alt="WX20200117-172244@2x"></p>
 <p>最后将所有模块中的<code>require</code>语法替换成<code>__webpack_require__</code>来模拟模块化操作。</p>
-<p><img src="http://118.24.241.76/WX20200117-175056@2x.png" alt="WX20200117-175056@2x"></p>
-<p><img src="http://118.24.241.76/WX20200117-174845@2x.png" alt="WX20200117-174845@2x"></p>
+<p><img src="http://114.55.30.96/WX20200117-175056@2x.png" alt="WX20200117-175056@2x"></p>
+<p><img src="http://114.55.30.96/WX20200117-174845@2x.png" alt="WX20200117-174845@2x"></p>
 <ul>
 <li>文件输出阶段，根据模板，往数组里 push 字符串，最后遍历一下拼接起来，通过 fs 文件系统写文件</li>
 </ul>
@@ -464,6 +464,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/06/建立npm仓库/" rel="prev" title="建立npm仓库">
+                建立npm仓库 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -540,7 +544,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">151</span>
+                <span class="site-state-item-count">155</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

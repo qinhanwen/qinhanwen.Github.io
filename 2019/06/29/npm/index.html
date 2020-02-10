@@ -102,23 +102,23 @@
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
 <meta property="og:description" content="前端工程化（5）：你所需要的npm知识储备都在这了 https://juejin.im/post/5ab3f77df265da2392364341 semver规范 package-lock.json  npm 是什么npm是随同NodeJS一起安装的包管理工具。 常见使用场景：  允许用户从NPM服务器下载别人编写的第三方包到本地使用。 允许用户从NPM服务器下载并安装别人编写的命令行程序到本">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://118.24.241.76/WX20190701-093012@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190701-093100@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190701-093931@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190701-095008@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190701-095236@2x.png">
-<meta property="og:image" content="http://118.24.241.76/569D362A18DC9925A04BADB20F480C37.png">
-<meta property="og:image" content="http://118.24.241.76/QQ20190701-0.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190701-221036@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190701-232152@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190703-091915@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190703-092353@2x.png">
-<meta property="og:image" content="http://118.24.241.76/WX20190703-093419@2x.png">
-<meta property="og:updated_time" content="2019-12-30T03:32:10.199Z">
+<meta property="og:image" content="http://114.55.30.96/WX20190701-093012@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190701-093100@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190701-093931@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190701-095008@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190701-095236@2x.png">
+<meta property="og:image" content="http://114.55.30.96/569D362A18DC9925A04BADB20F480C37.png">
+<meta property="og:image" content="http://114.55.30.96/QQ20190701-0.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190701-221036@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190701-232152@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190703-091915@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190703-092353@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20190703-093419@2x.png">
+<meta property="og:updated_time" content="2020-02-10T13:01:14.499Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="npm">
 <meta name="twitter:description" content="前端工程化（5）：你所需要的npm知识储备都在这了 https://juejin.im/post/5ab3f77df265da2392364341 semver规范 package-lock.json  npm 是什么npm是随同NodeJS一起安装的包管理工具。 常见使用场景：  允许用户从NPM服务器下载别人编写的第三方包到本地使用。 允许用户从NPM服务器下载并安装别人编写的命令行程序到本">
-<meta name="twitter:image" content="http://118.24.241.76/WX20190701-093012@2x.png">
+<meta name="twitter:image" content="http://114.55.30.96/WX20190701-093012@2x.png">
 
 
 
@@ -403,27 +403,27 @@
 <p>三、新建一个文件夹<code>npm-study-qhw</code>，打开命令行，输入</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm init --yes</span></span><br></pre></td></tr></table></figure>
 <p>npm init 是执行默认行为，输出一个初始化的 package.json 文件， 添加–yes参数（或-y），则生成一个默认的配置文件</p>
-<p><img src="http://118.24.241.76/WX20190701-093012@2x.png" alt="WX20190701-093012@2x"></p>
+<p><img src="http://114.55.30.96/WX20190701-093012@2x.png" alt="WX20190701-093012@2x"></p>
 <p>要补全一下<code>author</code></p>
 <p>四、新建index.js文件</p>
-<p><img src="http://118.24.241.76/WX20190701-093100@2x.png" alt="WX20190701-093100@2x"></p>
+<p><img src="http://114.55.30.96/WX20190701-093100@2x.png" alt="WX20190701-093100@2x"></p>
 <p>五、添加用户</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm adduser</span></span><br></pre></td></tr></table></figure>
 <p>六、发布</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm publish</span></span><br></pre></td></tr></table></figure>
 <p>遇到报错如下：</p>
-<p><img src="http://118.24.241.76/WX20190701-093931@2x.png" alt="WX20190701-093931@2x"></p>
+<p><img src="http://114.55.30.96/WX20190701-093931@2x.png" alt="WX20190701-093931@2x"></p>
 <p>因为使用的是淘宝源，需要切换到npmjs的网址</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm config <span class="built_in">set</span> registry http://registry.npmjs.org/</span></span><br></pre></td></tr></table></figure>
 <p>之后再发布一次</p>
-<p><img src="http://118.24.241.76/WX20190701-095008@2x.png" alt="WX20190701-095008@2x"></p>
+<p><img src="http://114.55.30.96/WX20190701-095008@2x.png" alt="WX20190701-095008@2x"></p>
 <p>七、查看与安装</p>
-<p><img src="http://118.24.241.76/WX20190701-095236@2x.png" alt="WX20190701-095236@2x"></p>
+<p><img src="http://114.55.30.96/WX20190701-095236@2x.png" alt="WX20190701-095236@2x"></p>
 <p>新建另外一个文件夹</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">新增package.json文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm init -y</span></span><br><span class="line"><span class="meta">#</span><span class="bash">安装依赖包</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install npm-study-qhw</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">新建index.js文件</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">运行index.js文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> node index</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://118.24.241.76/569D362A18DC9925A04BADB20F480C37.png" alt="569D362A18DC9925A04BADB20F480C37"></p>
+<p><img src="http://114.55.30.96/569D362A18DC9925A04BADB20F480C37.png" alt="569D362A18DC9925A04BADB20F480C37"></p>
 <p><code>npm install packageName</code>的时候，会自动添加到<code>dependencies</code>下面（与npm版本有关）。</p>
-<p><img src="http://118.24.241.76/QQ20190701-0.png" alt="QQ20190701-0"></p>
+<p><img src="http://114.55.30.96/QQ20190701-0.png" alt="QQ20190701-0"></p>
 <p>八、更新版本</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm version &lt;update_type&gt;</span></span><br><span class="line"><span class="meta">#</span><span class="bash">update_type为patch, minor, or major其中之一，分别表示补丁，小版本，大版本</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm publish</span></span><br></pre></td></tr></table></figure>
 <p>九、删除</p>
@@ -462,7 +462,7 @@
 <p>反正就是安装了一个包，要按照它的需要，去安装别的包。</p>
 <h4 id="bundledDependencies-bundleDependencies：打包依赖"><a href="#bundledDependencies-bundleDependencies：打包依赖" class="headerlink" title="bundledDependencies / bundleDependencies：打包依赖"></a>bundledDependencies / bundleDependencies：打包依赖</h4><h4 id="optionalDependencies：可选依赖"><a href="#optionalDependencies：可选依赖" class="headerlink" title="optionalDependencies：可选依赖"></a>optionalDependencies：可选依赖</h4><h2 id="npm对node-modules的处理"><a href="#npm对node-modules的处理" class="headerlink" title="npm对node_modules的处理"></a>npm对node_modules的处理</h2><p>依赖管理是 npm 的核心功能，原理就是执行 <code>npm install</code> 从 package.json 中的 dependencies, devDependencies 将依赖包安装到当前目录的 ./node_modules 文件夹中。</p>
 <p>看下不同版本npm的表现</p>
-<h4 id="一、npm版本2-15-9"><a href="#一、npm版本2-15-9" class="headerlink" title="一、npm版本2.15.9"></a>一、npm版本2.15.9</h4><p><img src="http://118.24.241.76/WX20190701-221036@2x.png" alt="WX20190701-221036@2x"></p>
+<h4 id="一、npm版本2-15-9"><a href="#一、npm版本2-15-9" class="headerlink" title="一、npm版本2.15.9"></a>一、npm版本2.15.9</h4><p><img src="http://114.55.30.96/WX20190701-221036@2x.png" alt="WX20190701-221036@2x"></p>
 <p>先发布4个npm包</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm-study2@1.0.0 依赖于 npm-study1@1.0.0</span><br><span class="line"></span><br><span class="line">npm-study3@1.0.0 依赖于 npm-study1@2.0.0</span><br><span class="line"></span><br><span class="line">npm-study4@1.0.0 依赖于 npm-study1@1.0.0</span><br></pre></td></tr></table></figure>
 <p>新建项目，package.json文件如下：</p>
@@ -472,7 +472,7 @@
 <p>node_modules结构：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">├── node_modules</span><br><span class="line">│   ├── npm-study2@1.0.0</span><br><span class="line">│   │   └── node_modules</span><br><span class="line">│   │   │   └── npm-study1@1.0.0</span><br><span class="line">│   ├── npm-study3@1.0.0</span><br><span class="line">│   │   └── node_modules</span><br><span class="line">│   │   │   └── npm-study1@2.0.0</span><br><span class="line">│   └── npm-study4@1.0.0</span><br><span class="line">│   │   └── node_modules</span><br><span class="line">│   │   │   └── npm-study1@1.0.0</span><br></pre></td></tr></table></figure>
 <p><code>npm 2.x</code>安装依赖方式比较简单直接，以递归的方式按照包依赖的树形结构下载填充本地目录结构，也就是说每个包都会将该包的依赖安装到当前包所在的<code>node_modules</code>目录中。</p>
-<h4 id="二、npm版本3-10-10"><a href="#二、npm版本3-10-10" class="headerlink" title="二、npm版本3.10.10"></a>二、npm版本3.10.10</h4><p><img src="http://118.24.241.76/WX20190701-232152@2x.png" alt="WX20190701-232152@2x"></p>
+<h4 id="二、npm版本3-10-10"><a href="#二、npm版本3-10-10" class="headerlink" title="二、npm版本3.10.10"></a>二、npm版本3.10.10</h4><p><img src="http://114.55.30.96/WX20190701-232152@2x.png" alt="WX20190701-232152@2x"></p>
 <p>删除node_modules，并重新安装依赖</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install</span></span><br></pre></td></tr></table></figure>
 <p>node_modules结构：</p>
@@ -491,12 +491,12 @@
 </ul>
 <p>切换到npm版本<code>6.4.1</code>，在大版本相同的前提下，以<code>^</code>版本为例，<code>npm-study3</code>依赖包版本有<code>1.3.0</code>，<code>1.4.0</code>，<code>1.6.0</code>还有<code>1.9.0</code>，<code>node_modules</code>下没有该依赖包的情况，那么测试一下<code>package-lock.json</code>的表现：</p>
 <p>1）如果一个模块在<code>package.json</code>中的小版本要<strong>小于</strong><code>package-lock.json</code>中的小版本，则被<code>package-lock.json</code>中的版本锁定</p>
-<p><img src="http://118.24.241.76/WX20190703-091915@2x.png" alt="WX20190703-091915@2x"></p>
+<p><img src="http://114.55.30.96/WX20190703-091915@2x.png" alt="WX20190703-091915@2x"></p>
 <p>安装的<code>npm-study3</code>依赖包的实际版本为<code>1.4.0</code></p>
 <p>2）如果一个模块在<code>package.json</code>中的小版本要<strong>大于</strong><code>package-lock.json</code>中的小版本</p>
-<p><img src="http://118.24.241.76/WX20190703-092353@2x.png" alt="WX20190703-092353@2x"></p>
+<p><img src="http://114.55.30.96/WX20190703-092353@2x.png" alt="WX20190703-092353@2x"></p>
 <p>则在执行<code>npm install</code>时，会将该模块更新到大版本下的最新的版本，并将版本号更新至<code>package-lock.json</code>。</p>
-<p><img src="http://118.24.241.76/WX20190703-093419@2x.png" alt="WX20190703-093419@2x"></p>
+<p><img src="http://114.55.30.96/WX20190703-093419@2x.png" alt="WX20190703-093419@2x"></p>
 <p>安装的<code>npm-study3</code>依赖包的实际版本为<code>1.9.0</code></p>
 <p>更新某个模块大版本下的最新版本（升级小版本号），可以执行以下命令</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install packageName</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 或者</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm update packageName</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">指定版本号</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install packageName@x.x.x</span></span><br></pre></td></tr></table></figure>
@@ -627,7 +627,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">151</span>
+                <span class="site-state-item-count">155</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
