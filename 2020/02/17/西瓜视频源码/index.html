@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="使用提供占位元素 1&amp;lt;div id=&quot;mse&quot;&amp;gt;&amp;lt;/div&amp;gt; 初始化操作 1234let player = new Player(&amp;#123;  id: &apos;mse&apos;,  url: &apos;http://s2.pstatp.com/cdn/expire-1-M/byted-player-videos/1.0.0/xgplayer-demo.mp4&apos;&amp;#125;); 其他配置文件)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="西瓜视频web播放器源码">
+<meta property="og:url" content="http://yoursite.com/2020/02/17/西瓜视频源码/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="使用提供占位元素 1&amp;lt;div id=&quot;mse&quot;&amp;gt;&amp;lt;/div&amp;gt; 初始化操作 1234let player = new Player(&amp;#123;  id: &apos;mse&apos;,  url: &apos;http://s2.pstatp.com/cdn/expire-1-M/byted-player-videos/1.0.0/xgplayer-demo.mp4&apos;&amp;#125;); 其他配置文件)">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://114.55.30.96/WX20200224-150204@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20200224-210800@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20200218-164651@2x.png">
+<meta property="og:updated_time" content="2020-02-24T13:11:21.040Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="西瓜视频web播放器源码">
+<meta name="twitter:description" content="使用提供占位元素 1&amp;lt;div id=&quot;mse&quot;&amp;gt;&amp;lt;/div&amp;gt; 初始化操作 1234let player = new Player(&amp;#123;  id: &apos;mse&apos;,  url: &apos;http://s2.pstatp.com/cdn/expire-1-M/byted-player-videos/1.0.0/xgplayer-demo.mp4&apos;&amp;#125;); 其他配置文件)">
+<meta name="twitter:image" content="http://114.55.30.96/WX20200224-150204@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/02/17/西瓜视频源码/"/>
+
+
+
+
+
+  <title>西瓜视频web播放器源码 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/17/西瓜视频源码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">西瓜视频web播放器源码</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-17T13:16:49+08:00">
+                2020-02-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>提供占位元素</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"mse"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>初始化操作</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> player = <span class="keyword">new</span> Player(&#123;</span><br><span class="line">  id: <span class="string">'mse'</span>,</span><br><span class="line">  url: <span class="string">'http://s2.pstatp.com/cdn/expire-1-M/byted-player-videos/1.0.0/xgplayer-demo.mp4'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><a href="[https://h5player.bytedance.com/config/#%E5%8F%AF%E9%80%89%E9%85%8D%E7%BD%AE](https://h5player.bytedance.com/config/#可选配置">其他配置文件</a>)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Player(&#123;</span><br><span class="line">  el:<span class="built_in">document</span>.querySelector(<span class="string">'#mse'</span>), <span class="comment">// 挂载点</span></span><br><span class="line">  url: <span class="string">'video_url'</span>,</span><br><span class="line">  width: <span class="number">600</span>, </span><br><span class="line">  height: <span class="number">337.5</span>,</span><br><span class="line">  fluid: <span class="literal">true</span>,<span class="comment">// 流布局</span></span><br><span class="line">  fitVideoSize: <span class="string">'auto'</span>, <span class="comment">// 自适应屏幕宽高</span></span><br><span class="line">  volume: <span class="number">0.6</span>, <span class="comment">// 音量</span></span><br><span class="line">  autoplay: <span class="literal">true</span>, <span class="comment">//自动播放</span></span><br><span class="line">  autoplayMuted: <span class="literal">true</span>, <span class="comment">//静音</span></span><br><span class="line">  loop: <span class="literal">true</span>, <span class="comment">//循环播放</span></span><br><span class="line">  ...</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="播放器"><a href="#播放器" class="headerlink" title="播放器"></a>播放器</h2><p><strong>1.1 播放器生命周期</strong></p>
+<p><img src="http://114.55.30.96/WX20200224-150204@2x.png" alt="WX20200224-150204@2x"></p>
+<p><strong>1.2 事件机制</strong></p>
+<p><img src="http://114.55.30.96/WX20200224-210800@2x.png" alt="WX20200224-210800@2x"></p>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> player = <span class="keyword">new</span> Player(&#123;</span><br><span class="line">  id: <span class="string">'mse'</span>,</span><br><span class="line">  url: <span class="string">'http://s2.pstatp.com/cdn/expire-1-M/byted-player-videos/1.0.0/xgplayer-demo.mp4'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>初始化，入口文件加载其他插件 js<ul>
+<li>引入其他 js 文件时候，通过 <strong>Player.install(‘xxx’, xxx)</strong> 安装插件，到 Player.plugins 上</li>
+</ul>
+</li>
+<li>创建 Xgplayer 实例<ul>
+<li>它继承于 Proxy，先调用 Proxy 的构造函数<ul>
+<li>videoConfig：将要添加到 video 标签的属性（有默认值）</li>
+<li>video：创建的 video 标签</li>
+<li>通过 EventEmitter(this)，为当前实例添加 on、emit、once、off 等方法用于监听事件与派发事件</li>
+<li>遍历 ev 数组，为 video 标签添加 <strong>‘play’, ‘playing’, ‘pause’, ‘ended’, ‘error’, ‘seeking’, ‘seeked’,  ‘timeupdate’, ‘waiting’, ‘canplay’, ‘canplaythrough’, ‘durationchange’, ‘volumechange’, ‘loadeddata’</strong> 事件监听</li>
+</ul>
+</li>
+<li>调用 Player 构造函数 <ul>
+<li>config：传入的参数与默认参数合并（宽、高、音量、插槽id，url 等）</li>
+<li>controls：自定义标签，挂载在 root（传入的 id 选择器的dom原理） 下，也用于挂载 video 标签</li>
+<li>pluginsCall 方法：遍历 Player.plugins 列表，执行插件自己的业务。例如：<ul>
+<li>创建 DOM 元素并插入，为创建的 DOM 元素添加事件</li>
+<li>订阅 eventEmitter 主题</li>
+</ul>
+</li>
+<li>遍历 <strong>‘play’, ‘playing’, ‘pause’, ‘ended’, ‘error’, ‘seeking’, ‘seeked’,  ‘timeupdate’, ‘waiting’, ‘canplay’, ‘canplaythrough’, ‘durationchange’, ‘volumechange’, ‘loadeddata’</strong> 数组，添加订阅主题</li>
+</ul>
+</li>
+<li>事件通信：当创建的 DOM 元素事件触发的时候，同时触发 video 标签的监听事件，video 标签的监听事件回调里通知插件订阅的 eventEmitter 主题，从而完成通信</li>
+</ul>
+</li>
+</ul>
+<h2 id="我认为需要优化的地方"><a href="#我认为需要优化的地方" class="headerlink" title="我认为需要优化的地方"></a>我认为需要优化的地方</h2><p><strong>1.1 错误处理未定义 onError 函数</strong></p>
+<p><strong>1.2 <a href="https://neveryu.github.io/2017/02/28/memory-leak/?nsukey=cfuwaMbUz2CHNOQ%2FcgIMWC1qgpGFkTZX%2Bz9Bk2UJ9XFVh14x2fq7GWZcnIq3RLu0KjEpbmyMWd%2BYHHR%2BqQTkqd9QEvZwXJgesJrQLm287D9GjHDf%2F11Ci8HR1gIdGjxsEw6c87XsjWHO2j%2B4LjG4UAD1e0WxQqWZK%2BxjzvukuekAkj%2FJQVqz3weObSInFcDJb0IxuKEPFfIMyCW3Kqua0g%3D%3D" target="_blank" rel="noopener">destroy 的时候，是否需要主动解绑 video 绑定事件，还是移除对 video 实例的引用的时候，会被垃圾回收。但是子元素引用仍然保存，就不会被回收</a></strong></p>
+<p><strong>1.3 关于设计可以优化的地方</strong></p>
+<p><strong>1.4 <a href="https://stackoverflow.com/questions/3258587/how-to-properly-unload-destroy-a-video-element" target="_blank" rel="noopener">为什么 destroy 的时候，先将 video src 设置为空，再调用 load</a></strong></p>
+<h2 id="插件说明"><a href="#插件说明" class="headerlink" title="插件说明"></a>插件说明</h2><p><strong>1.1 常用插件</strong></p>
+<p>xg-volume：音量</p>
+<p>xg-time：进度时间</p>
+<p>xg-progress：播放进度条</p>
+<p>xg-play：播放按钮</p>
+<p>xg-fullscreen：全屏按钮</p>
+<p>xg-placeholder：占位</p>
+<p>xg-replay：重播</p>
+<p>xg-start：播放</p>
+<p>xg-enter：点击播放后显示动画</p>
+<p>xg-loading：loading显示</p>
+<p>xg-error：错误显示（请刷新试试）</p>
+<p>xg-texttrack：播放器外挂字幕</p>
+<p>xg-poster：播放器贴图</p>
+<p>xg-definition：控制条清晰度切换</p>
+<p>xg-screenShot：截图</p>
+<p>xg-rotate：播放器旋转控件</p>
+<p><strong>1.2 自定义插件开发</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pluginName.js</span></span><br><span class="line"><span class="keyword">import</span> Player <span class="keyword">from</span> <span class="string">'xgplayer'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> pluginName=<span class="function"><span class="keyword">function</span>(<span class="params">player</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// 插件逻辑</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Player.install(<span class="string">'pluginName'</span>,pluginName);</span><br></pre></td></tr></table></figure>
+<p><strong>1.3 插件生命周期</strong></p>
+<p><strong>初始化（注册）</strong></p>
+<ul>
+<li>添加到 Player.plugins 上</li>
+</ul>
+<p><strong>实例化</strong></p>
+<ul>
+<li>自定义 UI 生成 </li>
+<li>事件绑定</li>
+<li>订阅事件</li>
+</ul>
+<p><strong>销毁</strong></p>
+<ul>
+<li><p>主动调用 player.destroy(isDelDom)</p>
+</li>
+<li><p>移除 DOM 元素</p>
+</li>
+<li>删除 Player 实例上的属性</li>
+<li>移除 eventEmitter 订阅事件</li>
+</ul>
+<h2 id="具体业务实现"><a href="#具体业务实现" class="headerlink" title="具体业务实现"></a>具体业务实现</h2><p><strong>1.1 screenshot</strong></p>
+<p><strong>1.2 download</strong></p>
+<p><strong>1.3</strong></p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p><strong>1.1 <a href="https://www.baidu.com/link?url=BfGy-eHszwc28eqe-3pMw4IPeqVbxaKQIbfyJRivXkpG-9dLcXA0OhVNCUT3lC2eRSZbsapZitNjb7g5mZeXpH0fEmdNQsmQuwnFHAS8O08lx7eTVCwGAu-4MoXeiSthTOY13prbcwfc7Rih7JXXwlGNONb-oe5aIpFjmSd3BY3&amp;wd=&amp;eqid=e7551a5e009e0a69000000035e4aa114" target="_blank" rel="noopener">Object.defineProperties</a>：直接在一个对象上定义新的属性或修改现有属性，并返回该对象。</strong></p>
+<p>语法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.defineProperties(obj, props) <span class="comment">// obj 在其上定义或修改属性的对象 // props</span></span><br></pre></td></tr></table></figure>
+<p>例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperties(obj, &#123;</span><br><span class="line">  <span class="string">'on'</span>: &#123;</span><br><span class="line">  	value: <span class="function"><span class="keyword">function</span>(<span class="params">type,listener</span>)</span>&#123; xxx &#125;</span><br><span class="line">    configurable: <span class="literal">true</span></span><br><span class="line">    enumerable: <span class="literal">false</span></span><br><span class="line">    writable: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">'property2'</span>: &#123;</span><br><span class="line">    value: <span class="string">'Hello'</span>,</span><br><span class="line">    writable: <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>1.2 IndexedDB</strong></p>
+<p>window.indexedDB || window.webkitindexedDB</p>
+<p>window.IDBKeyRange || window.webkitIDBKeyRange</p>
+<p><strong>1.3 eventEmitter</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">on</span><br><span class="line">once</span><br><span class="line">emit</span><br><span class="line">off</span><br></pre></td></tr></table></figure>
+<p><strong>1.4 选择器</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>event<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"12"</span>&gt;</span>123<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(<span class="built_in">document</span>.querySelector(<span class="string">'#12'</span>));</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://114.55.30.96/WX20200218-164651@2x.png" alt="WX20200218-164651@2x"></p>
+<p>不支持数值开头的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">util.findDom = <span class="function"><span class="keyword">function</span> (<span class="params">el = document, sel</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> dom</span><br><span class="line">  <span class="comment">// fix querySelector IDs that start with a digit</span></span><br><span class="line">  <span class="comment">// https://stackoverflow.com/questions/37270787/uncaught-syntaxerror-failed-to-execute-queryselector-on-document</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    dom = el.querySelector(sel)</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="keyword">if</span> (sel.startsWith(<span class="string">'#'</span>)) &#123;</span><br><span class="line">      dom = el.getElementById(sel.slice(<span class="number">1</span>))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> dom</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>1.5 图片不存在，加载其他图片</strong></p>
+<p><a href="https://stackoverflow.com/questions/37588017/fallback-background-image-if-default-doesnt-exist" target="_blank" rel="noopener">https://stackoverflow.com/questions/37588017/fallback-background-image-if-default-doesnt-exist</a></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">background-image: url('http://placehol/1000x1000'), url('http://placehold.it/500x500');</span><br></pre></td></tr></table></figure>
+<p><strong>1.6  babel-plugin-bulk-import</strong></p>
+<p>以及<a href="https://webpack.js.org/guides/dependency-management/#requirecontext" target="_blank" rel="noopener">require.context</a></p>
+<p><strong>1.7 判断是否是 dom 节点</strong></p>
+<p><strong>1.8 DefinePlugin</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;version&#125; <span class="keyword">from</span> <span class="string">'../package.json'</span></span><br></pre></td></tr></table></figure>
+<p><strong>1.9 video 标签</strong></p>
+<p>属性：</p>
+<ul>
+<li>src ：视频的属性</li>
+<li>poster：视频封面，没有播放时显示的图片</li>
+<li>preload：预加载</li>
+<li>autoplay：自动播放</li>
+<li>loop：循环播放</li>
+<li>controls：浏览器自带的控制条</li>
+<li>width：视频宽度</li>
+<li>height：视频高度</li>
+</ul>
+<p>事件：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">事件</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">loadstart</td>
+<td style="text-align:left">浏览器开始在网上寻找媒体数据</td>
+</tr>
+<tr>
+<td style="text-align:left">progress</td>
+<td style="text-align:left">浏览器正在获取媒体数据</td>
+</tr>
+<tr>
+<td style="text-align:left">suspend</td>
+<td style="text-align:left">浏览器暂停获取媒体数据，但是下载过程并滑正常结束</td>
+</tr>
+<tr>
+<td style="text-align:left">abort</td>
+<td style="text-align:left">浏览器在下载完全部媒体数据之前中止获取媒体数据，但是并不是由错误引起的</td>
+</tr>
+<tr>
+<td style="text-align:left">error</td>
+<td style="text-align:left">获取媒体数据过程中出错</td>
+</tr>
+<tr>
+<td style="text-align:left">emptied</td>
+<td style="text-align:left">video元素或audio元素所在网络突然变为未初始化状态可能原因有两个:1.载入媒体过程中突然发生一个致命错误 2.在浏览器正在选择支持的播放格式时，又调用 了load方法重新载入媒体</td>
+</tr>
+<tr>
+<td style="text-align:left">stalled</td>
+<td style="text-align:left">浏览器尝试获取媒体数据失败</td>
+</tr>
+<tr>
+<td style="text-align:left">play</td>
+<td style="text-align:left">即将开始播放，当执行了play方法时触发，或数据下载后元素被设为autoplay属性</td>
+</tr>
+<tr>
+<td style="text-align:left">pause</td>
+<td style="text-align:left">播放暂停，当执行了pause方式时触发</td>
+</tr>
+<tr>
+<td style="text-align:left">loadedmetadata</td>
+<td style="text-align:left">浏览器获取完毕媒体的时间长和字节数</td>
+</tr>
+<tr>
+<td style="text-align:left">waiting</td>
+<td style="text-align:left">播放过程由于得不到下一帧而暂停播放（例如下一帧尚未加载完毕），但很快就能够得到下一帧</td>
+</tr>
+<tr>
+<td style="text-align:left">canplay</td>
+<td style="text-align:left">浏览器能够播放媒体，但估计以当前的播放速率不能直接播放完毕，播放期间需要缓冲</td>
+</tr>
+<tr>
+<td style="text-align:left">canplaythrough</td>
+<td style="text-align:left">浏览器能够播放媒体，而且以当前播放速率能够将媒体播放完毕，不再需要进行缓冲</td>
+</tr>
+<tr>
+<td style="text-align:left">seeking</td>
+<td style="text-align:left">seeking属性变为true，浏览器正在请求数据</td>
+</tr>
+<tr>
+<td style="text-align:left">seeked</td>
+<td style="text-align:left">seeking属性变为false，浏览器停止请求数据</td>
+</tr>
+<tr>
+<td style="text-align:left">timeupdate</td>
+<td style="text-align:left">由于播放位置被改变，可能是播放过程中的自然改变，也可能是被人为的改变，或由于播放不能连续而发生的跳变</td>
+</tr>
+<tr>
+<td style="text-align:left">ended</td>
+<td style="text-align:left">播放结束后停止播放</td>
+</tr>
+<tr>
+<td style="text-align:left">ratechange</td>
+<td style="text-align:left">defaultplaybackRate属性（默认播放速率）或playbackRate属性（当前播放速率）被改变</td>
+</tr>
+<tr>
+<td style="text-align:left">druationchange</td>
+<td style="text-align:left">播放时长被改变</td>
+</tr>
+<tr>
+<td style="text-align:left">volumechange</td>
+<td style="text-align:left">volume属性（音量）被改变或muted属性（静音状态）被改变</td>
+</tr>
+</tbody>
+</table>
+<p><strong>1.10 canvas.toDataUrl</strong></p>
+<p><strong>1.11 事件 </strong></p>
+<ul>
+<li>mouseenter</li>
+<li>mousedown</li>
+<li>mouseup</li>
+<li>mouseleave</li>
+<li><p>touchstart</p>
+</li>
+<li><p>touchend</p>
+</li>
+<li>animationend</li>
+<li>keydown</li>
+</ul>
+<h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><p><a href="https://h5player.bytedance.com/gettingStarted/" target="_blank" rel="noopener">https://h5player.bytedance.com/gettingStarted/</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/12/angular学习笔记/" rel="next" title="angular学习笔记">
+                <i class="fa fa-chevron-left"></i> angular学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/24/组件开发遇到的难题/" rel="prev" title="组件开发遇到的难题">
+                组件开发遇到的难题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">160</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">1.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#播放器"><span class="nav-number">2.</span> <span class="nav-text">播放器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过程"><span class="nav-number">3.</span> <span class="nav-text">过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我认为需要优化的地方"><span class="nav-number">4.</span> <span class="nav-text">我认为需要优化的地方</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件说明"><span class="nav-number">5.</span> <span class="nav-text">插件说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体业务实现"><span class="nav-number">6.</span> <span class="nav-text">具体业务实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充"><span class="nav-number">7.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档"><span class="nav-number">8.</span> <span class="nav-text">文档</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

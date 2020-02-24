@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="angular," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="常见内容预编译 (ahead-of-time, AoT)在打包项目的时候提前编译好应用，打包好之后可以直接启动，而不是把编译器打包在应用中用的时候再编译。生产环境使用。 Angular 应用主要由组件及其 HTML 模板组成。由于浏览器无法直接理解 Angular 所提供的组件和模板，因此 Angular 应用程序需要先进行编译才能在浏览器中运行。Angular 预先（AOT）编译器会先把你的 A">
+<meta name="keywords" content="angular">
+<meta property="og:type" content="article">
+<meta property="og:title" content="angular学习笔记">
+<meta property="og:url" content="http://yoursite.com/2020/02/12/angular学习笔记/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="常见内容预编译 (ahead-of-time, AoT)在打包项目的时候提前编译好应用，打包好之后可以直接启动，而不是把编译器打包在应用中用的时候再编译。生产环境使用。 Angular 应用主要由组件及其 HTML 模板组成。由于浏览器无法直接理解 Angular 所提供的组件和模板，因此 Angular 应用程序需要先进行编译才能在浏览器中运行。Angular 预先（AOT）编译器会先把你的 A">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://114.55.30.96/WX20200215-194649@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20200215-194854@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20200215-215258@2x.png">
+<meta property="og:image" content="http://114.55.30.96/WX20200215-215807@2x.png">
+<meta property="og:updated_time" content="2020-02-24T13:11:21.041Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="angular学习笔记">
+<meta name="twitter:description" content="常见内容预编译 (ahead-of-time, AoT)在打包项目的时候提前编译好应用，打包好之后可以直接启动，而不是把编译器打包在应用中用的时候再编译。生产环境使用。 Angular 应用主要由组件及其 HTML 模板组成。由于浏览器无法直接理解 Angular 所提供的组件和模板，因此 Angular 应用程序需要先进行编译才能在浏览器中运行。Angular 预先（AOT）编译器会先把你的 A">
+<meta name="twitter:image" content="http://114.55.30.96/WX20200215-194649@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/02/12/angular学习笔记/"/>
+
+
+
+
+
+  <title>angular学习笔记 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/12/angular学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">angular学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-12T00:01:56+08:00">
+                2020-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/angular/" itemprop="url" rel="index">
+                    <span itemprop="name">angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="常见内容"><a href="#常见内容" class="headerlink" title="常见内容"></a>常见内容</h2><h4 id="预编译-ahead-of-time-AoT"><a href="#预编译-ahead-of-time-AoT" class="headerlink" title="预编译 (ahead-of-time, AoT)"></a>预编译 (ahead-of-time, AoT)</h4><p>在打包项目的时候提前编译好应用，打包好之后可以直接启动，而不是把编译器打包在应用中用的时候再编译。生产环境使用。</p>
+<p>Angular 应用主要由组件及其 HTML 模板组成。由于浏览器无法直接理解 Angular 所提供的组件和模板，因此 Angular 应用程序需要先进行编译才能在浏览器中运行。Angular 预先（AOT）编译器会先把你的 Angular HTML 和 TypeScript 代码转换成高效的 JavaScript 代码。 在构建期间编译应用可以让浏览器中的渲染更快速。</p>
+<p>使用 AOT 的部分原因：</p>
+<ul>
+<li><p><em>更快的渲染</em>。 借助AOT，浏览器可以下载应用的预编译版本。浏览器加载的是可执行代码，因此它可以立即呈现应用，而无需等待先编译好应用。</p>
+</li>
+<li><p><em>更少的异步请求</em>。 编译器会在应用 JavaScript 中内<em>联</em>外部 HTML 模板和 CSS 样式表，从而消除了对那些源文件的单独 ajax 请求。</p>
+</li>
+<li><p><em>较小的 Angular 框架下载大小</em>。 如果已编译应用程序，则无需下载 Angular 编译器。编译器大约是 Angular 本身的一半，因此省略编译器会大大减少应用程序的有效载荷。</p>
+</li>
+<li><p><em>尽早检测模板错误</em>。 AOT 编译器会在构建步骤中检测并报告模板绑定错误，然后用户才能看到它们。</p>
+</li>
+<li><p><em>更高的安全性</em>。 AOT 在将 HTML 模板和组件提供给客户端之前就将其编译为 JavaScript 文件。没有要读取的模板，没有潜藏风险的客户端 HTML 或 JavaScript eval，受到注入攻击的机会就更少了。</p>
+</li>
+</ul>
+<p>AOT 编译分为三个阶段。</p>
+<ul>
+<li><p>阶段 1 是<em>代码分析</em> 。 在此阶段，TypeScript 编译器和 <em>AOT 收集器</em>会创建源码的表现层。收集器不会尝试解释其收集到的元数据。它只是尽可能地表达元数据，并在检测到元数据语法冲突时记录错误。</p>
+</li>
+<li><p>第二阶段是<em>代码生成</em>。 在此阶段，编译器的 <code>StaticReflector</code> 会解释在阶段 1 中收集的元数据，对元数据执行附加验证，如果检测到元数据违反了限制，则抛出错误。</p>
+</li>
+<li><p>阶段 3 是<em>模板类型检查</em>。在此可选阶段，Angular <em>模板编译器</em>使用 TypeScript 编译器来验证模板中的绑定表达式。您可以通过设置 <code>fullTemplateTypeCheck</code> 配置选项来明确启用此阶段。请参阅 <a href="https://angular.cn/guide/angular-compiler-options" target="_blank" rel="noopener">Angular 编译器选项</a> 。</p>
+</li>
+</ul>
+<h4 id="即时编译-just-in-time-JiT"><a href="#即时编译-just-in-time-JiT" class="headerlink" title="即时编译 (just-in-time, JiT)"></a>即时编译 (just-in-time, JiT)</h4><p>浏览器中启动并编译所有的组件和模块，动态运行应用程序。开发过程中使用。</p>
+<h4 id="依赖注入-Dependency-Injection"><a href="#依赖注入-Dependency-Injection" class="headerlink" title="依赖注入(Dependency Injection)"></a>依赖注入(Dependency Injection)</h4><p>组件之间的依赖关系由容器在运行期决定，形象的说，即由容器动态的将某个依赖关系注入到组件之中。依赖注入的目的并非为软件系统带来更多功能，而是为了提升组件重用的频率，并为系统搭建一个灵活、可扩展的平台。通过依赖注入机制，我们只需要通过简单的配置，而无需任何代码就可指定目标需要的资源，完成自身的业务逻辑，而不需要关心具体的资源来自何处，由谁实现。</p>
+<h2 id="Change-Detection-变化检测"><a href="#Change-Detection-变化检测" class="headerlink" title="Change Detection (变化检测)"></a><a href="https://segmentfault.com/a/1190000008754052" target="_blank" rel="noopener">Change Detection (变化检测)</a></h2><p>Change Detection (变化检测) 是 Angular 2 中最重要的一个特性。当组件中的数据发生变化的时候，Angular 2 能检测到数据变化并自动刷新视图反映出相应的变化。</p>
+<p>而引起模型变化的三类事件源：</p>
+<ul>
+<li>Events：click, mouseover, keyup …</li>
+<li>Timers：setInterval、setTimeout</li>
+<li>XHRs：Ajax(GET、POST …)</li>
+</ul>
+<p><strong><a href="https://github.com/angular/angular/tree/master/packages/zone.js" target="_blank" rel="noopener">Zones</a></strong></p>
+<p>Zone 是一个全局的对象，用来配置有关如何拦截和跟踪异步回调的规则。Zone 有以下能力：</p>
+<ul>
+<li>拦截异步任务调度</li>
+<li>提供了将数据附加到 zones 的方法</li>
+<li>为异常处理函数提供正确的上下文</li>
+<li>拦截阻塞的方法，如 alert、confirm 方法</li>
+</ul>
+<p>在 Angular 2 中，任何数据都是从顶部往底部流动，即单向数据流。下图是 Angular 1.x 与 Angular 2 变化检测的对比图：</p>
+<p><img src="http://114.55.30.96/WX20200215-194649@2x.png" alt="WX20200215-194649@2x"></p>
+<p>可以通过组件生命周期提供的钩子 <code>ngOnChanges</code> 来捕获变化的内容，该对象内包含了 previousValue (之前的值) 和 currentValue (当前值)。</p>
+<p><img src="http://114.55.30.96/WX20200215-194854@2x.png" alt="WX20200215-194854@2x"></p>
+<p><strong>ng2.x和ng1变化检测对比</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>ng1</th>
+<th>ng2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>触发时机</td>
+<td>1. 调用angular封装的DOM事件(click)                                                                                                 2. 调用http服务(\$http)                                                                                                                                  3. 调用定时器(\$timeout,\$interval)                                                                                                           4. 手动调用\$scope.\$apply或\$scope.digest</td>
+<td>1. Events：click, mouseover, keyup … 2. Timers：setInterval、setTimeout      3.XHRs： Ajax(GET、POST …)</td>
+</tr>
+<tr>
+<td>脏检查</td>
+<td>AngularJS采用的是双向数据流，错综复杂的数据流使得它不得不多次检查，使得数据最终趋向稳定。                                    <strong>遍历监视器队列</strong>中的每一个监控元素，如果监控元素发生了变化，则调用其注册的监听函数，在监听函数中会改变相应视图元素                        两层循环，如果值一直是 dirty 就会持续循环检查，直到值稳定</td>
+<td>Angular的数据流是自顶而下，从父组件到子组件单向流动。单向数据流向保证了高效、可预测的变化检测。尽管检查了父组件之后，子组件可能会改变父组件的数据使得父组件需要再次被检查，这是不被推荐的数据处理方式。在开发模式下，Angular会进行二次检查，如果出现上述情况，二次检查就会报错：ExpressionChangedAfterItHasBeenCheckedError（关于这个问题的答案，可以在参考资料中找到）。而在生产环境中，脏检查只会执行一次。                                                           不再遍历所有变量，而是通过父组件筛选变动的子组件，尽量向下查找</td>
+</tr>
+</tbody>
+</table>
+<p><strong>onPush策略与Default策略</strong></p>
+<p><strong>Default ：ng提供的Default的检测策略，只要组件的input发生改变，就触发检测；</strong><br><strong>OnPush ：OnPush检测策略是input发生改变，并不立即触发检测，而是输入的引用发生变化时，才会触发检测。普通的string num 等修改就是修改引用，数组和对象 修改其中的值引用并没有发生变化。</strong></p>
+<p>当使用 OnPush 策略的时候，若输入属性没有发生变化，组件的变化检测将会被跳过</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Component &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: <span class="string">'exe-app'</span>,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;profile-card [profile]='profile'&gt;&lt;/profile-card&gt;</span></span><br><span class="line"><span class="string">  `</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">AppComponent</span> </span>&#123;</span><br><span class="line">  profile: &#123; <span class="attr">name</span>: string; age: number &#125; = &#123;</span><br><span class="line">    name: <span class="string">'Semlinker'</span>,</span><br><span class="line">    age: <span class="number">31</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Component, Input, ChangeDetectionStrategy &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">    selector: <span class="string">'profile-card'</span>,</span><br><span class="line">    template: <span class="string">`</span></span><br><span class="line"><span class="string">       &lt;div&gt;</span></span><br><span class="line"><span class="string">         &lt;profile-name [name]='profile.name'&gt;&lt;/profile-name&gt;</span></span><br><span class="line"><span class="string">         &lt;profile-age [age]='profile.age'&gt;&lt;/profile-age&gt;</span></span><br><span class="line"><span class="string">       &lt;/div&gt;</span></span><br><span class="line"><span class="string">    `</span>,</span><br><span class="line">    changeDetection: ChangeDetectionStrategy.OnPush <span class="comment">// onpush</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> ProfileCardComponent &#123;</span><br><span class="line">    <span class="meta">@Input</span>() profile: &#123; name: <span class="built_in">string</span>; age: <span class="built_in">number</span> &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Component, Input &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">    selector: <span class="string">'profile-age'</span>,</span><br><span class="line">    template: <span class="string">`</span></span><br><span class="line"><span class="string">        &lt;p&gt;Age: &#123;&#123;age&#125;&#125;&lt;/p&gt;</span></span><br><span class="line"><span class="string">    `</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> ProfileAgeComponent &#123;</span><br><span class="line">    <span class="meta">@Input</span>() age: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Component, Input &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">    selector: <span class="string">'profile-card'</span>,</span><br><span class="line">    template: <span class="string">`</span></span><br><span class="line"><span class="string">       &lt;div&gt;</span></span><br><span class="line"><span class="string">         &lt;profile-name [name]='profile.name'&gt;&lt;/profile-name&gt;</span></span><br><span class="line"><span class="string">         &lt;profile-age [age]='profile.age'&gt;&lt;/profile-age&gt;</span></span><br><span class="line"><span class="string">       &lt;/div&gt;</span></span><br><span class="line"><span class="string">    `</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> ProfileCardComponent &#123;</span><br><span class="line">    <span class="meta">@Input</span>() profile: &#123; name: <span class="built_in">string</span>; age: <span class="built_in">number</span> &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://114.55.30.96/WX20200215-215258@2x.png" alt="WX20200215-215258@2x"></p>
+<p>修改 profile.name 的时候没有更新视图</p>
+<p><img src="http://114.55.30.96/WX20200215-215807@2x.png" alt="WX20200215-215807@2x"></p>
+<p>OnPush 策略是提高应用程序性能的一个简单而好用的方法。不过，我们还有其他方法来获得更好的性能。 即使用 Observable 与 ChangeDetectorRef 对象提供的 API，来手动控制组件的变化检测行为。</p>
+<p><strong>ChangeDetectorRef</strong></p>
+<p>ChangeDetectorRef 是组件的变化检测器的引用</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ChangeDetectorRef &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;&#125;) <span class="keyword">class</span> MyComponent &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> cdRef: ChangeDetectorRef</span>) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ChangeDetectorRef 变化检测类中主要方法有以下几个：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">abstract</span> <span class="keyword">class</span> ChangeDetectorRef &#123;</span><br><span class="line">  <span class="keyword">abstract</span> markForCheck(): <span class="built_in">void</span>;</span><br><span class="line">  <span class="keyword">abstract</span> detach(): <span class="built_in">void</span>;</span><br><span class="line">  <span class="keyword">abstract</span> detectChanges(): <span class="built_in">void</span>;</span><br><span class="line">  <span class="keyword">abstract</span> reattach(): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中各个方法的功能介绍如下：</p>
+<ul>
+<li>markForCheck() - 在组件的 metadata 中如果设置了 <code>changeDetection: ChangeDetectionStrategy.OnPush</code> 条件，那么变化检测不会再次执行，除非手动调用该方法。</li>
+<li>detach() - 从变化检测树中分离变化检测器，该组件的变化检测器将不再执行变化检测，除非手动调用 reattach() 方法。</li>
+<li>reattach() - 重新添加已分离的变化检测器，使得该组件及其子组件都能执行变化检测</li>
+<li>detectChanges() - 从该组件到各个子组件执行一次变化检测</li>
+</ul>
+<h4 id="双向绑定"><a href="#双向绑定" class="headerlink" title="双向绑定"></a>双向绑定</h4>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/angular/" rel="tag"># angular</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/10/react-native学习笔记/" rel="next" title="react native学习笔记">
+                <i class="fa fa-chevron-left"></i> react native学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/17/西瓜视频源码/" rel="prev" title="西瓜视频web播放器源码">
+                西瓜视频web播放器源码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">160</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常见内容"><span class="nav-number">1.</span> <span class="nav-text">常见内容</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#预编译-ahead-of-time-AoT"><span class="nav-number">1.0.1.</span> <span class="nav-text">预编译 (ahead-of-time, AoT)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#即时编译-just-in-time-JiT"><span class="nav-number">1.0.2.</span> <span class="nav-text">即时编译 (just-in-time, JiT)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依赖注入-Dependency-Injection"><span class="nav-number">1.0.3.</span> <span class="nav-text">依赖注入(Dependency Injection)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Change-Detection-变化检测"><span class="nav-number">2.</span> <span class="nav-text">Change Detection (变化检测)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#双向绑定"><span class="nav-number">2.0.1.</span> <span class="nav-text">双向绑定</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
