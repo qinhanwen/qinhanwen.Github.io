@@ -280,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/23/react源码过程（5）-Fiber 与 渲染/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/06/Babel-插件开发/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -299,7 +299,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/12/23/react源码过程（5）-Fiber 与 渲染/" itemprop="url">react源码过程（5）- Fiber 与 渲染</a></h1>
+                <a class="post-title-link" href="/2020/02/06/Babel-插件开发/" itemprop="url">Babel 插件开发</a></h1>
         
 
         <div class="post-meta">
@@ -311,320 +311,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-23T23:47:08+08:00">
-                2019-12-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/react源码过程/" itemprop="url" rel="index">
-                    <span itemprop="name">react源码过程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          例子需要先了解的内容
-挂载
-1ReactDOM.render(&lt;App /&gt;, document.getElementById('container'))
-这段代码的含义是想在容器中渲染出一个组件。
-fiber 对象
-在 createFiberRoot 函数内部，分别创建了两个 root，一个 root 叫做 FiberRoot，另一个 root 叫做 RootFiber，并且它们两者还是相互引用的。
-对于 FiberRoot 对象来说，我们现在只需要了解两个属性，分别是 conta
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/12/23/react源码过程（5）-Fiber 与 渲染/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/15/vue-ssr之vue-server-renderer插件/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="秦瀚文">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="渣渣大星星的学习笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/12/15/vue-ssr之vue-server-renderer插件/" itemprop="url">vue-ssr之vue-server-renderer插件</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-15T20:18:47+08:00">
-                2019-12-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue-ssr/" itemprop="url" rel="index">
-                    <span itemprop="name">vue-ssr</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          vue-server-renderer 简单了解该软件包的作用是：vue2.0 提供在 node.js 服务器端呈现的。
-API
-
-createRenderer
-
-该方法是创建一个 renderer 实列。如下代码：
-1const renderer = require('vue-server-renderer').createRenderer()
-
-renderer.renderToString(vm, cb);
-
-该方法的作用是：将 Vue 实列呈现为字符串。该方法的回调函数是一个标准的 No
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/12/15/vue-ssr之vue-server-renderer插件/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/10/Babel分享/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="秦瀚文">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="渣渣大星星的学习笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/12/10/Babel分享/" itemprop="url">Babel分享</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-10T21:05:05+08:00">
-                2019-12-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-06T13:50:29+08:00">
+                2020-02-06
               </time>
             
 
@@ -685,31 +373,13 @@ renderer.renderToString(vm, cb);
       
         
           
-          
-
-Babel
-Babel 是什么
-AST 是什么
-访问者模式
-charCodeAt
-
-
-其他内容简单介绍
-cli
-plugin
-presets
-polyfill
-babel-runtime &amp; babel-plugin-transform-runtime
-.babelrc、babel.config.js、package.json 等配置
-
-
-插件
-@babel/parser 7.x（babylon 6.x）
-@babel/traverse 7.x（babel-traverse 6.x）
+          开发第一个 Babel 插件一个接收当前 babel 对象作为参数的 function，(而我们经常使用的方式是从 babel 中解构拿到 types)
+123456export default function(babel) &#123;  // plugin contents&#125;// export default function(&#123; types: t &#125;) &#123;// &#125;
+返回一个对象，visitor属性是这个插件的主要访问者，visitor 中
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/12/10/Babel分享/#more" rel="contents">
+            <a class="btn" href="/2020/02/06/Babel-插件开发/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -760,7 +430,7 @@ babel-runtime &amp; babel-plugin-transform-runtime
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/04/Babel学习笔记2-API与插件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/06/建立npm仓库/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -779,7 +449,7 @@ babel-runtime &amp; babel-plugin-transform-runtime
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/12/04/Babel学习笔记2-API与插件/" itemprop="url">Babel学习笔记3 - API与插件</a></h1>
+                <a class="post-title-link" href="/2020/02/06/建立npm仓库/" itemprop="url">建立npm仓库</a></h1>
         
 
         <div class="post-meta">
@@ -791,8 +461,8 @@ babel-runtime &amp; babel-plugin-transform-runtime
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-04T21:40:25+08:00">
-                2019-12-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-06T13:49:25+08:00">
+                2020-02-06
               </time>
             
 
@@ -814,8 +484,8 @@ babel-runtime &amp; babel-plugin-transform-runtime
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Babel/" itemprop="url" rel="index">
-                    <span itemprop="name">Babel</span>
+                  <a href="/categories/npm/" itemprop="url" rel="index">
+                    <span itemprop="name">npm</span>
                   </a>
                 </span>
 
@@ -853,12 +523,16 @@ babel-runtime &amp; babel-plugin-transform-runtime
       
         
           
-          API@babel/parser：Babel 的解析器。最初是 从Acorn项目fork出来的。Acorn非常快，易于使用，并且针对非标准特性(以及那些未来的标准特性) 设计了一个基于插件的架构。
-12345678const &#123;    parse&#125; = require('@babel/parser');const code = `function square(n) &#123;    return n * n;  &#125;`;const ast = parse(code
-          ...
+          私有npm仓库建立123456$ npm install -g verdaccio --unsafe-perm$ verdaccio$ vi /root/.config/verdaccio/config.yaml# 启动$ verdaccio
+访问 域名+端口号
+
+使用 pm2 启动进程
+12$ npm i pm2 -g$ pm2 start verdaccio
+
+          
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/12/04/Babel学习笔记2-API与插件/#more" rel="contents">
+            <a class="btn" href="/2020/02/06/建立npm仓库/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -909,7 +583,7 @@ babel-runtime &amp; babel-plugin-transform-runtime
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/01/Babel学习笔记3 - 处理流程/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/17/webpack构建过程-补充/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -928,7 +602,7 @@ babel-runtime &amp; babel-plugin-transform-runtime
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/12/01/Babel学习笔记3 - 处理流程/" itemprop="url">Babel学习笔记2 - 处理流程</a></h1>
+                <a class="post-title-link" href="/2020/01/17/webpack构建过程-补充/" itemprop="url">webpack构建过程-补充</a></h1>
         
 
         <div class="post-meta">
@@ -940,8 +614,8 @@ babel-runtime &amp; babel-plugin-transform-runtime
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-01T11:32:03+08:00">
-                2019-12-01
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-17T12:41:30+08:00">
+                2020-01-17
               </time>
             
 
@@ -963,8 +637,8 @@ babel-runtime &amp; babel-plugin-transform-runtime
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Babel/" itemprop="url" rel="index">
-                    <span itemprop="name">Babel</span>
+                  <a href="/categories/webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack</span>
                   </a>
                 </span>
 
@@ -1002,21 +676,13 @@ babel-runtime &amp; babel-plugin-transform-runtime
       
         
           
-          
-前置知识开始之前补充一些知识
-
-String.prototype.codePointAt 方法，返回 一个 Unicode 编码点值的非负整数，如果在指定的位置没有元素则返回 undefined
-
-示例：
-12345str.codePointAt(pos)// pos 这个字符串中需要转码的元素的位置。'ABC'.codePointAt(1); // 66'XYZ'.codePointAt(3); // undefined
-
-ast（抽象语法树）
-
-可以在这个网站尝试代码转成ast ：http
+          补充添加了一个简单的 loader，替换 const 为 var
+123module.exports = function loader(source) &#123;    return source.replace('const','var');&#125;;
+123456789101112131415161718192021222324252627const path = require('path')const MyPlugin = require('./my-webpack-plugin
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/12/01/Babel学习笔记3 - 处理流程/#more" rel="contents">
+            <a class="btn" href="/2020/01/17/webpack构建过程-补充/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1067,7 +733,7 @@ ast（抽象语法树）
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/30/Babel学习笔记1 - 概览/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/14/cli学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1086,7 +752,7 @@ ast（抽象语法树）
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/11/30/Babel学习笔记1 - 概览/" itemprop="url">Babel学习笔记1</a></h1>
+                <a class="post-title-link" href="/2020/01/14/cli学习/" itemprop="url">cli学习</a></h1>
         
 
         <div class="post-meta">
@@ -1098,8 +764,8 @@ ast（抽象语法树）
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-30T21:05:05+08:00">
-                2019-11-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-14T22:11:15+08:00">
+                2020-01-14
               </time>
             
 
@@ -1121,8 +787,8 @@ ast（抽象语法树）
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Babel/" itemprop="url" rel="index">
-                    <span itemprop="name">Babel</span>
+                  <a href="/categories/cli/" itemprop="url" rel="index">
+                    <span itemprop="name">cli</span>
                   </a>
                 </span>
 
@@ -1160,17 +826,18 @@ ast（抽象语法树）
       
         
           
-          Babel是什么Babel 是一个 JavaScript 编译器，是一个工具链。主要用于将 ECMAScript 2015+ 版本的代码转换为向后兼容的 JavaScript 语法，以便能够运行在当前和旧版本的浏览器或其他环境中。它能做的事情：
+          说明项目想要根据选择来实现初始化不同的模板，之前的模板太重了。
+如何实现 cli 插件可能使用的依赖介绍：
 
-语法转换
-通过 Polyfill 方式在目标环境中添加缺失的特性 (通过 @babel/polyfill 模块)
-源码转换 (codemods)
-
-插件Babel 是一个编译器（输入源码 =&gt; 输出编译后的代码）。就像其他编译器一样，编译过程分为
+commander：node.js 命令行接口的完整解决方案，自定义命令
+chalk：修改控制台中字符串的样式（字体样式加粗等／字体颜色／背景颜色）
+cross-spawn：Node.js 的子进程 child_process 模块下有一 spawn 函数，可以用于调用系统上的命令，如在 Linux, macOS 等系统上。这个库是用来兼容多平台
+fs-extra：文件操作
+path：这
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/11/30/Babel学习笔记1 - 概览/#more" rel="contents">
+            <a class="btn" href="/2020/01/14/cli学习/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1221,7 +888,7 @@ ast（抽象语法树）
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/25/JavaScript设计模式-访问者模式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/09/jsbridge/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1240,7 +907,7 @@ ast（抽象语法树）
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/11/25/JavaScript设计模式-访问者模式/" itemprop="url">JavaScript设计模式-访问者模式</a></h1>
+                <a class="post-title-link" href="/2020/01/09/jsbridge/" itemprop="url">jsbridge</a></h1>
         
 
         <div class="post-meta">
@@ -1252,8 +919,8 @@ ast（抽象语法树）
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-25T09:57:28+08:00">
-                2019-11-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-09T23:18:58+08:00">
+                2020-01-09
               </time>
             
 
@@ -1262,28 +929,6 @@ ast（抽象语法树）
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript设计模式/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript设计模式</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -1314,13 +959,17 @@ ast（抽象语法树）
       
         
           
-          定义
-角色介绍:
-Visitor：表示访问者的抽象类，用于声明对数据结构中xxx元素访问的visit(xxx)方法。ConcreteVisitor：表示具体的访问者，继承Visitor并对其声明的抽象方法提供具体实现。Element：表示元素的抽象类，即访问者实际要访问的对象，Element角色需要对访问者提供一个开放的接口，即accept方法，该方法的参数就是Visitor角色。ConcreteElement：表示具体的元素，提供accept方法的实现。ObjectStructure：负责处理
+          H5 端与 安卓、ios 端的通信基于 WebView 的机制和开放的 API, 实现这个功能有三种常见的方案：
+
+API注入，原理其实就是 Native 获取 JavaScript环境上下文，并直接在上面挂载对象或者方法，使 js 可以直接调用，Android 与 IOS 分别拥有对应的挂载方式。
+WebView 中的 prompt/console/alert 拦截，通常使用 prompt，因为这个方法在前端中使用频率低，比较不会出现冲突；
+
+WebView URL Scheme 跳转拦截；
+
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/11/25/JavaScript设计模式-访问者模式/#more" rel="contents">
+            <a class="btn" href="/2020/01/09/jsbridge/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1371,7 +1020,7 @@ Visitor：表示访问者的抽象类，用于声明对数据结构中xxx元素�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/21/chrome调试-性能分析performance篇/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/09/前端性能统计-首屏时间，白屏时间，用户可操作时间，总下载时间/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1390,7 +1039,7 @@ Visitor：表示访问者的抽象类，用于声明对数据结构中xxx元素�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/11/21/chrome调试-性能分析performance篇/" itemprop="url">chrome调试-性能分析performance篇</a></h1>
+                <a class="post-title-link" href="/2020/01/09/前端性能统计-首屏时间，白屏时间，用户可操作时间，总下载时间/" itemprop="url">前端性能统计-首屏时间，白屏时间，用户可操作时间，总下载时间</a></h1>
         
 
         <div class="post-meta">
@@ -1402,8 +1051,8 @@ Visitor：表示访问者的抽象类，用于声明对数据结构中xxx元素�
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-21T22:44:50+08:00">
-                2019-11-21
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-09T16:17:31+08:00">
+                2020-01-09
               </time>
             
 
@@ -1464,21 +1113,21 @@ Visitor：表示访问者的抽象类，用于声明对数据结构中xxx元素�
       
         
           
-          PerformancePerformance 工具的侧重点则在于前端渲染过程，它拥有帧率条形图、CPU 使用率面积图、资源瀑布图、主线程火焰图、事件总揽等模块，它们和渲染息息相关，善用它们可以清晰地观察整个渲染阶段。
-首先我们打开 Chrome 匿名窗口，在匿名环境下，浏览器不会有额外的插件、用户特性、缓存等影响实验可重复性的因素。
+          ##主要监控指标
 
-打开网页，打开Performance，有两个选项，立即记录和重载页面并记录
+DNS查询时间——DNS查询的开始到结束所花费的时间；
 
-点击掘金页面的reload收集渲染数据
+TCP连接时间——TCP建立连接到连接成功的所花费的时间；
 
-关于图中内容介绍：
+首屏时间——用户浏览器首屏内所有内容都呈现出来所花费的时间；
 
+用户可操作时间(dom Interactive)——用户可以进行正常的点击、输入等操作，默认可以统计domready时间，因为通常会在这时候绑定事件操作；
 
-juejin.im
+DOM渲染完成时间——代表DOMContentLoaded事件完成的时间节点，此刻用户可以对页面进行操作，也就是页面中的domready时
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/11/21/chrome调试-性能分析performance篇/#more" rel="contents">
+            <a class="btn" href="/2020/01/09/前端性能统计-首屏时间，白屏时间，用户可操作时间，总下载时间/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1529,7 +1178,7 @@ juejin.im
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/20/vue-ssr/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/09/react源码过程（10）-总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1548,7 +1197,7 @@ juejin.im
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/11/20/vue-ssr/" itemprop="url">vue-ssr-1</a></h1>
+                <a class="post-title-link" href="/2020/01/09/react源码过程（10）-总结/" itemprop="url">react源码过程（10）- 总结</a></h1>
         
 
         <div class="post-meta">
@@ -1560,8 +1209,8 @@ juejin.im
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-20T22:15:27+08:00">
-                2019-11-20
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-09T12:31:47+08:00">
+                2020-01-09
               </time>
             
 
@@ -1583,8 +1232,8 @@ juejin.im
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue-ssr/" itemprop="url" rel="index">
-                    <span itemprop="name">vue-ssr</span>
+                  <a href="/categories/react源码过程/" itemprop="url" rel="index">
+                    <span itemprop="name">react源码过程</span>
                   </a>
                 </span>
 
@@ -1622,15 +1271,17 @@ juejin.im
       
         
           
-          什么是服务器端渲染 (SSR)Vue.js 是构建客户端应用程序的框架。默认情况下，可以在浏览器中输出 Vue 组件，进行生成 DOM 和操作 DOM。然而，也可以将同一个组件渲染为服务器端的 HTML 字符串，将它们直接发送到浏览器，最后将这些静态标记”激活”为客户端上完全可交互的应用程序。
-服务器渲染的 Vue.js 应用程序也可以被认为是”同构”或”通用”，因为应用程序的大部分代码都可以在服务器和客户端上运行。
-为什么使用服务器端渲染 (SSR)优势：
+          总结同步情况首次渲染
 
-更好的 SEO，由于搜索引擎爬虫抓
+createElement 生成 reactComponent
+调用 render 方法，传入 reactComponent 与 挂载点的实例
+生成 FiberRoot ，主要的属性是 containerInfo （挂载点的实例），current （RootFiber），以及一大堆的 time
+调度阶段，把 reactComponent 添加到 update 里，最后放到 RootFiber 的 updateQueue 里
+建立 FIber 树关联阶段，如果碰到 comp
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/11/20/vue-ssr/#more" rel="contents">
+            <a class="btn" href="/2020/01/09/react源码过程（10）-总结/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1681,7 +1332,7 @@ juejin.im
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/加密/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/03/位运算/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1700,7 +1351,7 @@ juejin.im
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/11/12/加密/" itemprop="url">加密</a></h1>
+                <a class="post-title-link" href="/2020/01/03/位运算/" itemprop="url">位运算</a></h1>
         
 
         <div class="post-meta">
@@ -1712,8 +1363,8 @@ juejin.im
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-12T23:27:35+08:00">
-                2019-11-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-03T13:19:03+08:00">
+                2020-01-03
               </time>
             
 
@@ -1735,8 +1386,8 @@ juejin.im
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/加密/" itemprop="url" rel="index">
-                    <span itemprop="name">加密</span>
+                  <a href="/categories/算法与数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">算法与数据结构</span>
                   </a>
                 </span>
 
@@ -1774,26 +1425,332 @@ juejin.im
       
         
           
-          加密什么是加密加密定义：以保证机密性的方式转换数据的过程。
-为此，加密需要使用一个保密工具，称其为“密钥”。
-加密密钥和任何其他加密密钥应具有一些属性：
+          基础程序中的数在计算机内存中都是以二进制的形式存在的，位运算就是直接对整数在内存中对应的二进制位进行操作。
+二进制
+十进制转二进制时，采用“除 2 取余，逆序排列”法
 
-为了保护机密性，密钥的值应难以猜测。
-应该在单个上下文中使用它，避免在不同上下文中重复使用（类比 JS 作用域）。密钥重用会带来安全风险，如果规避了其机密性，则影响更大，因为它“解锁”了更敏感的数据。
+用 2 整除十进制数，得到商和余数;
+再用 2 整除商，得到新的商和余数;
+重复第 1 和第 2 步，直到商为 0;
+将先得到的余数作为二进制数的高位，后得到的余数作为二进制数的低位，依次排序;
 
-加密分类
-对称加密
-非对称加密
-
-对称加密
-
-
-用相同的密钥对原文进行加密和解密，通信双方共用一个密钥
-交易双方都使用同样钥匙，无法确保密钥
+1234567101 % 2 = 50 余 150 % 2 = 25 余 025 % 2 = 12 余 112 % 2 = 6 余 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/11/12/加密/#more" rel="contents">
+            <a class="btn" href="/2020/01/03/位运算/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/31/react源码过程（9）-事件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/31/react源码过程（9）-事件/" itemprop="url">react源码过程（9）- 事件</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-31T13:56:08+08:00">
+                2019-12-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/react源码过程/" itemprop="url" rel="index">
+                    <span itemprop="name">react源码过程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          事件React利用事件委托机制在document上统一监听DOM事件，再根据触发的target将事件分发到具体的组件实例。另外上面e是一个合成事件对象(SyntheticEvent)，而不是原始的DOM事件对象。
+React自定义一套事件系统的动机有以下几个：
+
+抹平浏览器之间的兼容性差异
+事件‘合成’, 即事件自定义
+抽象跨平台事件机制
+
+例子123456789101112131415161718192021222324252627282930313233&lt;html&gt;&lt;bod
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/12/31/react源码过程（9）-事件/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/31/react源码过程（6）-setState/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/31/react源码过程（6）-setState/" itemprop="url">react源码过程（6）- setState</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-31T12:51:45+08:00">
+                2019-12-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/react源码过程/" itemprop="url" rel="index">
+                    <span itemprop="name">react源码过程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          setState关于 setState() 你应该了解三件事：
+
+不要直接修改 State
+
+1234567// Wrong// 此代码不会重新渲染组件this.state.comment = 'Hello';// Correct// 而是应该使用 setState()this.setState(&#123;comment: 'Hello'&#125;);
+
+State 的更新可能是异步的
+
+出于性能考虑，React 可能会把多个 setState() 调用合并成一个调用。
+因为 this.pr
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/12/31/react源码过程（6）-setState/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1835,7 +1792,7 @@ juejin.im
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1881,7 +1838,7 @@ juejin.im
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">160</span>
+                <span class="site-state-item-count">174</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1892,7 +1849,7 @@ juejin.im
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1903,7 +1860,7 @@ juejin.im
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

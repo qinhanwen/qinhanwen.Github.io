@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="读《webpack原理》总结-2020.05.31学习时间：2020.05.31 学习章节：webpack原理 一、前言webpack 是一个常用的打包工具，它的流行得益于模块化和单页应用的流行。平时开发过程中，更多在意的是它的使用。从加载配置文件、到构建、打包、输出文件的过程，也是一件超级有趣的事情。 在了解它的构建过程之前，可以先稍微了解一些东西：  Loader：模块转换器，用于把模块原内容">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack分享">
+<meta property="og:url" content="http://yoursite.com/2020/03/04/webpack分享/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="读《webpack原理》总结-2020.05.31学习时间：2020.05.31 学习章节：webpack原理 一、前言webpack 是一个常用的打包工具，它的流行得益于模块化和单页应用的流行。平时开发过程中，更多在意的是它的使用。从加载配置文件、到构建、打包、输出文件的过程，也是一件超级有趣的事情。 在了解它的构建过程之前，可以先稍微了解一些东西：  Loader：模块转换器，用于把模块原内容">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/Users/qinhanwen/Desktop/new-images/WX20200601-212148@2x.png">
+<meta property="og:image" content="http://yoursite.com/Users/qinhanwen/Desktop/new-images/WX20200304-223828@2x.png">
+<meta property="og:image" content="http://yoursite.com/Users/qinhanwen/Desktop/new-images/WX20200601-222304@2x.png">
+<meta property="og:updated_time" content="2020-06-07T08:05:39.914Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack分享">
+<meta name="twitter:description" content="读《webpack原理》总结-2020.05.31学习时间：2020.05.31 学习章节：webpack原理 一、前言webpack 是一个常用的打包工具，它的流行得益于模块化和单页应用的流行。平时开发过程中，更多在意的是它的使用。从加载配置文件、到构建、打包、输出文件的过程，也是一件超级有趣的事情。 在了解它的构建过程之前，可以先稍微了解一些东西：  Loader：模块转换器，用于把模块原内容">
+<meta name="twitter:image" content="http://yoursite.com/Users/qinhanwen/Desktop/new-images/WX20200601-212148@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/04/webpack分享/"/>
+
+
+
+
+
+  <title>webpack分享 | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/04/webpack分享/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">webpack分享</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-04T21:42:59+08:00">
+                2020-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="读《webpack原理》总结-2020-05-31"><a href="#读《webpack原理》总结-2020-05-31" class="headerlink" title="读《webpack原理》总结-2020.05.31"></a>读《webpack原理》总结-2020.05.31</h1><p>学习时间：2020.05.31</p>
+<p>学习章节：<a href="https://segmentfault.com/a/1190000015088834" target="_blank" rel="noopener">webpack原理</a></p>
+<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>webpack 是一个常用的打包工具，它的流行得益于模块化和单页应用的流行。平时开发过程中，更多在意的是它的使用。从加载配置文件、到构建、打包、输出文件的过程，也是一件超级有趣的事情。</p>
+<p>在了解它的构建过程之前，可以先稍微了解一些东西：</p>
+<ul>
+<li>Loader：模块转换器，用于把模块原内容按照需求转换成新内容。</li>
+<li>Plugin：扩展插件，在 Webpack 构建流程中的特定时机会广播出对应的事件，插件可以监听这些事件的发生，在特定时机做对应的事情。</li>
+<li>Compiler：<code>Compiler</code> 负责文件监听和启动编译。<code>Compiler</code> 实例中包含了完整的 <code>Webpack</code> 配置，全局只有一个 <code>Compiler</code> 实例。</li>
+<li>Compilation：当 <code>Webpack</code> 以开发模式运行时，每当检测到文件变化，一次新的 <code>Compilation</code> 将被创建。一个 <code>Compilation</code> 对象包含了当前的模块资源、编译生成资源、变化的文件等。<code>Compilation</code> 对象也提供了很多事件回调供插件做扩展。</li>
+</ul>
+<h2 id="二、流程概括"><a href="#二、流程概括" class="headerlink" title="二、流程概括"></a>二、流程概括</h2><ol>
+<li>初始化：解析命令行参数， 初始化配置参数（配置文件参数与默认配置参数合并）、创建 compiler 实例、遍历 plugins 数组（如果数组某一项类型不是 function 就调用它的 apply 方法）、根据配置参数添加插件之类。执行 compiler 实例的 run 方法进入编译阶段。</li>
+<li>编译阶段：从构建的入口文件开始，解析得到 loader 路径和入口路径（同时将loader解析成了固定格式，因为配置的时候支持多种格式配置）。调用 doBuild，创建 normalModule (normalModule 是一个要构建的模块实例，它记录了入口文件是什么、要使用的 loader 有哪些等等) ，之后开始build模块。build 的时候首先是执行 runloaders，它会递归的加载loader，然后使用 loader 对文件处理，得到最后的输出结果。</li>
+<li>寻找依赖：使用 acorn 解析上面得到的输出结果，寻找依赖关系。之后重复 2-3 来处理所依赖的文件。</li>
+<li>输出资源：根据入口和模块之间的依赖关系，组装成一个个包含多个模块的 Chunk，再把每个 Chunk 转换成一个单独的文件加入到输出列表。</li>
+<li>写入内容：根据配置确定输出的路径和文件名，创建目录、创建文件、接着把文件内容写入。</li>
+</ol>
+<h2 id="三、流程图"><a href="#三、流程图" class="headerlink" title="三、流程图"></a>三、流程图</h2><p><img src="/Users/qinhanwen/Desktop/new-images/WX20200601-212148@2x.png" alt="WX20200601-212148@2x"></p>
+<h2 id="四、流程分析"><a href="#四、流程分析" class="headerlink" title="四、流程分析"></a>四、流程分析</h2><h3 id="1-配置文件"><a href="#1-配置文件" class="headerlink" title="1. 配置文件"></a>1. 配置文件</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">const</span> MyPlugin = <span class="built_in">require</span>(<span class="string">'../my-webpack-plugin'</span>)<span class="comment">// 引用的 plugin</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  mode: <span class="string">'development'</span>, <span class="comment">//打包模式</span></span><br><span class="line">  entry: <span class="string">'./src/index.js'</span>, <span class="comment">//从哪个文件开始打包</span></span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [&#123;</span><br><span class="line">      test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">      loader: path.resolve(__dirname, <span class="string">'..'</span>, <span class="string">'./my-loader.js'</span>),<span class="comment">// 引用的 loader</span></span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> MyPlugin()</span><br><span class="line">  ],</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">'[hash].js'</span>, <span class="comment">//最终文件命名</span></span><br><span class="line">    path: path.resolve(__dirname,<span class="string">'..'</span>, <span class="string">'dist'</span>) <span class="comment">//输出文件夹的路径</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/index.js 入口文件</span></span><br><span class="line"><span class="keyword">import</span> b <span class="keyword">from</span> <span class="string">'./index1.js'</span></span><br><span class="line"><span class="keyword">const</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a + b);</span><br><span class="line"></span><br><span class="line"><span class="comment">// src/index1.js 依赖文件</span></span><br><span class="line"><span class="keyword">const</span> b = <span class="number">2</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> b;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 自定义 loader</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="title">loader</span>(<span class="params">source</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> source.replace(<span class="string">'const'</span>,<span class="string">'var'</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 自定义插件</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="class"><span class="keyword">class</span> <span class="title">MyPlugin</span> </span>&#123;</span><br><span class="line">  apply(compiler) &#123;</span><br><span class="line">    <span class="comment">// 设置回调来访问 compilation 对象：</span></span><br><span class="line">    compiler.hooks.compilation.tap(<span class="string">'myPlugin'</span>, compilation =&gt; &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'Hello compiler!'</span>)</span><br><span class="line">      <span class="comment">// 现在，设置回调来访问 compilation 中的任务点：</span></span><br><span class="line">      compilation.hooks.optimize.tap(<span class="string">'myPlugin'</span>, () =&gt; &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Hello compilation!'</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-命令行执行"><a href="#2-命令行执行" class="headerlink" title="2. 命令行执行"></a>2. 命令行执行</h3><p>我们通常通过在 package.json 文件配置 scripts 来启动构建。webpack 作为可执行命令，如果是局部安装的话，它的位置在 <code>node_modules/.bin/webpack</code>，可以通过执行它来进入调试。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">"scripts": &#123;</span><br><span class="line">   "build": "webpack --config ./build/webpack.config.js",</span><br><span class="line">   "build:debug": "node --inspect-brk node_modules/.bin/webpack --config ./build/webpack.config.js"</span><br><span class="line"> &#125;,</span><br><span class="line"> ...</span><br></pre></td></tr></table></figure>
+<h3 id="3-解析参数"><a href="#3-解析参数" class="headerlink" title="3. 解析参数"></a>3. 解析参数</h3><h4 id="3-1从-Shell-语句中解析"><a href="#3-1从-Shell-语句中解析" class="headerlink" title="3.1从 Shell 语句中解析"></a>3.1从 Shell 语句中解析</h4><p>首先先了解一下 <a href="http://nodejs.cn/api/process/process_argv.html" target="_blank" rel="noopener"><code>process.argv</code></a>，这个属性返回一个数组，其中包含当启动 Node.js 进程时传入的命令行参数。 第一个元素是 <a href="http://nodejs.cn/s/MCrAya" target="_blank" rel="noopener"><code>process.execPath</code></a>。 其余元素将是任何其他命令行参数。</p>
+<p>所以当我们执行 <code>npm run build:debug</code>的时候，<code>process.argv</code>数组是长这样，包含了 shell 语句中的参数。</p>
+<p><img src="/Users/qinhanwen/Desktop/new-images/WX20200304-223828@2x.png" alt="WX20200304-223828@2x"></p>
+<h3 id="4-初始化"><a href="#4-初始化" class="headerlink" title="4. 初始化"></a>4. 初始化</h3><h4 id="4-1-这里的例子，在解析完命令行参数之后，去加载了配置文件-webpack-config-js，得到配置参数。-node模块加载机制。"><a href="#4-1-这里的例子，在解析完命令行参数之后，去加载了配置文件-webpack-config-js，得到配置参数。-node模块加载机制。" class="headerlink" title="4.1 这里的例子，在解析完命令行参数之后，去加载了配置文件 webpack.config.js，得到配置参数。 node模块加载机制。"></a>4.1 这里的例子，在解析完命令行参数之后，去加载了配置文件 webpack.config.js，得到配置参数。 <a href="https://zhuanlan.zhihu.com/p/83315999" target="_blank" rel="noopener">node模块加载机制</a>。</h4><h4 id="4-2-与默认配置合并"><a href="#4-2-与默认配置合并" class="headerlink" title="4.2 与默认配置合并"></a>4.2 与默认配置合并</h4><p>就算没有写配置，webpack 也是有默认配置的。它有一个合并用户配置与默认配置的过程。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">process(options) &#123;<span class="comment">// 传入的 options 是用户的配置</span></span><br><span class="line">	options = <span class="built_in">Object</span>.assign(&#123;&#125;, options);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">let</span> name <span class="keyword">in</span> <span class="keyword">this</span>.defaults) &#123;</span><br><span class="line">		<span class="keyword">switch</span> (<span class="keyword">this</span>.config[name]) &#123;</span><br><span class="line">			<span class="keyword">case</span> <span class="literal">undefined</span>:</span><br><span class="line">				<span class="keyword">if</span> (getProperty(options, name) === <span class="literal">undefined</span>) &#123;</span><br><span class="line">					setProperty(options, name, <span class="keyword">this</span>.defaults[name]);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">"call"</span>:</span><br><span class="line">				setProperty(</span><br><span class="line">					options,</span><br><span class="line">					name,</span><br><span class="line">					<span class="keyword">this</span>.defaults[name].call(<span class="keyword">this</span>, getProperty(options, name), options)</span><br><span class="line">				);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">"make"</span>:</span><br><span class="line">				<span class="keyword">if</span> (getProperty(options, name) === <span class="literal">undefined</span>) &#123;</span><br><span class="line">					setProperty(options, name, <span class="keyword">this</span>.defaults[name].call(<span class="keyword">this</span>, options));</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">"append"</span>: &#123;</span><br><span class="line">				<span class="keyword">let</span> oldValue = getProperty(options, name);</span><br><span class="line">				<span class="keyword">if</span> (!<span class="built_in">Array</span>.isArray(oldValue)) &#123;</span><br><span class="line">					oldValue = [];</span><br><span class="line">				&#125;</span><br><span class="line">				oldValue.push(...this.defaults[name]);</span><br><span class="line">				setProperty(options, name, oldValue);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">default</span>:</span><br><span class="line">				<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">					<span class="string">"OptionsDefaulter cannot process "</span> + <span class="keyword">this</span>.config[name]</span><br><span class="line">				);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> options;<span class="comment">// 最后得到合并的配置</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-3-初始化-compiler"><a href="#4-3-初始化-compiler" class="headerlink" title="4.3 初始化 compiler"></a>4.3 初始化 compiler</h4><p>它继承于 Tapable，包含了完整的 webpack 配置，拥有很多的钩子，可以在感兴趣的钩子上添加回调，会在 webpack 构建流程中被触发，同时它也负责启动编译。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Compiler</span> <span class="keyword">extends</span> <span class="title">Tapable</span> </span>&#123;</span><br><span class="line">	<span class="keyword">constructor</span>(context) &#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">    <span class="keyword">this</span>.hooks = &#123;</span><br><span class="line">			...</span><br><span class="line">		&#125;</span><br><span class="line">		...	</span><br><span class="line">  &#125;</span><br><span class="line">	...</span><br><span class="line">  run(callback) &#123;<span class="comment">// 编译的开始</span></span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-4-遍历-plugins-数组"><a href="#4-4-遍历-plugins-数组" class="headerlink" title="4.4 遍历 plugins 数组"></a>4.4 遍历 plugins 数组</h4><p>遍历 plugins 的过程，就是判断每一项是否类型是 function，不是的话就调用插件实例上的 apply 方法，在 apply 方法里，就可以在 compiler 暴露出的钩子上添加回调。 回调被调用的时机点，遍布 webpack 构建的生命周期。跟 vue 和 react 生命周期中在某个时机点，调用生命周期钩子函数的意思差不多。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">if</span> (options.plugins &amp;&amp; <span class="built_in">Array</span>.isArray(options.plugins)) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">const</span> plugin <span class="keyword">of</span> options.plugins) &#123;</span><br><span class="line">				<span class="keyword">if</span> (<span class="keyword">typeof</span> plugin === <span class="string">"function"</span>) &#123;</span><br><span class="line">					plugin.call(compiler, compiler);</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					plugin.apply(compiler);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h4 id="4-5-在进入编译阶段之前，这里还需根据参数做一些事情。"><a href="#4-5-在进入编译阶段之前，这里还需根据参数做一些事情。" class="headerlink" title="4.5 在进入编译阶段之前，这里还需根据参数做一些事情。"></a>4.5 在进入编译阶段之前，这里还需根据参数做一些事情。</h4><p>比如 <a href="https://webpack.js.org/configuration/mode/" target="_blank" rel="noopener">mode</a> 是 development 或者 production，会通过 <a href="https://webpack.js.org/plugins/define-plugin/#root" target="_blank" rel="noopener">DefinePlugin</a> 插件在 process.env.NODE_ENV 上设置值。<a href="https://webpack.js.org/configuration/optimization/#optimizationminimizer" target="_blank" rel="noopener">optimization.minimizer</a> 可以添加插件来覆盖默认的。根据 options.externals 是否加载 ExternalsPlugin 插件等等。</p>
+<h3 id="5-编译阶段"><a href="#5-编译阶段" class="headerlink" title="5 编译阶段"></a>5 编译阶段</h3><p>compiler.run 方法调用之后进入编译阶段。</p>
+<h4 id="5-1-实例化-compilation-，它也是继承于-Tapable"><a href="#5-1-实例化-compilation-，它也是继承于-Tapable" class="headerlink" title="5.1 实例化 compilation ，它也是继承于 Tapable"></a>5.1 实例化 compilation ，它也是继承于 Tapable</h4><p>compilation 实例上会用于保存了compiler 的引用、模块资源、以及编译生成资源等等</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Compilation</span> <span class="keyword">extends</span> <span class="title">Tapable</span> </span>&#123;</span><br><span class="line">	<span class="keyword">constructor</span>(compiler) &#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.hooks = &#123;</span><br><span class="line">			...</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们的自定义 plugin 之前订阅了 compilation 创建事件，所以在 compilation 实例被创建的时候被调用。调用的同时又订阅了优化开始的事件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">compiler.hooks.compilation.tap(<span class="string">'myPlugin'</span>, compilation =&gt; &#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">'Hello compiler!'</span>)</span><br><span class="line">     <span class="comment">// 现在，设置回调来访问 compilation 中的任务点：</span></span><br><span class="line">     compilation.hooks.optimize.tap(<span class="string">'myPlugin'</span>, () =&gt; &#123;</span><br><span class="line">       <span class="built_in">console</span>.log(<span class="string">'Hello compilation!'</span>)</span><br><span class="line">     &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="5-2-从入口文件开始"><a href="#5-2-从入口文件开始" class="headerlink" title="5.2 从入口文件开始"></a>5.2 从入口文件开始</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(compilation, callback) =&gt; &#123;</span><br><span class="line">				<span class="keyword">const</span> &#123; entry, name, context &#125; = <span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">				<span class="keyword">const</span> dep = SingleEntryPlugin.createDependency(entry, name);</span><br><span class="line">				compilation.addEntry(context, dep, name, callback);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在真正的使用 loader 对文件内容处理之前，会先解析入口文件的绝对路径和 loader 的绝对路径，并且将 loader 解析成固定格式。</p>
+<p>这里的<strong>固定格式</strong>的意思就是无论你使用哪种姿势配置 loader，如这样</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">  rules: [</span><br><span class="line">    &#123;</span><br><span class="line">      test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">      loader: path.resolve(__dirname, <span class="string">".."</span>, <span class="string">"./my-loader.js"</span>)+<span class="string">'?op=xxx'</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>或这样</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">  rules: [</span><br><span class="line">    &#123;</span><br><span class="line">      test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">      use: &#123;</span><br><span class="line">        loader: path.resolve(__dirname, <span class="string">".."</span>, <span class="string">"./my-loader.js"</span>),</span><br><span class="line">        options: &#123;</span><br><span class="line">          op:<span class="string">'xxx'</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>最后整理出来的 loaders 数组格式，差不多都长图片中的这样。转成统一格式，方面后续处理。</p>
+<p><img src="/Users/qinhanwen/Desktop/new-images/WX20200601-222304@2x.png" alt="WX20200601-222304@2x"></p>
+<h4 id="5-3-创建-normalModule-实例"><a href="#5-3-创建-normalModule-实例" class="headerlink" title="5.3 创建 normalModule 实例"></a>5.3 创建 normalModule 实例</h4><p>normalModule 是一个要构建的模块实例，它记录了入口文件是什么、要使用的 loader 有哪些等等。后面的 chunk 生成文件模块也要使用到它上面记录的信息。它也会被保存在 compilation 实例中。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> createdModule = <span class="keyword">this</span>.hooks.createModule.call(result);</span><br><span class="line"><span class="keyword">if</span> (!createdModule) &#123;</span><br><span class="line">	<span class="keyword">if</span> (!result.request) &#123;</span><br><span class="line">		<span class="keyword">return</span> callback(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Empty dependency (no request)"</span>));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	createdModule = <span class="keyword">new</span> NormalModule(result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">createdModule = <span class="keyword">this</span>.hooks.module.call(createdModule, result);</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> callback(<span class="literal">null</span>, createdModule);</span><br></pre></td></tr></table></figure>
+<p>之后便开始了真正的模块 build，也就是在 build 之前，会调用 compilation 的 buildModule 钩子事件。这个钩子能做的事情很有趣，可以把 module（也就是 normalModule 实例）的文件路径指向一个空文件（也就是之后构建的时候都是对这个空文件做处理），来实现插件可插拔的配置。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.hooks.buildModule.call(<span class="built_in">module</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="5-4-加载-loader，从-loaders-数组第一位开始加载"><a href="#5-4-加载-loader，从-loaders-数组第一位开始加载" class="headerlink" title="5.4 加载 loader，从 loaders 数组第一位开始加载"></a>5.4 加载 loader，从 loaders 数组第一位开始加载</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">iteratePitchingLoaders</span>(<span class="params">options, loaderContext, callback</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// loaderContext.loaders 是 loaders 数组</span></span><br><span class="line">  <span class="comment">// loaderContext.loaderIndex 是被加载的 loader 的下标</span></span><br><span class="line">  </span><br><span class="line">	<span class="keyword">if</span>(loaderContext.loaderIndex &gt;= loaderContext.loaders.length)</span><br><span class="line">		<span class="keyword">return</span> processResource(options, loaderContext, callback);<span class="comment">// 这里是加载全部 loader 之后，读入口模块文件，开始用 loader 处理文件内容</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> currentLoaderObject = loaderContext.loaders[loaderContext.loaderIndex];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(currentLoaderObject.pitchExecuted) &#123;<span class="comment">// 判断 loader 是否加载过</span></span><br><span class="line">		loaderContext.loaderIndex++;<span class="comment">// 下标加1，</span></span><br><span class="line">		<span class="keyword">return</span> iteratePitchingLoaders(options, loaderContext, callback);<span class="comment">// 调用自身</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	loadLoader(currentLoaderObject, <span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;<span class="comment">// 通过 require 加载 loader</span></span><br><span class="line">		...</span><br><span class="line">    </span><br><span class="line">		currentLoaderObject.pitchExecuted = <span class="literal">true</span>;<span class="comment">// 当前 loader 被加载了</span></span><br><span class="line">		<span class="keyword">if</span>(!fn) <span class="keyword">return</span> iteratePitchingLoaders(options, loaderContext, callback);<span class="comment">// 调用自身</span></span><br><span class="line"></span><br><span class="line">		...</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看一下 processResource 方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">processResource</span>(<span class="params">options, loaderContext, callback</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 设置 loader 的下标为最后一个 loader</span></span><br><span class="line">	loaderContext.loaderIndex = loaderContext.loaders.length - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> resourcePath = loaderContext.resourcePath; <span class="comment">// 构建文件的路径</span></span><br><span class="line">	<span class="keyword">if</span>(resourcePath) &#123;</span><br><span class="line">		loaderContext.addDependency(resourcePath);</span><br><span class="line">		options.readResource(resourcePath, <span class="function"><span class="keyword">function</span>(<span class="params">err, buffer</span>) </span>&#123;<span class="comment">// 根据构建文件路径，读文件</span></span><br><span class="line">			<span class="keyword">if</span>(err) <span class="keyword">return</span> callback(err);</span><br><span class="line">			options.resourceBuffer = buffer;</span><br><span class="line">			iterateNormalLoaders(options, loaderContext, [buffer], callback); <span class="comment">// 看下面</span></span><br><span class="line">		&#125;);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		iterateNormalLoaders(options, loaderContext, [<span class="literal">null</span>], callback);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后进入 loader 对模块文件处理的步骤</p>
+<h4 id="5-5-使用-loader-对入口模块文件进行处理，从-loaders-最后一位开始对模块处理"><a href="#5-5-使用-loader-对入口模块文件进行处理，从-loaders-最后一位开始对模块处理" class="headerlink" title="5.5 使用 loader 对入口模块文件进行处理，从 loaders 最后一位开始对模块处理"></a>5.5 使用 loader 对入口模块文件进行处理，从 loaders 最后一位开始对模块处理</h4><p>上面设置 <code>loader</code> 的下标，和这边的 <code>loaderContext.loaderIndex--</code>， 让 loader 的处理顺序从右往左。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">iterateNormalLoaders</span>(<span class="params">options, loaderContext, args, callback</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(loaderContext.loaderIndex &lt; <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> callback(<span class="literal">null</span>, args);<span class="comment">// 当 loader 对模块内容处理完之后调用</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> currentLoaderObject = loaderContext.loaders[loaderContext.loaderIndex];<span class="comment">// 获得当前的 loader</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(currentLoaderObject.normalExecuted) &#123;<span class="comment">// loader 是否被执行过</span></span><br><span class="line">		loaderContext.loaderIndex--;<span class="comment">// 修改 loaders 索引</span></span><br><span class="line">		<span class="keyword">return</span> iterateNormalLoaders(options, loaderContext, args, callback);<span class="comment">// 调用自身</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> fn = currentLoaderObject.normal;</span><br><span class="line">	currentLoaderObject.normalExecuted = <span class="literal">true</span>;<span class="comment">// 标识 loader 是否被执行过</span></span><br><span class="line">	<span class="keyword">if</span>(!fn) &#123;</span><br><span class="line">		<span class="keyword">return</span> iterateNormalLoaders(options, loaderContext, args, callback);<span class="comment">// 调用自身</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	convertArgs(args, currentLoaderObject.raw);</span><br><span class="line"></span><br><span class="line">	runSyncOrAsync(fn, loaderContext, args, <span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;<span class="comment">// 使用 loader 对模块内容进行处理</span></span><br><span class="line">		<span class="keyword">if</span>(err) <span class="keyword">return</span> callback(err);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">var</span> args = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">		iterateNormalLoaders(options, loaderContext, args, callback);<span class="comment">// 调用自身</span></span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>就在这个处理的过程中，就调用到了我们的自定义 loader，这里只是简单的把文件内容的 const 替换为了 var</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="title">loader</span>(<span class="params">source</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> source.replace(<span class="string">'const'</span>,<span class="string">'var'</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="5-6-寻找依赖"><a href="#5-6-寻找依赖" class="headerlink" title="5.6 寻找依赖"></a>5.6 寻找依赖</h4><p>当 loader 对模块处理完之后，剩下要做的事情就是找出模块所依赖的文件。通过 acorm 来解析模板文件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">parse(source, initialState) &#123;</span><br><span class="line">	<span class="keyword">let</span> ast;</span><br><span class="line">	<span class="keyword">let</span> comments;</span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">typeof</span> source === <span class="string">"object"</span> &amp;&amp; source !== <span class="literal">null</span>) &#123;</span><br><span class="line">		</span><br><span class="line">     ...</span><br><span class="line">     </span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		comments = [];</span><br><span class="line">		ast = Parser.parse(source, &#123;<span class="comment">// 解析得到 ast</span></span><br><span class="line">			sourceType: <span class="keyword">this</span>.sourceType,</span><br><span class="line">			onComment: comments</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	...</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">this</span>.hooks.program.call(ast, comments) === <span class="literal">undefined</span>) &#123;</span><br><span class="line">     ...</span><br><span class="line">		<span class="keyword">this</span>.prewalkStatements(ast.body);</span><br><span class="line">     ...</span><br><span class="line">	&#125;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="5-7-找到依赖之后，处理方式跟入口文件处理一样。"><a href="#5-7-找到依赖之后，处理方式跟入口文件处理一样。" class="headerlink" title="5.7 找到依赖之后，处理方式跟入口文件处理一样。"></a>5.7 找到依赖之后，处理方式跟入口文件处理一样。</h4><h3 id="6-输出资源"><a href="#6-输出资源" class="headerlink" title="6. 输出资源"></a>6. 输出资源</h3><h4 id="6-1-创建-hash-的过程"><a href="#6-1-创建-hash-的过程" class="headerlink" title="6.1 创建 hash 的过程"></a>6.1 创建 hash 的过程</h4><p>有需要再看吧。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">createHash() &#123;</span><br><span class="line">	<span class="keyword">const</span> outputOptions = <span class="keyword">this</span>.outputOptions;</span><br><span class="line">	<span class="keyword">const</span> hashFunction = outputOptions.hashFunction;</span><br><span class="line">	<span class="keyword">const</span> hashDigest = outputOptions.hashDigest;</span><br><span class="line">	<span class="keyword">const</span> hashDigestLength = outputOptions.hashDigestLength;</span><br><span class="line">	<span class="keyword">const</span> hash = createHash(hashFunction);</span><br><span class="line">	<span class="keyword">if</span> (outputOptions.hashSalt) &#123;</span><br><span class="line">		hash.update(outputOptions.hashSalt);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">this</span>.mainTemplate.updateHash(hash);</span><br><span class="line">	<span class="keyword">this</span>.chunkTemplate.updateHash(hash);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">of</span> <span class="built_in">Object</span>.keys(<span class="keyword">this</span>.moduleTemplates).sort()) &#123;</span><br><span class="line">		<span class="keyword">this</span>.moduleTemplates[key].updateHash(hash);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">const</span> child <span class="keyword">of</span> <span class="keyword">this</span>.children) &#123;</span><br><span class="line">		hash.update(child.hash);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">const</span> warning <span class="keyword">of</span> <span class="keyword">this</span>.warnings) &#123;</span><br><span class="line">		hash.update(<span class="string">`<span class="subst">$&#123;warning.message&#125;</span>`</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">const</span> error <span class="keyword">of</span> <span class="keyword">this</span>.errors) &#123;</span><br><span class="line">		hash.update(<span class="string">`<span class="subst">$&#123;error.message&#125;</span>`</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">const</span> modules = <span class="keyword">this</span>.modules;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; modules.length; i++) &#123;</span><br><span class="line">		<span class="keyword">const</span> <span class="built_in">module</span> = modules[i];</span><br><span class="line">		<span class="keyword">const</span> moduleHash = createHash(hashFunction);</span><br><span class="line">		<span class="built_in">module</span>.updateHash(moduleHash);</span><br><span class="line">		<span class="built_in">module</span>.hash = <span class="comment">/** @type &#123;string&#125; */</span> (moduleHash.digest(hashDigest));</span><br><span class="line">		<span class="built_in">module</span>.renderedHash = <span class="built_in">module</span>.hash.substr(<span class="number">0</span>, hashDigestLength);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">const</span> chunks = <span class="keyword">this</span>.chunks.slice();</span><br><span class="line">	chunks.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">const</span> aEntry = a.hasRuntime();</span><br><span class="line">		<span class="keyword">const</span> bEntry = b.hasRuntime();</span><br><span class="line">		<span class="keyword">if</span> (aEntry &amp;&amp; !bEntry) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span> (!aEntry &amp;&amp; bEntry) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">return</span> byId(a, b);</span><br><span class="line">	&#125;);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; chunks.length; i++) &#123;</span><br><span class="line">		<span class="keyword">const</span> chunk = chunks[i];</span><br><span class="line">		<span class="keyword">const</span> chunkHash = createHash(hashFunction);</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> (outputOptions.hashSalt) &#123;</span><br><span class="line">				chunkHash.update(outputOptions.hashSalt);</span><br><span class="line">			&#125;</span><br><span class="line">			chunk.updateHash(chunkHash);</span><br><span class="line">			<span class="keyword">const</span> template = chunk.hasRuntime()</span><br><span class="line">				? <span class="keyword">this</span>.mainTemplate</span><br><span class="line">				: <span class="keyword">this</span>.chunkTemplate;</span><br><span class="line">			template.updateHashForChunk(</span><br><span class="line">				chunkHash,</span><br><span class="line">				chunk,</span><br><span class="line">				<span class="keyword">this</span>.moduleTemplates.javascript,</span><br><span class="line">				<span class="keyword">this</span>.dependencyTemplates</span><br><span class="line">			);</span><br><span class="line">			<span class="keyword">this</span>.hooks.chunkHash.call(chunk, chunkHash);</span><br><span class="line">			chunk.hash = <span class="comment">/** @type &#123;string&#125; */</span> (chunkHash.digest(hashDigest));</span><br><span class="line">			hash.update(chunk.hash);</span><br><span class="line">			chunk.renderedHash = chunk.hash.substr(<span class="number">0</span>, hashDigestLength);</span><br><span class="line">			<span class="keyword">this</span>.hooks.contentHash.call(chunk);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">			<span class="keyword">this</span>.errors.push(<span class="keyword">new</span> ChunkRenderError(chunk, <span class="string">""</span>, err));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">this</span>.fullHash = <span class="comment">/** @type &#123;string&#125; */</span> (hash.digest(hashDigest));</span><br><span class="line">	<span class="keyword">this</span>.hash = <span class="keyword">this</span>.fullHash.substr(<span class="number">0</span>, hashDigestLength);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="6-2-输出"><a href="#6-2-输出" class="headerlink" title="6.2 输出"></a>6.2 输出</h4><p>输出是把每个包含多个模块的 <code>Chunk</code> 转换成一个单独的文件加入到输出列表。这里的 <code>Chunk</code> 包含了两个模块，分别是 <code>index.js</code> 和 <code>index1.js</code> 的 <code>normalModule</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">createChunkAssets() &#123;</span><br><span class="line">	</span><br><span class="line">   ...</span><br><span class="line">   </span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.chunks.length; i++) &#123;</span><br><span class="line">		</span><br><span class="line">     ...</span><br><span class="line">     </span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			</span><br><span class="line">         ...</span><br><span class="line">				</span><br><span class="line">				</span><br><span class="line">					source = fileManifest.render();<span class="comment">// 合并模块生成一份资源</span></span><br><span class="line">			</span><br><span class="line">					...</span><br><span class="line">           </span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">this</span>.emitAsset(file, source, assetInfo);<span class="comment">// 把输出资源存起来了，其实是存在 compilation 上</span></span><br><span class="line">			</span><br><span class="line">       	...</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>写到这里不得不提一嘴，我们在配置文件中，经常使用中括号包裹一些变量，比如 <code>[hash]</code> 之类的，也是在这里替换的。就是拿到各种生成后的变量，通过<code>replace</code> 大法替换。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> replacePathVariables = <span class="function">(<span class="params">path, data, assetInfo</span>) =&gt;</span> &#123;</span><br><span class="line">	</span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">	...</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">		path</span><br><span class="line">			.replace(<span class="comment">// 我们这边只使用到 [hash] 所以替换成 hash 的值</span></span><br><span class="line">				REGEXP_HASH,</span><br><span class="line">				withHashLength(getReplacer(data.hash), data.hashWithLength, assetInfo)</span><br><span class="line">			).replace(xxx)</span><br><span class="line">    ....</span><br><span class="line">	);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="7-写入文件"><a href="#7-写入文件" class="headerlink" title="7. 写入文件"></a>7. 写入文件</h3><h4 id="7-1-创建输出目录"><a href="#7-1-创建输出目录" class="headerlink" title="7.1 创建输出目录"></a>7.1 创建输出目录</h4><p>输出路径创建dist 目录</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.hooks.emit.callAsync(compilation, err =&gt; &#123;</span><br><span class="line">		<span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</span><br><span class="line">		outputPath = compilation.getPath(<span class="keyword">this</span>.outputPath);</span><br><span class="line">		<span class="keyword">this</span>.outputFileSystem.mkdirp(outputPath, emitFiles);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="7-2-输出文件"><a href="#7-2-输出文件" class="headerlink" title="7.2 输出文件"></a>7.2 输出文件</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> emitFiles = <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</span><br><span class="line"></span><br><span class="line">	asyncLib.forEachLimit(<span class="comment">// 这个方法限制了每次异步操作时的允许的并发执行的任务数量。</span></span><br><span class="line">		compilation.getAssets(),<span class="comment">// 这个就是刚才被存在 compilation 上的输出资源</span></span><br><span class="line">		<span class="number">15</span>,</span><br><span class="line">		(&#123; <span class="attr">name</span>: file, source &#125;, callback) =&gt; &#123;</span><br><span class="line">			<span class="keyword">let</span> targetFile = file;</span><br><span class="line"></span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">			<span class="keyword">const</span> writeOut = <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">				<span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</span><br><span class="line">				<span class="keyword">const</span> targetPath = <span class="keyword">this</span>.outputFileSystem.join(<span class="comment">// 得到输出文件的目录</span></span><br><span class="line">					outputPath,</span><br><span class="line">					targetFile</span><br><span class="line">				);</span><br><span class="line">				</span><br><span class="line">          ...</span><br><span class="line">          </span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					</span><br><span class="line">            ...</span><br><span class="line">            </span><br><span class="line">					<span class="keyword">let</span> content = source.source(); <span class="comment">// 得到文件内容</span></span><br><span class="line"></span><br><span class="line">					<span class="keyword">if</span> (!Buffer.isBuffer(content)) &#123;</span><br><span class="line">						content = Buffer.from(content, <span class="string">"utf8"</span>);<span class="comment">// 创建一个新的 Buffer 包含 content，并制定字符串的字符编码</span></span><br><span class="line">					&#125;</span><br><span class="line"></span><br><span class="line">					...</span><br><span class="line">            </span><br><span class="line">					<span class="keyword">this</span>.outputFileSystem.writeFile(targetPath, content, err =&gt; &#123;<span class="comment">// 写文件进去</span></span><br><span class="line">						<span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</span><br><span class="line">						<span class="keyword">this</span>.hooks.assetEmitted.callAsync(file, content, callback);</span><br><span class="line">					&#125;);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;;</span><br><span class="line"></span><br><span class="line">			...</span><br><span class="line">        </span><br><span class="line">				writeOut();</span><br><span class="line"></span><br><span class="line">        ...</span><br><span class="line">		&#125;,</span><br><span class="line">		</span><br><span class="line">        ...</span><br><span class="line">      </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="五、使用的依赖"><a href="#五、使用的依赖" class="headerlink" title="五、使用的依赖"></a>五、使用的依赖</h2><h3 id="1-neo-async"><a href="#1-neo-async" class="headerlink" title="1.neo-async "></a>1.<a href="https://github.com/suguru03/neo-async" target="_blank" rel="noopener">neo-async </a></h3><h4 id="1-1-parallel-方法"><a href="#1-1-parallel-方法" class="headerlink" title="1.1 parallel 方法"></a>1.1 parallel 方法</h4><p>parallel函数是并行执行多个函数，每个函数都是立即执行，不需要等待其它函数先执行。 传给最终callback的数组中的数据按照 tasks 中声明的顺序，而不是执行完成的顺序。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> order = [];</span><br><span class="line"><span class="keyword">var</span> tasks = [</span><br><span class="line"> <span class="function"><span class="keyword">function</span>(<span class="params">done</span>) </span>&#123;</span><br><span class="line">   setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     order.push(<span class="number">1</span>);</span><br><span class="line">     done(<span class="literal">null</span>, <span class="number">1</span>);</span><br><span class="line">   &#125;, <span class="number">10</span>);</span><br><span class="line"> &#125;,</span><br><span class="line"> <span class="function"><span class="keyword">function</span>(<span class="params">done</span>) </span>&#123;</span><br><span class="line">   setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     order.push(<span class="number">2</span>);</span><br><span class="line">     done(<span class="literal">null</span>, <span class="number">2</span>);</span><br><span class="line">   &#125;, <span class="number">30</span>);</span><br><span class="line"> &#125;,</span><br><span class="line"> <span class="function"><span class="keyword">function</span>(<span class="params">done</span>) </span>&#123;</span><br><span class="line">   setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     order.push(<span class="number">3</span>);</span><br><span class="line">     done(<span class="literal">null</span>, <span class="number">3</span>);</span><br><span class="line">   &#125;, <span class="number">40</span>);</span><br><span class="line"> &#125;,</span><br><span class="line"> <span class="function"><span class="keyword">function</span>(<span class="params">done</span>) </span>&#123;</span><br><span class="line">   setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     order.push(<span class="number">4</span>);</span><br><span class="line">     done(<span class="literal">null</span>, <span class="number">4</span>);</span><br><span class="line">   &#125;, <span class="number">20</span>);</span><br><span class="line"> &#125;</span><br><span class="line">];</span><br><span class="line"><span class="keyword">async</span>.parallel(tasks, <span class="function"><span class="keyword">function</span>(<span class="params">err, res</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res); <span class="comment">// [1, 2, 3, 4];</span></span><br><span class="line">  <span class="built_in">console</span>.log(order); <span class="comment">// [1, 4, 2, 3]</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-map方法"><a href="#1-2-map方法" class="headerlink" title="1.2 map方法"></a>1.2 map方法</h4><p>并且调用，有返回结果。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// array</span></span><br><span class="line"><span class="keyword">var</span> order = [];</span><br><span class="line"><span class="keyword">var</span> array = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>];</span><br><span class="line"><span class="keyword">var</span> iterator = <span class="function"><span class="keyword">function</span>(<span class="params">num, done</span>) </span>&#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    order.push(num);</span><br><span class="line">    done(<span class="literal">null</span>, num);</span><br><span class="line">  &#125;, num * <span class="number">10</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">async</span>.map(array, iterator, <span class="function"><span class="keyword">function</span>(<span class="params">err, res</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res); <span class="comment">// [1, 3, 2];</span></span><br><span class="line">  <span class="built_in">console</span>.log(order); <span class="comment">// [1, 2, 3]</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="1-3-each方法"><a href="#1-3-each方法" class="headerlink" title="1.3 each方法"></a>1.3 each方法</h4><p>并行的应用迭代器去遍历 array，iterator将调用数组列表，回调函数在它结束时进行调用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// array</span></span><br><span class="line"><span class="keyword">var</span> order = [];</span><br><span class="line"><span class="keyword">var</span> array = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>];</span><br><span class="line"><span class="keyword">var</span> iterator = <span class="function"><span class="keyword">function</span>(<span class="params">num, done</span>) </span>&#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    order.push(num);</span><br><span class="line">    done();</span><br><span class="line">  &#125;, num * <span class="number">10</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">async</span>.each(array, iterator, <span class="function"><span class="keyword">function</span>(<span class="params">err, res</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res); <span class="comment">// undefined</span></span><br><span class="line">  <span class="built_in">console</span>.log(order); <span class="comment">// [1, 2, 3]</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="1-4-eachLimit-方法"><a href="#1-4-eachLimit-方法" class="headerlink" title="1.4 eachLimit 方法"></a>1.4 eachLimit 方法</h4><p>类似于each，但它限制了每次异步操作时的允许的并发执行的任务数量。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// array with index</span></span><br><span class="line"><span class="keyword">var</span> order = [];</span><br><span class="line"><span class="keyword">var</span> array = [<span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">2</span>];</span><br><span class="line"><span class="keyword">var</span> iterator = <span class="function"><span class="keyword">function</span>(<span class="params">num, index, done</span>) </span>&#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    order.push([num, index]);</span><br><span class="line">    done();</span><br><span class="line">  &#125;, num * <span class="number">10</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">async</span>.eachLimit(array, <span class="number">2</span>, iterator, <span class="function"><span class="keyword">function</span>(<span class="params">err, res</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res); <span class="comment">// undefined</span></span><br><span class="line">  <span class="built_in">console</span>.log(order); <span class="comment">// [[1, 0], [3, 2], [5, 1], [2, 4], [4, 3]]</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="2-enhanced-resolve"><a href="#2-enhanced-resolve" class="headerlink" title="2.enhanced-resolve"></a>2.<a href="https://github.com/webpack/enhanced-resolve" target="_blank" rel="noopener">enhanced-resolve</a></h3><p>提供了异步的 resolve 方法，获取模块的绝对地址，顺便判断一下模块是否存在。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line"><span class="keyword">const</span> &#123; CachedInputFileSystem, ResolverFactory &#125; = <span class="built_in">require</span>(<span class="string">"enhanced-resolve"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// create a resolver</span></span><br><span class="line"><span class="keyword">const</span> myResolver = ResolverFactory.createResolver(&#123;</span><br><span class="line">	<span class="comment">// Typical usage will consume the `fs` + `CachedInputFileSystem`, which wraps Node.js `fs` to add caching.</span></span><br><span class="line">	fileSystem: <span class="keyword">new</span> CachedInputFileSystem(fs, <span class="number">4000</span>),</span><br><span class="line">	extensions: [<span class="string">".js"</span>, <span class="string">".json"</span>]</span><br><span class="line">	<span class="comment">/* any other resolver options here. Options/defaults can be seen below */</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// resolve a file with the new resolver</span></span><br><span class="line"><span class="keyword">const</span> context = &#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> resolveContext = &#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> lookupStartPath = <span class="string">"/Users/webpack/some/root/dir"</span>;</span><br><span class="line"><span class="keyword">const</span> request = <span class="string">"./path/to-look-up.js"</span>;</span><br><span class="line">myResolver.resolve(&#123;&#125;, lookupStartPath, request, resolveContext, (</span><br><span class="line">	err <span class="comment">/*Error*/</span>,</span><br><span class="line">	filepath <span class="comment">/*string*/</span></span><br><span class="line">) =&gt; &#123;</span><br><span class="line">	<span class="comment">// Do something with the path</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="3-crypto"><a href="#3-crypto" class="headerlink" title="3.crypto"></a>3.<a href="https://nodejs.org/api/crypto.html" target="_blank" rel="noopener">crypto</a></h3><p>这边用于生成 hash 值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">crypto.createHash(algorithm)</span><br><span class="line"><span class="comment">// 创建并返回一个hash对象，它是一个指定算法的加密hash，用于生成hash摘要。</span></span><br><span class="line"></span><br><span class="line">hash.update(data)</span><br><span class="line"><span class="comment">// 更新hash的内容为指定的data。当使用流数据时可能会多次调用该方法。</span></span><br><span class="line"></span><br><span class="line">hash.digest(encoding=<span class="string">'binary'</span>)</span><br><span class="line"><span class="comment">// 计算所有传入数据的hash摘要。参数encoding（编码方式）可以为'hex', 'binary' 或者'base64'。</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-Tappable"><a href="#4-Tappable" class="headerlink" title="4.Tappable"></a>4.<a href="https://github.com/webpack/tapable" target="_blank" rel="noopener">Tappable</a></h3><p><code>webpack</code>本质上是一种事件流的机制，它的工作流程就是将各个插件串联起来，而实现这一切的核心就是<code>Tapable</code>。<code>Tapable</code>暴露出挂载<code>plugin</code>的方法，使我们能将<code>plugin</code>控制在<code>webapack</code>事件流上运行， <code>Compiler</code>、<code>Compilation</code>等都是继承于<code>Tabable</code>类。也就是说在整个构建过程，插件可以做很多很多的事情都是因为它会在构建的某个时机点广播出事件通知。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/02/typescript-高级技巧/" rel="next" title="typescript 高级技巧">
+                <i class="fa fa-chevron-left"></i> typescript 高级技巧
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/23/interface-与-types-的区别/" rel="prev" title="interface 与 types 的区别">
+                interface 与 types 的区别 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">174</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#读《webpack原理》总结-2020-05-31"><span class="nav-number">1.</span> <span class="nav-text">读《webpack原理》总结-2020.05.31</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、前言"><span class="nav-number">1.1.</span> <span class="nav-text">一、前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、流程概括"><span class="nav-number">1.2.</span> <span class="nav-text">二、流程概括</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、流程图"><span class="nav-number">1.3.</span> <span class="nav-text">三、流程图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、流程分析"><span class="nav-number">1.4.</span> <span class="nav-text">四、流程分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-配置文件"><span class="nav-number">1.4.1.</span> <span class="nav-text">1. 配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-命令行执行"><span class="nav-number">1.4.2.</span> <span class="nav-text">2. 命令行执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-解析参数"><span class="nav-number">1.4.3.</span> <span class="nav-text">3. 解析参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1从-Shell-语句中解析"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">3.1从 Shell 语句中解析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-初始化"><span class="nav-number">1.4.4.</span> <span class="nav-text">4. 初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-这里的例子，在解析完命令行参数之后，去加载了配置文件-webpack-config-js，得到配置参数。-node模块加载机制。"><span class="nav-number">1.4.4.1.</span> <span class="nav-text">4.1 这里的例子，在解析完命令行参数之后，去加载了配置文件 webpack.config.js，得到配置参数。 node模块加载机制。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-与默认配置合并"><span class="nav-number">1.4.4.2.</span> <span class="nav-text">4.2 与默认配置合并</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-初始化-compiler"><span class="nav-number">1.4.4.3.</span> <span class="nav-text">4.3 初始化 compiler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-遍历-plugins-数组"><span class="nav-number">1.4.4.4.</span> <span class="nav-text">4.4 遍历 plugins 数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5-在进入编译阶段之前，这里还需根据参数做一些事情。"><span class="nav-number">1.4.4.5.</span> <span class="nav-text">4.5 在进入编译阶段之前，这里还需根据参数做一些事情。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-编译阶段"><span class="nav-number">1.4.5.</span> <span class="nav-text">5 编译阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-实例化-compilation-，它也是继承于-Tapable"><span class="nav-number">1.4.5.1.</span> <span class="nav-text">5.1 实例化 compilation ，它也是继承于 Tapable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-从入口文件开始"><span class="nav-number">1.4.5.2.</span> <span class="nav-text">5.2 从入口文件开始</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-创建-normalModule-实例"><span class="nav-number">1.4.5.3.</span> <span class="nav-text">5.3 创建 normalModule 实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-加载-loader，从-loaders-数组第一位开始加载"><span class="nav-number">1.4.5.4.</span> <span class="nav-text">5.4 加载 loader，从 loaders 数组第一位开始加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-5-使用-loader-对入口模块文件进行处理，从-loaders-最后一位开始对模块处理"><span class="nav-number">1.4.5.5.</span> <span class="nav-text">5.5 使用 loader 对入口模块文件进行处理，从 loaders 最后一位开始对模块处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-6-寻找依赖"><span class="nav-number">1.4.5.6.</span> <span class="nav-text">5.6 寻找依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-7-找到依赖之后，处理方式跟入口文件处理一样。"><span class="nav-number">1.4.5.7.</span> <span class="nav-text">5.7 找到依赖之后，处理方式跟入口文件处理一样。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-输出资源"><span class="nav-number">1.4.6.</span> <span class="nav-text">6. 输出资源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-创建-hash-的过程"><span class="nav-number">1.4.6.1.</span> <span class="nav-text">6.1 创建 hash 的过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2-输出"><span class="nav-number">1.4.6.2.</span> <span class="nav-text">6.2 输出</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-写入文件"><span class="nav-number">1.4.7.</span> <span class="nav-text">7. 写入文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-1-创建输出目录"><span class="nav-number">1.4.7.1.</span> <span class="nav-text">7.1 创建输出目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-输出文件"><span class="nav-number">1.4.7.2.</span> <span class="nav-text">7.2 输出文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、使用的依赖"><span class="nav-number">1.5.</span> <span class="nav-text">五、使用的依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-neo-async"><span class="nav-number">1.5.1.</span> <span class="nav-text">1.neo-async </span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-parallel-方法"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">1.1 parallel 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-map方法"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">1.2 map方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-each方法"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">1.3 each方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-eachLimit-方法"><span class="nav-number">1.5.1.4.</span> <span class="nav-text">1.4 eachLimit 方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-enhanced-resolve"><span class="nav-number">1.5.2.</span> <span class="nav-text">2.enhanced-resolve</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-crypto"><span class="nav-number">1.5.3.</span> <span class="nav-text">3.crypto</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Tappable"><span class="nav-number">1.5.4.</span> <span class="nav-text">4.Tappable</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

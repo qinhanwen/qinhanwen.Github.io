@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="多入口使用vue，构建包太大开发时候 extends Vue ，导致整个包打入 使用babel单独对ts文件进行处理 组件之间通信方案补充autoprefix browserslist">
+<meta name="description" content="多入口使用vue，构建包太大#方式1开发时候 extends Vue ，导致整个包打入 使用babel单独对ts文件进行处理 #方式2使用 webpack externals假设：我们开发了一个自己的库，里面引用了lodash这个包，经过webpack打包的时候，发现如果把这个lodash包打入进去，打包文件就会非常大。那么我们就可以externals的方式引入。也就是说，自己的库本身不打包这个l">
 <meta property="og:type" content="article">
 <meta property="og:title" content="组件开发遇到的难题">
 <meta property="og:url" content="http://yoursite.com/2020/02/24/组件开发遇到的难题/index.html">
 <meta property="og:site_name" content="渣渣大星星的学习笔记">
-<meta property="og:description" content="多入口使用vue，构建包太大开发时候 extends Vue ，导致整个包打入 使用babel单独对ts文件进行处理 组件之间通信方案补充autoprefix browserslist">
+<meta property="og:description" content="多入口使用vue，构建包太大#方式1开发时候 extends Vue ，导致整个包打入 使用babel单独对ts文件进行处理 #方式2使用 webpack externals假设：我们开发了一个自己的库，里面引用了lodash这个包，经过webpack打包的时候，发现如果把这个lodash包打入进去，打包文件就会非常大。那么我们就可以externals的方式引入。也就是说，自己的库本身不打包这个l">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-02-24T10:36:34.585Z">
+<meta property="og:updated_time" content="2020-06-02T10:58:02.030Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="组件开发遇到的难题">
-<meta name="twitter:description" content="多入口使用vue，构建包太大开发时候 extends Vue ，导致整个包打入 使用babel单独对ts文件进行处理 组件之间通信方案补充autoprefix browserslist">
+<meta name="twitter:description" content="多入口使用vue，构建包太大#方式1开发时候 extends Vue ，导致整个包打入 使用babel单独对ts文件进行处理 #方式2使用 webpack externals假设：我们开发了一个自己的库，里面引用了lodash这个包，经过webpack打包的时候，发现如果把这个lodash包打入进去，打包文件就会非常大。那么我们就可以externals的方式引入。也就是说，自己的库本身不打包这个l">
 
 
 
@@ -349,8 +349,9 @@
       
 
       
-        <h2 id="多入口使用vue，构建包太大"><a href="#多入口使用vue，构建包太大" class="headerlink" title="多入口使用vue，构建包太大"></a>多入口使用vue，构建包太大</h2><p>开发时候 extends Vue ，导致整个包打入</p>
+        <h2 id="多入口使用vue，构建包太大"><a href="#多入口使用vue，构建包太大" class="headerlink" title="多入口使用vue，构建包太大"></a>多入口使用vue，构建包太大</h2><p>#方式1<br>开发时候 extends Vue ，导致整个包打入</p>
 <p>使用babel单独对ts文件进行处理</p>
+<p>#方式2<br>使用 webpack externals<br>假设：我们开发了一个自己的库，里面引用了lodash这个包，经过webpack打包的时候，发现如果把这个lodash包打入进去，打包文件就会非常大。那么我们就可以externals的方式引入。也就是说，自己的库本身不打包这个lodash，需要用户环境提供。</p>
 <h2 id="组件之间通信方案"><a href="#组件之间通信方案" class="headerlink" title="组件之间通信方案"></a>组件之间通信方案</h2><h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p><a href="https://github.com/postcss/autoprefixer" target="_blank" rel="noopener">autoprefix</a></p>
 <p><a href="https://github.com/browserslist/browserslist#readme" target="_blank" rel="noopener">browserslist</a></p>
 
@@ -386,6 +387,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/24/css-tree-sharking/" rel="prev" title="css tree sharking">
+                css tree sharking <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -462,7 +467,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">160</span>
+                <span class="site-state-item-count">174</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -473,7 +478,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -484,7 +489,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

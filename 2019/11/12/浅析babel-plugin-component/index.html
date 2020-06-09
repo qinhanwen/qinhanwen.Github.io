@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="babel," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="浅析babel-plugin-componentvue + element-ui 使用 babel-plugin-component 来实现按需加载组件及样式。 一、官网按需引入示例借助 babel-plugin-component，我们可以只引入需要的组件，以达到减小项目体积的目的。 首先，安装 babel-plugin-component： 1npm install babel-plugin-">
+<meta name="keywords" content="babel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅析babel-plugin-component">
+<meta property="og:url" content="http://yoursite.com/2019/11/12/浅析babel-plugin-component/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="浅析babel-plugin-componentvue + element-ui 使用 babel-plugin-component 来实现按需加载组件及样式。 一、官网按需引入示例借助 babel-plugin-component，我们可以只引入需要的组件，以达到减小项目体积的目的。 首先，安装 babel-plugin-component： 1npm install babel-plugin-">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-02-28T15:09:29.029Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅析babel-plugin-component">
+<meta name="twitter:description" content="浅析babel-plugin-componentvue + element-ui 使用 babel-plugin-component 来实现按需加载组件及样式。 一、官网按需引入示例借助 babel-plugin-component，我们可以只引入需要的组件，以达到减小项目体积的目的。 首先，安装 babel-plugin-component： 1npm install babel-plugin-">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/12/浅析babel-plugin-component/"/>
+
+
+
+
+
+  <title>浅析babel-plugin-component | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/浅析babel-plugin-component/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浅析babel-plugin-component</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-12T23:27:35+08:00">
+                2019-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/babel/" itemprop="url" rel="index">
+                    <span itemprop="name">babel</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="浅析babel-plugin-component"><a href="#浅析babel-plugin-component" class="headerlink" title="浅析babel-plugin-component"></a>浅析babel-plugin-component</h2><p>vue + element-ui 使用 babel-plugin-component 来实现按需加载组件及样式。</p>
+<h3 id="一、官网按需引入示例"><a href="#一、官网按需引入示例" class="headerlink" title="一、官网按需引入示例"></a>一、<a href="https://element.eleme.io/2.0/#/zh-CN/component/quickstart" target="_blank" rel="noopener">官网按需引入示例</a></h3><p>借助 <a href="https://github.com/QingWei-Li/babel-plugin-component" target="_blank" rel="noopener">babel-plugin-component</a>，我们可以只引入需要的组件，以达到减小项目体积的目的。</p>
+<p>首先，安装 babel-plugin-component：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install babel-plugin-component -D</span><br></pre></td></tr></table></figure>
+<p>然后，将 .babelrc 修改为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  	...</span><br><span class="line">  </span><br><span class="line">    "plugins": [</span><br><span class="line">        [</span><br><span class="line">            <span class="string">"component"</span>,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"libraryName"</span>: <span class="string">"element-ui"</span>,</span><br><span class="line">                <span class="attr">"styleLibraryName"</span>: <span class="string">"theme-chalk"</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来，如果你只希望引入部分组件，比如 Button 和 Select，那么需要在 main.js 中写入以下内容：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> &#123; Button, Select &#125; <span class="keyword">from</span> <span class="string">'element-ui'</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App.vue'</span></span><br><span class="line"></span><br><span class="line">Vue.component(Button.name, Button)</span><br><span class="line">Vue.component(Select.name, Select)</span><br><span class="line"><span class="comment">/* 或写为</span></span><br><span class="line"><span class="comment"> * Vue.use(Button)</span></span><br><span class="line"><span class="comment"> * Vue.use(Select)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  render: <span class="function"><span class="params">h</span> =&gt;</span> h(App)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="二、babel-编译过程概述"><a href="#二、babel-编译过程概述" class="headerlink" title="二、babel 编译过程概述"></a>二、babel 编译过程概述</h3><p>使用 @babel/cli 与 @babel/core 编译文件的主要过程</p>
+<ul>
+<li><p>加载配置文件</p>
+<ul>
+<li>尝试加载 babel.config.js、babel.config.cjs、babel.config.mjs、babel.config.json文件</li>
+<li>加载 package.json 文件</li>
+<li>尝试加载 .bebelrc、.babelrc.js、.babelrc.cjs、.babelrc.mjs、.babelrc.json 文件</li>
+<li>合并参数</li>
+</ul>
+</li>
+<li><p>加载 plugins 与 presets，分别遍历他们（plugins 每一项会调用它的回调，返回包含 visitor 的对象）</p>
+</li>
+<li>解析部分<ul>
+<li>以 utf8 格式读入口文件得到代码</li>
+<li>之后解析生成 ast</li>
+</ul>
+</li>
+<li>遍历与转换部分<ul>
+<li>遍历插件数组，生成最后的访问者（visitor）对象</li>
+<li>开始遍历节点，碰到感兴趣的节点就调用回调</li>
+</ul>
+</li>
+<li>生成部分<ul>
+<li>遍历 ast，将得到的代码保存在数组中，最后拼接起来</li>
+</ul>
+</li>
+</ul>
+<h3 id="三、babel-plugin-component"><a href="#三、babel-plugin-component" class="headerlink" title="三、babel-plugin-component"></a>三、babel-plugin-component</h3><p>通过一个简单的例子看一下 babel-plugin-component 在编译过程中做了哪些事情</p>
+<p><strong>1.项目结构</strong></p>
+<p>目录结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">├── index.js</span><br><span class="line">├── .babelrc</span><br><span class="line">├── package-lock.json</span><br><span class="line">└── package.json</span><br></pre></td></tr></table></figure>
+<p>package.json</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  </span><br><span class="line">  ...</span><br><span class="line">  </span><br><span class="line">  "scripts": &#123;</span><br><span class="line">    "build": "babel ./index.js --out-dir lib"</span><br><span class="line">  &#125;,</span><br><span class="line">  </span><br><span class="line">  ...</span><br><span class="line">  </span><br><span class="line">  "dependencies": &#123;</span><br><span class="line">    "@babel/cli": "^7.8.4",</span><br><span class="line">    "@babel/core": "^7.8.4",</span><br><span class="line">    "babel-plugin-component": "^1.1.1"</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>.babelrc 文件</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"plugins"</span>: [</span><br><span class="line">      [</span><br><span class="line">          <span class="string">"component"</span>,</span><br><span class="line">          &#123;</span><br><span class="line">              <span class="attr">"libraryName"</span>: <span class="string">"element-ui"</span>,</span><br><span class="line">              <span class="attr">"styleLibraryName"</span>: <span class="string">"theme-chalk"</span></span><br><span class="line">          &#125;</span><br><span class="line">      ]</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>index.js 文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> &#123; Button &#125; <span class="keyword">from</span> <span class="string">'element-ui'</span></span><br><span class="line"></span><br><span class="line">Vue.component(Button.name, Button)</span><br><span class="line">Vue.component(Select.name, Select)</span><br></pre></td></tr></table></figure>
+<p>编译生成文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> _Button2 <span class="keyword">from</span> <span class="string">"element-ui/lib/theme-chalk/button.css"</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">"element-ui/lib/theme-chalk/base.css"</span>;</span><br><span class="line"><span class="keyword">import</span> _Button <span class="keyword">from</span> <span class="string">"element-ui/lib/button"</span>;</span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>;</span><br><span class="line">Vue.component(_Button.name, _Button);</span><br><span class="line">Vue.component(Select.name, Select);</span><br></pre></td></tr></table></figure>
+<p><strong>2.插件做了什么</strong></p>
+<p>在 babel 遍历 ast 的时候，这个插件主要关注了  ImportDeclaration 与 CallExpression 与 Program </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">Program: <span class="function"><span class="keyword">function</span> <span class="title">Program</span>(<span class="params"></span>) </span>&#123;<span class="comment">// 在这里做一些初始化操作，用来保存信息</span></span><br><span class="line">	specified = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">      libraryObjs = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">      selectedMethods = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">      moduleArr = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">    &#125;,       </span><br><span class="line">ImportDeclaration: <span class="function"><span class="keyword">function</span> <span class="title">ImportDeclaration</span>(<span class="params">path, _ref2</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> opts = _ref2.opts;<span class="comment">// 获得配置文件中的配置 &#123;libraryName: "element-ui, "styleLibraryName: "theme-chalk"&#125;</span></span><br><span class="line">      </span><br><span class="line">      <span class="keyword">var</span> node = path.node;<span class="comment">// 获得当前的节点</span></span><br><span class="line">      </span><br><span class="line">      <span class="keyword">var</span> value = node.source.value;<span class="comment">// 当前节点的值（import 引入 vue，这里就是 vue，引入 element-ui 这里就是element-ui）</span></span><br><span class="line">      </span><br><span class="line">      ...</span><br><span class="line"></span><br><span class="line">      <span class="keyword">var</span> libraryName = result.libraryName || opts.libraryName || defaultLibraryName;<span class="comment">// 拿到名称 一般是 element-ui</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (value === libraryName) &#123;<span class="comment">// 如果是 element-ui</span></span><br><span class="line">        node.specifiers.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">spec</span>) </span>&#123;</span><br><span class="line">          <span class="keyword">if</span> (types.isImportSpecifier(spec)) &#123;</span><br><span class="line">            specified[spec.local.name] = spec.imported.name;<span class="comment">// 存起来 &#123; Button: "Button" &#125;</span></span><br><span class="line">            moduleArr[spec.imported.name] = value;<span class="comment">// &#123; Button: "element-ui" &#125;</span></span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            libraryObjs[spec.local.name] = value;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!importAll[value]) &#123;</span><br><span class="line">          path.remove();<span class="comment">// 移除节点</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">      </span><br><span class="line">    CallExpression: <span class="function"><span class="keyword">function</span> <span class="title">CallExpression</span>(<span class="params">path, state</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> node = path.node;</span><br><span class="line">      <span class="keyword">var</span> file = path &amp;&amp; path.hub &amp;&amp; path.hub.file || state &amp;&amp; state.file;</span><br><span class="line">      <span class="keyword">var</span> name = node.callee.name;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (types.isIdentifier(node.callee)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (specified[name]) &#123;</span><br><span class="line">          node.callee = importMethod(specified[name], file, state.opts);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        node.arguments = node.arguments.map(<span class="function"><span class="keyword">function</span> (<span class="params">arg</span>) </span>&#123;</span><br><span class="line">          <span class="keyword">var</span> argName = arg.name;</span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> (specified[argName]) &#123;<span class="comment">// 找到上面存起来的 Button</span></span><br><span class="line">            <span class="keyword">return</span> importMethod(specified[argName], file, state.opts);</span><br><span class="line">          &#125; <span class="keyword">else</span> <span class="keyword">if</span> (libraryObjs[argName]) &#123;</span><br><span class="line">            <span class="keyword">return</span> importMethod(argName, file, state.opts);</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          <span class="keyword">return</span> arg;</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+<p>importMethod 方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">importMethod</span>(<span class="params">methodName, file, opts</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!selectedMethods[methodName]) &#123;</span><br><span class="line">    <span class="keyword">var</span> options;</span><br><span class="line">    <span class="keyword">var</span> path;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    options = options || opts;<span class="comment">// 配置文件中的参数 &#123;libraryName: "element-ui", styleLibraryName: "theme-chalk"&#125;</span></span><br><span class="line">    <span class="keyword">var</span> _options = options,</span><br><span class="line">        _options$libDir = _options.libDir,<span class="comment">//这是组件所在根目录下的路径element-ui/lib/</span></span><br><span class="line">        libDir = _options$libDir === <span class="keyword">void</span> <span class="number">0</span> ? <span class="string">'lib'</span> : _options$libDir,</span><br><span class="line">        _options$libraryName = _options.libraryName,<span class="comment">//ui库的名字，就是elementui</span></span><br><span class="line">        libraryName = _options$libraryName === <span class="keyword">void</span> <span class="number">0</span> ? defaultLibraryName : _options$libraryName,</span><br><span class="line">        _options$style = _options.style,</span><br><span class="line">        style = _options$style === <span class="keyword">void</span> <span class="number">0</span> ? <span class="literal">true</span> : _options$style,</span><br><span class="line">        styleLibrary = _options.styleLibrary,<span class="comment">//这是引入组件时，所需要引入对应组件样式的配置对象</span></span><br><span class="line">        _options$root = _options.root,</span><br><span class="line">        root = _options$root === <span class="keyword">void</span> <span class="number">0</span> ? <span class="string">''</span> : _options$root,</span><br><span class="line">        _options$camel2Dash = _options.camel2Dash,</span><br><span class="line">        camel2Dash = _options$camel2Dash === <span class="keyword">void</span> <span class="number">0</span> ? <span class="literal">true</span> : _options$camel2Dash;</span><br><span class="line">    <span class="keyword">var</span> styleLibraryName = options.styleLibraryName;<span class="comment">//这是组件所需样式的路径，配置参数拿的，就是 theme-chalk</span></span><br><span class="line">    <span class="keyword">var</span> _root = root;</span><br><span class="line">    <span class="keyword">var</span> isBaseStyle = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">var</span> modulePathTpl;</span><br><span class="line">    <span class="keyword">var</span> styleRoot;</span><br><span class="line">    <span class="keyword">var</span> mixin = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> ext = options.ext || <span class="string">'.css'</span>;<span class="comment">//加载样式的后缀，默认css</span></span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (libraryObjs[methodName]) &#123;</span><br><span class="line">      </span><br><span class="line">      ...</span><br><span class="line">      </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      path = <span class="string">""</span>.concat(libraryName, <span class="string">"/"</span>).concat(libDir, <span class="string">"/"</span>).concat(parseName(methodName, camel2Dash));<span class="comment">// 得到文件路径 element-ui/lib/button</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> _path = path;</span><br><span class="line">    selectedMethods[methodName] = addDefault(file.path, path, &#123;</span><br><span class="line">      nameHint: methodName</span><br><span class="line">    &#125;);<span class="comment">// 这个方法是用来创建 ImportDeclaration 节点的，引入的是 element-ui/lib/button</span></span><br><span class="line"></span><br><span class="line">   ...</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (styleLibraryName) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!cachePath[libraryName]) &#123;</span><br><span class="line">        <span class="keyword">var</span> themeName = styleLibraryName.replace(<span class="regexp">/^~/</span>, <span class="string">''</span>);</span><br><span class="line">        cachePath[libraryName] = styleLibraryName.indexOf(<span class="string">'~'</span>) === <span class="number">0</span> ? resolve(process.cwd(), themeName) : <span class="string">""</span>.concat(libraryName, <span class="string">"/"</span>).concat(libDir, <span class="string">"/"</span>).concat(themeName);<span class="comment">//得到样式的路径</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (libraryObjs[methodName]) &#123;</span><br><span class="line"></span><br><span class="line">      ...</span><br><span class="line">        </span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (cache[libraryName] !== <span class="number">1</span>) &#123;</span><br><span class="line"></span><br><span class="line">          <span class="keyword">var</span> parsedMethodName = parseName(methodName, camel2Dash);<span class="comment">// 驼峰转连字符</span></span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> (modulePathTpl) &#123;</span><br><span class="line">            <span class="keyword">var</span> modulePath = modulePathTpl.replace(<span class="regexp">/\[module]/ig</span>, parsedMethodName);</span><br><span class="line">            path = <span class="string">""</span>.concat(cachePath[libraryName], <span class="string">"/"</span>).concat(modulePath);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            path = <span class="string">""</span>.concat(cachePath[libraryName], <span class="string">"/"</span>).concat(parsedMethodName).concat(ext);<span class="comment">// 得到完整的路径 element-ui/lib/theme-chalk/button.css</span></span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> (mixin &amp;&amp; !isExist(path)) &#123;</span><br><span class="line">            path = style === <span class="literal">true</span> ? <span class="string">""</span>.concat(_path, <span class="string">"/style"</span>).concat(ext) : <span class="string">""</span>.concat(_path, <span class="string">"/"</span>).concat(style);</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> (isBaseStyle) &#123;</span><br><span class="line">            addSideEffect(file.path, <span class="string">""</span>.concat(cachePath[libraryName], <span class="string">"/base"</span>).concat(ext));<span class="comment">// 添加 ImportDeclaration 节点引入 base 样式</span></span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          cache[libraryName] = <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      addDefault(file.path, path, &#123;</span><br><span class="line">        nameHint: methodName</span><br><span class="line">      &#125;);<span class="comment">// 添加 ImportDeclaration 节点引入组件样式</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (style === <span class="literal">true</span>) &#123;</span><br><span class="line">        addSideEffect(file.path, <span class="string">""</span>.concat(path, <span class="string">"/style"</span>).concat(ext));</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (style) &#123;</span><br><span class="line">        addSideEffect(file.path, <span class="string">""</span>.concat(path, <span class="string">"/"</span>).concat(style));</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> selectedMethods[methodName];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> babel-plugin-component 插件在遍历节点的时候做的事情</p>
+<ul>
+<li>找到引入 element-ui 的类型为 ImportDeclaration 节点，将感兴趣的值存在对象里（比如引入 button，就存起来），之后移除当前这个节点。</li>
+<li>在遍历到 CallExpression 类型节点的时候（假设使用了 button，就判断是否存在了上面的对象里），之后创建新的 ImportDeclaration 节点，用于之后加载对应的 js 与 css 文件。 </li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/babel/" rel="tag"># babel</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/10/webpack4-babel7项目构建/" rel="next" title="webpack4 + babel7 + Vue2.x">
+                <i class="fa fa-chevron-left"></i> webpack4 + babel7 + Vue2.x
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/12/加密/" rel="prev" title="加密">
+                加密 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">174</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#浅析babel-plugin-component"><span class="nav-number">1.</span> <span class="nav-text">浅析babel-plugin-component</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、官网按需引入示例"><span class="nav-number">1.1.</span> <span class="nav-text">一、官网按需引入示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、babel-编译过程概述"><span class="nav-number">1.2.</span> <span class="nav-text">二、babel 编译过程概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、babel-plugin-component"><span class="nav-number">1.3.</span> <span class="nav-text">三、babel-plugin-component</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

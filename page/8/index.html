@@ -280,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/25/webpack入门-介绍/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/22/数据劫持/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -299,7 +299,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/06/25/webpack入门-介绍/" itemprop="url">webpack入门（1）-介绍</a></h1>
+                <a class="post-title-link" href="/2019/08/22/数据劫持/" itemprop="url">数据劫持</a></h1>
         
 
         <div class="post-meta">
@@ -311,8 +311,609 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-25T09:24:48+08:00">
-                2019-06-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-22T13:16:47+08:00">
+                2019-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/es6/" itemprop="url" rel="index">
+                    <span itemprop="name">es6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Object.defineProperty
+使用Object.defineProperty对劫持访问器，在属性发生变化的时候会调用访问器方法。
+12345678910111213141516171819var scope = &#123;    name: 'qinhanwen',&#125;Object.keys(scope).forEach(item =&gt; &#123;    Object.defineProperty(scope, item, &#123;        config
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/22/数据劫持/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/19/TypeScript-工程配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/19/TypeScript-工程配置/" itemprop="url">TypeScript-3</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-19T12:13:24+08:00">
+                2019-08-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TS/" itemprop="url" rel="index">
+                    <span itemprop="name">TS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          tsconfig.json如果一个目录下存在一个tsconfig.json文件，那么它意味着这个目录是TypeScript项目的根目录。 tsconfig.json文件中指定了用来编译这个项目的根文件和编译选项。
+可以手动创建tsconfig.json文件，也也可以通过tsc —init创建。
+可以通过 compilerOptions 来定制编译选项，这边就写一点常见（我常见）的：
+123456789101112131415161718192021222324252627282930313233
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/19/TypeScript-工程配置/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/15/TypeScript-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/15/TypeScript-2/" itemprop="url">TypeScript-2</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-15T22:49:11+08:00">
+                2019-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TS/" itemprop="url" rel="index">
+                    <span itemprop="name">TS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          TypeScript面向对象编程SOLID（下面的首字母简写）原则
+职责单一原则（SRP）：组件（函数、类、模块）专注于单一任务，这样容易看出类做了哪些事情。类的属性通常描述对象的特征，方法通常描述对象行为。如果拥有过多属性和方法，就要考虑是否职责单一（比如Person类有名字、性别、电话、说hello的方法。那么验证电话号码正确性的方法，应该抽成另外一个类里。）
+开/闭原则（OCP）：时刻考虑到代码的扩展性（就是新增功能时候，能够最小程度修改代码）
+里氏替换原则（LSP）：派生类对象替换基类对
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/15/TypeScript-2/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/13/ionic-native/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/13/ionic-native/" itemprop="url">ionic-native</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-13T20:03:32+08:00">
+                2019-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ionic-native/" itemprop="url" rel="index">
+                    <span itemprop="name">ionic-native</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Ionic-native5.x版本以上处理装饰器，在npm run build:esm的scripts命令里，有使用到scripts/build/transformers/plugin-class.ts文件里的方法来处理，这个后面再来研究。先写4.x版本的。
+新建项目123456789$ npm install -g ionic$ ionic start myApp$ npm i -g cordova#安装插件$ ionic cordova plugin add cordova-plugin-c
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/13/ionic-native/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/13/预渲染/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/13/预渲染/" itemprop="url">prerender-spa-plugin 预渲染</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-13T14:15:01+08:00">
+                2019-08-13
               </time>
             
 
@@ -373,20 +974,16 @@
       
         
           
-          介绍webpack 是一个前端模块打包工具。它将根据模块的依赖关系进行静态分析，然后将这些模块按照指定的规则生成对应的静态资源。
-安装先初始化一个npm项目
-1$ npm init
-4.X之后需要安装webpack和webpack-cli两个模块
-1）项目里安装
-1$ npm install webpack webpack-cli  --save-dev
-2）全局安装
-1$ npm install webpack webpack-cli  -g
-模块打包新建文件夹，文件目录
-1234567|——
+          定义在构建阶段生成匹配预渲染路径的 html 文件（注意：每个需要预渲染的路由都有一个对应的 html）。构建出来的 html 文件已有部分内容。
+用途预渲染prerender-spa-plugin配置生成多页面，解决首屏白屏问题，提升用户体验。同时配合 vue-meta-info 可以生成 title 和 meta 标签，可解决 SPA 页面的 SEO 痛点
+使用安装
+1$ npm install prerender-spa-plugin --save
+目录结构
+123456789101112
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/06/25/webpack入门-介绍/#more" rel="contents">
+            <a class="btn" href="/2019/08/13/预渲染/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -437,7 +1034,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/23/大前端混合应用专题篇/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/11/webpack构建过程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -456,7 +1053,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/06/23/大前端混合应用专题篇/" itemprop="url">大前端混合应用专题篇</a></h1>
+                <a class="post-title-link" href="/2019/08/11/webpack构建过程/" itemprop="url">webpack构建</a></h1>
         
 
         <div class="post-meta">
@@ -468,8 +1065,161 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-23T21:02:09+08:00">
-                2019-06-23
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-11T00:21:52+08:00">
+                2019-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Tapable
+webpack构建过程Webpack 的运行流程是一个串行的过程，从启动到结束会依次执行以下流程：
+
+webpack会读取你在命令行传入的配置以及项目里的 webpack.config.js 文件，初始化本次构建的配置参数，并且执行配置文件中的插件实例化语句，生成Compiler传入plugin的apply方法，为webpack事件流挂上自定义钩子。
+接下来到了entryOption阶段，webpack开始读取配置的Entries，递归遍历所有的入口文件
+Webpack接下来就开
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/11/webpack构建过程/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/14/大前端混合应用专题篇-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/14/大前端混合应用专题篇-4/" itemprop="url">大前端混合应用专题篇(4)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-14T13:08:56+08:00">
+                2019-07-14
               </time>
             
 
@@ -530,12 +1280,30 @@
       
         
           
-          1️⃣、什么是 Hybird App，与 Native App 及 Web App 有什么区别
-​ 介绍：在 Google 推出 Android，Apple 推出 iOS 后，有了原生 App，在 H5 广泛流行之后出现了一种效率更高的混合 App 开发(Hybird App)，原生 APP 开发中有一个 webview 的组件(Android 中是 webview,iOS7 以下有 UIWebview,7 以上有 WKWebview),这个组件可以加载 Html 文件，之后发现可以将一些主要的
+          1️⃣、请选择一个你比较熟悉的 cordova 插件，介绍其功能、使用方式及运行原理。
+插件：cordova-plugin-camera
+功能：供照相机API与设备相机进行交互
+调用示例和参数：
+1navigator.camera.getPicture(cameraSuccess, cameraError, cameraOptions);
+
+
+
+Name
+Type
+Default
+Description
+
+
+
+
+quality
+number
+50
+图像的保存质量，范围0-100，100是最大值，
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/06/23/大前端混合应用专题篇/#more" rel="contents">
+            <a class="btn" href="/2019/07/14/大前端混合应用专题篇-4/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -586,7 +1354,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/16/数组/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/11/npm-install后发生了什么/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -605,7 +1373,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/06/16/数组/" itemprop="url">数组</a></h1>
+                <a class="post-title-link" href="/2019/07/11/npm-install后发生了什么/" itemprop="url">npm install后发生了什么</a></h1>
         
 
         <div class="post-meta">
@@ -617,8 +1385,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-16T10:35:52+08:00">
-                2019-06-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-11T18:54:12+08:00">
+                2019-07-11
               </time>
             
 
@@ -640,8 +1408,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法与数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">算法与数据结构</span>
+                  <a href="/categories/npm/" itemprop="url" rel="index">
+                    <span itemprop="name">npm</span>
                   </a>
                 </span>
 
@@ -679,25 +1447,19 @@
       
         
           
-          数组数组是最简单的内存数据结构
-创建和初始化数组
-123var arr = [];var arr = new Array(2);var arr = Array(2);
-添加元素
-1arr[index] = 1;
-push方法
-把元素添加到数组末尾
-12arr.push(1);arr.push(2,3);
-unshift方法
-数组首位插入元素
-12arr.unshift(-1);arr.unshift(-2,-3);
-pop方法
-从末尾删除元素，并返回该元素
-1arr.pop();
-shift方法
+          
+npm install 之后发生了什么？
+记一次排错经历——npm缓存浅析
+npm 模块安装机制简介
+介绍下 npm 模块安装机制，为什么输入 npm install 就可以自动安装对应的模块？
+
+npm install是干嘛的npm install命令用来安装模块到node_modules目录。
+安装之前，npm install会先检查node_modules目录之中是否已经存在指定模块。如果存在，就不再重新安装了，即使远程仓库已经有了一个新版本，也不会安装。
+如果希望一个模块不管是否安装过
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/06/16/数组/#more" rel="contents">
+            <a class="btn" href="/2019/07/11/npm-install后发生了什么/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -748,7 +1510,7 @@ shift方法
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/16/算法复杂度/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/08/npm-scripts/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -767,7 +1529,7 @@ shift方法
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/06/16/算法复杂度/" itemprop="url">复杂度</a></h1>
+                <a class="post-title-link" href="/2019/07/08/npm-scripts/" itemprop="url">npm scripts</a></h1>
         
 
         <div class="post-meta">
@@ -779,8 +1541,8 @@ shift方法
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-16T10:35:48+08:00">
-                2019-06-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-08T22:51:51+08:00">
+                2019-07-08
               </time>
             
 
@@ -802,8 +1564,8 @@ shift方法
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法与数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">算法与数据结构</span>
+                  <a href="/categories/npm/" itemprop="url" rel="index">
+                    <span itemprop="name">npm</span>
                   </a>
                 </span>
 
@@ -841,13 +1603,18 @@ shift方法
       
         
           
-          一、 什么是复杂度分析 ，为什么需要复杂度分析什么是复杂度分析​    复杂度分析的是算法执行时间（或占用空间）与数据规模的增长关系
-为什么需要复杂度分析​    和性能测试相比，复杂度分析有不依赖执行环境、成本低、效率高、易操作、指导性强的特点，并且掌握复杂度分析，将能编写出性能更优的代码，有利于降低系统开发和维护成本。
-二、如何进行复杂度分析大 O 表示法算法的执行时间与每行代码的执行次数成正比，用 T(n) = O(f(n)) 表示。其中 T(n) 表示算法执行总时间，f(n) 表示每行代
+          
+npm scripts
+https://blog.51cto.com/sunspot/1265650
+Node.js process
+
+npm脚本npm 允许在package.json文件里面，使用scripts字段定义脚本命令。
+12345... "scripts": &#123;    "build": "node build.js"  &#125;...
+通过npm run &lt;command&gt; [--&lt;args&gt;]执行，每当执行npm run xxx，就会自动新建
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/06/16/算法复杂度/#more" rel="contents">
+            <a class="btn" href="/2019/07/08/npm-scripts/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -898,7 +1665,7 @@ shift方法
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/11/nginx入门/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/07/大前端混合应用专题篇-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -917,7 +1684,7 @@ shift方法
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/06/11/nginx入门/" itemprop="url">nginx入门</a></h1>
+                <a class="post-title-link" href="/2019/07/07/大前端混合应用专题篇-3/" itemprop="url">大前端混合应用专题篇(3)</a></h1>
         
 
         <div class="post-meta">
@@ -929,8 +1696,8 @@ shift方法
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-11T22:35:16+08:00">
-                2019-06-11
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-07T22:30:36+08:00">
+                2019-07-07
               </time>
             
 
@@ -952,8 +1719,8 @@ shift方法
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Nginx/" itemprop="url" rel="index">
-                    <span itemprop="name">Nginx</span>
+                  <a href="/categories/混合应用/" itemprop="url" rel="index">
+                    <span itemprop="name">混合应用</span>
                   </a>
                 </span>
 
@@ -991,775 +1758,18 @@ shift方法
       
         
           
-          Nginx是一个高性能的HTTP和反向代理web服务器，大部分使用作为代理。
-MacOS安装1.先安装homebrew1/usr/bin/ruby -e "$(curl -fsSL  https://raw.githubusercontent.com/Homebrew/install/master/install)"
-安装的时候碰到这样的问题，一直卡在这里。
+          1️⃣、在 Android 平台下如何调试 WebView？Android调试webview
+从 Android4.4（KitKat）开始 ，可以使用DevTools对原生Android应用程序的Android WebViews内容进行调试。
 
-解决方案：打开Xcode，然后选择「Xcode」-「Open Developer Tool」-「More Developer Tools
+在Android设备或模拟器运行Android4.4或更高版本，Android设备上启用USB调试模式。
+
+Chrome 30或更高版本。更强大的WebView界面调试功能需要Chrome31或更高版本。
+
+Android应用程序中的WebView配置为
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/06/11/nginx入门/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/09/大前端网络专题篇之HTTP-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="秦瀚文">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="渣渣大星星的学习笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/09/大前端网络专题篇之HTTP-2/" itemprop="url">大前端网络专题篇之HTTP(2)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-09T21:34:55+08:00">
-                2019-06-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/http/" itemprop="url" rel="index">
-                    <span itemprop="name">http</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          面试官问：你了解HTTP2.0吗？
-1️⃣、HTTP 请求报文与响应报文格式
-请求报文：
-
-响应报文：
-
-2️⃣、HTTP/1.1 有什么优缺点
-​    长链接：HTTP1.1默认支持（HTTP1.0需要带上keep-alive标识告诉服务器建立长链接），优点是减少重复进行TCP三次握手的开销，提高效率。如果client使用HTTP1.1协议，但又不希望使用长链接，则需要在header中指明connection的值为close；如果server方也不想支持长链接，则在response中也需要明
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/06/09/大前端网络专题篇之HTTP-2/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/09/大前端网络专题篇之HTTP（3）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="秦瀚文">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="渣渣大星星的学习笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/09/大前端网络专题篇之HTTP（3）/" itemprop="url">大前端网络专题篇之HTTP(3)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-09T21:34:55+08:00">
-                2019-06-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/http/" itemprop="url" rel="index">
-                    <span itemprop="name">http</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          大前端网络专题篇之HTTP1️⃣、什么是跨域，如何解决跨域
-什么是跨域：跨域是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。
-同源策略限制了以下行为：
-
-Cookie、LocalStorage 和 IndexDB 无法读取
-DOM 和 JS 对象无法获取
-Ajax请求发送不出去
-
-跨域通信方式：
-​    1.JSONP
-​    2.CORS
-​    3.NGINX
-​    4.WebSocket
-​    5.Postmessage
-​    6.window.
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/06/09/大前端网络专题篇之HTTP（3）/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/05/Koa源码阅读/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="秦瀚文">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="渣渣大星星的学习笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/05/Koa源码阅读/" itemprop="url">Koa插件之类</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-05T11:27:58+08:00">
-                2019-06-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/koa/" itemprop="url" rel="index">
-                    <span itemprop="name">koa</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          基本组成
-application.js：框架入口；负责管理中间件，以及处理请求
-context.js：context对象的原型，代理request与response对象上的方法和属性
-request.js：request对象的原型，提供请求相关的方法和属性
-response.js：response对象的原型，提供响应相关的方法和属性
-
-开始新建test.js文件
-1234567891011121314151617181920212223const koa = require('koa');con
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/06/05/Koa源码阅读/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/02/==与===/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="秦瀚文">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="渣渣大星星的学习笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/02/==与===/" itemprop="url">==与===，运算符优先级</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-02T22:39:06+08:00">
-                2019-06-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法与数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">算法与数据结构</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          https://www.cnblogs.com/wisewrong/p/10396002.html
-重学前端-总结：05、JavaScript类型：关于类型，有哪些你不知道的细节？
-JavaScript 基本类型的装箱与拆箱
-【JS迷你书】类型转换之拆箱操作
-【JS迷你书】类型转换之装箱操作
-一道常被人轻视的前端JS面试题
-运算符优先级定义：运算符的优先级决定了表达式中运算执行的先后顺序，优先级高的运算符最先被执行。
-常用运算符优先级排序：具有相同优先级的运算符按从左到右（或从右到左）的顺序求值
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/06/02/==与===/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/垃圾回收机制/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="秦瀚文">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="渣渣大星星的学习笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/28/垃圾回收机制/" itemprop="url">垃圾回收机制</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-28T16:21:16+08:00">
-                2019-05-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          内存回收JavaScript有自动垃圾收集机制，垃圾收集器会每隔一段时间就执行一次释放操作，找出那些不再继续使用的值，然后释放其占用的内存。
-垃圾回收算法对垃圾回收算法来说，核心思想就是如何判断内存已经不再使用，常用垃圾回收算法有下面两种。
-
-引用计数（现代浏览器不再使用）
-标记清除（常用）
-
-引用计数引用计数算法定义“内存不再使用”的标准很简单，就是看一个对象是否有指向它的引用。如果没有其他对象指向它了，说明该对象已经不再需要了。
-123456789101112// 创建一个对象person，
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/05/28/垃圾回收机制/#more" rel="contents">
+            <a class="btn" href="/2019/07/07/大前端混合应用专题篇-3/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1801,7 +1811,7 @@ JavaScript 基本类型的装箱与拆箱
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1847,7 +1857,7 @@ JavaScript 基本类型的装箱与拆箱
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">160</span>
+                <span class="site-state-item-count">174</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1858,7 +1868,7 @@ JavaScript 基本类型的装箱与拆箱
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1869,7 +1879,7 @@ JavaScript 基本类型的装箱与拆箱
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

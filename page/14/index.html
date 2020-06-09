@@ -280,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/25/回流和重绘/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/02/react入门-基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -299,7 +299,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/25/回流和重绘/" itemprop="url">重排和重绘</a></h1>
+                <a class="post-title-link" href="/2019/02/02/react入门-基础/" itemprop="url">react入门-基础</a></h1>
         
 
         <div class="post-meta">
@@ -311,8 +311,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-25T11:24:23+08:00">
-                2018-12-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-02T20:38:58+08:00">
+                2019-02-02
               </time>
             
 
@@ -334,8 +334,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/优化/" itemprop="url" rel="index">
-                    <span itemprop="name">优化</span>
+                  <a href="/categories/react入门/" itemprop="url" rel="index">
+                    <span itemprop="name">react入门</span>
                   </a>
                 </span>
 
@@ -374,17 +374,20 @@
         
           
           
-参考资料         https://juejin.im/post/5c15f797f265da61141c7f86
+资料    https://github.com/semlinker/reactjs-interview-questions
 
-接上浏览器渲染过程
-经过对浏览器渲染过程的了解，最后两步就是渲染，也就是在这个阶段出现了重排与重绘，也同时是最耗时的阶段。(意思就是说在第一次加载页面的时候，就会出现重排与重绘)。
-重排（回流）当DOM的变化影响到了元素的几何信息，浏览器需要重新计算元素的宽高信息和位置信息。这个过程叫重排。
-触发的条件1.添加或者删除可见的DOM元素；
-2.元素尺寸改变——边距、填充、边
+[TOC]
+使用node版本10.11.0
+1.开始安装1$ npm install -g create-react-app
+创建项目1$ create-react-app app
+运行项目12$ cd app$ npm start
+2.JSXJSX是一种用于描述UI的JavaScript拓展语法。
+标签类型DOM类型标签
+1const element = &lt;p
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/25/回流和重绘/#more" rel="contents">
+            <a class="btn" href="/2019/02/02/react入门-基础/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -435,7 +438,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/20/初识macrotask和microtask/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/29/JSBrige-简单了解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -454,7 +457,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/20/初识macrotask和microtask/" itemprop="url">事件循环</a></h1>
+                <a class="post-title-link" href="/2019/01/29/JSBrige-简单了解/" itemprop="url">JSBrige-简单了解</a></h1>
         
 
         <div class="post-meta">
@@ -466,309 +469,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-20T18:44:49+08:00">
-                2018-12-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/优化/" itemprop="url" rel="index">
-                    <span itemprop="name">优化</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          事件循环（Event Loop）入门这里只说浏览器环境下,在不同浏览器下表现不同，这里是在chrome!!!!
-参考资料         https://www.codercto.com/a/18956.html
-https://github.com/aooy/blog/issues/5
-​             这个地址，可以看到具体的执行过程，还有详细的教程，中文字幕哈哈哈哈
-
-1.单线程的JavaScript负责解析和执行JavaScript的线程只有一个，同一时间只能执行一段JavaS
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/20/初识macrotask和microtask/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/七牛云测试域名过期/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="秦瀚文">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="渣渣大星星的学习笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/15/七牛云测试域名过期/" itemprop="url">七牛云测试域名过期</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T11:06:25+08:00">
-                2018-12-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/puppeteer/" itemprop="url" rel="index">
-                    <span itemprop="name">puppeteer</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          背景：有一天突然发现七牛云测试域名被回收了，有些图片显示不出来了，图片也不能直接下载，本地还没有备份。于是乎想到的办法就是打开一张张图片链接，手动保存到本地。作为一只程序🐒，这种事情自然是做不出来的，查了一堆资料都觉得麻烦，所以用自己的方式解决问题，当然也有解决方案。想法：其实想法就是1.登陆七牛云2.跳转到对应的页面3.加载完成的图片列表，并且获取全部图片的名字（因为我只有80张，所以只需要点击一次加载更多，就可以获取全部列表）4.打开图片完整路径，下载图片到本地使用puppeteer来解决
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/15/七牛云测试域名过期/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/11/JSBridge-分离插件js/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="秦瀚文">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="渣渣大星星的学习笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/11/JSBridge-分离插件js/" itemprop="url">JSBridge-分离插件js</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-11T23:04:36+08:00">
-                2018-12-11
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-29T22:55:47+08:00">
+                2019-01-29
               </time>
             
 
@@ -829,14 +531,16 @@ https://github.com/aooy/blog/issues/5
       
         
           
-          JSBridge-分离插件js宝哥总是说做Hybird应用开发的，这个要了解一下，那就了解一下哈哈哈哈。刚好有机会写个接入的文档，总结一下流程。
-1.JSBridge其实就是Native和Web之间通信的桥梁。
-2.需求1）引入lauch.js，根据ua判断，引入不同平台的cordova.js。
-2）引入的cordova.js会根据配置文件cordova.plugin.js里的配置数据（数组），然后再动态创建script标签，引入不同的插件js。（cordova.js、cordova.plugi
+          
+参考资料：cordova.js源码分析
+
+通过整理JSBridge分离插件js稍微了解了cordova.js文件，还有不同平台间js通知原生层的方式。
+JSBridge在Hybrid App开发中，H5应用是内嵌到原生的WebView组件中，纯H5在很多功能使用都收到限制，而且功能的使用存在很多的兼容性问题，所以使用一些受限的功能时候需要依赖原生，而JSbridge就是JS与原生之间通信的桥梁。
+JS调用Native1）注入 API其实就是向JavaScript的Context（window）
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/11/JSBridge-分离插件js/#more" rel="contents">
+            <a class="btn" href="/2019/01/29/JSBrige-简单了解/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -887,7 +591,7 @@ https://github.com/aooy/blog/issues/5
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/原型和原型链/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/循环/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -906,7 +610,7 @@ https://github.com/aooy/blog/issues/5
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/06/原型和原型链/" itemprop="url">原型和原型链</a></h1>
+                <a class="post-title-link" href="/2019/01/23/循环/" itemprop="url">循环</a></h1>
         
 
         <div class="post-meta">
@@ -918,8 +622,8 @@ https://github.com/aooy/blog/issues/5
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-06T00:03:52+08:00">
-                2018-12-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-23T17:44:54+08:00">
+                2019-01-23
               </time>
             
 
@@ -980,17 +684,14 @@ https://github.com/aooy/blog/issues/5
       
         
           
-          原型和原型链
- https://juejin.im/post/5835853f570c35005e413b19
- https://juejin.im/post/5c218e4c5188254caf18bb1a
-
-引用类型都是对象原型与原型链对象都有原型，原型也是对象，也有自己的原型，就组成了一条原型链。在对象上找某个属性没找到就会往原型链上找。
-第一个🌰
-1234567891011121314var obj = &#123;&#125;;console.log(obj.__proto__ ==
+          实现一下数组方法 forEach，map，reduce，filter先写自己实现的想法，可能有疏漏和错误，发现了再更改。1.forEach首先了解一下forEach
+1array.forEach(callback[, thisObject]);
+写个例子观察一下
+12345678910111213var arr = [1,2,3];var obj = &#123;    arr1:[]&#125;arr.forEach(function(item,index,array)&#123;    co
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/06/原型和原型链/#more" rel="contents">
+            <a class="btn" href="/2019/01/23/循环/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1041,7 +742,7 @@ https://github.com/aooy/blog/issues/5
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/this/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/下载网页请求的图片资源/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1060,7 +761,7 @@ https://github.com/aooy/blog/issues/5
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/05/this/" itemprop="url">this</a></h1>
+                <a class="post-title-link" href="/2019/01/18/下载网页请求的图片资源/" itemprop="url">下载网页的所有图片资源</a></h1>
         
 
         <div class="post-meta">
@@ -1072,8 +773,8 @@ https://github.com/aooy/blog/issues/5
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-05T23:30:20+08:00">
-                2018-12-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-18T23:43:46+08:00">
+                2019-01-18
               </time>
             
 
@@ -1095,8 +796,8 @@ https://github.com/aooy/blog/issues/5
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/puppeteer/" itemprop="url" rel="index">
+                    <span itemprop="name">puppeteer</span>
                   </a>
                 </span>
 
@@ -1134,13 +835,17 @@ https://github.com/aooy/blog/issues/5
       
         
           
-          this在手写Promise的时候被this折腾的不清，网上this又一堆资料看了也还是不会，于是决定认真的看一下你不知道的JavaScript。用的例子基本都是原文偷的。
-首先this只与调用时候的上下文环境有关，与声明的上下文环境无关。1.了解调用位置就是函数被调用的位置
-12345678910111213141516function baz() &#123;    // 当前调用栈是:baz    // 因此，当前调用位置是全局作用域    console.log("baz");    b
+          思路1.获取图片的请求地址，保存到列表。
+2.遍历列表，下载图片到本地
+实现使用Puppeteer
+1.过滤请求，只需要图片的请求首先我们了解一下Accept字段，表示客户端能够处理的媒体类型，还有优先级，q的值从0到1（默认1）。
+
+那我们只要过滤出image的元素的请求就好了，刚好Puppeteer也提供了API，request.resourceType()，它会返回请求的资源类型。
+12345678910111213141516171819202122232425262728293031c
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/05/this/#more" rel="contents">
+            <a class="btn" href="/2019/01/18/下载网页请求的图片资源/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1191,7 +896,7 @@ https://github.com/aooy/blog/issues/5
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/flex布局/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/16/为什么升级/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1210,7 +915,7 @@ https://github.com/aooy/blog/issues/5
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/05/flex布局/" itemprop="url">Flex布局</a></h1>
+                <a class="post-title-link" href="/2019/01/16/为什么升级/" itemprop="url">说！你为什么升级</a></h1>
         
 
         <div class="post-meta">
@@ -1222,8 +927,146 @@ https://github.com/aooy/blog/issues/5
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-05T10:27:01+08:00">
-                2018-12-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-16T21:17:43+08:00">
+                2019-01-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          angularjs与angularts方面:
+强类型语言约束，来减少运行时错误，在编写的时候就能发现
+框架方面：
+
+编译器支持 AOT 模式，大大减少了包的大小和提高了应用的性能，之前是JIT模式，运行时编译
+重新设计的DI系统
+angular1 应用程序中所有的依赖项都是单例，我们不能控制是否使用新的实例。状态不好维护
+命名空间冲突
+不能和模块加载器一起使用
+DI 耦合度太高：angular1 中 DI 功能已经被框架集成了，我们不能单独使用它的 DI 特性
+
+
+新的组件和模块化方案，支持组件
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/16/为什么升级/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/13/linear-gradient/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/13/linear-gradient/" itemprop="url">linear-gradient</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-13T11:40:43+08:00">
+                2019-01-13
               </time>
             
 
@@ -1284,17 +1127,14 @@ https://github.com/aooy/blog/issues/5
       
         
           
-          Flex布局
-参考资料：http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
+          
+参考资料 https://www.w3cplus.com/css3/do-you-really-understand-css-linear-gradients.html
 
-1.弹性布局（flexible box）任何一个容器都可以变成Flex布局
-1）块级元素123.box&#123;    display:flex;&#125;
-2）行内元素也可以123.box&#123;    display:inline-flex;&#125;
-强大的东西一般都有兼容性问题，Webkit 内核的浏览器，需要加上-webkit。之前碰到i
+渐变背景，都是在chrome下调试，这个样式有兼容性问题，在不同浏览器有差异语法:12345&lt;linear-gradient&gt; = linear-gradient([ [ &lt;angle&gt; | to &lt;side-or-corner&gt; ] ,]? &lt;color-stop&gt;[, &l
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/05/flex布局/#more" rel="contents">
+            <a class="btn" href="/2019/01/13/linear-gradient/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1345,7 +1185,7 @@ https://github.com/aooy/blog/issues/5
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/new的时候到底做了什么/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/12/伪类与伪元素/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1364,7 +1204,7 @@ https://github.com/aooy/blog/issues/5
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/04/new的时候到底做了什么/" itemprop="url">new的时候到底做了什么</a></h1>
+                <a class="post-title-link" href="/2019/01/12/伪类与伪元素/" itemprop="url">伪类与伪元素</a></h1>
         
 
         <div class="post-meta">
@@ -1376,8 +1216,8 @@ https://github.com/aooy/blog/issues/5
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-04T23:05:16+08:00">
-                2018-12-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-12T15:19:57+08:00">
+                2019-01-12
               </time>
             
 
@@ -1399,8 +1239,8 @@ https://github.com/aooy/blog/issues/5
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
                   </a>
                 </span>
 
@@ -1438,18 +1278,17 @@ https://github.com/aooy/blog/issues/5
       
         
           
-          new到底做了什么
-参考资料：https://juejin.im/post/584e1ac50ce463005c618ca2
-​                   https://juejin.im/entry/59196a3ea0bb9f005ff7bee5
-​           https://xiaogliu.github.io/2018/06/28/what-happened-when-using-new/
+          
+参考资料    https://juejin.im/post/5c35953ce51d45523f04b6d2
 
-1）new做了什么
-1.创建了一个临时对象
-2.临时对象的__proto_
+其实想认真的学习一下这个是有原因的，在掘金上看到了一个超有意思的纯CSS实现的进度条，如果让我来写的话，确实是比较可能直接用JS实现，而且都感觉写起来很麻烦。真的是太炫酷了。
+然后伪类和伪元素也经常搞的混淆概念不清楚，也打算整理一下，想要稍微区分清楚一下就好了。
+伪类具有特殊属性的元素可以使用CSS进行样式修饰（我认为是为了一些元素添加特殊的效果）
+常见的：:link，:activ
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/04/new的时候到底做了什么/#more" rel="contents">
+            <a class="btn" href="/2019/01/12/伪类与伪元素/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1500,7 +1339,7 @@ https://github.com/aooy/blog/issues/5
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/手写Promise/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/腾讯云安装学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1519,7 +1358,7 @@ https://github.com/aooy/blog/issues/5
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/04/手写Promise/" itemprop="url">实现Promise</a></h1>
+                <a class="post-title-link" href="/2019/01/10/腾讯云安装学习/" itemprop="url">腾讯云服务器安装学习</a></h1>
         
 
         <div class="post-meta">
@@ -1531,8 +1370,8 @@ https://github.com/aooy/blog/issues/5
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-04T20:11:07+08:00">
-                2018-12-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-10T11:41:03+08:00">
+                2019-01-10
               </time>
             
 
@@ -1541,28 +1380,6 @@ https://github.com/aooy/blog/issues/5
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/es6/" itemprop="url" rel="index">
-                    <span itemprop="name">es6</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -1593,18 +1410,15 @@ https://github.com/aooy/blog/issues/5
       
         
           
-          手写Promise
-参考资料：掘金，手写Promise
-​            阮一峰promise
-​            this的指向问题
-​            
-
-1.先看个Promise例子1234new Promise(function (resolve, reject) &#123;    console.log(1);    resolve('resolve');&#125;)
-1） 看到Promise接收一个参数，并且有三种状态 pending，fulfilled，re
+          首先，登录腾讯云，进入控制台，选择云服务器，点击登录。
+1.先装nvm1$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash
+这个是用来安装和切换node版本的版本控制工具
+12$ export NVM_DIR="$HOME/.nvm"$ [ -s "$NVM_DIR/nvm.sh" ] &amp;&amp; . "$NVM_DIR/nvm.sh"
+2.装node1$ nvm i
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/04/手写Promise/#more" rel="contents">
+            <a class="btn" href="/2019/01/10/腾讯云安装学习/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1655,7 +1469,7 @@ https://github.com/aooy/blog/issues/5
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/03/es6学习笔记/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/07/宝哥问过的问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -1674,7 +1488,7 @@ https://github.com/aooy/blog/issues/5
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/03/es6学习笔记/" itemprop="url">ES6学习笔记</a></h1>
+                <a class="post-title-link" href="/2019/01/07/宝哥问过的问题/" itemprop="url">宝哥问过的问题</a></h1>
         
 
         <div class="post-meta">
@@ -1686,8 +1500,8 @@ https://github.com/aooy/blog/issues/5
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-03T20:58:38+08:00">
-                2018-12-03
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-07T22:46:17+08:00">
+                2019-01-07
               </time>
             
 
@@ -1709,8 +1523,8 @@ https://github.com/aooy/blog/issues/5
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/es6/" itemprop="url" rel="index">
-                    <span itemprop="name">es6</span>
+                  <a href="/categories/提问/" itemprop="url" rel="index">
+                    <span itemprop="name">提问</span>
                   </a>
                 </span>
 
@@ -1748,19 +1562,175 @@ https://github.com/aooy/blog/issues/5
       
         
           
-          ES6学习笔记
- Babel
-
-1.const和letlet特点：1.在编译过程中没有变量提升
-2.不允许重复声明（同个代码块内）
-3.块级作用域(只在声明的代码块内有效)
-4.暂时性死区
-1）说个问题123456for (var i = 0; i &lt; 5; i++) &#123;    setTimeout(() =&gt; &#123;        console.log(i);    &#125;, i * 1000)&#125;// 每隔1秒打印一个5
-其实是想每隔一秒打印出0到
+          记录宝哥提问过的问题，想到多少写多少。。有空再来写
+1.事件代理
+2.跨域
+3.手写AJAX
+4.Array.forEach和Array.map的区别
+5.为什么脚本要放在html的最后
+6.前端优化策略
+7.事件
+8.手写观察者模式
+补充问题1.内联元素之间的缝隙
+2.隐藏元素的方法
+​    1）visibility:hidden;
+​    2）display:none;
+​    3）opacity:0;
+​    4）transform:scale(0);
+​    5）transfo
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/03/es6学习笔记/#more" rel="contents">
+            <a class="btn" href="/2019/01/07/宝哥问过的问题/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/01/setTimeout、setInterval与requestAnimationFrame/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/01/setTimeout、setInterval与requestAnimationFrame/" itemprop="url">setTimeout、setInterval、requestAnimationFrame与requestIdleCallback</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-01T23:43:28+08:00">
+                2019-01-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/小记/" itemprop="url" rel="index">
+                    <span itemprop="name">小记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          setTimeoutsetTimeout(code, millseconds) 用于延时执行参数指定的代码，如果在指定的延迟时间之前，你想取消这个执行，那么直接用clearTimeout(timeoutId)来清除任务，timeoutID 是 setTimeout 时返回的；
+setIntervalsetInterval(code, millseconds)用于每隔一段时间执行指定的代码，永无停歇，除非你反悔了，想清除它，可以使用 clearInterval(intervalId)，这样从调用 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/01/setTimeout、setInterval与requestAnimationFrame/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1802,7 +1772,7 @@ https://github.com/aooy/blog/issues/5
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/15/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/15/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1848,7 +1818,7 @@ https://github.com/aooy/blog/issues/5
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">160</span>
+                <span class="site-state-item-count">174</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1859,7 +1829,7 @@ https://github.com/aooy/blog/issues/5
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1870,7 +1840,7 @@ https://github.com/aooy/blog/issues/5
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
