@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Blob," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="读《Blob API》总结-2020.06.06学习时间：2020.06.07 学习章节：Blob API 一、主要知识点 什么是Blob Blob 构造函数 Blob 的属性与方法 Blob 的拓展应用 Blob 与 ArrayBuffer 各种类型之间的转换  1. 什么是 BlobBlob（Binary Large Object） Blob 对象表示一个不可变、原始数据的类文件对象。File">
+<meta name="keywords" content="Blob">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Blob API">
+<meta property="og:url" content="http://yoursite.com/2020/06/04/Blob API/index.html">
+<meta property="og:site_name" content="渣渣大星星的学习笔记">
+<meta property="og:description" content="读《Blob API》总结-2020.06.06学习时间：2020.06.07 学习章节：Blob API 一、主要知识点 什么是Blob Blob 构造函数 Blob 的属性与方法 Blob 的拓展应用 Blob 与 ArrayBuffer 各种类型之间的转换  1. 什么是 BlobBlob（Binary Large Object） Blob 对象表示一个不可变、原始数据的类文件对象。File">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/Users/qinhanwen/Desktop/new-images/WX20200606-225803@2x.png">
+<meta property="og:image" content="http://yoursite.com/Users/qinhanwen/Desktop/new-images/WX20200606-225711@2x.png">
+<meta property="og:image" content="http://yoursite.com/Users/qinhanwen/Desktop/new-images/WX20200607-123559@2x.png">
+<meta property="og:image" content="http://yoursite.com/Users/qinhanwen/Desktop/new-images/WX20200607-125646@2x.png">
+<meta property="og:updated_time" content="2020-06-09T16:21:34.456Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Blob API">
+<meta name="twitter:description" content="读《Blob API》总结-2020.06.06学习时间：2020.06.07 学习章节：Blob API 一、主要知识点 什么是Blob Blob 构造函数 Blob 的属性与方法 Blob 的拓展应用 Blob 与 ArrayBuffer 各种类型之间的转换  1. 什么是 BlobBlob（Binary Large Object） Blob 对象表示一个不可变、原始数据的类文件对象。File">
+<meta name="twitter:image" content="http://yoursite.com/Users/qinhanwen/Desktop/new-images/WX20200606-225803@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/06/04/Blob API/"/>
+
+
+
+
+
+  <title>Blob API | 渣渣大星星的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">渣渣大星星的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/04/Blob API/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Blob API</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-04T22:36:20+08:00">
+                2020-06-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Blob/" itemprop="url" rel="index">
+                    <span itemprop="name">Blob</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="读《Blob-API》总结-2020-06-06"><a href="#读《Blob-API》总结-2020-06-06" class="headerlink" title="读《Blob API》总结-2020.06.06"></a>读《Blob API》总结-2020.06.06</h1><p>学习时间：2020.06.07</p>
+<p>学习章节：<a href="https://segmentfault.com/a/1190000022812794" target="_blank" rel="noopener">Blob API</a></p>
+<h1 id="一、主要知识点"><a href="#一、主要知识点" class="headerlink" title="一、主要知识点"></a>一、主要知识点</h1><ul>
+<li>什么是Blob</li>
+<li>Blob 构造函数</li>
+<li>Blob 的属性与方法</li>
+<li>Blob 的拓展应用</li>
+<li>Blob 与 ArrayBuffer</li>
+<li>各种类型之间的转换</li>
+</ul>
+<h2 id="1-什么是-Blob"><a href="#1-什么是-Blob" class="headerlink" title="1. 什么是 Blob"></a>1. 什么是 Blob</h2><p><a href="https://www.baidu.com/link?url=5aG--jvu5O_lDLcNIytqfFwBC9z8WDRKgz7QKyVkvB47wV313UtN2-1lE6qfO24KBqAdK7hCIxsbhrq9avE1oK&amp;wd=&amp;eqid=ab8ed0420017a79e000000065edbae0d" target="_blank" rel="noopener">Blob（Binary Large Object） Blob 对象表示一个不可变、原始数据的类文件对象。</a><code>File</code>接口基于<code>Blob</code>，继承了 Blob 的功能并将其扩展使其支持用户系统上的文件。</p>
+<p>一个 Blob 对象包含两个属性：size 与 type，如下：</p>
+<p><img src="/Users/qinhanwen/Desktop/new-images/WX20200606-225803@2x.png" alt="WX20200606-225803@2x"></p>
+<p>一个 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/File" target="_blank" rel="noopener">File</a> 对象包含 lastModified、lastModifiedDate、size、type 与 webkitRelativePath 如下：</p>
+<p><img src="/Users/qinhanwen/Desktop/new-images/WX20200606-225711@2x.png" alt="WX20200606-225711@2x"></p>
+<h2 id="2-Blob-简介"><a href="#2-Blob-简介" class="headerlink" title="2. Blob 简介"></a>2. Blob 简介</h2><h3 id="2-1-构造函数"><a href="#2-1-构造函数" class="headerlink" title="2.1 构造函数"></a>2.1 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Blob/Blob" target="_blank" rel="noopener">构造函数</a></h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> newBlob = <span class="keyword">new</span> Blob(array, options);</span><br></pre></td></tr></table></figure>
+<p>参数：</p>
+<ul>
+<li>array：ArrayBuffer，ArrayBufferView，Blob，USVString对象的数组等对象构成的数组，将被放入Blob中。USVString 对象会被编码成 UTF-8 。</li>
+<li>options：一个可选对象<ul>
+<li>type：它是 MINE type 类型，将会被放到 blob 中，默认是空字符串。</li>
+<li>endings：默认值为 transparent，用于指定包含结束符 <code>\n</code> 的字符串如何被写入。</li>
+</ul>
+</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> aFileParts = [<span class="string">'&lt;a id="a"&gt;&lt;b id="b"&gt;hey qhw!&lt;/b&gt;&lt;/a&gt;'</span>]; <span class="comment">// an array consisting of a single DOMString</span></span><br><span class="line"><span class="keyword">var</span> oMyBlob = <span class="keyword">new</span> Blob(aFileParts, &#123;<span class="attr">type</span> : <span class="string">'text/html'</span>&#125;); <span class="comment">// the blob</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-2-Blob-的属性"><a href="#2-2-Blob-的属性" class="headerlink" title="2.2 Blob 的属性"></a>2.2 Blob 的属性</h3><ul>
+<li>Blob.size：<code>Blob</code> 对象中所包含数据的大小（字节）。</li>
+<li>Blob.type：一个字符串，表明该 <code>Blob</code> 对象所包含数据的 MIME 类型。如果类型未知，则该值为空字符串。</li>
+</ul>
+<h3 id="2-3-Blob-的方法"><a href="#2-3-Blob-的方法" class="headerlink" title="2.3 Blob 的方法"></a>2.3 Blob 的方法</h3><ul>
+<li>Blob.slice([start[, end[, contentType]]])：返回一个新的 <code>Blob</code> 对象，包含了源 <code>Blob</code> 对象中指定范围内的数据。<strong>Blob 对象是不可改变的。我们不能直接在一个 Blob 中更改数据，但是我们 可以对一个 Blob 进行分割，从其中创建新的 Blob 对象，将它们混合到一个新的 Blob 中</strong>。</li>
+<li>Blob.stream()：返回一个能读取blob内容的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/ReadableStream" target="_blank" rel="noopener"><code>ReadableStream</code></a>。</li>
+<li>Blob.text()：返回一个promise且包含blob所有内容的UTF-8格式的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/USVString" target="_blank" rel="noopener"><code>USVString</code></a>。</li>
+<li>Blob.arrayBuffer()：返回一个promise且包含blob所有内容的二进制格式的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/ArrayBuffer" target="_blank" rel="noopener"><code>ArrayBuffer</code></a> </li>
+</ul>
+<h2 id="3-Blob-的拓展应用"><a href="#3-Blob-的拓展应用" class="headerlink" title="3. Blob 的拓展应用"></a>3. Blob 的拓展应用</h2><p>我们经常在上传文件的时候，会得到一个 file 对象，它基于 Blob。所以我们可以把它分块上传。也可以通过一些转换操作，来生成带水印的图片。最后再通过 formData 上传 Blob。</p>
+<h3 id="3-1-分块上传"><a href="#3-1-分块上传" class="headerlink" title="3.1 分块上传"></a>3.1 分块上传</h3><p>这边使用 koa 作为服务端</p>
+<p>服务端部分：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">const</span> Utils = <span class="built_in">require</span>(<span class="string">"./utils"</span>).utils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">"koa"</span>);</span><br><span class="line"><span class="keyword">const</span> router = <span class="built_in">require</span>(<span class="string">"koa-router"</span>)();</span><br><span class="line"><span class="keyword">const</span> bodyParser = <span class="built_in">require</span>(<span class="string">"koa-body"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> uploadDir = <span class="string">'uploads'</span>;</span><br><span class="line"></span><br><span class="line">app.use(bodyParser(&#123;<span class="attr">multipart</span>: <span class="literal">true</span>&#125;));</span><br><span class="line">app.use(router.routes());</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">"/index-upload"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">ctx</span>)</span>&#123;<span class="comment">//首页</span></span><br><span class="line">    ctx.response.type = <span class="string">'html'</span>;</span><br><span class="line">    ctx.response.body = fs.createReadStream(<span class="string">'./index-upload.html'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">router.post(<span class="string">'/upload'</span>, <span class="keyword">async</span> <span class="function"><span class="keyword">function</span>(<span class="params">ctx</span>)</span>&#123;<span class="comment">//上传</span></span><br><span class="line">    <span class="comment">//拿到接口中的数据</span></span><br><span class="line">    <span class="keyword">let</span> data = ctx.request.body.fields,</span><br><span class="line">        currChunk = data.currChunk,</span><br><span class="line">        fileMd5Value = data.fileMd5Value,</span><br><span class="line">        file = ctx.request.body.files,</span><br><span class="line">        folder = path.join(<span class="string">'uploads'</span>, fileMd5Value);</span><br><span class="line">        <span class="comment">//判断文件是否存在</span></span><br><span class="line">    <span class="keyword">let</span> isExist = <span class="keyword">await</span> Utils.folderIsExist(path.join(__dirname, folder));</span><br><span class="line">    <span class="keyword">if</span>(isExist)&#123;<span class="comment">//将文件写入fileMd5Value下面的文件夹</span></span><br><span class="line">        <span class="keyword">let</span> destFile = path.join(__dirname, folder, currChunk),</span><br><span class="line">            srcFile = path.join(file.data.path);</span><br><span class="line">        <span class="keyword">await</span> Utils.copyFile(srcFile, destFile).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            ctx.response.body = <span class="string">'chunk '</span> + currChunk + <span class="string">' upload success!!!'</span></span><br><span class="line">        &#125;, (err) =&gt; &#123;</span><br><span class="line">            <span class="built_in">console</span>.error(err);</span><br><span class="line">            ctx.response.body = <span class="string">'chunk '</span> + currChunk + <span class="string">' upload failed!!!'</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">"/mergeChunk"</span>, <span class="keyword">async</span> <span class="function"><span class="keyword">function</span>(<span class="params">ctx</span>)</span>&#123;<span class="comment">//合并chunk写成文件</span></span><br><span class="line">    <span class="keyword">let</span> md5 = ctx.query.md5,</span><br><span class="line">        fileName = ctx.query.fileName,</span><br><span class="line">        size = ctx.query.size;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> Utils.mergeFiles(path.join(__dirname, uploadDir, md5), </span><br><span class="line">                           path.join(__dirname, uploadDir),</span><br><span class="line">                           fileName, size)</span><br><span class="line"></span><br><span class="line">    ctx.response.body = <span class="string">"success"</span>;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"the server is listening on port 3000"</span>)</span><br></pre></td></tr></table></figure>
+<p>前端部分：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.bootcss.com/spark-md5/3.0.0/spark-md5.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>HTML5 文件分段上传<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">"form-inline"</span> <span class="attr">role</span>=<span class="string">"form"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">id</span>=<span class="string">"fileinput"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">"submit"</span>&gt;</span>SUBMIT<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> baseUrl = <span class="string">'http://localhost:3000'</span>;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> chunkSize = <span class="number">1</span> * <span class="number">1024</span> * <span class="number">1024</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> fileSize = <span class="number">0</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> file = <span class="literal">null</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> chunks = <span class="number">0</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">//点击submit开始上传</span></span></span><br><span class="line"><span class="javascript">        $(<span class="string">"body"</span>).on(<span class="string">"click"</span>, <span class="string">"#submit"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> files = <span class="built_in">document</span>.querySelector(<span class="string">"#fileinput"</span>).files;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (!files.length) &#123;</span></span><br><span class="line"><span class="javascript">                alert(<span class="string">"当前没有选择文件"</span>);</span></span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> <span class="literal">false</span>;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">            file = files[0];</span></span><br><span class="line"><span class="undefined">            fileSize = file.size;</span></span><br><span class="line"><span class="undefined">            startUpload(file);</span></span><br><span class="line"><span class="undefined">        &#125;)</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">startUpload</span>(<span class="params">file</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">//生成文件MD5 等下文件上传完成后的唯一标识，为了做合并使用的</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> fileMd5Value = <span class="keyword">await</span> md5File(file);</span></span><br><span class="line"><span class="javascript">            <span class="comment">//得到上传chunk分块长度</span></span></span><br><span class="line"><span class="javascript">            chunks = <span class="built_in">Math</span>.ceil(fileSize / chunkSize);</span></span><br><span class="line"><span class="javascript">            <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; chunks; i++) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">//上传chunk</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">await</span> uploadChunk(i, fileMd5Value, chunks);</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 上传完成后，提交合并分文件请求</span></span></span><br><span class="line"><span class="undefined">            mergeChunk(fileMd5Value);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="comment">//生成文件MD5</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">md5File</span>(<span class="params">file</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> blobSlice = File.prototype.slice || File.prototype.webkitSlice || File.prototype.mozSlice,</span></span><br><span class="line"><span class="undefined">                    chunkSize = file.size / 100,</span></span><br><span class="line"><span class="undefined">                    chunks = 100,</span></span><br><span class="line"><span class="undefined">                    currentChunk = 0,</span></span><br><span class="line"><span class="javascript">                    spark = <span class="keyword">new</span> SparkMD5.ArrayBuffer(),</span></span><br><span class="line"><span class="javascript">                    fileReader = <span class="keyword">new</span> FileReader();</span></span><br><span class="line"><span class="javascript">                fileReader.onload = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    spark.append(<span class="keyword">this</span>.result);</span></span><br><span class="line"><span class="undefined">                    currentChunk++;</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">if</span> (currentChunk &lt; chunks) &#123;</span></span><br><span class="line"><span class="undefined">                        loadNext();</span></span><br><span class="line"><span class="javascript">                    &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="undefined">                        resolve(spark.end());</span></span><br><span class="line"><span class="undefined">                    &#125;</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">                <span class="function"><span class="keyword">function</span> <span class="title">loadNext</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">let</span> start = currentChunk * chunkSize,</span></span><br><span class="line"><span class="undefined">                        end = ((start + chunkSize) &gt;= file.size) ? file.size : (start + chunkSize);</span></span><br><span class="line"><span class="undefined">                    fileReader.readAsArrayBuffer(blobSlice.apply(file, [start, end]));</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">                loadNext();</span></span><br><span class="line"><span class="undefined">            &#125;)</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 上传分块</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">uploadChunk</span>(<span class="params">i, fileMd5Value, chunks</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">let</span> end = (i + <span class="number">1</span>) * chunkSize &gt;= file.size ? file.size : (i + <span class="number">1</span>) * chunkSize;</span></span><br><span class="line"><span class="javascript">                <span class="comment">// 构建一个formdata</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">let</span> form = <span class="keyword">new</span> FormData()</span></span><br><span class="line"><span class="javascript">                form.append(<span class="string">"data"</span>, file.slice(i * chunkSize, end));</span></span><br><span class="line"><span class="javascript">                form.append(<span class="string">"totalChunks"</span>, chunks);</span></span><br><span class="line"><span class="javascript">                form.append(<span class="string">"currChunk"</span>, i);</span></span><br><span class="line"><span class="javascript">                form.append(<span class="string">"fileMd5Value"</span>, fileMd5Value);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">                <span class="keyword">let</span> url = <span class="string">`<span class="subst">$&#123;baseUrl&#125;</span>/upload`</span>;</span></span><br><span class="line"><span class="javascript">                $.ajax(&#123;</span></span><br><span class="line"><span class="undefined">                    url: url,</span></span><br><span class="line"><span class="javascript">                    type: <span class="string">"post"</span>,</span></span><br><span class="line"><span class="undefined">                    data: form,</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">async</span>: <span class="literal">true</span>,</span></span><br><span class="line"><span class="javascript">                    processData: <span class="literal">false</span>,</span></span><br><span class="line"><span class="javascript">                    contentType: <span class="literal">false</span>,</span></span><br><span class="line"><span class="javascript">                    success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                        <span class="built_in">console</span>.log(data);</span></span><br><span class="line"><span class="undefined">                        resolve(data);</span></span><br><span class="line"><span class="undefined">                    &#125;</span></span><br><span class="line"><span class="undefined">                &#125;)</span></span><br><span class="line"><span class="undefined">            &#125;)</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="comment">//5. 合并分块</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">mergeChunk</span>(<span class="params">fileMd5Value</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> url = <span class="string">`<span class="subst">$&#123;baseUrl&#125;</span>/mergeChunk?md5=<span class="subst">$&#123;fileMd5Value&#125;</span>&amp;fileName=<span class="subst">$&#123;file.name&#125;</span>&amp;size=<span class="subst">$&#123;file.size&#125;</span>`</span>;</span></span><br><span class="line"><span class="javascript">            $.get(url, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                alert(<span class="string">'上传成功'</span>);</span></span><br><span class="line"><span class="undefined">            &#125;)</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-2-图片添加水印"><a href="#3-2-图片添加水印" class="headerlink" title="3.2 图片添加水印"></a>3.2 图片添加水印</h3><p>前端部分：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>生成水印图片<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">accept</span>=<span class="string">"image/*"</span> <span class="attr">onchange</span>=<span class="string">"change(event)"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"mask"</span> <span class="attr">src</span>=<span class="string">"./logo.png"</span> <span class="attr">style</span>=<span class="string">"display: none;"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"canvas"</span> <span class="attr">style</span>=<span class="string">"display: none;"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"outputImg"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">change</span>(<span class="params">e</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">"canvas"</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> maskElement = <span class="built_in">document</span>.getElementById(<span class="string">"mask"</span>);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> img = <span class="keyword">new</span> Image(); <span class="comment">// img 标签</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> URL =</span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.URL &amp;&amp; <span class="built_in">window</span>.URL.createObjectURL</span></span><br><span class="line"><span class="javascript">          ? <span class="built_in">window</span>.URL</span></span><br><span class="line"><span class="javascript">          : <span class="built_in">window</span>.webkitURL &amp;&amp; <span class="built_in">window</span>.webkitURL.createObjectURL</span></span><br><span class="line"><span class="javascript">          ? <span class="built_in">window</span>.webkitURL</span></span><br><span class="line"><span class="javascript">          : <span class="literal">null</span>;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">if</span> (!URL) &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">throw</span> <span class="built_in">Error</span>(<span class="string">"No createObjectURL function found to create blob url"</span>);</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="javascript">      img.src = URL.createObjectURL(e.target.files[<span class="number">0</span>]); <span class="comment">// 水印的 blob URL</span></span></span><br><span class="line"><span class="javascript">      img.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="undefined">        render(canvas, maskElement, img);</span></span><br><span class="line"><span class="undefined">      &#125;;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">canvasElement, maskElement, img</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> naturalWidth = img.naturalWidth;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> naturalHeight = img.naturalHeight;</span></span><br><span class="line"><span class="undefined">      canvasElement.width = naturalWidth;</span></span><br><span class="line"><span class="undefined">      canvasElement.height = naturalHeight;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> ctx = canvasElement.getContext(<span class="string">"2d"</span>);</span></span><br><span class="line"><span class="undefined">      ctx.drawImage(img, 0, 0);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; <span class="number">10</span>; j++) &#123;</span></span><br><span class="line"><span class="undefined">          ctx.drawImage(</span></span><br><span class="line"><span class="undefined">            maskElement,</span></span><br><span class="line"><span class="undefined">            (i * naturalWidth) / 3,</span></span><br><span class="line"><span class="undefined">            (j * naturalHeight) / 3,</span></span><br><span class="line"><span class="undefined">            114,</span></span><br><span class="line"><span class="undefined">            86</span></span><br><span class="line"><span class="undefined">          );</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> dataURL = canvasElement.toDataURL(<span class="string">"image/jpeg"</span>);</span></span><br><span class="line"><span class="javascript">      <span class="built_in">document</span>.getElementById(<span class="string">"outputImg"</span>).src = dataURL;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这边只是将图片转成 Base64 展示，如果需要上传，可以转成 Blob 对象做上传，来减少传输的数据量。下面会说各种类型之间的转换。</p>
+<p>实现效果：</p>
+<p><img src="/Users/qinhanwen/Desktop/new-images/WX20200607-123559@2x.png" alt="WX20200607-123559@2x"></p>
+<h3 id="3-3-图片压缩"><a href="#3-3-图片压缩" class="headerlink" title="3.3 图片压缩"></a>3.3 图片压缩</h3><p>在我们选择本地图片上传之前，我们可以使用 Canvas 来对图片进行压缩。也就是使用添加水印功能中用到的 <code>toDataURL</code> 方法，它接受2个可选参数：</p>
+<ul>
+<li>type：图片格式，默认为 <code>image/png</code></li>
+<li>encoderOptions：图片之类，取值范围为0-1，如果超出范围，默认为<code>0.92</code></li>
+</ul>
+<p>压缩方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> MAX_WIDTH = <span class="number">600</span>; <span class="comment">// 图片最大宽度</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compress</span>(<span class="params">base64, quality, mimeType</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> canvas = <span class="built_in">document</span>.createElement(<span class="string">"canvas"</span>);</span><br><span class="line">  <span class="keyword">let</span> img = <span class="built_in">document</span>.createElement(<span class="string">"img"</span>);</span><br><span class="line">  img.crossOrigin = <span class="string">"anonymous"</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    img.src = base64;</span><br><span class="line">    <span class="keyword">let</span> offetX = <span class="number">0</span>; <span class="comment">// 图片偏移值</span></span><br><span class="line">    img.onload = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (img.width &gt; MAX_WIDTH) &#123;</span><br><span class="line">        canvas.width = MAX_WIDTH;</span><br><span class="line">        canvas.height = (img.height * MAX_WIDTH) / img.width;</span><br><span class="line">        offetX = (img.width - MAX_WIDTH) / <span class="number">2</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        canvas.width = img.width;</span><br><span class="line">        canvas.height = img.height;</span><br><span class="line">      &#125;</span><br><span class="line">      canvas</span><br><span class="line">        .getContext(<span class="string">"2d"</span>)</span><br><span class="line">        .drawImage(img, <span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);</span><br><span class="line">      <span class="keyword">let</span> imageData = canvas.toDataURL(mimeType, quality);</span><br><span class="line">      resolve(imageData);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以用上面那个生成水印的图片分别测试压缩与未压缩的图片：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">			compress(dataURL, <span class="number">.5</span>, <span class="string">'image/png'</span>).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">document</span>.getElementById(<span class="string">"outputImg"</span>).src = res;</span><br><span class="line">      &#125;)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>可以看到设置 encoderOptions 为 .5 的时候，图片大小小了大概 37kb</p>
+<p><img src="/Users/qinhanwen/Desktop/new-images/WX20200607-125646@2x.png" alt="WX20200607-125646@2x"></p>
+<h2 id="4-Blob-URL-Object-URL"><a href="#4-Blob-URL-Object-URL" class="headerlink" title="4. Blob URL/Object URL"></a>4. Blob URL/Object URL</h2><p>在上面水印的例子中我们使用 <code>createObjectURL</code> 方法得到<code>Blob URL</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blob:http://localhost:8000/a9f10cc1-3a13-470d-bd34-bcccbcee9167</span><br></pre></td></tr></table></figure>
+<h4 id="4-1-什么是-Blob-URL-Object-URL"><a href="#4-1-什么是-Blob-URL-Object-URL" class="headerlink" title="4.1 什么是 Blob URL/Object URL"></a>4.1 什么是 Blob URL/Object URL</h4><p>Blob URL/Object URL 是一种伪协议，允许 Blob 和 File 对象用作图像，下载二进制数据连接等 URL 源，在浏览器中，我们使用 <code>URL.createObjectURL</code> 方法来创建它，该方法接收一个 Blob 对象，并为其创建一个唯一的 URL，形式为 <code>blob:&lt;origin&gt;/&lt;uuid&gt;</code>，就跟上面的例子长的一样。</p>
+<p>浏览器内部为每个通过 <code>URL.createObjectURL</code> 方法生成的 URL 存储了 URL -&gt; Blob 的映射，因此，此类 URL 比较短，但可以访问 Blob。</p>
+<h4 id="4-2-Blob-URL-的副作用"><a href="#4-2-Blob-URL-的副作用" class="headerlink" title="4.2 Blob URL 的副作用"></a>4.2 Blob URL 的副作用</h4><p>也正是因为 <code>URL.createObjectURL</code> 方法生成的 URL 存储了 URL -&gt; Blob 的映射，Blob 本身驻留在内存中，浏览器无法释放。映射在文档卸载时自动清除，Blob 对象也会被释放。但是如果应用程序寿命较长，那不会很快就被释放。也就说我们创建了 Blob URL，不再需要使用该 Blob 的时候，它也在内存中。</p>
+<p>解决方案：我们可以通过 <code>URL.revokeObjectURL(url)</code> 方法，从内部映射中删除引用，从而允许删除 Blob（在没有其他引用的情况下），从而释放内存。</p>
+<h2 id="5-Blob-与-ArrayBuffer"><a href="#5-Blob-与-ArrayBuffer" class="headerlink" title="5. Blob 与 ArrayBuffer"></a>5. Blob 与 ArrayBuffer</h2><p><strong>ArrayBuffer</strong> 对象：用于表示通用的，固定长度的原始二进制数据缓冲区。你不能直接操纵 ArrayBuffer 的内容，而是需要创建一个类型化数组对象或 DataView 对象，该对象以特定格式表示缓冲区，并使用该对象读取和写入缓冲区的内容。</p>
+<p><strong>Blob</strong> 类型的对象：表示不可变的类似文件对象的原始数据。Blob 表示的不一定是 JavaScript 原生格式的数据。File 接口基于 Blob，继承了Blob 功能并将其扩展为支持用户系统上的文件。</p>
+<h3 id="5-1-Blob-vs-ArrayBuffer"><a href="#5-1-Blob-vs-ArrayBuffer" class="headerlink" title="5.1 Blob vs ArrayBuffer"></a>5.1 Blob vs ArrayBuffer</h3><ul>
+<li>除非你需要使用 ArrayBuffer 提供的写入/编辑的能力，否则 Blob 格式可能是最好的。</li>
+<li>Blob 对象是不可变的，而 ArrayBuffer 是可以通过 TypedArrays 或 DataView 来操作。</li>
+<li>ArrayBuffer 是存在内存中的，可以直接操作。而 Blob 可以位于磁盘、高速缓存内存和其他不可用的位置。</li>
+<li>虽然 Blob 可以直接作为参数传递给其他函数，比如 <code>window.URL.createObjectURL()</code>。但是，你可能仍需要 FileReader 之类的 File API 才能与 Blob 一起使用。</li>
+<li>Blob 与 ArrayBuffer 对象之间是可以相互转化的：<ul>
+<li>使用 FileReader 的 <code>readAsArrayBuffer()</code> 方法，可以把 Blob 对象转换为 ArrayBuffer 对象；</li>
+<li>使用 Blob 构造函数，如 <code>new Blob([new Uint8Array(data]);</code>，可以把 ArrayBuffer 对象转换为 Blob 对象。</li>
+</ul>
+</li>
+</ul>
+<h1 id="二、知识点拓展"><a href="#二、知识点拓展" class="headerlink" title="二、知识点拓展"></a>二、知识点拓展</h1><h2 id="1-各种类型之间的转换"><a href="#1-各种类型之间的转换" class="headerlink" title="1. 各种类型之间的转换"></a>1. <a href="https://juejin.im/post/5c00e8a66fb9a049db72dbd0#heading-22" target="_blank" rel="noopener">各种类型之间的转换</a></h2><p>可以先了解一下这两个方法</p>
+<p><a href="https://www.runoob.com/jsref/met-win-btoa.html" target="_blank" rel="noopener">btoa</a>：方法用于创建一个 base-64 编码的字符串。</p>
+<p><a href="https://www.runoob.com/jsref/met-win-atob.html" target="_blank" rel="noopener">atob</a>：atob() 方法用于解码使用 base-64 编码的字符串。</p>
+<h3 id="1-1-img-转-canvas"><a href="#1-1-img-转-canvas" class="headerlink" title="1.1 img 转 canvas"></a>1.1 img 转 canvas</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">imgtocanvas</span>(<span class="params">img</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> canvas = <span class="built_in">document</span>.createElement(<span class="string">"canvas"</span>);</span><br><span class="line">  <span class="keyword">let</span> ctx = canvas.getContext(<span class="string">'2d'</span>)</span><br><span class="line">  canvas.width = img.width</span><br><span class="line">  canvas.height = img.height</span><br><span class="line">  ctx.drawImage(img, <span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);</span><br><span class="line">  <span class="keyword">return</span> canvas</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-canvas-转-base64"><a href="#1-2-canvas-转-base64" class="headerlink" title="1.2 canvas 转 base64"></a>1.2 canvas 转 base64</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">canvasElement.toDataURL(<span class="string">"image/jpeg"</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="1-3-DataURL-base64-转blob"><a href="#1-3-DataURL-base64-转blob" class="headerlink" title="1.3 DataURL(base64)转blob"></a>1.3 DataURL(base64)转blob</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dataURLtoBlob</span>(<span class="params">dataurl</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> arr = dataurl.split(<span class="string">','</span>), mime = arr[<span class="number">0</span>].match(<span class="regexp">/:(.*?);/</span>)[<span class="number">1</span>],</span><br><span class="line">    bstr = atob(arr[<span class="number">1</span>]), n = bstr.length, u8arr = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(n);</span><br><span class="line">  <span class="keyword">while</span> (n--) &#123;</span><br><span class="line">    u8arr[n] = bstr.charCodeAt(n);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Blob([u8arr], &#123; <span class="attr">type</span>: mime &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-file-blob-转DataURL-base64"><a href="#1-4-file-blob-转DataURL-base64" class="headerlink" title="1.4 file(blob)转DataURL(base64)"></a>1.4 file(blob)转DataURL(base64)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">filetoblob</span>(<span class="params">file</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> reader = <span class="keyword">new</span> FileReader();</span><br><span class="line">    reader.readAsDataURL(file);</span><br><span class="line">    reader.onload = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">      resolve(reader.result)</span><br><span class="line">    &#125;</span><br><span class="line">    reader.onerror = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">      resolve(reader.result)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-5-blob-转-blob-URL"><a href="#1-5-blob-转-blob-URL" class="headerlink" title="1.5 blob 转 blob URL"></a>1.5 blob 转 blob URL</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> URL =</span><br><span class="line">        <span class="built_in">window</span>.URL &amp;&amp; <span class="built_in">window</span>.URL.createObjectURL</span><br><span class="line">          ? <span class="built_in">window</span>.URL</span><br><span class="line">          : <span class="built_in">window</span>.webkitURL &amp;&amp; <span class="built_in">window</span>.webkitURL.createObjectURL</span><br><span class="line">          ? <span class="built_in">window</span>.webkitURL</span><br><span class="line">          : <span class="literal">null</span>;</span><br><span class="line">URL.createObjectURL(blob)</span><br></pre></td></tr></table></figure>
+<h3 id="1-6-blob-URL-转-blob"><a href="#1-6-blob-URL-转-blob" class="headerlink" title="1.6 blob URL 转 blob"></a>1.6 blob URL 转 blob</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">URLtoblob</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">      xhr.open(<span class="string">'GET'</span>, input)</span><br><span class="line">      xhr.responseType = <span class="string">'blob'</span></span><br><span class="line">      xhr.onload = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>) &#123;</span><br><span class="line">          resolve(xhr.response)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          reject(xhr.statusText)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      xhr.onerror = <span class="function"><span class="params">()</span> =&gt;</span> reject(xhr.statusText)</span><br><span class="line">      xhr.send()</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="1-7-ArrayBuffer-转-blob"><a href="#1-7-ArrayBuffer-转-blob" class="headerlink" title="1.7 ArrayBuffer 转 blob"></a>1.7 ArrayBuffer 转 blob</h3><p>只需将 ArrayBuffer 作为参数传入即可</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> buffer = <span class="keyword">new</span> <span class="built_in">ArrayBuffer</span>(<span class="number">16</span>);</span><br><span class="line"><span class="keyword">const</span> blob = <span class="keyword">new</span> Blob(buffer);</span><br></pre></td></tr></table></figure>
+<h3 id="1-8-blob-转-ArrayBuffer"><a href="#1-8-blob-转-ArrayBuffer" class="headerlink" title="1.8 blob 转 ArrayBuffer"></a>1.8 blob 转 ArrayBuffer</h3><p>需要借助 FileReader</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> blob = <span class="keyword">new</span> Blob([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]);</span><br><span class="line"><span class="keyword">const</span> reader = <span class="keyword">new</span> FIleReader();</span><br><span class="line"></span><br><span class="line">reader.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.result);</span><br><span class="line">&#125;</span><br><span class="line">reader.readAsArrayBuffer(blob)</span><br></pre></td></tr></table></figure>
+<h2 id="2-FormData-设置-blob-上传"><a href="#2-FormData-设置-blob-上传" class="headerlink" title="2. FormData 设置 blob 上传"></a>2. FormData 设置 blob 上传</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> form= <span class="keyword">new</span> FormData();</span><br><span class="line">form.append(<span class="string">"image"</span>, blob);</span><br><span class="line"><span class="keyword">let</span> url = <span class="string">`<span class="subst">$&#123;baseUrl&#125;</span>/upload`</span>;</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">  url: url,</span><br><span class="line">  type: <span class="string">"post"</span>,</span><br><span class="line">  data: form,</span><br><span class="line">  <span class="keyword">async</span>: <span class="literal">true</span>,</span><br><span class="line">  processData: <span class="literal">false</span>,</span><br><span class="line">  contentType: <span class="literal">false</span>,</span><br><span class="line">  success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    resolve(data);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Blob/" rel="tag"># Blob</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/29/读 switch 总结/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/04/Redis学习笔记/" rel="prev" title="redis">
+                redis <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="秦瀚文" />
+          <p class="site-author-name" itemprop="name">秦瀚文</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/index.html">
+                <span class="site-state-item-count">171</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#读《Blob-API》总结-2020-06-06"><span class="nav-number">1.</span> <span class="nav-text">读《Blob API》总结-2020.06.06</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一、主要知识点"><span class="nav-number">2.</span> <span class="nav-text">一、主要知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-什么是-Blob"><span class="nav-number">2.1.</span> <span class="nav-text">1. 什么是 Blob</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Blob-简介"><span class="nav-number">2.2.</span> <span class="nav-text">2. Blob 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-构造函数"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.1 构造函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Blob-的属性"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2 Blob 的属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Blob-的方法"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.3 Blob 的方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Blob-的拓展应用"><span class="nav-number">2.3.</span> <span class="nav-text">3. Blob 的拓展应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-分块上传"><span class="nav-number">2.3.1.</span> <span class="nav-text">3.1 分块上传</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-图片添加水印"><span class="nav-number">2.3.2.</span> <span class="nav-text">3.2 图片添加水印</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-图片压缩"><span class="nav-number">2.3.3.</span> <span class="nav-text">3.3 图片压缩</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Blob-URL-Object-URL"><span class="nav-number">2.4.</span> <span class="nav-text">4. Blob URL/Object URL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-什么是-Blob-URL-Object-URL"><span class="nav-number">2.4.0.1.</span> <span class="nav-text">4.1 什么是 Blob URL/Object URL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-Blob-URL-的副作用"><span class="nav-number">2.4.0.2.</span> <span class="nav-text">4.2 Blob URL 的副作用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Blob-与-ArrayBuffer"><span class="nav-number">2.5.</span> <span class="nav-text">5. Blob 与 ArrayBuffer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-Blob-vs-ArrayBuffer"><span class="nav-number">2.5.1.</span> <span class="nav-text">5.1 Blob vs ArrayBuffer</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、知识点拓展"><span class="nav-number">3.</span> <span class="nav-text">二、知识点拓展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-各种类型之间的转换"><span class="nav-number">3.1.</span> <span class="nav-text">1. 各种类型之间的转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-img-转-canvas"><span class="nav-number">3.1.1.</span> <span class="nav-text">1.1 img 转 canvas</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-canvas-转-base64"><span class="nav-number">3.1.2.</span> <span class="nav-text">1.2 canvas 转 base64</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-DataURL-base64-转blob"><span class="nav-number">3.1.3.</span> <span class="nav-text">1.3 DataURL(base64)转blob</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-file-blob-转DataURL-base64"><span class="nav-number">3.1.4.</span> <span class="nav-text">1.4 file(blob)转DataURL(base64)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-blob-转-blob-URL"><span class="nav-number">3.1.5.</span> <span class="nav-text">1.5 blob 转 blob URL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-blob-URL-转-blob"><span class="nav-number">3.1.6.</span> <span class="nav-text">1.6 blob URL 转 blob</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-ArrayBuffer-转-blob"><span class="nav-number">3.1.7.</span> <span class="nav-text">1.7 ArrayBuffer 转 blob</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-8-blob-转-ArrayBuffer"><span class="nav-number">3.1.8.</span> <span class="nav-text">1.8 blob 转 ArrayBuffer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-FormData-设置-blob-上传"><span class="nav-number">3.2.</span> <span class="nav-text">2. FormData 设置 blob 上传</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">秦瀚文</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
