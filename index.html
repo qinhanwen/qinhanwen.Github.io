@@ -280,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/04/mongodb学习笔记/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/04/Blob API/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -299,7 +299,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/06/04/mongodb学习笔记/" itemprop="url">mongodb</a></h1>
+                <a class="post-title-link" href="/2020/06/04/Blob API/" itemprop="url">Blob API</a></h1>
         
 
         <div class="post-meta">
@@ -334,8 +334,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/mongodb/" itemprop="url" rel="index">
-                    <span itemprop="name">mongodb</span>
+                  <a href="/categories/Blob/" itemprop="url" rel="index">
+                    <span itemprop="name">Blob</span>
                   </a>
                 </span>
 
@@ -373,30 +373,22 @@
       
         
           
-          [TOC]
-CRUD增略
-查
+          读《Blob API》总结-2020.06.06学习时间：2020.06.07
+学习章节：Blob API
+一、主要知识点
+什么是Blob
+Blob 构造函数
+Blob 的属性与方法
+Blob 的拓展应用
+Blob 与 ArrayBuffer
+各种类型之间的转换
 
-
-
-可以指定不需要返回的字段，和需要返回的字段
-1db.workmate.find(&#123;&#125;,&#123;_id:0,re:1&#125;);
-需要注意的是，不能混用，要么 1 要么 0，除了_id 主键任意之外
-
-删删除的时候注意要指定
-
-改
-
-聚合
-1db.&lt;COLLECTION&gt;.aggregate(pipeline, options)
-MQL 特有步骤
-$bucket
-
-12345678910111213141516171819
+1. 什么是 BlobBlob（Binary Large Object） Blob 对象表示一个不可变、原始数据的类文件对象。File接口基于Blob，继承了 Blob 的功能并将其扩展使其支持用户系统上的文件。
+一个 Blob 对象
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/06/04/mongodb学习笔记/#more" rel="contents">
+            <a class="btn" href="/2020/06/04/Blob API/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -599,7 +591,7 @@ string 类型是 Redis 最基本的数据类型，string 类型的值最大能�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/04/Blob API/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/04/mongodb学习笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="秦瀚文">
@@ -618,7 +610,7 @@ string 类型是 Redis 最基本的数据类型，string 类型的值最大能�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/06/04/Blob API/" itemprop="url">Blob API</a></h1>
+                <a class="post-title-link" href="/2020/06/04/mongodb学习笔记/" itemprop="url">mongodb</a></h1>
         
 
         <div class="post-meta">
@@ -653,8 +645,8 @@ string 类型是 Redis 最基本的数据类型，string 类型的值最大能�
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Blob/" itemprop="url" rel="index">
-                    <span itemprop="name">Blob</span>
+                  <a href="/categories/mongodb/" itemprop="url" rel="index">
+                    <span itemprop="name">mongodb</span>
                   </a>
                 </span>
 
@@ -692,22 +684,30 @@ string 类型是 Redis 最基本的数据类型，string 类型的值最大能�
       
         
           
-          读《Blob API》总结-2020.06.06学习时间：2020.06.07
-学习章节：Blob API
-一、主要知识点
-什么是Blob
-Blob 构造函数
-Blob 的属性与方法
-Blob 的拓展应用
-Blob 与 ArrayBuffer
-各种类型之间的转换
+          [TOC]
+CRUD增略
+查
 
-1. 什么是 BlobBlob（Binary Large Object） Blob 对象表示一个不可变、原始数据的类文件对象。File接口基于Blob，继承了 Blob 的功能并将其扩展使其支持用户系统上的文件。
-一个 Blob 对象
+
+
+可以指定不需要返回的字段，和需要返回的字段
+1db.workmate.find(&#123;&#125;,&#123;_id:0,re:1&#125;);
+需要注意的是，不能混用，要么 1 要么 0，除了_id 主键任意之外
+
+删删除的时候注意要指定
+
+改
+
+聚合
+1db.&lt;COLLECTION&gt;.aggregate(pipeline, options)
+MQL 特有步骤
+$bucket
+
+12345678910111213141516171819
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/06/04/Blob API/#more" rel="contents">
+            <a class="btn" href="/2020/06/04/mongodb学习笔记/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1014,132 +1014,6 @@ switch 语句为多分支选择的情况提供了一个更具描述性的方式�
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2020/05/04/计算机组成原理/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/09/如何写测试用例/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="秦瀚文">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="渣渣大星星的学习笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/09/如何写测试用例/" itemprop="url">如何写测试用例</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-09T22:29:30+08:00">
-                2020-04-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/04/09/如何写测试用例/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1723,11 +1597,152 @@ keyof 与 Object.keys 略有相似，只不过 keyof 取 interface 的键
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/27/titan项目学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="秦瀚文">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渣渣大星星的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/27/titan项目学习笔记/" itemprop="url">titan项目学习笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-27T10:13:47+08:00">
+                2020-02-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          使用到的依赖包nodemon
+nodemon是一种工具，可在检测到目录中的文件更改，同时自动重新启动应用程序，可以用来帮助开发基于node.js的应用程序。
+1$ nodemon [your node app]
+ts-node
+可以用于执行 typescript 代码
+1$ ts-node [your node app]
+module-alias
+创建目录别名
+bluebird
+debug
+glob
+js-yaml
+ini
+mockjs
+routing-controllers
+koa-json-
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/02/27/titan项目学习笔记/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1773,7 +1788,7 @@ keyof 与 Object.keys 略有相似，只不过 keyof 取 interface 的键
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/index.html">
-                <span class="site-state-item-count">171</span>
+                <span class="site-state-item-count">170</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
